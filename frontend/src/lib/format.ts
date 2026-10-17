@@ -1,0 +1,38 @@
+import type { PipelineItem, Scores } from '../api/client'
+
+export type Dimension = Exclude<keyof Scores, 'overall' | 'reasons'>
+
+export const DIMENSIONS: Dimension[] = ['values', 'family_fit', 'lifestyle', 'career', 'location', 'communication']
+
+export const DIMENSION_LABEL: Record<Dimension, string> = {
+  values: 'Values',
+  family_fit: 'Family',
+  lifestyle: 'Lifestyle',
+  career: 'Career',
+  location: 'Location',
+  communication: 'Communication',
+}
+
+/** Scores are 0–100 in the contract; tolerate 0–1 in case a real phase returns fractions. */
+export function pct(v: number): number {
+  return Math.round(v <= 1 ? v * 100 : v)
+}
+
+type MatchStatus = PipelineItem['status']
+
+export const STATUS: Record<MatchStatus, { label: string; tone: 'brand' | 'gold' | 'sage' | 'muted' }> = {
+  queued: { label: 'In the queue', tone: 'muted' },
+  screening: { label: 'Matchmakers talking', tone: 'gold' },
+  briefed: { label: 'Brief ready', tone: 'brand' },
+  awaiting_them: { label: 'Waiting on them', tone: 'gold' },
+  focus_week: { label: 'Focus Week', tone: 'sage' },
+  locked: { label: 'Together', tone: 'sage' },
+  closed: { label: 'Closed', tone: 'muted' },
+}
+
+/** Statuses for which a brief exists and can be opened. */
+export const HAS_BRIEF: MatchStatus[] = ['briefed', 'awaiting_them', 'focus_week', 'locked']
+
+export function firstName(displayName: string): string {
+  return displayName.split(' ')[0]
+}
