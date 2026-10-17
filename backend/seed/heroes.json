@@ -1,0 +1,61 @@
+[
+  {
+    "id": "arjun",
+    "name": "Arjun Mehta",
+    "gender": "male",
+    "seeking_gender": "female",
+    "bio_note": "Hero persona. Gujarati family settled in Kolkata for three generations; moving to Bangalore next year.",
+    "self_facts": {"age": 28, "city": "Kolkata", "education": "bachelors", "profession": "Software Engineer",
+                   "income_band": "20-30L", "diet": "non_veg", "marital_status": "never_married",
+                   "languages": ["English", "Hindi", "Bengali", "Gujarati"], "height_cm": 178},
+    "hard_criteria": {"age_min": 24, "age_max": 30, "cities": ["Kolkata", "Bangalore"], "open_to_relocate": true,
+                      "education_min": "bachelors", "marital_status": ["never_married"],
+                      "languages": ["English", "Hindi"], "diet": "any"},
+    "preference_weights": {"values": 0.2, "family_fit": 0.2, "lifestyle": 0.15, "career": 0.15, "location": 0.15, "communication": 0.15},
+    "aspects": [
+      {"category": "values", "statement": "Family comes first, but he wants a partner with her own ambitions, not someone who just fits in.", "evidence": "\"My parents matter a lot to me, but I don't want someone who just fits in — I want someone with her own thing going on.\"", "confidence": 0.9, "visibility": "public"},
+      {"category": "values", "statement": "Values honesty and keeping promises over grand gestures.", "evidence": "\"I'd rather someone tell me a hard truth than make a big romantic speech.\"", "confidence": 0.8, "visibility": "public"},
+      {"category": "family_structure", "statement": "Lives in a joint family in Kolkata with his parents and grandmother; very close to his dadi.", "evidence": "\"It's me, my parents and my dadi at home. Dadi and I watch cricket together every match.\"", "confidence": 0.95, "visibility": "public"},
+      {"category": "location_plans", "statement": "Moving to Bangalore next year; the role is confirmed. Parents may visit for long stretches.", "evidence": "\"I'm moving to Bangalore next year, the transfer is already confirmed.\"", "confidence": 0.95, "visibility": "public"},
+      {"category": "career_ambition", "statement": "Wants to lead an engineering team within three years; works steady hours and protects weekends.", "evidence": "\"I want to be managing a team by 31, but I don't do the 2 a.m. startup thing.\"", "confidence": 0.85, "visibility": "agent_only"},
+      {"category": "lifestyle", "statement": "Early riser; plays football every Sunday morning; enjoys cooking Gujarati food for the family.", "evidence": "\"Sunday mornings are football, non-negotiable. Then I make thepla for everyone.\"", "confidence": 0.85, "visibility": "public"},
+      {"category": "interests", "statement": "Into cricket, trekking in the Himalayas, and old Hindi film music.", "evidence": "\"I did the Sandakphu trek last year and I want to do one every year.\"", "confidence": 0.8, "visibility": "public"},
+      {"category": "communication_style", "statement": "Cools off briefly in a disagreement, then talks it through the same day; dislikes silent treatment.", "evidence": "\"I need ten minutes to cool down, but I won't go to sleep angry.\"", "confidence": 0.85, "visibility": "public"},
+      {"category": "faith_practice", "statement": "Culturally Hindu; celebrates festivals with family but is not ritualistic.", "evidence": "\"Diwali and Navratri are big at home, but I'm not someone who does daily puja.\"", "confidence": 0.75, "visibility": "public"},
+      {"category": "finances", "statement": "Sends money to his parents every month and is still repaying an education loan.", "evidence": "\"I send money home every month and I still have about two years left on my education loan.\"", "confidence": 0.85, "visibility": "private"},
+      {"category": "partner_expectations", "statement": "Hopes his partner would be open to living with his parents for the first year of marriage.", "evidence": "\"Ideally for the first year we'd stay with my parents, so they get to know her.\"", "confidence": 0.7, "visibility": "agent_only"},
+      {"category": "partner_expectations", "statement": "Wants a partner who is independent, curious and warm with elders.", "evidence": "\"Someone who'd chat with my dadi but also has strong opinions of her own.\"", "confidence": 0.8, "visibility": "public"},
+      {"category": "dealbreakers", "statement": "Will not consider a partner who smokes.", "evidence": "\"Smoking is a hard no for me. My grandfather had lung problems.\"", "confidence": 0.95, "visibility": "agent_only"}
+    ]
+  },
+  {
+    "id": "meera",
+    "name": "Meera Sen",
+    "gender": "female",
+    "seeking_gender": "male",
+    "bio_note": "Hero persona. Bengali family in Kolkata; moved to Bangalore for work four years ago.",
+    "self_facts": {"age": 27, "city": "Bangalore", "education": "masters", "profession": "Product Designer",
+                   "income_band": "20-30L", "diet": "non_veg", "marital_status": "never_married",
+                   "languages": ["English", "Bengali", "Hindi"], "height_cm": 163},
+    "hard_criteria": {"age_min": 26, "age_max": 32, "cities": ["Bangalore"], "open_to_relocate": false,
+                      "education_min": "bachelors", "marital_status": ["never_married"],
+                      "languages": ["English"], "diet": "any"},
+    "preference_weights": {"values": 0.2, "family_fit": 0.15, "lifestyle": 0.15, "career": 0.2, "location": 0.15, "communication": 0.15},
+    "aspects": [
+      {"category": "values", "statement": "Close to her family, and equally committed to her own career and independence.", "evidence": "\"I call my parents every day, but I also built my life here on my own.\"", "confidence": 0.9, "visibility": "public"},
+      {"category": "values", "statement": "Prizes honesty and direct conversations; dislikes games.", "evidence": "\"Just tell me what you think. I can handle anything except guessing.\"", "confidence": 0.85, "visibility": "public"},
+      {"category": "family_structure", "statement": "Parents and younger brother live in Kolkata; the family is warm and traditional about festivals.", "evidence": "\"Durga Puja at home is the one week I never miss.\"", "confidence": 0.9, "visibility": "public"},
+      {"category": "location_plans", "statement": "Settled in Bangalore and wants to stay; open to Kolkata only in the long term.", "evidence": "\"Bangalore is home now. Maybe Kolkata when we're older, near my parents.\"", "confidence": 0.85, "visibility": "public"},
+      {"category": "career_ambition", "statement": "Senior product designer aiming to lead a design team; career is central to who she is.", "evidence": "\"I want to head design somewhere in the next few years.\"", "confidence": 0.9, "visibility": "public"},
+      {"category": "lifestyle", "statement": "Early starts, studio by 9, and evenings for sketching and long walks; hikes on weekends.", "evidence": "\"Evenings are for sketching. Weekends I try to get out of the city and hike.\"", "confidence": 0.85, "visibility": "public"},
+      {"category": "interests", "statement": "Sketching, hiking in the Western Ghats, Rabindra Sangeet and street food.", "evidence": "\"Give me a trail and a plate of puchka after and I'm happy.\"", "confidence": 0.8, "visibility": "public"},
+      {"category": "communication_style", "statement": "Talks things through the same day; needs a partner who doesn't go silent.", "evidence": "\"The silent treatment is the worst. Let's just talk.\"", "confidence": 0.85, "visibility": "public"},
+      {"category": "faith_practice", "statement": "Culturally Hindu and festival-loving, not ritualistic.", "evidence": "\"I love the pujas for the food and family, honestly.\"", "confidence": 0.75, "visibility": "public"},
+      {"category": "partner_expectations", "statement": "Open to living with in-laws for a short time, with a clear plan for their own home after.", "evidence": "\"A few months or a year with his parents is fine, as long as we know when we'll have our own place.\"", "confidence": 0.75, "visibility": "agent_only"},
+      {"category": "partner_expectations", "statement": "Wants a steady, kind partner who is proud of her work.", "evidence": "\"I want someone who brags about my work to his friends.\"", "confidence": 0.8, "visibility": "public"},
+      {"category": "family_structure", "statement": "Had a long relationship that ended last year; she is ready to move on but cautious.", "evidence": "\"I was with someone for four years. It ended last year. I'm ready, just careful.\"", "confidence": 0.8, "visibility": "private"},
+      {"category": "dealbreakers", "statement": "Will not marry someone who expects her to give up or scale back her career.", "evidence": "\"If he thinks I'll quit after marriage, that's the end of it.\"", "confidence": 0.95, "visibility": "agent_only"},
+      {"category": "dealbreakers", "statement": "Does not want a partner who smokes.", "evidence": "\"I can't do smoking.\"", "confidence": 0.8, "visibility": "agent_only"}
+    ]
+  }
+]

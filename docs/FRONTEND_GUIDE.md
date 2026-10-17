@@ -4,18 +4,45 @@ The backend and frontend agree on one contract: **`backend/app/models.py`**. Fas
 OpenAPI, and the frontend's TypeScript types are **generated** from it. If you build through the typed
 client, the compiler tells you when a page doesn't match the backend.
 
-## Setup (5 min)
+## Start here (10 min, no Google Cloud access needed)
+
+You only need Node 20+ and git. The backend is already live on Cloud Run — you don't run it locally.
 
 ```bash
-# backend (needs gcloud auth application-default login on the ai-build-cup-2026 project)
-cd backend && uv sync && uv run uvicorn app.main:app --reload --port 8080
-
-# frontend
-cd frontend && npm install && npm run dev -- --port 5180
+git clone https://github.com/sharmad-tadkodkar/jodi-maker.git && cd jodi-maker/frontend
+echo "VITE_API_URL=https://jodi-api-560807723160.asia-south1.run.app" > .env.local
+npm install
+npm run dev -- --port 5180        # open http://localhost:5180
 ```
 
-- Interactive API docs: http://localhost:8080/docs — try every endpoint, see every shape.
-- No backend running? Point `VITE_API_URL` (in `frontend/.env.local`) at the deployed Cloud Run URL.
+- **Live API docs:** https://jodi-api-560807723160.asia-south1.run.app/docs — try every endpoint, see every shape.
+- **Regenerate types from the live API:** `VITE_API_URL=https://jodi-api-560807723160.asia-south1.run.app npm run gen:api`
+- The shell in `src/App.tsx` already has every route, a persona switcher, and pages that dump raw
+  JSON. Replace each placeholder page with the real screen — start with `/pipeline` and `/brief/:matchId`
+  (they're the heart of the video).
+
+### Working together
+
+- **You own `frontend/`. Don't edit `backend/`** — ask instead. That keeps merge conflicts at zero.
+- Commit small and often to `main`; `git pull --rebase` before every push.
+- **Backend redeploys at the end of each phase** (≈ every 30–45 min). When a phase lands, endpoints in the
+  table below switch from mock to real data. If a contract shape ever changes, you'll be told — run
+  `npm run gen:api` and fix what TypeScript flags.
+- **Don't hard-code IDs.** `arjun` and `meera` are stable persona IDs, but match IDs like `m_arjun_meera`
+  only exist in the mocks — real ones come from `getPipeline` / `getNextBrief`.
+- **Shared database:** pressing "Reset demo" on `/demo` wipes and reseeds the data for everyone.
+  Fine for testing — just shout before you do it.
+- **Firebase Hosting deploy** happens in the deploy window (after Phase 6); you'll need to be added to the
+  Google Cloud project for that. Until then, everything runs on localhost against the live API.
+
+### Running the backend locally (optional)
+
+Only if you've been given access to the `ai-build-cup-2026` project:
+
+```bash
+gcloud auth application-default login
+cd backend && uv sync && uv run uvicorn app.main:app --reload --port 8080
+```
 
 ## The three rules
 

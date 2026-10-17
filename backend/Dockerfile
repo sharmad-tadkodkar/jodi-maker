@@ -6,5 +6,6 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
 COPY app ./app
 COPY prompts ./prompts
+COPY seed ./seed
 ENV PATH="/app/.venv/bin:$PATH" PORT=8080
 CMD exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT}

@@ -17,7 +17,8 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origin_list,
-    allow_origin_regex=r"https://.*\.(web\.app|firebaseapp\.com)",
+    # Firebase Hosting domains + any localhost port (partner dev servers hit the Cloud Run API).
+    allow_origin_regex=r"https://.*\.(web\.app|firebaseapp\.com)|http://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_methods=["*"],
     allow_headers=["*"],
 )

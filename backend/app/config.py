@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     model_fast: str = "gemini-3.5-flash"
     model_smart: str = "gemini-3.1-pro-preview"
     model_smart_fallback: str = "gemini-2.5-pro"
-    model_embedding: str = "gemini-embedding-001"
+    model_embedding: str = "text-multilingual-embedding-002"
     embedding_dim: int = 768
 
     demo_mode: bool = True
