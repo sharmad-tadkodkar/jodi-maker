@@ -1,4 +1,5 @@
 """Firestore access. All collection names live here (spec §6)."""
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from functools import lru_cache
 
@@ -25,13 +26,17 @@ def delete_tree(ref, _depth: int = 0) -> int:
     """Delete a document or collection and everything beneath it, using plain batched writes.
     (Firestore's `recursive_delete` uses a BulkWriter thread pool that deadlocked under load.)
     Our schema nests one level deep (users/{id}/aspects/{id}, matches/{id}/chat/{id}), so documents
-    inside subcollections are leaves — skipping their `collections()` lookup saves ~300 round trips."""
+    inside subcollections are leaves — skipping their `collections()` lookup saves ~300 round trips.
+    At the top level, each document's subcollections are cleared in parallel (62 users ≈ 800 docs)."""
     docs = [ref] if isinstance(ref, firestore.DocumentReference) else list(ref.list_documents())
-    batch, ops, total = get_db().batch(), 0, 0
+    total = 0
+    if _depth == 0 or isinstance(ref, firestore.DocumentReference):
+        def clear_subs(doc) -> int:
+            return sum(delete_tree(sub, _depth + 1) for sub in doc.collections())
+        with ThreadPoolExecutor(max_workers=16) as pool:
+            total += sum(pool.map(clear_subs, docs))
+    batch, ops = get_db().batch(), 0
     for doc in docs:
-        if _depth == 0 or isinstance(ref, firestore.DocumentReference):
-            for sub in doc.collections():
-                total += delete_tree(sub, _depth + 1)
         batch.delete(doc)
         ops += 1
         if ops >= 400:

@@ -19,6 +19,9 @@ client, the compiler tells you when a page doesn't match the backend.
 
 ### Changelog
 
+- **Scale-up** — The world now has **60 profiles** (+ Arjun & Meera + 2 reserves). Nothing changes in the API.
+  Pipelines are deeper (8 candidates each); Arjun and Meera are still each other's #1. Full reset ≈ 15–25 s.
+
 - **Phase 6** — Demo panel helpers. Run `npm run gen:api`. New client functions: `api.demoState()`,
   `api.interviewTop(userId)`, `api.rerunInterview(matchId)`.
   - **The video's "Stop/Pass → next brief" beat is instant now:** Arjun's #2 (Riya, ~81%) is pre-computed, so
@@ -35,12 +38,12 @@ client, the compiler tells you when a page doesn't match the backend.
     | Meera says Interested / Pass | `simulateResponse(matchId, 'meera', …)` |
     | Fast-forward Day 4 / Day 7 / "time runs out" | `fastForward(matchId, 4 \| 7 \| 8)` |
     | Someone just joined | `newProfile()` (2 per full reset) → then Run scout for the hero to see the "new" badge |
-    | Reset (soft, ~2 s) / Full reset (~20 s) | `reset(true)` / `reset()` |
+    | Reset (soft, ~2 s) / Full reset (~15–25 s) | `reset(true)` / `reset()` |
   - Errors from the API (`409` etc.) carry a human-readable `detail` — fine to show in the demo panel as a toast.
 
 - **Phase 5** — Mutual consent, Focus Week and the learning loop are live. New: `api.getMatch(matchId)`
   (match status + decisions), `api.reset(true)` (**soft reset ≈ 2 s** — restores all matches and the heroes'
-  starting state; use it between video takes. Full reset ≈ 15–20 s reseeds profiles). Run `npm run gen:api`.
+  starting state; use it between video takes. Full reset reseeds profiles). Run `npm run gen:api`.
   - **The demo path:** Arjun → brief → **Interested** (`decide` → `mutual: false`, status `awaiting_them`; Meera's
     brief now unlocks) → on `/demo` press "Meera says Interested" (`simulateResponse(matchId, 'meera',
     'interested')` → `mutual: true`) → `/mutual/:matchId` "It's mutual 💛" → `/focus/:matchId`.
@@ -110,7 +113,7 @@ client, the compiler tells you when a page doesn't match the backend.
   reading 8 profiles closely…"*, *"Scored 3/8 candidates…"*).
 - When `status === "done"`, `job.result` contains: `profiles_checked`, `passed_filter`, `filtered_out`,
   `scored`, `new_in_queue`, `queue_size`, `top` (display names), and `excluded_dealbreakers`
-  (`[{name, reason}]`). Great material for a "Your matchmaker checked 22 profiles → 8 passed → 3 excluded for
+  (`[{name, reason}]`). Great material for a "Your matchmaker checked 61 profiles → 8 passed → 3 excluded for
   dealbreakers" summary card — it shows the AI doing the father's filtering work.
 - If `status === "error"`, show a calm message ("Your matchmaker hit a snag — try again") with a retry button.
   Never show raw error text. Gemini can occasionally be slow; the backend already retries and falls back.

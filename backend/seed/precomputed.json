@@ -705,6 +705,99 @@
         "s07_riya"
       ]
     },
+    "m_arjun__s24_bhavna": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "arjun": {
+          "career": 88,
+          "communication": 85,
+          "family_fit": 90,
+          "lifestyle": 70,
+          "location": 92,
+          "reasons": {
+            "career": "Both hold stable professional roles in tech/corporate sectors while strongly valuing work-life balance and protected personal time.",
+            "communication": "Arjun prefers talking things through directly on the same day, which complements Bhavna's calm, empathetic approach to conflict resolution.",
+            "family_fit": "Bhavna actively desires to live in a joint family setup with in-laws, perfectly aligning with Arjun's close ties to his family and expectation of living with parents.",
+            "lifestyle": "They share an appreciation for domestic life and cooking, but differ on dietary preferences (non-veg vs. veg) and active outdoor pursuits versus home-centric leisure.",
+            "location": "Arjun's confirmed job move to Bangalore aligns seamlessly with Bhavna's permanent presence and firm requirement to stay in Bangalore.",
+            "values": "Both prioritize family deeply, though Bhavna leans more traditional and ritualistic compared to Arjun's moderate cultural practice and emphasis on partner ambition."
+          },
+          "values": 75
+        }
+      },
+      "status": "queued",
+      "user_a": "arjun",
+      "user_b": "s24_bhavna",
+      "users": [
+        "arjun",
+        "s24_bhavna"
+      ]
+    },
+    "m_arjun__s25_chitra": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "arjun": {
+          "career": 82,
+          "communication": 74,
+          "family_fit": 62,
+          "lifestyle": 70,
+          "location": 62,
+          "reasons": {
+            "career": "Arjun respects partner ambition and keeps predictable hours, which accommodates Chitra's demanding schedule in finance.",
+            "communication": "Arjun's practice of discussing issues the same day aligns well with Chitra's direct and analytical approach to discussions.",
+            "family_fit": "Arjun values strong involvement with elders and an initial period of co-living with family, whereas Chitra comes from a nuclear family background.",
+            "lifestyle": "Both are non-smokers who appreciate food, though Arjun's early mornings and outdoor sports contrast with Chitra's weekend restaurant exploration.",
+            "location": "Arjun is moving to Bangalore next year for his confirmed role, whereas Chitra strongly prefers to remain in Kolkata.",
+            "values": "Both value personal ambition, gender equality in marriage, and cultural festival celebrations without strict daily rituals."
+          },
+          "values": 85
+        }
+      },
+      "status": "queued",
+      "user_a": "arjun",
+      "user_b": "s25_chitra",
+      "users": [
+        "arjun",
+        "s25_chitra"
+      ]
+    },
+    "m_arjun__s30_harini": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "arjun": {
+          "career": 76,
+          "communication": 84,
+          "family_fit": 52,
+          "lifestyle": 70,
+          "location": 38,
+          "reasons": {
+            "career": "Both work in software engineering with steady work structures, though their preferred work locations eventually diverge.",
+            "communication": "Both favor direct, timely communication to resolve issues rather than avoiding discussion or using silent treatment.",
+            "family_fit": "Arjun expects a partner open to living with his parents, whereas Harini is focused on moving closer to her own parents in her hometown.",
+            "lifestyle": "Both are early risers who value routine, though Arjun enjoys active sports and non-vegetarian food while Harini prefers quiet indoor hobbies and a vegetarian diet.",
+            "location": "Arjun is moving to Bangalore for a confirmed engineering role, while Harini has a firm plan to relocate to her hometown within two years.",
+            "values": "Both balance personal independence with deep respect for family commitments and traditional values."
+          },
+          "values": 82
+        }
+      },
+      "status": "queued",
+      "user_a": "arjun",
+      "user_b": "s30_harini",
+      "users": [
+        "arjun",
+        "s30_harini"
+      ]
+    },
     "m_meera__s12_vivek": {
       "_sub": {},
       "decision_a": null,
@@ -923,6 +1016,99 @@
       "users": [
         "meera",
         "s20_rohan"
+      ]
+    },
+    "m_meera__s43_abhishek": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 85,
+          "communication": 82,
+          "family_fit": 82,
+          "lifestyle": 78,
+          "location": 95,
+          "reasons": {
+            "career": "Both are dedicated Bangalore professionals whose career ambitions and mutual respect for independent work align well.",
+            "communication": "Both prioritize direct honesty over politeness, aligning well with Meera's desire for non-evasive, open discussions.",
+            "family_fit": "Both maintain warm, close ties with their respective families in Kolkata and Kerala while living in Bangalore.",
+            "lifestyle": "Both stay active through physical pursuits like hiking and rock climbing, though their relaxing hours contrast between board game nights and sketching.",
+            "location": "Both are already based in Bangalore and plan to remain there for the medium to long term.",
+            "values": "Both deeply value honesty, direct communication, and personal independence within a relationship."
+          },
+          "values": 90
+        }
+      },
+      "status": "queued",
+      "user_a": "meera",
+      "user_b": "s43_abhishek",
+      "users": [
+        "meera",
+        "s43_abhishek"
+      ]
+    },
+    "m_meera__s46_dev": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 78,
+          "communication": 62,
+          "family_fit": 85,
+          "lifestyle": 78,
+          "location": 92,
+          "reasons": {
+            "career": "Both work in design roles in Bangalore, but Meera actively strives for team leadership while Dev is content with a stable role focused on work-life balance.",
+            "communication": "Meera needs direct, same-day resolution without silent treatment, which could create friction with Dev's introverted tendency to take time and space before opening up.",
+            "family_fit": "Both prefer maintaining an independent nuclear living arrangement in Bangalore while keeping warm ties with their families based in other cities.",
+            "lifestyle": "They share an appreciation for nature and creative pursuits like design and sketching, though Dev favors quiet solitary time while Meera enjoys outdoor hikes and street food.",
+            "location": "Both are settled in Bangalore with no immediate plans or desire to move away from the city.",
+            "values": "Both share an egalitarian, independent outlook and cultural approach to festivals, though Meera is intensely career-focused while Dev emphasizes work-life balance."
+          },
+          "values": 82
+        }
+      },
+      "status": "queued",
+      "user_a": "meera",
+      "user_b": "s46_dev",
+      "users": [
+        "meera",
+        "s46_dev"
+      ]
+    },
+    "m_meera__s62_yash": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 92,
+          "communication": 65,
+          "family_fit": 84,
+          "lifestyle": 78,
+          "location": 95,
+          "reasons": {
+            "career": "Yash actively seeks a career-driven partner, which aligns seamlessly with Meera's deep commitment to her work and leadership goals.",
+            "communication": "Meera requires direct, same-day discussions, whereas Yash relies on humor and takes longer to process deep emotions.",
+            "family_fit": "Both cherish close bonds with their parents in Kolkata and Pune while comfortably managing independent lives in Bangalore.",
+            "lifestyle": "Both enjoy outdoor pursuits and food, though Meera's early-morning routine may contrast with Yash's late nights during launch cycles.",
+            "location": "Both are fully settled in Bangalore and plan to remain there long-term for their respective industries.",
+            "values": "Both strongly value personal independence, equal partnership, and maintaining close family ties while building their separate lives."
+          },
+          "values": 88
+        }
+      },
+      "status": "queued",
+      "user_a": "meera",
+      "user_b": "s62_yash",
+      "users": [
+        "meera",
+        "s62_yash"
       ]
     }
   }

@@ -42,3 +42,19 @@ def test_create_onboarding_user():
     u = client.post("/users", json={"name": "Test User", "gender": "female"}).json()
     assert u["status"] == "onboarding" and u["seeking_gender"] == "male"
     get_db().collection(USERS).document(u["id"]).delete()
+
+
+def test_world_scales_to_60_with_cached_vectors():
+    import gzip
+
+    from app.services.embeddings import profile_text
+    from app.services.seed import EMBED_CACHE, _cache_key
+    profiles = json.loads(PROFILES_FILE.read_text())
+    assert len([p for p in profiles if not p.get("reserve")]) == 60
+    firsts = [p["name"].split()[0] for p in profiles]
+    assert len(firsts) == len(set(firsts)) and "Arjun" not in firsts and "Meera" not in firsts
+    assert all(abs(sum(p["preference_weights"].values()) - 1) < 0.02 for p in profiles)
+    cache = json.loads(gzip.decompress(EMBED_CACHE.read_bytes()))
+    for p in profiles:  # every seed profile (incl. reserves) resets without an embedding call
+        for private in (False, True):
+            assert _cache_key(profile_text(p["self_facts"], p["aspects"], private)) in cache

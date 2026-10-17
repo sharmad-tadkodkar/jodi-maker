@@ -339,7 +339,7 @@ class Persona(BaseModel):
 
 
 class SeedRequest(BaseModel):
-    count: int = 20
+    count: int = 60  # world size (heroes and reserves come on top)
 
 
 class SimulateResponseRequest(BaseModel):

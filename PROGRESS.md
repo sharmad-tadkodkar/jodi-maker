@@ -15,7 +15,8 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 | 4 Interview + Match Brief | –20:00 | 18:55–19:35 | ✅ |
 | 5 Mutual consent + Focus Week + learning loop | –20:45 | 19:35–19:55 | ✅ |
 | 6 Demo panel endpoints + polish | –21:00 | 20:00–20:25 | ✅ |
-| Deploy window: Firebase Hosting, end-to-end on prod, scale seed to 60 | 21:00–23:00 | | ⏳ |
+| Deploy window: scale seed to 60 | 21:00–23:00 | 20:30–21:00 | ✅ |
+| Deploy window: Firebase Hosting, end-to-end on prod | –23:00 | | ⏳ |
 | Sat: video, deck, submit (target ~4 PM, buffer to 6 PM) | | | ⏳ |
 
 ## Live
@@ -86,6 +87,18 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 - Learned aspects refresh the user's embeddings; Firestore query warnings and empty timeout log lines cleaned up.
 - 38 tests pass.
 
+### Scale-up to 60 profiles ✅
+- 40 new profiles from *designed* briefs (not random): 20 women / 20 men, cities weighted to Bangalore & Kolkata,
+  a realistic mix — ordinary fits, friction (abroad plans, rituals, long hours, kids soon, permanent joint family),
+  dealbreakers (smoking, heavy drinking, "wife stops working", "never with in-laws") and hard-filter failures.
+  Unique first names pre-assigned; repeated surnames diversified. Existing 22 profiles/IDs untouched.
+- Heroes re-scouted over the bigger world (cached scores kept, new candidates scored): **still each other's #1**
+  (Arjun→Meera 90.5, Meera→Arjun 88.1); queues now 8 deep (Arjun #2 Bhavna 83.2, Meera #2 Abhishek 85.5).
+- Fixed a bug the scale-up exposed: embedding 64 profiles in one request exceeds the model's 20k-token limit →
+  embeddings now go in token-safe batches of 40, concurrently, with retries.
+- Seed vectors cached in `seed/embeddings.json.gz` (keyed by model + text hash): resets make no embedding calls;
+  seed writes committed in parallel. Test suite 3:48 → 1:55.
+
 ## Key decisions
 
 | Decision | Why |
@@ -96,7 +109,7 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 | No Provisioned Throughput | ≥ ~$1,200/week; retries, timeouts, fallbacks and the pre-computed demo path cover the risk |
 | P1s cut (Parent Mode, uploads, Ask-their-matchmaker, coach, check-in, family view) | Fit the build into ~4 h; shown as roadmap in the deck |
 | Fairness/expiry evaluated lazily on read (no scheduler) | Nothing extra to deploy; demo fast-forward just moves `focus_start` |
-| Seed 20 profiles now, scale to 60 later | `uv run python -m app.services.seed generate --count 60` |
+| Seed 20 profiles first, scaled to 60 after development | Fast iteration during the build; designed briefs keep the demo intact at 60 |
 
 ## Open items / risks
 
