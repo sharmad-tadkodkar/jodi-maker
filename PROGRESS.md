@@ -14,7 +14,7 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 | 3 Scout + pipeline | –19:10 | –18:47 | ✅ |
 | 4 Interview + Match Brief | –20:00 | 18:55–19:35 | ✅ |
 | 5 Mutual consent + Focus Week + learning loop | –20:45 | 19:35–19:55 | ✅ |
-| 6 Demo panel endpoints + polish | –21:00 | | ⏳ |
+| 6 Demo panel endpoints + polish | –21:00 | 20:00–20:25 | ✅ |
 | Deploy window: Firebase Hosting, end-to-end on prod, scale seed to 60 | 21:00–23:00 | | ⏳ |
 | Sat: video, deck, submit (target ~4 PM, buffer to 6 PM) | | | ⏳ |
 
@@ -76,9 +76,15 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 - Fixed: deck prompts written in one person's voice ("I love cooking…") and one touching past relationships →
   prompts are now sender-neutral, with a banned-topics list; learning explanations overclaimed ("absolute priority").
 
-### Next (Phase 6)
-- Pre-compute a second Arjun interview (his #2) so that after a Pass the next brief appears instantly in the demo
-  (today `getNextBrief` returns null until another interview runs, ~2 min).
+### Phase 6 — Demo panel + polish ✅
+- Arjun's #2 (Riya) interview + briefs pre-computed → after Pass/Stop the next brief appears instantly (video beat
+  2:20–2:45). Brief is honest: flags Riya as less career-driven than Arjun wants, which is why Meera ranks higher.
+- `GET /demo/state` (one-glance status strip) and `POST /demo/interview-top/{uid}` ("run interview for top
+  candidate", spec §4.9). Verified: new-profile → scout → new person appears with the "new" badge.
+- **Tests and pre-compute runs no longer touch live data**: Firestore collections take a prefix
+  (`COLLECTION_PREFIX=test_` in tests, `pc_` for pre-compute), so the partner's live testing is never wiped.
+- Learned aspects refresh the user's embeddings; Firestore query warnings and empty timeout log lines cleaned up.
+- 38 tests pass.
 
 ## Key decisions
 
@@ -96,4 +102,6 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 
 - Full reset takes ~15–20 s — use soft reset (`/demo/reset?soft=true`, ~2 s) between takes.
 - Vertex shared capacity can cause occasional slow steps; record the video in several takes.
+- Judges share the hero personas: if two people click through Arjun at once they'll see each other's state. The
+  demo panel's soft reset (2 s) recovers; the video is unaffected. Judges can also onboard as a new user (private).
 - Firebase Hosting deploy needs the partner added to the GCP project (or the owner deploys).

@@ -7,6 +7,7 @@ import asyncio
 import logging
 
 import numpy as np
+from google.cloud.firestore_v1.base_query import FieldFilter
 from pydantic import BaseModel
 
 from app import models as m
@@ -143,7 +144,7 @@ def _cosine(a: list[float], b: list[float]) -> float:
 
 
 def _matches_for(user_id: str) -> list[dict]:
-    snaps = get_db().collection(MATCHES).where("users", "array_contains", user_id).stream()
+    snaps = get_db().collection(MATCHES).where(filter=FieldFilter("users", "array_contains", user_id)).stream()
     return [{"id": s.id, **s.to_dict()} for s in snaps]
 
 

@@ -11,6 +11,7 @@ from app import models as m
 from app.config import get_settings
 from app.db import MATCHES, USERS, get_db, now
 from app.llm.gemini import generate_json, load_prompt
+from app.services.embeddings import refresh_user_embeddings
 from app.services.matching import pipeline, profile_for_prompt, scores_for
 from app.services.users import get_user_doc, list_aspects
 
@@ -118,6 +119,12 @@ async def learn(user_id: str, match_id: str, decision: str, reason: str | None) 
                "confidence": 0.6, "visibility": "agent_only", "created_at": t}
         uref.collection("aspects").document(aid).set(doc)
         learned.append(m.Aspect(id=aid, **doc))
+
+    if learned:
+        try:
+            await refresh_user_embeddings(user_id)  # learned aspects shape future semantic matching too
+        except Exception as e:  # noqa: BLE001
+            log.warning("embedding refresh after learning failed: %s", e)
 
     ranks_after = _ranks(user_id)
     moved_up = sum(1 for mid, r in ranks_after.items() if mid in ranks_before and r < ranks_before[mid])

@@ -1,5 +1,5 @@
 """Phase 4: interview + brief + mutual-consent visibility, against the pre-computed hero match.
-NOTE: resets the shared demo data. Live interview runs (~2 min) are exercised via the precompute
+Runs on the test_ collections (see conftest.py). Live interview runs (~2 min) are exercised via the precompute
 command and manual runs, not here."""
 from fastapi.testclient import TestClient
 

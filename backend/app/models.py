@@ -353,6 +353,30 @@ class FastForwardRequest(BaseModel):
     day: int
 
 
+class InterviewStarted(BaseModel):
+    match_id: str
+    job_id: str
+    candidate: CandidateSummary
+
+
+class HeroState(BaseModel):
+    user_id: str
+    name: str
+    status: UserStatus
+    active_match_id: str | None = None
+    focus_day: int | None = None  # set while in a Focus Week
+    queue_size: int = 0
+    next_brief_match_id: str | None = None
+
+
+class DemoState(BaseModel):
+    """One-glance demo panel status."""
+    heroes: list[HeroState]
+    hero_match_status: MatchStatus | None = None  # Arjun–Meera
+    profiles: int
+    reserves_left: int
+
+
 class OkResponse(BaseModel):
     ok: bool = True
     detail: str | None = None

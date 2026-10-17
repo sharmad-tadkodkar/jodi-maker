@@ -3,7 +3,7 @@ brief, next brief (Phase 4), decision + match (Phase 5)."""
 from fastapi import APIRouter, BackgroundTasks, Header, HTTPException
 
 from app import models as m
-from app.db import JOBS, get_db, now
+from app.db import JOBS, MATCHES, get_db, now
 from app.jobs import create_job, run_job
 from app.services import brief as brief_svc
 from app.services import focus as focus_svc
@@ -47,7 +47,7 @@ async def run_interview(match_id: str, bg: BackgroundTasks, body: m.InterviewReq
     """Run the 3-round matchmaker interview + briefs as a job. Poll GET /matches/{id}/interview every
     1–2 s to render turns live. If an interview already finished (e.g. the pre-computed Arjun–Meera one),
     returns a finished job instantly — pass `?rerun=true` to run it live again."""
-    snap = get_db().collection("matches").document(match_id).get()
+    snap = get_db().collection(MATCHES).document(match_id).get()
     if not snap.exists:
         raise HTTPException(404, "match not found")
     match = snap.to_dict()

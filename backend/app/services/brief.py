@@ -3,6 +3,7 @@
 Narrative parts come from Gemini (smart tier); the "why you fit" radar comes from stored scores, so the
 numbers are consistent with the pipeline and re-weight with the learning loop.
 """
+from google.cloud.firestore_v1.base_query import FieldFilter
 from pydantic import BaseModel
 
 from app import models as m
@@ -91,7 +92,7 @@ def next_brief(viewer_id: str) -> m.Brief | None:
     if viewer.get("status") in ("in_focus", "locked"):
         return None  # queue paused during a Focus Week (spec §4.6)
     best = None
-    for snap in db.collection(MATCHES).where("users", "array_contains", viewer_id).stream():
+    for snap in db.collection(MATCHES).where(filter=FieldFilter("users", "array_contains", viewer_id)).stream():
         mt = snap.to_dict()
         if mt.get("status") not in ("briefed", "awaiting_them"):
             continue

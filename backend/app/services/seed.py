@@ -5,6 +5,7 @@ and deterministic. Heroes (Arjun, Meera) are hand-tuned in `seed/heroes.json`.
 
     uv run python -m app.services.seed generate            # 20 profiles + 2 reserves
     uv run python -m app.services.seed generate --count 60 # scale up later (keeps existing ones)
+    COLLECTION_PREFIX=pc_ uv run python -m app.services.seed interview --pair arjun s07_riya
 """
 import argparse
 import asyncio
@@ -15,6 +16,7 @@ import re
 from datetime import timedelta
 from pathlib import Path
 
+from google.cloud.firestore_v1.base_query import FieldFilter
 from pydantic import BaseModel, Field
 
 from app import models as m
@@ -312,13 +314,13 @@ def soft_reset() -> int:
     delete_tree(db.collection(MATCHES))
     n = load_precomputed()
     heroes = {h["id"]: h for h in json.loads(HEROES_FILE.read_text())}
-    for snap in db.collection(USERS).where("status", "in", ["in_focus", "locked"]).stream():
+    for snap in db.collection(USERS).where(filter=FieldFilter("status", "in", ["in_focus", "locked"])).stream():
         snap.reference.update({"status": "active", "active_match_id": None})
     for uid, h in heroes.items():
         ref = db.collection(USERS).document(uid)
         ref.update({"status": "active", "active_match_id": None, "preference_weights": h["preference_weights"]})
         delete_tree(ref.collection("learning_log"))
-        for a in ref.collection("aspects").where("source", "==", "learned").stream():
+        for a in ref.collection("aspects").where(filter=FieldFilter("source", "==", "learned")).stream():
             a.reference.delete()
     return n
 
@@ -358,6 +360,21 @@ async def precompute_deck() -> None:
     PRECOMPUTED_FILE.write_text(json.dumps({"matches": dump_matches()}, indent=2, ensure_ascii=False, sort_keys=True))
 
 
+async def precompute_interview(requester: str, cand: str) -> dict:
+    """Freeze one more interview + briefs into the file (e.g. Arjun's #2, so the next brief after a Pass is
+    instant). Run with COLLECTION_PREFIX=pc_ so the live demo data isn't touched."""
+    from app.services.interview import run_interview
+    from app.services.matching import match_id
+
+    if not get_db().collection(USERS).document(requester).get().exists:
+        await seed_world(20)
+    soft_reset()
+    r = await run_interview(match_id(requester, cand), requester, None, lambda msg: log.info("interview: %s", msg))
+    log.info("interview → %s", r)
+    PRECOMPUTED_FILE.write_text(json.dumps({"matches": dump_matches()}, indent=2, ensure_ascii=False, sort_keys=True))
+    return r
+
+
 async def add_reserve_profile() -> dict | None:
     """'Someone just joined' — load the next held-back reserve profile with a `new` badge."""
     _, reserves = _load_fixtures(0)
@@ -372,7 +389,8 @@ async def add_reserve_profile() -> dict | None:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["generate", "load", "precompute", "deck"])
+    ap.add_argument("cmd", choices=["generate", "load", "precompute", "deck", "interview"])
+    ap.add_argument("--pair", nargs=2, metavar=("REQUESTER", "CANDIDATE"), help="interview: e.g. arjun s07_riya")
     ap.add_argument("--count", type=int, default=20)
     ap.add_argument("--fresh", action="store_true", help="precompute: re-run scouts instead of keeping frozen scores")
     args = ap.parse_args()
@@ -380,6 +398,8 @@ if __name__ == "__main__":
         asyncio.run(generate(args.count))
     elif args.cmd == "precompute":
         asyncio.run(precompute(args.count, args.fresh))
+    elif args.cmd == "interview":
+        asyncio.run(precompute_interview(*args.pair))
     elif args.cmd == "deck":
         asyncio.run(precompute_deck())
     else:

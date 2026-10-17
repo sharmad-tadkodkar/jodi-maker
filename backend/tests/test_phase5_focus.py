@@ -1,5 +1,5 @@
 """Phase 5: mutual consent → Focus Week → Day-7 decision, learning loop, fairness.
-NOTE: resets the shared demo data (soft reset: matches + hero state; profiles kept)."""
+Runs on the test_ collections (see conftest.py) (soft reset: matches + hero state; profiles kept)."""
 from fastapi.testclient import TestClient
 
 from app.db import MATCHES, USERS, get_db

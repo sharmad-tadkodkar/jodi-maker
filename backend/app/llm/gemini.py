@@ -101,7 +101,7 @@ async def generate_json(
                 return schema.model_validate(json.loads(resp.text))
             except Exception as e:  # noqa: BLE001 — retry on anything (incl. timeouts), log and move on
                 last_err = e
-                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200])
+                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200] or type(e).__name__)
                 if not _retryable(e):
                     break
                 await _backoff(attempt, e)
@@ -124,7 +124,7 @@ async def generate_text(
                 return (resp.text or "").strip()
             except Exception as e:  # noqa: BLE001
                 last_err = e
-                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200])
+                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200] or type(e).__name__)
                 if not _retryable(e):
                     break
                 await _backoff(attempt, e)

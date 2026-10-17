@@ -13,10 +13,30 @@ client, the compiler tells you when a page doesn't match the backend.
 | 3 Scout + pipeline | ✅ live | `POST /scout/{id}` (job), `GET /pipeline/{id}` |
 | 4 Interview + brief | ✅ live | `POST/GET /matches/{id}/interview`, `GET /matches/{id}/brief/{uid}`, `GET /briefs/next/{uid}` |
 | 5 Decisions + Focus Week | ✅ live | `POST /matches/{id}/decision` (+ learning), `GET /matches/{id}`, `/focus/*` (state, deck, chat, Day-7 decision), simulate-response, fast-forward, soft reset |
+| 6 Demo panel + polish | ✅ live | `GET /demo/state`, `POST /demo/interview-top/{uid}`, pre-computed next brief (Riya) |
 
 **No mocks left** — every endpoint now returns real data. Phase 6 is polish only; shapes won't change.
 
 ### Changelog
+
+- **Phase 6** — Demo panel helpers. Run `npm run gen:api`. New client functions: `api.demoState()`,
+  `api.interviewTop(userId)`, `api.rerunInterview(matchId)`.
+  - **The video's "Stop/Pass → next brief" beat is instant now:** Arjun's #2 (Riya, ~81%) is pre-computed, so
+    right after a Pass or Stop, `getNextBrief('arjun')` returns Riya's brief. Riya's brief stays hidden from her
+    (consent) like Meera's.
+  - **Suggested `/demo` panel** (spec §4.9), top to bottom:
+    | Button | Call |
+    |---|---|
+    | Persona: Arjun / Meera / any onboarded user | `personas()` → `setUserId(id)` |
+    | Status strip (refresh every 3 s) | `demoState()` → per hero: `status`, `focus_day`, `queue_size`, `next_brief_match_id`; `hero_match_status`; `reserves_left` |
+    | Run scout now | `runScout(userId)` → `waitForJob` (show `progress`) |
+    | Run interview for top candidate | `interviewTop(userId)` → navigate to `/brief/{match_id}/transcript` and poll `getInterview` (~2 min live). 409 = nobody left to interview |
+    | Replay Arjun–Meera interview live | `rerunInterview('m_arjun__meera')` → transcript page (only before Arjun decides) |
+    | Meera says Interested / Pass | `simulateResponse(matchId, 'meera', …)` |
+    | Fast-forward Day 4 / Day 7 / "time runs out" | `fastForward(matchId, 4 \| 7 \| 8)` |
+    | Someone just joined | `newProfile()` (2 per full reset) → then Run scout for the hero to see the "new" badge |
+    | Reset (soft, ~2 s) / Full reset (~20 s) | `reset(true)` / `reset()` |
+  - Errors from the API (`409` etc.) carry a human-readable `detail` — fine to show in the demo panel as a toast.
 
 - **Phase 5** — Mutual consent, Focus Week and the learning loop are live. New: `api.getMatch(matchId)`
   (match status + decisions), `api.reset(true)` (**soft reset ≈ 2 s** — restores all matches and the heroes'

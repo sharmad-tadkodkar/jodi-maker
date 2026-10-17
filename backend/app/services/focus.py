@@ -13,6 +13,7 @@ import logging
 from datetime import timedelta
 
 from fastapi import HTTPException
+from google.cloud.firestore_v1.base_query import FieldFilter
 from pydantic import BaseModel
 
 from app import models as m
@@ -77,7 +78,7 @@ def on_hold(match: dict, viewer_id: str) -> bool:
 def expire_stale(user_id: str) -> int:
     """Close briefs nobody answered within 72 h and Focus Weeks past their end (spec §4.6 Fairness)."""
     db, t, n = get_db(), now(), 0
-    for snap in db.collection(MATCHES).where("users", "array_contains", user_id).stream():
+    for snap in db.collection(MATCHES).where(filter=FieldFilter("users", "array_contains", user_id)).stream():
         mt = snap.to_dict()
         if mt.get("status") == "awaiting_them" and mt.get("awaiting_since") and t - mt["awaiting_since"] > BRIEF_EXPIRY:
             snap.reference.update({"status": "closed", "closed_reason": "expired", "updated_at": t})

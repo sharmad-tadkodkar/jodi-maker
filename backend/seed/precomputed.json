@@ -475,10 +475,194 @@
       ]
     },
     "m_arjun__s07_riya": {
-      "_sub": {},
+      "_sub": {
+        "briefs": {
+          "arjun": {
+            "candidate_id": "s07_riya",
+            "explore": [
+              {
+                "evidence": "Her matchmaker shared that she is very content working as a school teacher, valuing a healthy work-life balance and prioritizing family happiness.",
+                "text": "You value a partner with strong personal ambitions who doesn't just fit in, whereas Riya is highly focused on domestic life and contentment over professional drive."
+              },
+              {
+                "evidence": "Her matchmaker emphasized that gentle and clear communication is very important to her.",
+                "text": "Your approaches to disagreements might require some syncing up, as you like to tackle issues directly after a brief cool-down, while she tends to shy away from conflict."
+              }
+            ],
+            "family_fit": "Riya comes from a very warm, close-knit family in Kolkata, where she shares a deep bond with her parents and younger brother. She is eager to be part of a loving joint family after marriage and deeply respects elders. Most importantly for us, she is completely open to relocating to Bangalore and has explicitly said she would genuinely welcome having us stay with them for extended periods. She has a gentle nature, enjoys cooking and classical music, and prioritizes family happiness over a high-stress career, making her a wonderful fit for our family's values and daily life.",
+            "for_user_id": "arjun",
+            "green_flags": [
+              {
+                "evidence": "Her matchmaker noted she would genuinely welcome having your parents stay with you for extended periods and building a warm relationship with them.",
+                "text": "She is fully on board with your move to Bangalore and embraces the idea of your family being a big part of your daily lives there."
+              },
+              {
+                "evidence": "She prefers a quiet, domestic rhythm on her weekends filled with cooking, reading, and classical music.",
+                "text": "Her weekend vibe perfectly complements your desire to protect your time off from work and enjoy simple pleasures at home."
+              },
+              {
+                "evidence": "Her matchmaker confirmed she does not smoke or use tobacco in any form.",
+                "text": "She aligns perfectly with your strict lifestyle requirement regarding tobacco."
+              }
+            ],
+            "questions_only_you": [
+              "Since I am moving to Bangalore next year and my parents will be visiting for long stretches, how do you envision us balancing our own space as a newlywed couple with hosting them?",
+              "I love that you are content with teaching and value a quiet home life. What are some personal goals or passions you want to pursue in the next few years outside of your daily routine?",
+              "I usually need a brief moment to cool off during a disagreement before talking it out the same day. How do you usually prefer to handle things when we might not see eye to eye?"
+            ],
+            "snapshot": "Riya is a twenty-four-year-old school teacher in Kolkata who holds a Master's degree and deeply values a healthy work-life balance. She comes from a close-knit family with her parents and younger brother, and she is looking for a stable, emotionally available partner to build a similarly warm home with. In her free time, she prefers a quiet, domestic rhythm, finding joy in cooking, reading, classical music, and arts and crafts rather than a fast-paced social life."
+          },
+          "s07_riya": {
+            "candidate_id": "arjun",
+            "explore": [
+              {
+                "evidence": "His matchmaker specifically described him as a man who values \"honesty and independence\" in a partner.",
+                "text": "Arjun values a partner who is independent, so it is worth discussing how your contentment with teaching and focus on domestic life fits his vision."
+              },
+              {
+                "evidence": "His matchmaker mentioned he enjoys \"playing football\" on Sunday mornings and \"planning his next trekking trip to the Himalayas.\"",
+                "text": "While you both enjoy a domestic weekend rhythm, he also has an active, outdoorsy side that might require some balancing."
+              }
+            ],
+            "family_fit": "Arjun comes from a loving joint family in Kolkata, where he lives with his parents and grandmother, sharing a particularly close bond with his dadi. He deeply respects his elders and places family at the center of his life, which aligns beautifully with the close-knit environment Riya cherishes. While his career is taking him to Bangalore next year, he expects his parents to visit and stay for extended periods, ensuring that strong family ties are maintained. He enjoys cooking for his family and is looking for a partner who will be warm and welcoming with his elders, making this a very comfortable and respectful family match.",
+            "for_user_id": "s07_riya",
+            "green_flags": [
+              {
+                "evidence": "His matchmaker confirmed he \"keeps steady work hours during the week so he can protect his weekends for his family and personal interests.\"",
+                "text": "He actively protects his personal time, matching your desire for a partner who isn't a high-strung workaholic."
+              },
+              {
+                "evidence": "His matchmaker noted he takes a \"brief moment to cool off, but he always sits down to talk things through the very same day\" and \"deeply dislikes the silent treatment.\"",
+                "text": "His approach to conflict is calm and constructive, which aligns beautifully with your gentle, conflict-avoidant communication style."
+              },
+              {
+                "evidence": "His matchmaker shared that he loves \"cooking Gujarati dishes for the family, listening to old Hindi film music.\"",
+                "text": "You share a mutual love for domestic comforts, cooking, and music."
+              }
+            ],
+            "questions_only_you": [
+              "How do you envision us balancing your active weekend hobbies like trekking and football with my love for quiet, domestic weekends?",
+              "Since you are moving to Bangalore next year, how do you prefer to manage finances and household planning during that transition?",
+              "Your matchmaker mentioned you value independence in a partner. As someone who is very content being a school teacher and prioritizing family, how does that fit into your vision of our life together?",
+              "What does a typical routine look like for you when your parents come to stay for long stretches?"
+            ],
+            "snapshot": "Arjun is a 28-year-old software engineer currently living in a close-knit joint family in Kolkata, with confirmed plans to relocate to Bangalore next year. He is very close to his parents and grandmother, and he keeps steady work hours to protect his weekends for family time, cooking, and sports. He is looking for a partner who is warm with elders and values honesty, but also someone who brings her own independent spirit to the relationship."
+          }
+        },
+        "interview": {
+          "t000": {
+            "highlight": null,
+            "round": 1,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Namaste! I am the AI matchmaker representing Arjun and his family. Arjun is a 28-year-old software engineer currently based in Kolkata—a warm, family-minded young man who values honesty and independence, and is preparing to move to Bangalore next year for his work. He currently lives in a close-knit joint family with his parents and grandmother, who mean the world to him. I would love to hear a little about Riya's family background and the kind of family setup she grows up in?",
+            "turn_index": 0
+          },
+          "t001": {
+            "highlight": null,
+            "round": 1,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "Namaste! It is a pleasure to connect with you. Riya comes from a very warm, close-knit family here in Kolkata, where she lives with her parents and her younger brother. She shares a very deep bond with them and is looking forward to being part of a similarly loving and closely-knit family after marriage. Since Arjun currently lives in a joint family and plans to move to Bangalore next year, how does his family envision the living arrangements after marriage?",
+            "turn_index": 1
+          },
+          "t002": {
+            "highlight": null,
+            "round": 1,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Arjun’s move to Bangalore next year is confirmed, and post-marriage living arrangements during this transition are certainly something his family reflects on carefully. While Arjun will be building his base in Bangalore, his parents are likely to visit and stay with them for long stretches as well. How does Riya envision her post-marriage living setup, especially when it comes to living arrangements and sharing space with in-laws?",
+            "turn_index": 2
+          },
+          "t003": {
+            "highlight": "green",
+            "round": 1,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "Riya is actually very open to relocating to Bangalore, as she already has friends and a good sense of familiarity there. Being someone who deeply treasures family bonds and respect for elders, she would genuinely welcome having Arjun's parents stay with them for extended periods and building a warm relationship with them. Since family warmth is so central to both sides, could you share a bit more about the traditions or values that Arjun's family holds dear in their daily life?",
+            "turn_index": 3
+          },
+          "t004": {
+            "highlight": null,
+            "round": 2,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "It is wonderful to see how naturally their family values align. As we look a bit closer at Arjun as an individual, could you share how he balances his work as a software engineer with his personal life? We would love to know what a typical weekend looks like for him and how he likes to unwind.",
+            "turn_index": 4
+          },
+          "t005": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Arjun keeps steady work hours during the week so he can protect his weekends for his family and personal interests. He is an early riser—on Sunday mornings, you will usually find him playing football, and he loves cooking Gujarati dishes for the family, listening to old Hindi film music, or planning his next trekking trip to the Himalayas. \n\nHow does Riya like to spend her weekends and unwind after her work week?",
+            "turn_index": 5
+          },
+          "t006": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "Riya prefers a quiet, domestic rhythm on her weekends—she loves spending time cooking, reading, and listening to classical music rather than going out frequently. She also enjoys indulging her passion for arts and crafts, which brings her a lot of joy and peace. Since gentle and clear communication is so important to her, could you share a bit about Arjun's communication style and how he usually handles stress or disagreements when they arise?",
+            "turn_index": 6
+          },
+          "t007": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "When a disagreement arises, Arjun prefers taking a brief moment to cool off, but he always sits down to talk things through the very same day. He believes in honest, direct communication and deeply dislikes the silent treatment. \n\nOn the professional side, could you share a bit about Riya's work and what her career ambitions look like for the coming years?",
+            "turn_index": 7
+          },
+          "t008": {
+            "highlight": null,
+            "round": 3,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "As we move towards concluding our initial discussion, I would love to clarify one quick lifestyle detail to ensure smooth alignment between them. Does Riya smoke, or use tobacco in any form? We find that understanding these personal everyday habits early on helps ensure complete clarity and comfort for both Arjun and Riya.",
+            "turn_index": 8
+          },
+          "t009": {
+            "highlight": "green",
+            "round": 3,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "Riya holds a Master's degree and is very content working as a school teacher, valuing a healthy work-life balance and prioritizing family happiness. She does not smoke or use tobacco in any form. \n\nGiven how seamlessly Arjun’s calm communication style, respect for elders, and balanced lifestyle align with Riya's values, I warmly **recommend** that we proceed with introducing Riya and Arjun to each other.",
+            "turn_index": 9
+          },
+          "t010": {
+            "highlight": null,
+            "round": 3,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Thank you for sharing that—it is wonderful to hear about Riya's fulfilling work as a teacher and her healthy lifestyle. Given their mutual deep respect for family, alignment on living arrangements, and commitment to clear, honest communication, I warmly **recommend** that we proceed with introducing Arjun and Riya to one another. I will share these positive notes with Arjun and his family so they can take the next steps.",
+            "turn_index": 10
+          },
+          "t011": {
+            "highlight": null,
+            "round": 3,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "It is a joy to see such strong mutual alignment between Arjun and Riya. Because of their shared devotion to family warmth, calm communication style, and balanced lifestyles, I fully **recommend** that we take this forward to both families. I will share these details with Riya and her parents, and I look forward to their families connecting directly soon. Namaste!",
+            "turn_index": 11
+          }
+        }
+      },
+      "closed_reason": null,
       "decision_a": null,
       "decision_b": null,
       "extended": false,
+      "interview_requested_by": "arjun",
+      "interview_status": "done",
+      "open_questions": [
+        "How do Riya and Arjun feel about transitioning from a joint family setup to living independently in Bangalore with visiting parents?",
+        "How does Riya balance her career ambitions with her preference for a quiet, domestic weekend rhythm?"
+      ],
+      "round_summaries": [
+        "The matchmakers discussed family backgrounds and future living arrangements, confirming that Riya is open to relocating to Bangalore and welcomes Arjun's parents staying with them for extended periods.",
+        "The matchmakers discussed the candidates' weekend routines and communication styles, revealing that both value family time, domestic hobbies, and constructive conflict resolution.",
+        "Both matchmakers confirmed that Riya does not smoke, satisfying Arjun's lifestyle preference. With all major alignment points verified, both sides warmly recommended proceeding to introduce Arjun and Riya to each other."
+      ],
       "scores_by_user": {
         "arjun": {
           "career": 75,
@@ -495,9 +679,25 @@
             "values": "Arjun values personal ambition in a partner, whereas Riya prioritizes domestic happiness over professional drive, though both place family firmly at their core."
           },
           "values": 68
+        },
+        "s07_riya": {
+          "career": 90,
+          "communication": 84,
+          "family_fit": 88,
+          "lifestyle": 83,
+          "location": 95,
+          "reasons": {
+            "career": "Arjun maintains steady work hours and protects his weekends despite career goals, perfectly fulfilling Riya's preference for a partner who is not a high-strung workaholic.",
+            "communication": "Riya's gentle, calm approach pairs well with Arjun's habit of cooling off briefly before talking through disagreements constructively on the same day.",
+            "family_fit": "Riya wants a close-knit family, matching Arjun's strong bond with his dadi and joint family structure, including his plan to live with parents initially.",
+            "lifestyle": "They share an appreciation for cooking, music, and home-centric living, easily accommodating Arjun's weekend football and Himalayan trekking alongside Riya's quiet reading and arts.",
+            "location": "Both are based in Kolkata and Arjun's confirmed upcoming relocation to Bangalore aligns seamlessly with Riya's preference to move to Bangalore.",
+            "values": "Both place family first, though Arjun desires a partner with strong individual ambitions while Riya prioritizes domestic warmth and teaching over worldly success."
+          },
+          "values": 70
         }
       },
-      "status": "queued",
+      "status": "briefed",
       "user_a": "arjun",
       "user_b": "s07_riya",
       "users": [

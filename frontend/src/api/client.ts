@@ -30,6 +30,8 @@ export type FocusState = S['FocusState']
 export type ChatMessage = S['ChatMessage']
 export type FocusDecisionResponse = S['FocusDecisionResponse']
 export type Persona = S['Persona']
+export type DemoState = S['DemoState']
+export type InterviewStarted = S['InterviewStarted']
 export type Gender = User['gender']
 export type Visibility = Aspect['visibility']
 
@@ -119,4 +121,10 @@ export const api = {
   fastForward: (matchId: string, day: number) =>
     req<FocusState>('POST', '/demo/fast-forward', { match_id: matchId, day }),
   newProfile: () => req<CandidateSummary>('POST', '/demo/new-profile'),
+  /** One-glance status for the demo panel: heroes' status, Focus Week day, queue size, next brief. */
+  demoState: () => req<DemoState>('GET', '/demo/state'),
+  /** "Run interview for top candidate now" — live (~2 min); poll getInterview(result.match_id). */
+  interviewTop: (userId: string) => req<InterviewStarted>('POST', `/demo/interview-top/${userId}`),
+  /** Re-run an already-finished interview live (e.g. the pre-computed Arjun–Meera one). */
+  rerunInterview: (matchId: string) => req<{ job_id: string }>('POST', `/matches/${matchId}/interview?rerun=true`, {}),
 }

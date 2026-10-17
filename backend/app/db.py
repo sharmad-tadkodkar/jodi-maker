@@ -6,9 +6,10 @@ from google.cloud import firestore
 
 from app.config import get_settings
 
-USERS = "users"
-MATCHES = "matches"
-JOBS = "jobs"
+_PREFIX = get_settings().collection_prefix
+USERS = f"{_PREFIX}users"
+MATCHES = f"{_PREFIX}matches"
+JOBS = f"{_PREFIX}jobs"
 
 
 @lru_cache

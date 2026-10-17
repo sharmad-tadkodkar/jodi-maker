@@ -490,6 +490,47 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/demo/interview-top/{user_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Interview Top
+         * @description "Run interview for top candidate now": starts a live interview (~2 min) with the highest-ranked candidate in
+         *     `user_id`'s queue that hasn't been interviewed yet. Poll GET /matches/{match_id}/interview for the turns.
+         */
+        post: operations["interview_top_demo_interview_top__user_id__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/demo/state": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * State
+         * @description Where the demo is right now: each hero's status, Focus Week day, queue size and next brief.
+         */
+        get: operations["state_demo_state_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/demo/new-profile": {
         parameters: {
             query?: never;
@@ -499,7 +540,11 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** New Profile */
+        /**
+         * New Profile
+         * @description "Someone just joined": loads a held-back profile with a `new` badge (2 available per reset). Run scout for
+         *     a hero afterwards to see them appear in the queue.
+         */
         post: operations["new_profile_demo_new_profile_post"];
         delete?: never;
         options?: never;
@@ -664,6 +709,20 @@ export interface components {
             mutual: boolean;
             learning?: components["schemas"]["LearningResult"] | null;
         };
+        /**
+         * DemoState
+         * @description One-glance demo panel status.
+         */
+        DemoState: {
+            /** Heroes */
+            heroes: components["schemas"]["HeroState"][];
+            /** Hero Match Status */
+            hero_match_status?: ("queued" | "screening" | "briefed" | "awaiting_them" | "focus_week" | "locked" | "closed") | null;
+            /** Profiles */
+            profiles: number;
+            /** Reserves Left */
+            reserves_left: number;
+        };
         /** FastForwardRequest */
         FastForwardRequest: {
             /** Match Id */
@@ -809,6 +868,29 @@ export interface components {
             /** Languages */
             languages?: string[] | null;
         };
+        /** HeroState */
+        HeroState: {
+            /** User Id */
+            user_id: string;
+            /** Name */
+            name: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "onboarding" | "active" | "in_focus" | "locked" | "paused";
+            /** Active Match Id */
+            active_match_id?: string | null;
+            /** Focus Day */
+            focus_day?: number | null;
+            /**
+             * Queue Size
+             * @default 0
+             */
+            queue_size: number;
+            /** Next Brief Match Id */
+            next_brief_match_id?: string | null;
+        };
         /** IntakeMessage */
         IntakeMessage: {
             /** Id */
@@ -869,6 +951,14 @@ export interface components {
              * @default []
              */
             round_summaries: string[];
+        };
+        /** InterviewStarted */
+        InterviewStarted: {
+            /** Match Id */
+            match_id: string;
+            /** Job Id */
+            job_id: string;
+            candidate: components["schemas"]["CandidateSummary"];
         };
         /** InterviewTurn */
         InterviewTurn: {
@@ -2198,6 +2288,57 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    interview_top_demo_interview_top__user_id__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InterviewStarted"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    state_demo_state_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DemoState"];
                 };
             };
         };

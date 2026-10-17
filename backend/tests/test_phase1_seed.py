@@ -1,4 +1,4 @@
-"""Phase 1: seeded world. NOTE: resets the shared Firestore demo data."""
+"""Phase 1: seeded world. Runs on the test_ collections (see conftest.py)."""
 import json
 
 from fastapi.testclient import TestClient

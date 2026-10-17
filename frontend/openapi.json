@@ -1407,12 +1407,78 @@
         }
       }
     },
+    "/demo/interview-top/{user_id}": {
+      "post": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "Interview Top",
+        "description": "\"Run interview for top candidate now\": starts a live interview (~2 min) with the highest-ranked candidate in\n`user_id`'s queue that hasn't been interviewed yet. Poll GET /matches/{match_id}/interview for the turns.",
+        "operationId": "interview_top_demo_interview_top__user_id__post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewStarted"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/demo/state": {
+      "get": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "State",
+        "description": "Where the demo is right now: each hero's status, Focus Week day, queue size and next brief.",
+        "operationId": "state_demo_state_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoState"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/demo/new-profile": {
       "post": {
         "tags": [
           "demo"
         ],
         "summary": "New Profile",
+        "description": "\"Someone just joined\": loads a held-back profile with a `new` badge (2 available per reset). Run scout for\na hero afterwards to see them appear in the queue.",
         "operationId": "new_profile_demo_new_profile_post",
         "responses": {
           "200": {
@@ -1843,6 +1909,53 @@
           "mutual"
         ],
         "title": "DecisionResponse"
+      },
+      "DemoState": {
+        "properties": {
+          "heroes": {
+            "items": {
+              "$ref": "#/components/schemas/HeroState"
+            },
+            "type": "array",
+            "title": "Heroes"
+          },
+          "hero_match_status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "queued",
+                  "screening",
+                  "briefed",
+                  "awaiting_them",
+                  "focus_week",
+                  "locked",
+                  "closed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hero Match Status"
+          },
+          "profiles": {
+            "type": "integer",
+            "title": "Profiles"
+          },
+          "reserves_left": {
+            "type": "integer",
+            "title": "Reserves Left"
+          }
+        },
+        "type": "object",
+        "required": [
+          "heroes",
+          "profiles",
+          "reserves_left"
+        ],
+        "title": "DemoState",
+        "description": "One-glance demo panel status."
       },
       "FastForwardRequest": {
         "properties": {
@@ -2285,6 +2398,74 @@
         "type": "object",
         "title": "HardCriteriaPatch"
       },
+      "HeroState": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "onboarding",
+              "active",
+              "in_focus",
+              "locked",
+              "paused"
+            ],
+            "title": "Status"
+          },
+          "active_match_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Match Id"
+          },
+          "focus_day": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focus Day"
+          },
+          "queue_size": {
+            "type": "integer",
+            "title": "Queue Size",
+            "default": 0
+          },
+          "next_brief_match_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Brief Match Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "name",
+          "status"
+        ],
+        "title": "HeroState"
+      },
       "IntakeMessage": {
         "properties": {
           "id": {
@@ -2440,6 +2621,28 @@
           "turns"
         ],
         "title": "InterviewResponse"
+      },
+      "InterviewStarted": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "title": "Match Id"
+          },
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "candidate": {
+            "$ref": "#/components/schemas/CandidateSummary"
+          }
+        },
+        "type": "object",
+        "required": [
+          "match_id",
+          "job_id",
+          "candidate"
+        ],
+        "title": "InterviewStarted"
       },
       "InterviewTurn": {
         "properties": {
