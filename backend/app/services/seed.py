@@ -18,7 +18,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from app import models as m
-from app.db import JOBS, MATCHES, USERS, get_db, now
+from app.db import JOBS, MATCHES, USERS, delete_tree, get_db, now
 from app.llm.gemini import generate_json
 from app.services.embeddings import embed_profiles
 
@@ -253,7 +253,7 @@ async def seed_world(count: int = 20) -> int:
 def wipe_all() -> None:
     db = get_db()
     for name in (USERS, MATCHES, JOBS):
-        db.recursive_delete(db.collection(name))
+        delete_tree(db.collection(name))
 
 
 async def reset_world(count: int = 20) -> int:
