@@ -79,10 +79,13 @@ function Chat({ uid, partnerName, messages, pollError, onSend }: {
   const [draft, setDraft] = useState('')
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState<string>()
-  const end = useRef<HTMLDivElement>(null)
+  const list = useRef<HTMLDivElement>(null)
 
+  // Keep the newest message in view by scrolling the chat box only. scrollIntoView() would also scroll the
+  // whole page down to the chat, hiding the Day-7 "Time to decide" card above it.
   useEffect(() => {
-    end.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    const el = list.current
+    if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
   }, [messages.length])
 
   async function submit(e: FormEvent) {
@@ -104,7 +107,7 @@ function Chat({ uid, partnerName, messages, pollError, onSend }: {
 
   return (
     <Card className="flex flex-col p-0">
-      <div className="max-h-[50vh] min-h-48 space-y-3 overflow-y-auto p-4">
+      <div ref={list} className="max-h-[50vh] min-h-48 space-y-3 overflow-y-auto p-4">
         {messages.length === 0 && <p className="py-8 text-center text-sm text-muted">Say hello to {partnerName} — or tap a prompt above.</p>}
         {messages.map((m, i) => {
           const me = m.sender_id === uid
@@ -121,7 +124,6 @@ function Chat({ uid, partnerName, messages, pollError, onSend }: {
             </div>
           )
         })}
-        <div ref={end} />
       </div>
       {(pollError || sendError) && <p className="px-4 pb-2 text-xs text-brand-700">{sendError ? `Couldn't send that. ${sendError}` : 'Reconnecting…'}</p>}
       <form onSubmit={submit} className="flex items-center gap-2 border-t border-line p-2">

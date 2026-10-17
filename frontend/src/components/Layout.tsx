@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { api, getUserId, setUserId, type Persona } from '../api/client'
 
 // Persona IDs are stable (FRONTEND_GUIDE); used if /demo/personas is unreachable (e.g. local backend without GCP).
@@ -51,9 +51,20 @@ function navClass({ isActive }: { isActive: boolean }) {
   return isActive ? 'text-brand-600' : 'text-muted hover:text-ink'
 }
 
+/** Start every page at the top — otherwise e.g. "Jump to Day 7" on /demo lands mid-page on /focus,
+ * with the "Time to decide" card scrolled out of view. */
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [pathname])
+  return null
+}
+
 export default function Layout() {
   return (
     <div className="min-h-dvh">
+      <ScrollToTop />
       <header className="sticky top-0 z-20 border-b border-line bg-cream/90 backdrop-blur">
         <div className="mx-auto flex max-w-2xl items-center gap-6 px-4 py-3">
           <Link to="/" className="font-display text-2xl text-brand-600">
