@@ -13,8 +13,8 @@ H = {"X-User-Id": "arjun"}
 
 GETS = [
     "/health", "/users/arjun", "/users/arjun/aspects", "/users/arjun/learning",
-    "/intake/arjun/messages", "/pipeline/arjun", "/matches/m_arjun_meera/interview",
-    "/matches/m_arjun_meera/brief/arjun", "/briefs/next/arjun", "/focus/m_arjun_meera",
+    "/intake/arjun/messages", "/pipeline/arjun", "/matches/m_arjun__meera/interview",
+    "/matches/m_arjun__meera/brief/arjun", "/briefs/next/arjun", "/focus/m_arjun_meera",
     "/focus/m_arjun_meera/chat", "/demo/personas",
 ]
 

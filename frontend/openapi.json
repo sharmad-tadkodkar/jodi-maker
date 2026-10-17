@@ -576,6 +576,7 @@
           "matching"
         ],
         "summary": "Run Interview",
+        "description": "Run the 3-round matchmaker interview + briefs as a job. Poll GET /matches/{id}/interview every\n1\u20132 s to render turns live. If an interview already finished (e.g. the pre-computed Arjun\u2013Meera one),\nreturns a finished job instantly \u2014 pass `?rerun=true` to run it live again.",
         "operationId": "run_interview_matches__match_id__interview_post",
         "parameters": [
           {
@@ -585,6 +586,32 @@
             "schema": {
               "type": "string",
               "title": "Match Id"
+            }
+          },
+          {
+            "name": "rerun",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Rerun"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
             }
           }
         ],

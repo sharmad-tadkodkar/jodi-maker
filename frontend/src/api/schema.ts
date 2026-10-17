@@ -213,7 +213,12 @@ export interface paths {
         /** Get Interview */
         get: operations["get_interview_matches__match_id__interview_get"];
         put?: never;
-        /** Run Interview */
+        /**
+         * Run Interview
+         * @description Run the 3-round matchmaker interview + briefs as a job. Poll GET /matches/{id}/interview every
+         *     1–2 s to render turns live. If an interview already finished (e.g. the pre-computed Arjun–Meera one),
+         *     returns a finished job instantly — pass `?rerun=true` to run it live again.
+         */
         post: operations["run_interview_matches__match_id__interview_post"];
         delete?: never;
         options?: never;
@@ -1650,8 +1655,12 @@ export interface operations {
     };
     run_interview_matches__match_id__interview_post: {
         parameters: {
-            query?: never;
-            header?: never;
+            query?: {
+                rerun?: boolean;
+            };
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path: {
                 match_id: string;
             };

@@ -11,10 +11,34 @@ client, the compiler tells you when a page doesn't match the backend.
 | 1 Seeded world | ✅ live | personas, reset, seed, new-profile, `GET/POST /users` |
 | 2 Intake + /me | ✅ live | intake chat, aspects (edit/visibility/delete), hard criteria, delete-everything, learning history |
 | 3 Scout + pipeline | ✅ live | `POST /scout/{id}` (job), `GET /pipeline/{id}` |
-| 4 Interview + brief | ⏳ mock | interview, brief, next brief — mocks ignore the match ID, so real IDs already work |
+| 4 Interview + brief | ✅ live | `POST/GET /matches/{id}/interview`, `GET /matches/{id}/brief/{uid}`, `GET /briefs/next/{uid}` |
 | 5 Decisions + Focus Week | ⏳ mock | decision, focus, chat, simulate-response, fast-forward |
 
 ### Changelog
+
+- **Phase 4** — Interview + brief are live.
+  - **Transcript page**: after `runInterview(matchId)`, poll `getInterview(matchId)` every 1.5 s and render
+    `turns` as they arrive (they land one by one, ~5–8 s apart — it feels like watching two matchmakers talk).
+    Stop polling when `status` is `done` or `ended_dealbreaker`. A full live interview + briefs takes ~2 min.
+  - Turn fields: `round` (1 Family, 2 Candidate, 3 Closing — draw a divider when it changes), `speaker`
+    (`agent_a` | `agent_b` | `moderator`), `speaker_name` ("Arjun's matchmaker"), `highlight` (`green` | `yellow` |
+    null — highlights are added at the end of each round, so re-render existing turns on every poll).
+    `round_summaries[i]` is the summary of round i+1.
+  - `status === "ended_dealbreaker"`: last turn is from `moderator` explaining why. Show it calmly; the match
+    disappears from the pipeline.
+  - **Pre-computed**: after Reset, the Arjun–Meera interview + briefs already exist (status `done`), so
+    `runInterview` returns an instantly-finished job. To show it running live, call
+    `POST /matches/{id}/interview?rerun=true` (add a "Run live again" button on `/demo`). Other matches run live.
+  - **Brief**: `getBrief(matchId, userId)` returns **404 until it's that user's turn** — mutual consent: Meera's
+    brief about Arjun stays hidden until Arjun says Interested (Phase 5). Treat 404 as "no brief yet".
+    `getNextBrief(userId)` returns the single brief to show now, or `null` → show a calm empty state
+    ("Your matchmaker is still scouting").
+  - Brief fields: `compatibility` (0–100, show as %), `why_fit` (6 items → radar chart: `dimension`, `score`,
+    `reason`), `green_flags` / `explore` (`text` + `evidence` — show evidence as a quote under each),
+    `questions_only_you`, `family_fit` (paragraph for parents), `candidate` (header: name, age, city,
+    profession, `verified` badge).
+  - The pipeline → brief flow for the demo: Pipeline → tap top card → if `status` is `queued`, run the interview
+    (go to the transcript page) → when done, open the brief.
 
 - **Phase 3** — Real match IDs look like `m_arjun__meera` (sorted user IDs, double underscore). Use whatever
   `getPipeline` returns; never build IDs yourself. Right after **Reset demo**, Arjun's and Meera's pipelines

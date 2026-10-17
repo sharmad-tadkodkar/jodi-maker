@@ -304,15 +304,24 @@ async def reset_world(count: int = 20) -> int:
     return n
 
 
-async def precompute(count: int = 20) -> None:
-    """Run the heroes' scouts for real, then freeze the results into seed/precomputed.json."""
-    from app.services.matching import scout  # matching depends on seeded data, not vice versa
+HERO_MATCH = ("arjun", "meera")  # (requester, candidate) for the pre-computed interview
+
+
+async def precompute(count: int = 20, fresh: bool = False) -> None:
+    """Run the heroes' scouts and the Arjun–Meera interview for real, then freeze the results into
+    seed/precomputed.json. Keeps existing frozen scout scores unless `fresh` (scores drift run to run)."""
+    from app.services.interview import run_interview  # these depend on seeded data, not vice versa
+    from app.services.matching import match_id, scout
 
     wipe_all()
     await seed_world(count)
-    for hero in HERO_IDS:
-        r = await scout(hero, lambda msg: log.info("%s: %s", hero, msg))
-        log.info("%s → top %s, excluded %s", hero, r["top"], [e["name"] for e in r["excluded_dealbreakers"]])
+    if fresh or not load_precomputed():
+        for hero in HERO_IDS:
+            r = await scout(hero, lambda msg: log.info("%s: %s", hero, msg))
+            log.info("%s → top %s, excluded %s", hero, r["top"], [e["name"] for e in r["excluded_dealbreakers"]])
+    requester, cand = HERO_MATCH
+    r = await run_interview(match_id(requester, cand), requester, None, lambda msg: log.info("interview: %s", msg))
+    log.info("interview → %s", r)
     PRECOMPUTED_FILE.write_text(json.dumps({"matches": dump_matches()}, indent=2, ensure_ascii=False))
     log.info("wrote %s", PRECOMPUTED_FILE)
 
@@ -333,10 +342,11 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["generate", "load", "precompute"])
     ap.add_argument("--count", type=int, default=20)
+    ap.add_argument("--fresh", action="store_true", help="precompute: re-run scouts instead of keeping frozen scores")
     args = ap.parse_args()
     if args.cmd == "generate":
         asyncio.run(generate(args.count))
     elif args.cmd == "precompute":
-        asyncio.run(precompute(args.count))
+        asyncio.run(precompute(args.count, args.fresh))
     else:
         print("loaded", asyncio.run(reset_world(args.count)))
