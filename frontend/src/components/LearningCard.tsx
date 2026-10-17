@@ -1,5 +1,5 @@
 import type { LearningResult } from '../api/client'
-import { DIMENSION_LABEL, DIMENSIONS } from '../lib/format'
+import { ASPECT_LABEL, DIMENSION_LABEL, DIMENSIONS } from '../lib/format'
 import { Card } from './ui'
 
 /** "What I learned about you" — shown after a Pass / Stop (spec §4.7). Weights are 0–1 shares of attention. */
@@ -35,10 +35,16 @@ export default function LearningCard({ learning }: { learning: LearningResult })
         })}
       </div>
 
-      {learning.moved_up > 0 && (
-        <p className="text-sm text-muted">
-          {learning.moved_up} {learning.moved_up === 1 ? 'person' : 'people'} moved up in your queue.
-        </p>
+      {/* The explanation already says "I've moved N candidates up" when that happened (FRONTEND_GUIDE). */}
+      {learning.new_aspects && learning.new_aspects.length > 0 && (
+        <div className="space-y-1.5 border-t border-line pt-3">
+          <p className="text-xs font-medium text-muted">Also noted on your profile</p>
+          {learning.new_aspects.map((a) => (
+            <p key={a.id} className="text-sm">
+              <span className="text-gold-700">✦ {ASPECT_LABEL[a.category]}:</span> {a.statement}
+            </p>
+          ))}
+        </div>
       )}
     </Card>
   )

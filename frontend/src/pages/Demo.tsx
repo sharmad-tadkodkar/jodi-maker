@@ -1,13 +1,21 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { api, getUserId, setUserId, waitForJob } from '../api/client'
+import { api, getUserId, setUserId, waitForJob, type DemoState } from '../api/client'
 import { Button, Card, Chip, ErrorState, Loading, PageHeader, SectionTitle } from '../components/ui'
-import { STATUS } from '../lib/format'
+import { firstName, STATUS } from '../lib/format'
 import { rawError, useAsync } from '../lib/useAsync'
 
-/** Hidden route (spec §4.9) — not in the nav. Controls for recording the demo video. */
+/** Hidden route (spec §4.9, FRONTEND_GUIDE Phase 6) — not in the nav. Controls for recording the demo video. */
 
 type LogEntry = { id: number; ok: boolean; text: ReactNode }
+
+const USER_STATUS: Record<string, string> = {
+  onboarding: 'Onboarding',
+  active: 'Searching',
+  in_focus: 'In Focus Week',
+  locked: 'Moving forward',
+  paused: 'Paused',
+}
 
 function Section({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
   return (
@@ -15,6 +23,50 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
       <SectionTitle>{title}</SectionTitle>
       {hint && <p className="-mt-2 mb-3 text-xs text-muted">{hint}</p>}
       <div className="flex flex-wrap gap-2">{children}</div>
+    </Card>
+  )
+}
+
+/** One-glance status, refreshed every 3 s. */
+function StatusStrip() {
+  const [state, setState] = useState<DemoState>()
+  useEffect(() => {
+    let live = true
+    let timer: ReturnType<typeof setTimeout>
+    async function poll() {
+      try {
+        const s = await api.demoState()
+        if (live) setState(s)
+      } catch {
+        /* keep the last good state */
+      }
+      if (live) timer = setTimeout(poll, 3000)
+    }
+    poll()
+    return () => {
+      live = false
+      clearTimeout(timer)
+    }
+  }, [])
+  if (!state) return null
+  return (
+    <Card className="space-y-3 bg-sand/50">
+      <div className="grid gap-2 sm:grid-cols-2">
+        {state.heroes.map((h) => (
+          <div key={h.user_id} className="rounded-xl bg-white px-3 py-2 text-xs">
+            <p className="text-sm font-medium">{h.name}</p>
+            <p className="text-muted">
+              {USER_STATUS[h.status] ?? h.status}
+              {h.focus_day != null && ` · Day ${h.focus_day}`} · {h.queue_size} in queue
+              {h.next_brief_match_id && ' · brief waiting'}
+            </p>
+          </div>
+        ))}
+      </div>
+      <p className="text-xs text-muted">
+        Hero match: {state.hero_match_status ? STATUS[state.hero_match_status].label : '—'} · {state.profiles} profiles ·{' '}
+        {state.reserves_left} new joiners left
+      </p>
     </Card>
   )
 }
@@ -32,13 +84,15 @@ export default function Demo() {
   }, [uid])
   const [matchId, setMatchId] = useState<string>()
   const [busy, setBusy] = useState<string>()
+  const [progress, setProgress] = useState<string>()
   const [log, setLog] = useState<LogEntry[]>([])
-  const [confirmReset, setConfirmReset] = useState(false)
+  const [confirm, setConfirm] = useState<'soft' | 'full'>()
 
   const items = data?.pipeline?.items ?? []
   // Default target: the active Focus Week match, else the top of the pipeline.
   const target = matchId ?? data?.user?.active_match_id ?? items[0]?.match_id
   const targetItem = items.find((i) => i.match_id === target)
+  const them = targetItem ? firstName(targetItem.candidate.display_name) : 'They'
 
   async function act(label: string, fn: () => Promise<ReactNode>) {
     setBusy(label)
@@ -46,27 +100,37 @@ export default function Demo() {
       const text = await fn()
       setLog((l) => [{ id: Date.now(), ok: true, text }, ...l])
     } catch (e) {
-      setLog((l) => [{ id: Date.now(), ok: false, text: `${label} failed: ${rawError(e)}` }, ...l])
+      setLog((l) => [{ id: Date.now(), ok: false, text: `${label}: ${rawError(e)}` }, ...l])
     } finally {
       setBusy(undefined)
+      setProgress(undefined)
     }
   }
 
   if (loading && !data) return <Loading />
   if (error || !data) return <ErrorState error={error ?? 'Your matchmaker hit a snag — please try again.'} onRetry={reload} />
 
-  const needsTarget = !target
   const btn = (label: string, fn: () => Promise<ReactNode>, variant: 'primary' | 'secondary' = 'secondary', disabled = false) => (
-    <Button variant={variant} busy={busy === label} disabled={(busy !== undefined && busy !== label) || disabled} onClick={() => act(label, fn)}>
+    <Button key={label} variant={variant} busy={busy === label} disabled={(busy !== undefined && busy !== label) || disabled} onClick={() => act(label, fn)}>
       {label}
     </Button>
   )
+
+  const reset = async (soft: boolean) => {
+    await api.reset(soft)
+    setConfirm(undefined)
+    setMatchId(undefined)
+    reload()
+    return soft ? 'Soft reset — matches and heroes back to their starting state.' : 'Full reset — fresh seeded world.'
+  }
 
   return (
     <section className="space-y-5">
       <PageHeader eyebrow="Demo controls" title="Director's panel">
         Hidden route for recording the video. Actions here change the shared demo data.
       </PageHeader>
+
+      <StatusStrip />
 
       <Card>
         <SectionTitle>Viewing as</SectionTitle>
@@ -111,83 +175,96 @@ export default function Demo() {
         )}
       </Card>
 
-      <Section title="Matching" hint="Runs for the current persona.">
+      <Section title="Matching" hint="Runs for the current persona. A live interview takes about 2 minutes.">
         {btn(
           'Run scout now',
           async () => {
+            setProgress('Starting…')
             const { job_id } = await api.runScout(uid)
-            await waitForJob(job_id)
+            await waitForJob(job_id, (j) => j.progress && setProgress(j.progress))
             reload()
             return <>Scout finished. <Link className="underline" to="/pipeline">Open pipeline</Link></>
           },
           'primary',
         )}
+        {btn('Interview top candidate', async () => {
+          const r = await api.interviewTop(uid)
+          navigate(`/brief/${r.match_id}/transcript`)
+          return `Interviewing ${r.candidate.display_name} live.`
+        })}
         {btn(
-          'Run interview',
+          'Replay target interview live',
           async () => {
-            const { job_id } = await api.runInterview(target!)
-            await waitForJob(job_id)
-            return <>Interview done. <Link className="underline" to={`/brief/${target}/transcript`}>Watch transcript</Link></>
+            await api.rerunInterview(target!)
+            navigate(`/brief/${target}/transcript`)
+            return 'Re-running the interview live.'
           },
           'secondary',
-          needsTarget,
+          !target,
         )}
+        {busy === 'Run scout now' && progress && <p className="basis-full text-xs text-muted">{progress}</p>}
       </Section>
 
-      <Section title="Their response" hint={targetItem ? `Simulate ${targetItem.candidate.display_name} answering the brief.` : undefined}>
+      <Section title="Their response" hint={targetItem ? `${targetItem.candidate.display_name} answers their brief (after you said Interested).` : undefined}>
         {(['interested', 'pass'] as const).map((d) =>
           btn(
-            d === 'interested' ? 'They say yes' : 'They pass',
+            `${them} says ${d === 'interested' ? 'Interested' : 'Pass'}`,
             async () => {
-              const r = await api.simulateResponse(target!, targetItem?.candidate.user_id ?? '', d)
+              const r = await api.simulateResponse(target!, targetItem!.candidate.user_id, d)
               if (r.mutual) {
                 navigate(`/mutual/${target}`)
                 return "It's mutual — opening the mutual screen."
               }
-              return d === 'pass' ? 'They passed (you will never be told).' : 'Response recorded — not mutual yet.'
+              return d === 'pass' ? `${them} passed (the app never tells you).` : 'Response recorded — not mutual yet.'
             },
             d === 'interested' ? 'primary' : 'secondary',
-            needsTarget || !targetItem,
+            !targetItem,
           ),
         )}
       </Section>
 
-      <Section title="Focus Week">
-        {[4, 7].map((day) =>
+      <Section title="Focus Week" hint="Fast-forward the target match. “Time runs out” shows the week auto-closing.">
+        {[
+          { label: 'Jump to Day 4', day: () => Promise.resolve(4) },
+          { label: 'Jump to Day 7', day: () => Promise.resolve(7) },
+          // One past the end — total_days is 14 if the week was extended.
+          { label: 'Time runs out', day: async () => (await api.getFocus(target!)).total_days + 1 },
+        ].map(({ label, day }) =>
           btn(
-            `Jump to Day ${day}`,
+            label,
             async () => {
-              await api.fastForward(target!, day)
+              const s = await api.fastForward(target!, await day())
               navigate(`/focus/${target}`)
-              return `Fast-forwarded to Day ${day}.`
+              return s.status === 'closed' ? 'Time ran out — the Focus Week closed.' : `Now on Day ${s.day} of ${s.total_days}.`
             },
             'secondary',
-            needsTarget,
+            !target,
           ),
         )}
       </Section>
 
-      <Section title="World" hint="Someone new joins, or start the whole demo over.">
-        {btn('Add a new profile', async () => {
+      <Section title="World" hint="Someone new joins (then run scout to see the “New” badge), or reset between takes.">
+        {btn('Someone just joined', async () => {
           const c = await api.newProfile()
           return `${c.display_name} just joined (${[c.age, c.city, c.profession].filter(Boolean).join(' · ')}).`
         })}
-        {confirmReset ? (
-          <span className="flex flex-wrap items-center gap-2 text-sm">
-            Wipes and reseeds data for everyone.
-            <Button variant="ghost" onClick={() => setConfirmReset(false)}>Cancel</Button>
-            {btn('Yes, reset demo', async () => {
-              await api.reset()
-              setConfirmReset(false)
-              setMatchId(undefined)
-              reload()
-              return 'Demo reset — fresh seeded world.'
-            }, 'primary')}
+        {confirm ? (
+          <span className="flex basis-full flex-wrap items-center gap-2 text-sm">
+            {confirm === 'soft' ? 'Restore matches and heroes for everyone?' : 'Wipe and reseed everything (~20 s) for everyone?'}
+            <Button variant="ghost" onClick={() => setConfirm(undefined)}>
+              Cancel
+            </Button>
+            {btn(confirm === 'soft' ? 'Yes, soft reset' : 'Yes, full reset', () => reset(confirm === 'soft'), 'primary')}
           </span>
         ) : (
-          <Button variant="secondary" className="text-brand-700" disabled={busy !== undefined} onClick={() => setConfirmReset(true)}>
-            Reset demo…
-          </Button>
+          <>
+            <Button variant="secondary" disabled={busy !== undefined} onClick={() => setConfirm('soft')}>
+              Soft reset (~2 s)
+            </Button>
+            <Button variant="secondary" className="text-brand-700" disabled={busy !== undefined} onClick={() => setConfirm('full')}>
+              Full reset…
+            </Button>
+          </>
         )}
       </Section>
 

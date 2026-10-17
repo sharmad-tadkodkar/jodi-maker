@@ -1,13 +1,40 @@
 import { useCallback, useEffect, useState, type DependencyList } from 'react'
 
-/** Raw error text — for the hidden demo panel and the console only. */
+/** For the hidden demo panel: the backend's detail if there is one, else the raw text. */
 export function rawError(e: unknown): string {
-  return e instanceof Error ? e.message : String(e)
+  return apiDetail(e) ?? (e instanceof Error ? e.message : String(e))
 }
 
-/** What users see: always calm, never raw server text (FRONTEND_GUIDE). The raw error goes to the console. */
+// client.ts throws `Error("<METHOD> <path> → <status>: <body>")`; FastAPI bodies look like {"detail": "..."}.
+const API_ERROR = /→ (\d{3}): ([\s\S]*)$/
+
+/** HTTP status of a failed API call, if it was one. */
+export function httpStatus(e: unknown): number | undefined {
+  const m = e instanceof Error ? API_ERROR.exec(e.message) : null
+  return m ? Number(m[1]) : undefined
+}
+
+/** The backend's `detail` message for a failed call (409s etc. are written for humans). */
+export function apiDetail(e: unknown): string | undefined {
+  const m = e instanceof Error ? API_ERROR.exec(e.message) : null
+  if (!m) return undefined
+  try {
+    const d = JSON.parse(m[2]).detail
+    return typeof d === 'string' ? d : undefined
+  } catch {
+    return undefined
+  }
+}
+
+/**
+ * What users see: always calm, never raw server text (FRONTEND_GUIDE). 403/409 carry a human-readable
+ * `detail` ("The decision opens on Day 7…"), so those are shown; everything else gets a calm generic line.
+ */
 export function errorMessage(e: unknown): string {
   console.error(e)
+  const status = httpStatus(e)
+  const detail = apiDetail(e)
+  if ((status === 403 || status === 409) && detail) return detail
   return e instanceof TypeError
     ? "Can't reach your matchmaker right now — check your connection and try again."
     : 'Your matchmaker hit a snag — please try again.'

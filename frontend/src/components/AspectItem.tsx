@@ -59,7 +59,7 @@ export default function AspectItem({ aspect, onPatch, onDelete }: Props) {
           <p className="text-xs italic text-muted">{aspect.evidence}</p>
           <p className="text-[11px] text-muted">
             {confidenceLabel(aspect.confidence)} · {Math.round(aspect.confidence * 100)}%
-            {aspect.source && aspect.source !== 'intake' && ` · from ${aspect.source.replace(/^upload:/, '')}`}
+            {aspect.source === 'learned' ? ' · learned from your decisions' : aspect.source && aspect.source !== 'intake' && ` · from ${aspect.source.replace(/^upload:/, '')}`}
           </p>
         </div>
       )}

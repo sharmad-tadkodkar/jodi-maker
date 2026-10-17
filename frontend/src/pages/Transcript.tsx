@@ -134,7 +134,7 @@ export default function Transcript() {
   const finished = !running && !revealing
   const visible = turns.slice(0, shown)
   const next = turns[shown]
-  const typingName = next?.speaker_name ?? 'The matchmakers'
+  const typingName = next?.speaker_name ?? 'Your matchmaker'
 
   return (
     <section>
@@ -162,7 +162,10 @@ export default function Transcript() {
           )
         })}
 
-        {(revealing || running) && <Typing name={typingName} />}
+        {revealing && <Typing name={typingName} />}
+        {running && !revealing && turns.length > 0 && (
+          <p role="status" className="text-xs text-muted">The matchmakers are still talking — new lines appear as they speak…</p>
+        )}
         {running && turns.length === 0 && (
           <p className="text-center text-sm text-muted">The matchmakers are getting started…</p>
         )}

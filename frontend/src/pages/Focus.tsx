@@ -5,7 +5,7 @@ import LearningCard from '../components/LearningCard'
 import ReasonSheet from '../components/ReasonSheet'
 import { Avatar, Button, Card, ErrorState, Loading, SectionTitle, VerifiedBadge } from '../components/ui'
 import { firstName } from '../lib/format'
-import { errorMessage, useAsync } from '../lib/useAsync'
+import { errorMessage, httpStatus, useAsync } from '../lib/useAsync'
 
 const CHAT_POLL_MS = 2000
 
@@ -33,11 +33,12 @@ function DayCounter({ day, total }: { day: number; total: number }) {
   )
 }
 
-/** Chat polls every 2s. Messages we sent stay visible until the server list includes them. */
+/** Chat polls every 2s. Messages we sent stay visible until the server list includes them. 403 = chat not open. */
 function useChat(matchId: string) {
   const [server, setServer] = useState<ChatMessage[]>([])
   const [mine, setMine] = useState<ChatMessage[]>([])
   const [error, setError] = useState<string>()
+  const [closed, setClosed] = useState(false)
   useEffect(() => {
     let live = true
     let timer: ReturnType<typeof setTimeout>
@@ -49,6 +50,10 @@ function useChat(matchId: string) {
           setError(undefined)
         }
       } catch (e) {
+        if (live && httpStatus(e) === 403) {
+          setClosed(true)
+          return
+        }
         if (live) setError(errorMessage(e))
       }
       if (live) timer = setTimeout(poll, CHAT_POLL_MS)
@@ -61,7 +66,7 @@ function useChat(matchId: string) {
   }, [matchId])
   const ids = new Set(server.map((m) => m.id))
   const messages = [...server, ...mine.filter((m) => !ids.has(m.id))]
-  return { messages, error, add: (m: ChatMessage) => setMine((s) => [...s, m]) }
+  return { messages, error, closed, add: (m: ChatMessage) => setMine((s) => [...s, m]) }
 }
 
 function Chat({ uid, partnerName, messages, pollError, onSend }: {
@@ -135,6 +140,7 @@ function Chat({ uid, partnerName, messages, pollError, onSend }: {
   )
 }
 
+/** Stop works any day; Continue / Extend only on the last day (the backend 409s before that). */
 function Decision({ focus, uid, onDecided }: { focus: FocusState; uid: string; onDecided: (r: FocusDecisionResponse) => void }) {
   const [stopping, setStopping] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -153,16 +159,31 @@ function Decision({ focus, uid, onDecided }: { focus: FocusState; uid: string; o
     }
   }
 
+  const lastDay = focus.day >= focus.total_days
   if (stopping) {
     return (
-      <ReasonSheet
-        title={`What made you decide to stop with ${them}?`}
-        hint={`${them} only learns that the week has ended — never your reason. It helps Jodi find someone better suited.`}
-        submitLabel="End Focus Week"
-        busy={busy}
-        onCancel={() => setStopping(false)}
-        onSubmit={(r) => decide('stop', r)}
-      />
+      <div className="space-y-2">
+        {busy && <p role="status" className="text-center text-sm text-muted">Your matchmaker is thinking about this…</p>}
+        <ReasonSheet
+          title={`What made you decide to stop with ${them}?`}
+          hint={`${them} only learns that the week has ended — never your reason. It helps Jodi find someone better suited.`}
+          submitLabel="End Focus Week"
+          busy={busy}
+          onCancel={() => setStopping(false)}
+          onSubmit={(r) => decide('stop', r)}
+        />
+        {error && <p className="text-center text-xs text-brand-700">{error}</p>}
+      </div>
+    )
+  }
+  if (!lastDay) {
+    return (
+      <p className="text-center text-xs text-muted">
+        Your decision opens on Day {focus.total_days}. Until then, just get to know {them}.{' '}
+        <button type="button" className="underline hover:text-ink" onClick={() => setStopping(true)}>
+          End it early
+        </button>
+      </p>
     )
   }
   return (
@@ -192,14 +213,35 @@ function Decision({ focus, uid, onDecided }: { focus: FocusState; uid: string; o
   )
 }
 
+function Moving({ them }: { them: string }) {
+  return (
+    <Card className="space-y-2 text-center">
+      <p className="text-3xl" aria-hidden>🎉</p>
+      <p className="font-display text-2xl">We're moving forward</p>
+      <p className="text-sm text-muted">You and {them} both chose each other. Jodi has stopped searching — wishing you both the very best.</p>
+    </Card>
+  )
+}
+
+function Ended({ them }: { them: string }) {
+  return (
+    <Card className="space-y-3 text-center">
+      <p className="font-display text-xl">This Focus Week has ended</p>
+      <p className="text-sm text-muted">Your time with {them} is over — nobody is left waiting. Your matchmaker is ready with someone new.</p>
+      <Link to="/brief" className="inline-block text-sm font-medium text-brand-600 hover:underline">
+        See my next brief →
+      </Link>
+    </Card>
+  )
+}
+
 function Outcome({ result, them, onReset }: { result: FocusDecisionResponse; them: string; onReset: () => void }) {
   if (result.outcome === 'locked') {
     return (
-      <Card className="space-y-2 text-center">
-        <p className="text-3xl" aria-hidden>💛</p>
-        <p className="font-display text-2xl">You're moving forward with {them}</p>
-        <p className="text-sm text-muted">Jodi has paused your search. Wishing you both the very best — your families can take it from here.</p>
-      </Card>
+      <div className="space-y-4">
+        <Moving them={them} />
+        {result.learning && <LearningCard learning={result.learning} />}
+      </div>
     )
   }
   if (result.outcome === 'closed') {
@@ -231,7 +273,11 @@ function Outcome({ result, them, onReset }: { result: FocusDecisionResponse; the
 export default function Focus() {
   const { matchId = '' } = useParams()
   const uid = getUserId()
-  const { data: focus, error, loading, reload } = useAsync(() => api.getFocus(matchId), [matchId])
+  // 404 = no Focus Week for this match (it only starts once both say Interested).
+  const { data: focus, error, loading, reload } = useAsync(
+    () => api.getFocus(matchId).catch((e) => (httpStatus(e) === 404 ? null : Promise.reject(e))),
+    [matchId],
+  )
   const chat = useChat(matchId)
   const [used, setUsed] = useState<string[]>([])
   const [sendingPrompt, setSendingPrompt] = useState<string>()
@@ -256,11 +302,23 @@ export default function Focus() {
   }
 
   if (loading && !focus) return <Loading label="Opening your Focus Week…" />
-  if (error || !focus) return <ErrorState error={error ?? 'Your matchmaker hit a snag — please try again.'} onRetry={reload} />
+  if (error) return <ErrorState error={error} onRetry={reload} />
+  if (!focus) {
+    return (
+      <Card className="space-y-3 text-center">
+        <p className="font-display text-xl">No Focus Week here yet</p>
+        <p className="text-sm text-muted">A Focus Week starts once you both say Interested.</p>
+        <Link to={`/brief/${matchId}`} className="inline-block text-sm font-medium text-brand-600 hover:underline">
+          Back to the brief →
+        </Link>
+      </Card>
+    )
+  }
 
   const p = focus.partner
   const them = firstName(p.display_name)
-  const decisionDay = focus.day >= focus.total_days
+  const active = focus.status === 'focus_week'
+  const lastDay = focus.day >= focus.total_days
   const facts = [p.age, p.city, p.profession].filter(Boolean).join(' · ')
 
   return (
@@ -281,15 +339,19 @@ export default function Focus() {
 
       {result ? (
         <Outcome result={result} them={them} onReset={() => { setResult(undefined); reload() }} />
+      ) : focus.status === 'locked' ? (
+        <Moving them={them} />
+      ) : !active ? (
+        <Ended them={them} />
       ) : focus.decision_me ? (
         <Card className="text-center text-sm text-muted">
           You chose to <span className="font-medium text-ink">{focus.decision_me}</span>. Waiting for {them} to decide.
         </Card>
       ) : (
-        decisionDay && <Decision focus={focus} uid={uid} onDecided={setResult} />
+        lastDay && <Decision focus={focus} uid={uid} onDecided={setResult} />
       )}
 
-      {focus.deck_today.length > 0 && (
+      {active && !result && focus.deck_today.length > 0 && (
         <div>
           <SectionTitle>Today's prompts</SectionTitle>
           <p className="-mt-2 mb-3 text-xs text-muted">{deckTheme(focus.day)} · tap one to ask {them}</p>
@@ -316,14 +378,14 @@ export default function Focus() {
         </div>
       )}
 
-      <div>
-        <SectionTitle>Chat with {them}</SectionTitle>
-        <Chat uid={uid} partnerName={them} messages={chat.messages} pollError={chat.error} onSend={send} />
-      </div>
-
-      {!decisionDay && !result && (
-        <p className="text-center text-xs text-muted">Your Day {focus.total_days} decision opens on the last day. Until then, just get to know {them}.</p>
+      {active && !chat.closed && (
+        <div>
+          <SectionTitle>Chat with {them}</SectionTitle>
+          <Chat uid={uid} partnerName={them} messages={chat.messages} pollError={chat.error} onSend={send} />
+        </div>
       )}
+
+      {active && !result && !focus.decision_me && !lastDay && <Decision focus={focus} uid={uid} onDecided={setResult} />}
     </section>
   )
 }

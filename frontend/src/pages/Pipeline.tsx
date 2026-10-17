@@ -15,6 +15,7 @@ type ScoutSummary = {
   queue_size?: number
   top?: string[]
   excluded_dealbreakers?: { name: string; reason: string }[]
+  paused?: boolean // in a Focus Week: scout is a no-op
 }
 
 function ScoutSummaryCard({ s, onClose }: { s: ScoutSummary; onClose: () => void }) {
@@ -126,7 +127,8 @@ export default function Pipeline() {
     try {
       const { job_id } = await api.runScout(uid)
       const job: Job = await waitForJob(job_id, (j) => j.progress && setProgress(j.progress))
-      if (job.result) setSummary(job.result as ScoutSummary)
+      const result = job.result as ScoutSummary | null | undefined
+      if (result && !result.paused) setSummary(result)
       reload()
     } catch (e) {
       setScoutError(errorMessage(e))

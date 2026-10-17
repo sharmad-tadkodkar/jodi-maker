@@ -6,7 +6,7 @@ import LearningCard from '../components/LearningCard'
 import ReasonSheet from '../components/ReasonSheet'
 import { Avatar, Button, Card, ErrorState, Loading, SectionTitle, VerifiedBadge } from '../components/ui'
 import { DIMENSION_LABEL, firstName, pct } from '../lib/format'
-import { errorMessage, useAsync } from '../lib/useAsync'
+import { errorMessage, httpStatus, useAsync } from '../lib/useAsync'
 
 type Phase = 'reading' | 'passing' | 'learned' | 'waiting'
 
@@ -101,13 +101,50 @@ function BriefBody({ brief }: { brief: BriefT }) {
   )
 }
 
+function noBriefYet(e: unknown): null {
+  if (httpStatus(e) === 404) return null
+  throw e
+}
+
+/** Empty state: in a Focus Week (queue paused), a match not yet interviewed, or nothing new. */
+function NoBrief({ matchId }: { matchId?: string }) {
+  const uid = getUserId()
+  const { data: user } = useAsync(() => api.getUser(uid).catch(() => null), [uid])
+  const link = 'inline-block text-sm font-medium text-brand-600 hover:underline'
+  if (user?.status === 'in_focus' && user.active_match_id) {
+    return (
+      <Card className="space-y-3 text-center">
+        <p className="font-display text-xl">You're in a Focus Week</p>
+        <p className="text-sm text-muted">New briefs are paused so you can give this one your full attention.</p>
+        <Link to={`/focus/${user.active_match_id}`} className={link}>
+          Back to your Focus Week →
+        </Link>
+      </Card>
+    )
+  }
+  return (
+    <Card className="space-y-3 text-center">
+      <p className="font-display text-xl">{matchId ? 'No brief for this match yet' : 'No new brief right now'}</p>
+      <p className="text-sm text-muted">
+        {matchId
+          ? "Your matchmaker writes the brief after talking with theirs."
+          : "Your matchmaker is still scouting. I'll bring you someone when they're worth your time."}
+      </p>
+      <Link to={matchId ? `/brief/${matchId}/transcript` : '/pipeline'} className={link}>
+        {matchId ? 'Let the matchmakers talk →' : 'See your pipeline →'}
+      </Link>
+    </Card>
+  )
+}
+
 /** /brief → the next brief in the queue; /brief/:matchId → a specific one. */
 export default function Brief() {
   const { matchId } = useParams()
   const uid = getUserId()
   const navigate = useNavigate()
   const { data: brief, error, loading, reload } = useAsync<BriefT | null>(
-    () => (matchId ? api.getBrief(matchId, uid) : api.getNextBrief(uid)),
+    // 404 = not this user's turn yet (mutual consent) — treat as "no brief yet", not an error.
+    () => (matchId ? api.getBrief(matchId, uid).catch(noBriefYet) : api.getNextBrief(uid)),
     [matchId, uid],
   )
   const [phase, setPhase] = useState<Phase>('reading')
@@ -148,17 +185,7 @@ export default function Brief() {
 
   if (loading && !brief) return <Loading label="Opening your brief…" />
   if (error) return <ErrorState error={error} onRetry={reload} />
-  if (!brief) {
-    return (
-      <Card className="space-y-3 text-center">
-        <p className="font-display text-xl">No new brief right now</p>
-        <p className="text-sm text-muted">Jodi is still scouting and talking to other matchmakers. I'll bring you someone when they're worth your time.</p>
-        <Link to="/pipeline" className="inline-block text-sm font-medium text-brand-600 hover:underline">
-          See your pipeline →
-        </Link>
-      </Card>
-    )
-  }
+  if (!brief) return <NoBrief matchId={matchId} />
 
   const name = firstName(brief.candidate.display_name)
 
@@ -197,6 +224,11 @@ export default function Brief() {
       <BriefBody brief={brief} />
 
       {actionError && <p className="rounded-xl bg-brand-50 p-3 text-sm text-brand-700">{actionError}</p>}
+      {busy && (
+        <p role="status" className="text-center text-sm text-muted">
+          Your matchmaker is thinking about this…
+        </p>
+      )}
 
       <div className="sticky bottom-16 z-10 sm:bottom-4">
         {phase === 'passing' ? (

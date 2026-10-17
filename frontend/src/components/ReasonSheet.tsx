@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { Button, Card } from './ui'
 
-/** One-tap reason chips (+ "other" free text). Value sent is the chip value or "other: <text>". */
+/** One-tap reason chips (+ "other" free text). Values are what the backend expects (FRONTEND_GUIDE Phase 5). */
 const REASONS = [
   { value: 'values', label: 'Values' },
   { value: 'family', label: 'Family' },
   { value: 'lifestyle', label: 'Lifestyle' },
   { value: 'location', label: 'Location' },
   { value: 'career', label: 'Career' },
-  { value: 'not_feeling_it', label: 'Just not feeling it' },
+  { value: 'just not feeling it', label: 'Just not feeling it' },
   { value: 'other', label: 'Other' },
 ]
 
