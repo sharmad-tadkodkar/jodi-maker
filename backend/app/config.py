@@ -11,9 +11,9 @@ class Settings(BaseSettings):
 
     # Model IDs live here so we can swap without touching code (spec §8).
     model_fast: str = "gemini-3.5-flash"
-    model_fast_fallback: str = "gemini-2.5-flash"
+    model_fast_fallback: str = "gemini-3.5-flash-lite"
     model_smart: str = "gemini-3.1-pro-preview"
-    model_smart_fallback: str = "gemini-2.5-pro"
+    model_smart_fallback: str = "gemini-3.6-flash"
     model_embedding: str = "text-multilingual-embedding-002"
     embedding_dim: int = 768
 

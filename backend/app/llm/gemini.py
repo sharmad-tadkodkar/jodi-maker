@@ -57,6 +57,12 @@ def _models_for(tier: str) -> list[str]:
     return [s.model_fast, s.model_fast_fallback]
 
 
+def _retryable(err: Exception) -> bool:
+    """404 / 400 / 403 won't fix themselves — skip straight to the fallback model."""
+    msg = str(err)
+    return not any(code in msg for code in ("404 NOT_FOUND", "400 INVALID_ARGUMENT", "403 PERMISSION_DENIED"))
+
+
 async def _backoff(attempt: int, err: Exception) -> None:
     """Exponential backoff with jitter; longer on 429s (new projects have small Vertex quotas)."""
     base = 2.0 if "429" in str(err) or "RESOURCE_EXHAUSTED" in str(err) else 0.5
@@ -93,7 +99,9 @@ async def generate_json(
                 return schema.model_validate(json.loads(resp.text))
             except Exception as e:  # noqa: BLE001 — retry on anything (incl. timeouts), log and move on
                 last_err = e
-                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, e)
+                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200])
+                if not _retryable(e):
+                    break
                 await _backoff(attempt, e)
     raise RuntimeError(f"Gemini call failed after retries: {last_err}")
 
@@ -114,7 +122,9 @@ async def generate_text(
                 return (resp.text or "").strip()
             except Exception as e:  # noqa: BLE001
                 last_err = e
-                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, e)
+                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200])
+                if not _retryable(e):
+                    break
                 await _backoff(attempt, e)
     raise RuntimeError(f"Gemini call failed after retries: {last_err}")
 
