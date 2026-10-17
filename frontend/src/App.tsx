@@ -1,20 +1,16 @@
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
-import { API_URL } from './api/client'
 import Layout from './components/Layout'
 import Brief from './pages/Brief'
 import Demo from './pages/Demo'
 import Focus from './pages/Focus'
+import Landing from './pages/Landing'
 import Me from './pages/Me'
 import Mutual from './pages/Mutual'
 import Onboard from './pages/Onboard'
 import Pipeline from './pages/Pipeline'
-import Placeholder from './pages/Placeholder'
 import Transcript from './pages/Transcript'
 
-/**
- * Routes from spec §5. Onboard, Me, Pipeline, Brief, Transcript, Mutual, Focus and Demo are real screens; the rest are Placeholder pages that
- * render the raw response until their screen is built.
- */
+/** Routes from spec §5. /demo is hidden (not in the nav); /brief shows the next brief in the queue. */
 
 // Keyed by matchId so each brief starts with fresh decision state.
 function BriefRoute() {
@@ -27,7 +23,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Placeholder title="Jodi — health check" load={() => fetch(`${API_URL}/health`).then((r) => r.json())} />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/onboard" element={<Onboard />} />
           <Route path="/me" element={<Me />} />
           <Route path="/pipeline" element={<Pipeline />} />
