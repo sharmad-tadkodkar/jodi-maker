@@ -13,7 +13,7 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 | — Model lineup refresh (drop Gemini 2.5) | | –18:30 | ✅ |
 | 3 Scout + pipeline | –19:10 | –18:47 | ✅ |
 | 4 Interview + Match Brief | –20:00 | 18:55–19:35 | ✅ |
-| 5 Mutual consent + Focus Week + learning loop | –20:45 | | ⏳ |
+| 5 Mutual consent + Focus Week + learning loop | –20:45 | 19:40–20:15 | ✅ |
 | 6 Demo panel endpoints + polish | –21:00 | | ⏳ |
 | Deploy window: Firebase Hosting, end-to-end on prod, scale seed to 60 | 21:00–23:00 | | ⏳ |
 | Sat: video, deck, submit (target ~4 PM, buffer to 6 PM) | | | ⏳ |
@@ -60,6 +60,21 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 - Fixed: agents stating agent_only details near-verbatim; heroes lacked a "doesn't smoke" fact (agent honestly
   said "I don't know" — correct behaviour, awkward for the demo).
 
+### Phase 5 — Mutual consent + Focus Week + learning loop ✅
+- Interested / Pass with consent order: the other side's brief unlocks only after the requester says Interested;
+  a Pass closes the match quietly (never revealed). Two Interested → "It's mutual" → Focus Week.
+- Focus Week: exclusivity (both `in_focus`, queues paused, invisible to everyone else's scouting), chat (only after
+  mutual), personalised 7-day deck from both briefs (practical → hard topics → personal; pre-computed for the
+  heroes), Day-7 decision: Stop any day (reason → learning), both Continue → `locked`, any Extend → +7 days once.
+- Learning loop on Pass / Stop / Continue: Gemini proposes new weights + learned aspects + one-line explanation;
+  clamped ±0.1 per dimension, normalised; queue re-ranks instantly ("I've moved 1 candidate up"). No-LLM
+  fallback so a decision never fails. Logged to `learning_log` (shown on /me).
+- Fairness, evaluated lazily on read: unanswered brief expires after 72 h; a Focus Week past its end auto-closes.
+- Demo: `simulate-response`, `fast-forward` (day = total+1 demos auto-close), **soft reset ≈ 2 s** (was 15–20 s).
+- Mocks removed — every endpoint is real. 34 tests pass.
+- Fixed: deck prompts written in one person's voice ("I love cooking…") and one touching past relationships →
+  prompts are now sender-neutral, with a banned-topics list; learning explanations overclaimed ("absolute priority").
+
 ## Key decisions
 
 | Decision | Why |
@@ -69,10 +84,11 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 | Embeddings `text-multilingual-embedding-002` (768-d) | Handles Hinglish |
 | No Provisioned Throughput | ≥ ~$1,200/week; retries, timeouts, fallbacks and the pre-computed demo path cover the risk |
 | P1s cut (Parent Mode, uploads, Ask-their-matchmaker, coach, check-in, family view) | Fit the build into ~4 h; shown as roadmap in the deck |
+| Fairness/expiry evaluated lazily on read (no scheduler) | Nothing extra to deploy; demo fast-forward just moves `focus_start` |
 | Seed 20 profiles now, scale to 60 later | `uv run python -m app.services.seed generate --count 60` |
 
 ## Open items / risks
 
-- Demo reset takes ~15 s on Cloud Run — press it off-camera.
+- Full reset takes ~15–20 s — use soft reset (`/demo/reset?soft=true`, ~2 s) between takes.
 - Vertex shared capacity can cause occasional slow steps; record the video in several takes.
 - Firebase Hosting deploy needs the partner added to the GCP project (or the owner deploys).

@@ -12,9 +12,42 @@ client, the compiler tells you when a page doesn't match the backend.
 | 2 Intake + /me | ✅ live | intake chat, aspects (edit/visibility/delete), hard criteria, delete-everything, learning history |
 | 3 Scout + pipeline | ✅ live | `POST /scout/{id}` (job), `GET /pipeline/{id}` |
 | 4 Interview + brief | ✅ live | `POST/GET /matches/{id}/interview`, `GET /matches/{id}/brief/{uid}`, `GET /briefs/next/{uid}` |
-| 5 Decisions + Focus Week | ⏳ mock | decision, focus, chat, simulate-response, fast-forward |
+| 5 Decisions + Focus Week | ✅ live | `POST /matches/{id}/decision` (+ learning), `GET /matches/{id}`, `/focus/*` (state, deck, chat, Day-7 decision), simulate-response, fast-forward, soft reset |
+
+**No mocks left** — every endpoint now returns real data. Phase 6 is polish only; shapes won't change.
 
 ### Changelog
+
+- **Phase 5** — Mutual consent, Focus Week and the learning loop are live. New: `api.getMatch(matchId)`
+  (match status + decisions), `api.reset(true)` (**soft reset ≈ 2 s** — restores all matches and the heroes'
+  starting state; use it between video takes. Full reset ≈ 15–20 s reseeds profiles). Run `npm run gen:api`.
+  - **The demo path:** Arjun → brief → **Interested** (`decide` → `mutual: false`, status `awaiting_them`; Meera's
+    brief now unlocks) → on `/demo` press "Meera says Interested" (`simulateResponse(matchId, 'meera',
+    'interested')` → `mutual: true`) → `/mutual/:matchId` "It's mutual 💛" → `/focus/:matchId`.
+  - **Pass** needs a reason (422 without). Send a chip value: `values` | `family` | `lifestyle` | `location` |
+    `career` | `just not feeling it`, or `other: <free text>` (free text teaches the most). Response has
+    `learning` → the **"What I learned about you" card**: `learning.explanation` (one sentence, already ends with
+    "I've moved N candidates up." when that happened), `old_weights` → `new_weights` (6 bars, before/after),
+    `new_aspects` (things it learned, `source: "learned"`; they also appear on `/me`), `moved_up`. The call takes
+    ≈ 3–7 s (Gemini) — show "Your matchmaker is thinking about this…". Then `getNextBrief`.
+  - **A Pass is never revealed.** The other side just never gets the brief. Don't show "they passed" anywhere.
+  - **Focus Week** (`getFocus(matchId)`, sends X-User-Id): `day` / `total_days` (7, or 14 if `extended`) → day
+    counter; `ends_at`; `partner` (header); `deck_today` = today's 3 prompts — tap one to `sendChat` it.
+    `decision_me` / `decision_them_submitted` (we never reveal *what* they chose).
+    The deck is personalised from both briefs; for Arjun–Meera it's pre-computed.
+  - **Chat**: poll `getChat` every 2 s. 403 before mutual (don't render chat then). Show sender by `sender_id`.
+    In the demo, switch persona to Meera to reply (or just show Arjun's side).
+  - **Day-7 decision** (`focusDecide`): **Stop** works any day (reason required, same chips) → `outcome:
+    "closed"` + `learning` card → back to the pipeline. **Continue / Extend** only from the last day (409
+    before — the message says so). First answer → `outcome: "pending"` ("Waiting for Meera…"); both continue →
+    `"locked"` → celebration screen ("We're moving forward" 🎉); either extends → `"extended"` (+7 days,
+    once; extending again → 409).
+  - **Demo panel:** "Fast-forward to Day 4 / Day 7" → `fastForward(matchId, day)` (returns the new FocusState).
+    `day = total_days + 1` demos the fairness rule: the week auto-closes (`status: "closed"`), nobody waits forever.
+  - **Exclusivity:** while in a Focus Week, `getPipeline` returns `paused: true`, `getNextBrief` returns `null`,
+    `runScout` returns a finished job with `result.paused`. `getUser().status` is `in_focus` (or `locked`) and
+    `active_match_id` tells you where to route on app load.
+  - Fairness: a brief that the other side doesn't answer within 72 h quietly closes (no UI needed).
 
 - **Phase 4** — Interview + brief are live.
   - **Transcript page**: after `runInterview(matchId)`, poll `getInterview(matchId)` every 1.5 s and render
@@ -50,7 +83,7 @@ client, the compiler tells you when a page doesn't match the backend.
   (no parent persona — Parent Mode is cut).
 - **Phase 1** — Seeded world live; persona IDs `arjun` / `meera` are stable.
 
-### Long-running jobs (scout now; interview in Phase 4)
+### Long-running jobs (scout, interview)
 
 `POST /scout/{userId}` returns `{job_id}`. Poll `waitForJob(job_id, onProgress)` from `client.ts`:
 - `job.progress` is friendly text for the user — show it as-is (e.g. *"8 passed the filters. Your matchmaker is
@@ -83,13 +116,12 @@ npm run dev -- --port 5180        # open http://localhost:5180
 
 - **You own `frontend/`. Don't edit `backend/`** — ask instead. That keeps merge conflicts at zero.
 - Commit small and often to `main`; `git pull --rebase` before every push.
-- **Backend redeploys at the end of each phase** (≈ every 30–45 min). When a phase lands, endpoints in the
-  table below switch from mock to real data. If a contract shape ever changes, you'll be told — run
-  `npm run gen:api` and fix what TypeScript flags.
-- **Don't hard-code IDs.** `arjun` and `meera` are stable persona IDs, but match IDs like `m_arjun_meera`
-  only exist in the mocks — real ones come from `getPipeline` / `getNextBrief`.
-- **Shared database:** pressing "Reset demo" on `/demo` wipes and reseeds the data for everyone.
-  Fine for testing — just shout before you do it.
+- **Backend redeploys at the end of each phase** (≈ every 30–45 min). If a contract shape ever changes, you'll
+  be told — run `npm run gen:api` and fix what TypeScript flags.
+- **Don't hard-code match IDs** — use what `getPipeline` / `getNextBrief` return. `arjun` and `meera` are stable
+  persona IDs (the hero match is `m_arjun__meera`).
+- **Shared database:** "Reset demo" on `/demo` resets the data for everyone (soft reset: matches + heroes;
+  full: everything). Fine for testing — just shout before you do it.
 - **Firebase Hosting deploy** happens in the deploy window (after Phase 6); you'll need to be added to the
   Google Cloud project for that. Until then, everything runs on localhost against the live API.
 
@@ -109,21 +141,6 @@ cd backend && uv sync && uv run uvicorn app.main:app --reload --port 8080
    `npm run gen:api` (from a running backend) and fix whatever TypeScript flags.
 3. **Auth = `X-User-Id` header**, set automatically from the persona switcher (`getUserId()`).
 
-## Stubs → real data
-
-Every endpoint already returns realistic mock data (Arjun & Meera) in the final shape. As each backend
-phase lands, the same endpoint starts returning real data — **no frontend change needed**. Build the UI
-against the stubs now.
-
-| Phase | Endpoints that go real |
-|---|---|
-| 1 | `/demo/seed`, `/demo/reset`, `/demo/personas`, `GET /users/{id}` |
-| 2 | `/intake/*`, `/users/{id}/aspects*`, `/hard-criteria`, `/users/{id}/data` |
-| 3 | `POST /scout/{id}`, `GET /pipeline/{id}` |
-| 4 | `/matches/{id}/interview`, `/matches/{id}/brief/{uid}`, `/briefs/next/{uid}`, `/matches/{id}/decision` |
-| 5 | `/focus/*`, `/demo/simulate-response`, `/demo/fast-forward`, learning on decisions |
-| 6 | `/demo/new-profile` |
-
 ## Screens → endpoints (spec §5)
 
 | Route | Calls | Notes |
@@ -134,17 +151,17 @@ against the stubs now.
 | `/pipeline` | `runScout` → `waitForJob`, `getPipeline` | Cards only (name+initial, age, city, profession, `scores.overall`, mini bars from the 6 dimension scores, status chip, "new" badge from `candidate.is_new`). No full profiles. `paused: true` → show "Scouting paused during your Focus Week" |
 | `/brief/:matchId` | `getBrief`, `decide` | Radar (recharts) from `why_fit`; Pass needs a reason chip |
 | `/brief/:matchId/transcript` | `runInterview` → poll `getInterview` every 1.5s | Render turns as they land; round dividers; green/yellow highlights |
-| `/mutual/:matchId` | `getFocus` | "It's mutual 💛" → CTA to Focus Week |
-| `/focus/:matchId` | `getFocus`, `getChat` (poll 2s), `sendChat`, `focusDecide` | Day counter, today's 3 prompts (tap → send to chat), Day 7 decision |
-| `/demo` | `personas`, `reset`, `seed`, `runScout`, `runInterview`, `simulateResponse`, `fastForward`, `newProfile` | Hidden route for the video |
+| `/mutual/:matchId` | `getFocus` | "It's mutual 💛" (partner name from `partner`) → CTA to Focus Week |
+| `/focus/:matchId` | `getFocus`, `getChat` (poll 2s), `sendChat`, `focusDecide` | Day counter, today's 3 prompts (tap → send to chat), Stop any day, Continue/Extend on the last day, learning card after Stop |
+| `/demo` | `personas`, `reset(true)`, `reset()`, `seed`, `runScout`, `runInterview` (+`?rerun=true`), `simulateResponse`, `fastForward`, `newProfile` | Hidden route for the video |
 
 ## Flow the UI needs to support
 
 - **Pipeline → brief:** after `runScout`, call `runInterview(topMatchId)`; when done, `getNextBrief(userId)`.
 - **Interested:** `decide(...)` → `mutual: false` means waiting on them. In the demo, `simulateResponse`
   for the other user returns `mutual: true` → go to `/mutual/:matchId`.
-- **Pass / Stop:** response includes `learning` → show the "What I learned about you" card
-  (`learning.explanation`, before/after weights), then fetch the next brief.
+- **Pass / Stop / Continue:** response includes `learning` → show the "What I learned about you" card
+  (`learning.explanation`, before/after weights, `new_aspects`), then fetch the next brief (after Pass/Stop).
 - **In Focus Week:** `getUser().status === "in_focus"` and `active_match_id` tells you where to route.
 
 ## UX principles (spec §5)

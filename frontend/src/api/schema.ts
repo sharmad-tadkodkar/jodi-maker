@@ -269,8 +269,35 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Decide */
+        /**
+         * Decide
+         * @description Interested / Pass on the brief (spec §4.4–4.5).
+         *     - Interested (first side) → status `awaiting_them`; the other side's brief becomes visible to them.
+         *     - Interested (second side) → `mutual: true`, Focus Week starts, both users `in_focus`.
+         *     - Pass → reason required (422 without); match closes quietly (never revealed); returns `learning`
+         *       (the "What I learned about you" card) and the queue re-ranks.
+         */
         post: operations["decide_matches__match_id__decision_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/matches/{match_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Match
+         * @description Match status + decisions. `scores` are from the X-User-Id viewer's perspective.
+         */
+        get: operations["get_match_matches__match_id__get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -284,7 +311,12 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Focus State */
+        /**
+         * Focus State
+         * @description Day counter, today's 3 deck prompts, and decision state from the X-User-Id viewer's side.
+         *     `decision_them_submitted` says only *whether* the other side decided, never what.
+         *     Auto-closes (status `closed`) if the week ended without both decisions.
+         */
         get: operations["focus_state_focus__match_id__get"];
         put?: never;
         post?: never;
@@ -301,10 +333,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get Chat */
+        /**
+         * Get Chat
+         * @description Oldest first. 403 until both said Interested. Poll every ~2 s.
+         */
         get: operations["get_chat_focus__match_id__chat_get"];
         put?: never;
-        /** Post Chat */
+        /**
+         * Post Chat
+         * @description 403 unless the Focus Week is active (or locked).
+         */
         post: operations["post_chat_focus__match_id__chat_post"];
         delete?: never;
         options?: never;
@@ -321,7 +359,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Focus Decision */
+        /**
+         * Focus Decision
+         * @description Day-7 decision. `stop` works any day (reason required) and closes immediately with `learning`.
+         *     `continue` / `extend` open on the last day (409 before): both continue → `locked`; any extend → `extended`
+         *     (+7 days, once); first answer → `pending`.
+         */
         post: operations["focus_decision_focus__match_id__decision_post"];
         delete?: never;
         options?: never;
@@ -392,7 +435,11 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Reset */
+        /**
+         * Reset
+         * @description Full reset (~15–20 s): wipe + reseed profiles + load pre-computed matches.
+         *     `?soft=true` (~2 s): keep profiles, restore all matches and the heroes' starting state — use between takes.
+         */
         post: operations["reset_demo_reset_post"];
         delete?: never;
         options?: never;
@@ -409,7 +456,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Simulate Response */
+        /**
+         * Simulate Response
+         * @description Answer the brief as the *other* side (`user_id`), e.g. Meera says Interested → mutual → Focus Week.
+         *     Needs the requester to have said Interested first. A simulated Pass uses reason "just not feeling it"
+         *     and skips the learning loop (it's not the demo user's learning).
+         */
         post: operations["simulate_response_demo_simulate_response_post"];
         delete?: never;
         options?: never;
@@ -426,7 +478,11 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Fast Forward */
+        /**
+         * Fast Forward
+         * @description Jump an active Focus Week to `day` (e.g. 4 or 7). `day` = total_days + 1 demos the auto-close
+         *     (nobody waits forever).
+         */
         post: operations["fast_forward_demo_fast_forward_post"];
         delete?: never;
         options?: never;
@@ -1790,11 +1846,44 @@ export interface operations {
             };
         };
     };
+    get_match_matches__match_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
+            path: {
+                match_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Match"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     focus_state_focus__match_id__get: {
         parameters: {
             query?: never;
             header?: {
-                "x-user-id"?: string;
+                "x-user-id"?: string | null;
             };
             path: {
                 match_id: string;
@@ -1826,7 +1915,9 @@ export interface operations {
     get_chat_focus__match_id__chat_get: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path: {
                 match_id: string;
             };
@@ -2010,7 +2101,9 @@ export interface operations {
     };
     reset_demo_reset_post: {
         parameters: {
-            query?: never;
+            query?: {
+                soft?: boolean;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -2077,7 +2170,9 @@ export interface operations {
     fast_forward_demo_fast_forward_post: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "x-user-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };

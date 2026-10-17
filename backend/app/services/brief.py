@@ -88,11 +88,17 @@ def next_brief(viewer_id: str) -> m.Brief | None:
     viewer can see and hasn't decided on yet."""
     db = get_db()
     viewer = db.collection(USERS).document(viewer_id).get().to_dict() or {}
+    if viewer.get("status") in ("in_focus", "locked"):
+        return None  # queue paused during a Focus Week (spec §4.6)
     best = None
     for snap in db.collection(MATCHES).where("users", "array_contains", viewer_id).stream():
         mt = snap.to_dict()
         if mt.get("status") not in ("briefed", "awaiting_them"):
             continue
+        other_id = mt["user_b"] if mt["user_a"] == viewer_id else mt["user_a"]
+        other = db.collection(USERS).document(other_id).get().to_dict() or {}
+        if other.get("status") in ("in_focus", "locked") and other.get("active_match_id") != snap.id:
+            continue  # on hold: they're in a Focus Week with someone else
         my_decision = mt.get("decision_a") if mt["user_a"] == viewer_id else mt.get("decision_b")
         if my_decision or not visible_to(mt, viewer_id):
             continue

@@ -207,7 +207,7 @@ async def generate(count: int) -> None:
             log.warning("duplicate first name %s (%s) — rename it in profiles.json", p["name"], p["brief"][:40])
         taken.add(p["name"].split()[0])
     assign_ids(profiles)
-    PROFILES_FILE.write_text(json.dumps(profiles, indent=2, ensure_ascii=False))
+    PROFILES_FILE.write_text(json.dumps(profiles, indent=2, ensure_ascii=False, sort_keys=True))
     log.info("wrote %d profiles to %s", len(profiles), PROFILES_FILE)
 
 
@@ -304,13 +304,33 @@ async def reset_world(count: int = 20) -> int:
     return n
 
 
+def soft_reset() -> int:
+    """Fast demo reset (~2 s): restore all matches from the pre-computed file and put the heroes back to their
+    starting state (weights, no learned aspects / learning history, not in a Focus Week). Profiles and
+    embeddings are kept — use `reset_world` to reseed everything."""
+    db = get_db()
+    delete_tree(db.collection(MATCHES))
+    n = load_precomputed()
+    heroes = {h["id"]: h for h in json.loads(HEROES_FILE.read_text())}
+    for snap in db.collection(USERS).where("status", "in", ["in_focus", "locked"]).stream():
+        snap.reference.update({"status": "active", "active_match_id": None})
+    for uid, h in heroes.items():
+        ref = db.collection(USERS).document(uid)
+        ref.update({"status": "active", "active_match_id": None, "preference_weights": h["preference_weights"]})
+        delete_tree(ref.collection("learning_log"))
+        for a in ref.collection("aspects").where("source", "==", "learned").stream():
+            a.reference.delete()
+    return n
+
+
 HERO_MATCH = ("arjun", "meera")  # (requester, candidate) for the pre-computed interview
 
 
 async def precompute(count: int = 20, fresh: bool = False) -> None:
     """Run the heroes' scouts and the Arjun–Meera interview for real, then freeze the results into
     seed/precomputed.json. Keeps existing frozen scout scores unless `fresh` (scores drift run to run)."""
-    from app.services.interview import run_interview  # these depend on seeded data, not vice versa
+    from app.services.focus import generate_deck  # these depend on seeded data, not vice versa
+    from app.services.interview import run_interview
     from app.services.matching import match_id, scout
 
     wipe_all()
@@ -322,8 +342,20 @@ async def precompute(count: int = 20, fresh: bool = False) -> None:
     requester, cand = HERO_MATCH
     r = await run_interview(match_id(requester, cand), requester, None, lambda msg: log.info("interview: %s", msg))
     log.info("interview → %s", r)
-    PRECOMPUTED_FILE.write_text(json.dumps({"matches": dump_matches()}, indent=2, ensure_ascii=False))
+    await generate_deck(match_id(requester, cand))
+    PRECOMPUTED_FILE.write_text(json.dumps({"matches": dump_matches()}, indent=2, ensure_ascii=False, sort_keys=True))
     log.info("wrote %s", PRECOMPUTED_FILE)
+
+
+async def precompute_deck() -> None:
+    """Add the hero Focus Week deck to the frozen file without re-running the interview."""
+    from app.services.focus import generate_deck
+    from app.services.matching import match_id
+
+    soft_reset()
+    deck = await generate_deck(match_id(*HERO_MATCH))
+    log.info("deck → %s", deck)
+    PRECOMPUTED_FILE.write_text(json.dumps({"matches": dump_matches()}, indent=2, ensure_ascii=False, sort_keys=True))
 
 
 async def add_reserve_profile() -> dict | None:
@@ -340,7 +372,7 @@ async def add_reserve_profile() -> dict | None:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["generate", "load", "precompute"])
+    ap.add_argument("cmd", choices=["generate", "load", "precompute", "deck"])
     ap.add_argument("--count", type=int, default=20)
     ap.add_argument("--fresh", action="store_true", help="precompute: re-run scouts instead of keeping frozen scores")
     args = ap.parse_args()
@@ -348,5 +380,7 @@ if __name__ == "__main__":
         asyncio.run(generate(args.count))
     elif args.cmd == "precompute":
         asyncio.run(precompute(args.count, args.fresh))
+    elif args.cmd == "deck":
+        asyncio.run(precompute_deck())
     else:
         print("loaded", asyncio.run(reset_world(args.count)))
