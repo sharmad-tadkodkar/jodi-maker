@@ -1,0 +1,2992 @@
+[
+  {
+    "name": "Nithya Reddy",
+    "bio_note": "A driven Data Scientist who loves her life in Namma Bengaluru. Nithya is looking for an equally ambitious and supportive partner to build a life together with, rooted in the city she loves.",
+    "self_facts": {
+      "age": 26,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "Data Scientist",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Telugu",
+        "Kannada",
+        "Hindi"
+      ],
+      "height_cm": 165
+    },
+    "hard_criteria": {
+      "age_min": 26,
+      "age_max": 31,
+      "cities": [
+        "Bangalore"
+      ],
+      "open_to_relocate": true,
+      "education_min": "bachelors",
+      "professions": [
+        "Software Engineer",
+        "Data Scientist",
+        "Product Manager",
+        "Tech Lead"
+      ],
+      "income_band_min": "20-30L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English",
+        "Hindi"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.15,
+      "family_fit": 0.15,
+      "lifestyle": 0.15,
+      "career": 0.2,
+      "location": 0.25,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "location_plans",
+        "statement": "Nithya is deeply rooted in Bangalore and has recently purchased property there, intending to settle in the city long-term.",
+        "evidence": "I've built my whole life here in Namma Bengaluru, even bought a cute 2BHK in Bellandur recently. I am not looking to move anywhere else.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "She prefers living independently with her partner after marriage, though she maintains good relations with her extended family.",
+        "evidence": "I love spending time with family on weekends, but I strongly believe a couple needs their own space to build a foundation. I'm looking for a nuclear setup from day one.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "She is highly driven in her tech career, currently a Senior Data Scientist with clear leadership goals.",
+        "evidence": "Data science is super dynamic. I just got promoted to Senior DS and I'm aiming for staff level in a few years. My work is demanding but I love the challenge.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "She blends progressive independence with traditional respect and cultural celebrations.",
+        "evidence": "I consider myself modern and independent, but I still touch my parents' feet on birthdays and love hosting Diwali parties. It's about balance.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "She enjoys a balanced urban lifestyle combining fitness, cafe hopping, and weekend socializing.",
+        "evidence": "My weekdays are mostly gym, work, and maybe a quick coffee catch-up. Weekends are for trying out new breweries in Indiranagar or long drives.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "Financially independent and responsible, she expects full financial transparency and shared planning with her partner.",
+        "evidence": "Since I have an EMI for my flat, I manage my finances meticulously. I expect my partner and me to have complete transparency about our financial liabilities before tying the knot.",
+        "confidence": 0.92,
+        "visibility": "private"
+      },
+      {
+        "category": "communication_style",
+        "statement": "She communicates in a direct, transparent, and calm manner, preferring open discussions over conflict.",
+        "evidence": "I don't do well with hints or passive aggression. If something bothers me, I sit down and talk it out over a cup of chai.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "She enjoys reading science fiction and is an avid trekker who likes weekend getaways in nature.",
+        "evidence": "I'm a bit of a nerd, I read a lot of sci-fi, but I also love trekking. Escaping to Nandi Hills or Coorg on a long weekend keeps me sane.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "She seeks a partner in the tech industry who understands her work culture and balances family ties with respect for personal space.",
+        "evidence": "I'd really vibe with someone in the tech space, maybe a software engineer who gets the startup hustle. Someone who is family-oriented but respects our boundaries.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "Living in a joint family and relocating outside of Bangalore are strict dealbreakers for her.",
+        "evidence": "I absolutely cannot do a joint family setup, and I cannot relocate from Bangalore. Those are the two things I won't compromise on.",
+        "confidence": 0.98,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "She maintains a modest, personal spiritual practice focused on daily rituals for mental peace.",
+        "evidence": "I'm not overly religious, but I do have a small pooja space at home. It gives me peace to light a diya every morning.",
+        "confidence": 0.8,
+        "visibility": "public"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Strong fit for a family-oriented software engineer moving to Bangalore, but prefers a nuclear family from day one (worth exploring). Open to relocate: no; seeks Bangalore.",
+    "id": "s01_nithya"
+  },
+  {
+    "name": "Ananya Sen",
+    "bio_note": "Ananya is a dedicated and compassionate Resident Doctor based in Kolkata. She values her family deeply and tries to balance her demanding hospital schedule with quality time at home. She is looking for an understanding, modern partner who will support her medical career, share her strong family-oriented values, and gracefully navigate the realities of her long working hours.",
+    "self_facts": {
+      "age": 27,
+      "city": "Kolkata",
+      "education": "masters",
+      "profession": "Resident Doctor",
+      "income_band": "10-20L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "Bengali",
+        "English",
+        "Hindi"
+      ],
+      "height_cm": 162
+    },
+    "hard_criteria": {
+      "age_min": 27,
+      "age_max": 32,
+      "cities": [
+        "Kolkata",
+        "Bangalore"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [
+        "Doctor",
+        "Engineer",
+        "IT Professional",
+        "Finance",
+        "Business"
+      ],
+      "income_band_min": "20-30L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "Bengali",
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.25,
+      "family_fit": 0.25,
+      "lifestyle": 0.1,
+      "career": 0.2,
+      "location": 0.1,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "values",
+        "statement": "Ananya places a strong emphasis on mutual respect, empathy, and maintaining close ties with extended family.",
+        "evidence": "For me, a good relationship is built on empathy. Treating everyone with kindness, from patients to family elders, is absolutely non-negotiable.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "She comes from a tight-knit family in Kolkata and spends her limited free time nurturing those relationships.",
+        "evidence": "My parents are my anchor. Even after a gruelling 24-hour shift, having Sunday breakfast with them just resets my whole week.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Her residency is extremely demanding, requiring long hours, night shifts, and a high tolerance for stress.",
+        "evidence": "Right now, my MS residency consumes my life. I'm often at the hospital for 36 hours straight, so I need someone who won't make me feel guilty for working hard.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "She prefers a quiet, low-key lifestyle to recover from her hectic work environment.",
+        "evidence": "I don't really do the clubbing scene anymore. Give me a good book, some cha, and a quiet balcony, and I'm perfectly happy.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "She strongly prefers to settle in Kolkata long-term to build her practice, though she is conditionally open to matches in Bangalore.",
+        "evidence": "Honestly, I want to build my practice here in Kolkata eventually. I am open to Bangalore since the medical infrastructure is great, but my heart and my family are in Bengal.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "She is financially independent but currently managing some educational loans from her medical studies.",
+        "evidence": "My stipend covers my expenses and the EMI for my medical college loan nicely, but it does mean I have to be a bit careful with big splurges right now.",
+        "confidence": 0.8,
+        "visibility": "private"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "She identifies as culturally involved and loves festive traditions, though she isn't rigidly religious day-to-day.",
+        "evidence": "I might skip the daily pujas because of my hospital rounds, but I absolutely never miss Ashtami anjali during Durga Pujo.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "She is straightforward and practical in her communication, a trait honed by her clinical environment.",
+        "evidence": "In the ER, you learn to get straight to the point. I bring that to my personal life too—I'd rather talk things out openly than let misunderstandings fester.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "She enjoys classical music and reading local literature to unwind.",
+        "evidence": "Rabindrasangeet is my ultimate stressbuster. I usually listen to it on my commute to the hospital to clear my head.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "She expects a highly understanding partner who will step up at home when she is overwhelmed with medical duties.",
+        "evidence": "I need a husband who doesn't see my career as just a 'job'. If I have an emergency surgery case, I need him to be totally fine taking charge of the home front.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "She will not tolerate a partner who expects her to compromise her medical career or take on traditional household roles exclusively.",
+        "evidence": "A major red flag for me is anyone who expects a traditional housewife. I'm a doctor first, and I won't step back from my career after marriage.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 1,
+    "reserve": false,
+    "brief": "Good fit on values and family; very long hospital hours; wants to stay in Kolkata long term (location tension). Accepts partners in Kolkata or Bangalore.",
+    "id": "s02_ananya"
+  },
+  {
+    "name": "Pooja Joshi",
+    "bio_note": "A dedicated Chartered Accountant from Pune, Pooja is deeply rooted in traditional values and leads a spiritually grounded life.",
+    "self_facts": {
+      "age": 25,
+      "city": "Pune",
+      "education": "masters",
+      "profession": "Chartered Accountant",
+      "income_band": "10-20L",
+      "community": null,
+      "diet": "veg",
+      "marital_status": "never_married",
+      "languages": [
+        "Marathi",
+        "Hindi",
+        "English"
+      ],
+      "height_cm": 160
+    },
+    "hard_criteria": {
+      "age_min": 25,
+      "age_max": 29,
+      "cities": [
+        "Pune",
+        "Mumbai",
+        "Bangalore"
+      ],
+      "open_to_relocate": true,
+      "education_min": "bachelors",
+      "professions": [
+        "Chartered Accountant",
+        "Software Engineer",
+        "Doctor",
+        "Engineer",
+        "Finance Professional"
+      ],
+      "income_band_min": "10-20L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "Marathi",
+        "Hindi"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.35,
+      "family_fit": 0.25,
+      "lifestyle": 0.15,
+      "career": 0.1,
+      "location": 0.05,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "faith_practice",
+        "statement": "Pooja is deeply religious and structures her morning routine around a mandatory puja.",
+        "evidence": "My morning puja is non-negotiable, it grounds me for the whole day and brings peace before the CA work stress begins.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "Seeks a spiritually inclined partner who will actively participate in daily rituals with her.",
+        "evidence": "I really want a husband who will sit with me for the morning puja. Having that shared devotion is very important to me.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "values",
+        "statement": "Holds traditional Indian values close to her heart and believes heavily in respecting elders and customs.",
+        "evidence": "I've been raised with strong sanskar. Respecting our traditions and the elders in the house is just second nature to me.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "Fully open to moving out of Pune for the right match, prioritizing family fit over geography.",
+        "evidence": "Pune is home, but I don't mind relocating to Mumbai, Bangalore, or elsewhere after marriage if his family is good and supportive.",
+        "confidence": 0.85,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Ambitious as a professional but intends to prioritize family life over climbing the corporate ladder aggressively.",
+        "evidence": "I love my job in audit, but at the end of the day, family will always be my first priority. I want a balanced life.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "Prefers a simple, quiet lifestyle centered around home rather than late-night socializing or partying.",
+        "evidence": "I am definitely a morning person. A quiet evening with family and good homemade food is my idea of a perfect weekend.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "Accustomed to a warm, traditional family environment and looks forward to similar warmth in her in-laws.",
+        "evidence": "Growing up in a traditional household taught me the beauty of adjusting. I'd love a joint family that celebrates all festivals together.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "Expresses herself in a soft-spoken, respectful manner and avoids direct confrontation.",
+        "evidence": "I believe almost any issue can be resolved by speaking calmly. I really don't like shouting or arguments in the house.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "Strongly averse to partners who drink alcohol, smoke, or mock religious practices.",
+        "evidence": "Drinking and smoking are absolute red flags for me. Also, I couldn't adjust with someone who disrespects or jokes about daily prayers.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "Practices traditional saving habits and prefers highly secure investments.",
+        "evidence": "As a CA, I see a lot of reckless spending. I personally prefer secure investments like FDs and stable funds over anything unpredictable.",
+        "confidence": 0.8,
+        "visibility": "private"
+      },
+      {
+        "category": "interests",
+        "statement": "Enjoys traditional arts, specifically rangoli making and listening to devotional music.",
+        "evidence": "In my free time, I love making intricate rangoli designs at the doorstep and listening to classical devotional songs.",
+        "confidence": 0.9,
+        "visibility": "public"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Moderate fit; quite traditional and religious, wants a partner who does daily puja. Open to relocate.",
+    "id": "s03_pooja"
+  },
+  {
+    "name": "Tanya Nair",
+    "bio_note": "A dynamic and outgoing marketing manager based in Bangalore. She loves exploring the city's vibrant food and nightlife scene, values modern egalitarian relationships, and is looking for a partner with an open-minded and ambitious outlook on life.",
+    "self_facts": {
+      "age": 28,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "Marketing Manager",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Hindi",
+        "Malayalam"
+      ],
+      "height_cm": 165
+    },
+    "hard_criteria": {
+      "age_min": 28,
+      "age_max": 33,
+      "cities": [
+        "Bangalore",
+        "Mumbai"
+      ],
+      "open_to_relocate": true,
+      "education_min": "bachelors",
+      "professions": [
+        "Marketing",
+        "Tech",
+        "Finance",
+        "Consulting"
+      ],
+      "income_band_min": "20-30L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.25,
+      "family_fit": 0.1,
+      "lifestyle": 0.35,
+      "career": 0.15,
+      "location": 0.05,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "lifestyle",
+        "statement": "Tanya has an active social life, enjoys nightlife, and explicitly mentions that she smokes socially and drinks, expecting a partner who is completely fine with it.",
+        "evidence": "I love exploring Bangalore's nightlife. And look, I smoke socially and enjoy a drink on weekends. I'm totally unapologetic about it, so I really need a partner who doesn't have an issue with my choices.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "She holds modern, egalitarian values and expects complete equality and respect for her independence in a relationship.",
+        "evidence": "I strongly believe a marriage should be a partnership of equals. I want us to support each other's independence without any weird power dynamics.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "She is highly ambitious and driven, aiming for a leadership role in marketing.",
+        "evidence": "Work is a huge part of my identity. I'm pushing for a Marketing Director role in the next three years, so I need someone who understands those crazy quarter-end hours.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "She comes from a nuclear family originally from Kerala, with retired parents living a relaxed life.",
+        "evidence": "My folks are back in Kochi enjoying their retirement. It's just me and my younger brother, who is in the US. We are super close but give each other space.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "She loves Bangalore but is open to relocating to Mumbai for the right partner and career opportunity.",
+        "evidence": "Bangalore is home right now, but honestly, I wouldn't mind moving to Mumbai if my partner is based there and it makes sense for my career.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "She is culturally connected to her roots but practically agnostic in her daily life.",
+        "evidence": "I'll wear a saree for Onam and enjoy the sadhya, but I don't really do daily pujas or fasts. I'm pretty agnostic when it comes to religion.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "She loves live music, visiting breweries, and going on spontaneous road trips.",
+        "evidence": "My ideal weekend is checking out a new microbrewery, catching an indie gig, or just driving down to Coorg on a whim.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "She is direct, outspoken, and prefers addressing issues immediately.",
+        "evidence": "I really don't have the patience for mind games or silent treatments. If something is bothering me, I'll just say it out loud so we can fix it.",
+        "confidence": 0.88,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "She is looking for an open-minded, secure, and ambitious partner who can match her energy.",
+        "evidence": "I want a guy who is secure in himself, driven in his career, and is genuinely fun to be around. He needs to be my best friend first.",
+        "confidence": 0.92,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "She cannot tolerate orthodox mindsets, controlling behavior, or anyone who tries to police her lifestyle habits.",
+        "evidence": "A major red flag for me is anyone trying to change my lifestyle. If a guy tries to police my smoking or expects me to be a traditional submissive wife, it's a hard pass.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "She is financially independent, careful with her investments, and expects to split major expenses.",
+        "evidence": "I manage my own portfolio and I'm quite disciplined about my savings. I'd want us to split the big expenses fifty-fifty and keep our daily finances mostly separate.",
+        "confidence": 0.85,
+        "visibility": "private"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Great lifestyle and values fit, BUT she smokes socially and is unapologetic about it (should trigger a smoking dealbreaker). Mention smoking explicitly in a lifestyle aspect.",
+    "id": "s04_tanya"
+  },
+  {
+    "name": "Ishita Kapoor",
+    "bio_note": "A highly driven startup founder based in Bangalore, preparing to scale her business internationally. Ishita is independent, progressive, and seeking an egalitarian partnership with someone who matches her ambition and is open to building a life in Europe.",
+    "self_facts": {
+      "age": 26,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "Startup Founder",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "eggetarian",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Telugu",
+        "Hindi"
+      ],
+      "height_cm": 165
+    },
+    "hard_criteria": {
+      "age_min": 26,
+      "age_max": 32,
+      "cities": [
+        "Bangalore",
+        "Berlin"
+      ],
+      "open_to_relocate": true,
+      "education_min": "bachelors",
+      "professions": [
+        "Entrepreneur",
+        "Software Engineer",
+        "Product Manager",
+        "Consultant",
+        "Any"
+      ],
+      "income_band_min": "20-30L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.25,
+      "family_fit": 0.05,
+      "lifestyle": 0.1,
+      "career": 0.2,
+      "location": 0.3,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "location_plans",
+        "statement": "Ishita is firmly planning to relocate to Germany within the next two years to expand her startup.",
+        "evidence": "I'm currently setting up our European entity, so I will definitely be shifting base to Berlin in about 18 to 24 months.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "She strictly refuses to live in a joint family setup or reside with her in-laws, even temporarily.",
+        "evidence": "I am very clear that I want my own independent household. Living with in-laws, even for a short transition period, is an absolute no-go for me.",
+        "confidence": 0.98,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "She requires an adaptable partner who actively supports her ambitions and is excited about an international move.",
+        "evidence": "I need a true equal. Someone who is genuinely excited about moving to Europe and won't ever feel threatened by my work schedule or ambition.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Ishita is extremely driven and currently prioritizes scaling her tech business globally.",
+        "evidence": "My company is literally my baby right now. I work crazy hours so we can hit our scaling milestones, and I love what I do.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "She takes a modest salary while reinvesting heavily in her business, relying on her equity for long-term wealth.",
+        "evidence": "I pay myself just enough to live comfortably in Indiranagar. The rest goes back into the business, so my partner really needs to understand this startup financial dynamic.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "She balances a fast-paced work week with relaxed weekends spent at local cafes.",
+        "evidence": "My weekdays are pretty packed with investor calls and team syncs, but Sundays are strictly for flat whites and reading a good book.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "She comes from a progressive, nuclear family that fostered her independence from a young age.",
+        "evidence": "My parents always pushed me to be independent. They treated me and my brother exactly the same, which gave me the confidence to start my own firm.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "She is a strong advocate for gender equality and expects an egalitarian dynamic at home.",
+        "evidence": "Marriage to me is a strict 50-50 partnership in everything—from doing the dishes to making major life and financial choices.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "She is direct, straightforward, and avoids passive-aggressive communication.",
+        "evidence": "Running a team has made me a very direct communicator. I just say it as it is, I don't really do the whole guessing game thing.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "She enjoys traveling and is currently learning a new language in preparation for her move.",
+        "evidence": "I'm heavily into Duolingo for German these days, and I always make it a point to take at least one solo trip a year to completely recharge.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "She considers herself spiritual but not religious, practicing meditation rather than traditional rituals.",
+        "evidence": "I meditate every morning to manage the startup stress, but honestly, I'm not really one for rituals or regular temple visits.",
+        "confidence": 0.8,
+        "visibility": "public"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Moderate fit; plans to move to Berlin within two years; her dealbreaker: will never live with in-laws, even briefly.",
+    "id": "s05_ishita"
+  },
+  {
+    "name": "Aditi Deshmukh",
+    "bio_note": "Driven and ambitious corporate lawyer. I am deeply passionate about my career but looking for an equal partner to build a fulfilling life with, balancing professional goals with personal happiness.",
+    "self_facts": {
+      "age": 29,
+      "city": "Mumbai",
+      "education": "masters",
+      "profession": "Corporate Lawyer",
+      "income_band": "30-50L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Hindi",
+        "Marathi"
+      ],
+      "height_cm": 165
+    },
+    "hard_criteria": {
+      "age_min": 27,
+      "age_max": 34,
+      "cities": [
+        "Mumbai",
+        "Bangalore"
+      ],
+      "open_to_relocate": true,
+      "education_min": "bachelors",
+      "professions": [
+        "Corporate Professional",
+        "Lawyer",
+        "Entrepreneur",
+        "Consultant",
+        "Tech Professional"
+      ],
+      "income_band_min": "20-30L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English",
+        "Hindi"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.25,
+      "family_fit": 0.1,
+      "lifestyle": 0.15,
+      "career": 0.3,
+      "location": 0.1,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "career_ambition",
+        "statement": "She is highly driven and currently prioritizes her career, with a clear goal of becoming a partner at her law firm.",
+        "evidence": "I am practically married to my job right now. Making partner by 32 is the dream, and I regularly pull 60-hour weeks without complaining because I love the work.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "She strongly values autonomy and seeks a strictly egalitarian dynamic in a relationship.",
+        "evidence": "Independence is everything to me. I have made my own way, and I want a partnership of absolute equals, not someone who thinks they need to take care of me.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "She is currently based in Mumbai but is actively open to relocating to Bangalore due to professional opportunities.",
+        "evidence": "Mumbai is home, but honestly, with the kind of start-up law I specialize in, Bangalore is a fantastic move. I am totally open to shifting there if my partner is based there.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "Her routine is demanding during the week, balanced by fitness activities and relaxed weekend socializing.",
+        "evidence": "During the week it is just work and squeezing in the gym. Sundays are my sanctuary for a nice, long brunch with my girls to unwind.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "She enjoys reading non-fiction and exploring specialty coffee shops in her free time.",
+        "evidence": "I am a huge nerd for behavioral economics books. That, and discovering new artisanal coffee places around the city.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "She communicates in a direct, straightforward, and articulate manner.",
+        "evidence": "As a lawyer, I do not really do hints or beat around the bush. I appreciate straight talk and I try to give exactly the same to others.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "She is culturally connected but not actively practicing religious rituals on a daily basis.",
+        "evidence": "I celebrate Diwali and Ganesh Chaturthi for the amazing food and family time, but I am not really into daily pujas or fasting.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "She leans toward a nuclear family setup post-marriage to accommodate her demanding schedule.",
+        "evidence": "Given my erratic working hours, living in a joint family might just create friction. I'd strongly prefer setting up our own place so I do not disrupt anyone else's routine.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "She expects an independent, self-driven partner who has his own demanding schedule and understands hers.",
+        "evidence": "I need a guy who has his own intense passions and work life. If he is waiting for me to come home at 6 PM for dinner every night, it is just not going to work out.",
+        "confidence": 0.92,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "She will not tolerate a partner who expects traditional gender roles or a compromise on her career trajectory.",
+        "evidence": "If a guy even jokingly suggests my career should take a backseat after marriage or kids, it is an immediate and hard pass from me.",
+        "confidence": 0.98,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "She prefers maintaining financial independence and managing separate investment portfolios even after marriage.",
+        "evidence": "I have built a solid portfolio on my own. I would prefer if we kept our investments separate, maybe just having one joint account for household running expenses.",
+        "confidence": 0.9,
+        "visibility": "private"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Moderate fit; workaholic, values independence; open to relocate to Bangalore.",
+    "id": "s06_aditi"
+  },
+  {
+    "name": "Riya Sengupta",
+    "bio_note": "Riya is a warm, nurturing primary school teacher from Kolkata. She prioritizes her family and loved ones over career ambitions, seeking a simple, joyful life.",
+    "self_facts": {
+      "age": 24,
+      "city": "Kolkata",
+      "education": "masters",
+      "profession": "School Teacher",
+      "income_band": "5-10L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "Bengali",
+        "English",
+        "Hindi"
+      ],
+      "height_cm": 158
+    },
+    "hard_criteria": {
+      "age_min": 25,
+      "age_max": 30,
+      "cities": [
+        "Kolkata",
+        "Bangalore"
+      ],
+      "open_to_relocate": true,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": "10-20L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "Bengali",
+        "English",
+        "Hindi"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.25,
+      "family_fit": 0.35,
+      "lifestyle": 0.1,
+      "career": 0.05,
+      "location": 0.15,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "values",
+        "statement": "She is warm and nurturing, prioritizing relationships and domestic happiness over worldly success.",
+        "evidence": "I have always believed that a happy home is the real success in life.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "Riya is very close to her parents and younger brother, and is looking forward to being part of a closely-knit family after marriage.",
+        "evidence": "We have Sunday lunches together every week. I would love to have that exact same bond with my in-laws.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Content with being a school teacher, she has no desire for high-stress corporate roles and prefers good work-life balance.",
+        "evidence": "Teaching gives me the perfect routine. I don't want to chase promotions if it means sacrificing family time in the evenings.",
+        "confidence": 0.88,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "Enjoys a quiet, domestic life, preferring cooking and reading over partying or going out frequently.",
+        "evidence": "On a Friday night, I am usually baking a cake or curled up with a good novel. I am not really a clubbing person.",
+        "confidence": 0.92,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "She is happy to settle in Kolkata or relocate to Bangalore, where she already has friends and familiarity.",
+        "evidence": "Kolkata is home, but a lot of my friends moved to Bangalore and I have visited often. I would be very happy setting up a home there too.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "Prefers a partner who takes the lead on major financial planning, while she is comfortable managing the daily household budgets.",
+        "evidence": "Honestly, investing and mutual funds confuse me a bit. I am great at managing the monthly budget, but I would look to my husband for the big financial goals.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "Moderately religious, she enjoys celebrating festivals and maintains a daily prayer routine without being overly rigid.",
+        "evidence": "I love the vibe of Durga Puja and I do a small morning prayer, but I am not super strict about everyday rituals.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "Gentle and conflict-avoidant, she prefers calm discussions over arguments.",
+        "evidence": "I really do not like raised voices. If there is an issue, I prefer taking an hour to cool down and then talking it out over a cup of tea.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "Passionate about classical music, arts, and crafts, which she often incorporates into her teaching.",
+        "evidence": "I learned Rabindra Sangeet for seven years, and I still do a lot of DIY crafts for my classroom. It keeps me sane.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "Seeking an emotionally available, stable man who values family time over a non-stop work schedule.",
+        "evidence": "I just want someone who comes home and is actually present, not constantly checking work emails during dinner.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "Dislikes arrogance, disrespect towards elders, and high-strung workaholic lifestyles.",
+        "evidence": "If someone is rude to waitstaff or ignores their parents, it is a huge turn-off. Also, if they work eighty hours a week, we will not really have a marriage.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Warm, family-oriented, less career-driven; decent fit. Accepts Kolkata or Bangalore.",
+    "id": "s07_riya"
+  },
+  {
+    "name": "Neha Chaturvedi",
+    "bio_note": "Neha is a 34-year-old IAS officer currently posted in New Delhi. Coming from a family of civil servants, she is deeply committed to her work and brings a sense of grounded discipline to her life. Because of her demanding role and current central deputation, she is firmly anchored in Delhi. Neha is looking for an established, emotionally secure partner aged 32-40 who lives in Delhi and respects the uncompromising nature of her public service duties.",
+    "self_facts": {
+      "age": 34,
+      "city": "Delhi",
+      "education": "masters",
+      "profession": "IAS Officer",
+      "income_band": "10-20L",
+      "community": null,
+      "diet": "veg",
+      "marital_status": "never_married",
+      "languages": [
+        "Hindi",
+        "English"
+      ],
+      "height_cm": 165
+    },
+    "hard_criteria": {
+      "age_min": 32,
+      "age_max": 40,
+      "cities": [
+        "Delhi"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": "10-20L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": []
+    },
+    "preference_weights": {
+      "values": 0.2,
+      "family_fit": 0.1,
+      "lifestyle": 0.1,
+      "career": 0.25,
+      "location": 0.3,
+      "communication": 0.05
+    },
+    "aspects": [
+      {
+        "category": "values",
+        "statement": "Neha is deeply committed to public service and integrity, viewing her career as a lifelong duty.",
+        "evidence": "For me, being an IAS officer is a lifelong commitment to society, not just a prestigious tag. I hold my integrity above everything else.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "She has a highly demanding career with unpredictable hours and heavy responsibilities.",
+        "evidence": "Sometimes a policy crisis hits and I have to work through the weekend. It comes with the territory and my partner needs to understand that.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "Neha is strictly looking to remain in Delhi due to her current posting and long-term career trajectory.",
+        "evidence": "My central deputation keeps me in Delhi, and honestly, I cannot relocate for a partner. Delhi is base and will be for a very long time.",
+        "confidence": 0.99,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "She is comfortable with her government salary and perks, but prefers a partner with strong financial independence.",
+        "evidence": "We all know sarkari salaries are relatively fixed. I have great perks and housing, but I'd like a partner who is financially very stable in his own right.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "She prefers quiet, low-key weekends to decompress from her high-stress job.",
+        "evidence": "A perfect Sunday for me is just adrak wali chai, the newspapers, and zero social obligations. I need that downtime to recharge.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "Neha comes from a family of retired civil servants who instilled strong discipline in her from a young age.",
+        "evidence": "Both mom and dad were in the services, so discipline and a sense of duty were drilled into me since childhood.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "She maintains a private and relaxed approach to spirituality.",
+        "evidence": "I find peace in quiet reflection. I visit the temple occasionally but I'm definitely not rigid about rituals.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "She communicates directly and expects clear, honest dialogue without playing games.",
+        "evidence": "I spend all day cutting through bureaucratic red tape, so in my personal life, I appreciate people who just get straight to the point.",
+        "confidence": 0.85,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "interests",
+        "statement": "Neha enjoys reading policy literature and attending cultural events in the capital.",
+        "evidence": "Whenever I get a breather, I love catching a play at Mandi House or reading up on behavioral economics.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "She seeks a secure, established professional who is supportive and not intimidated by her position.",
+        "evidence": "I need a man who is totally secure in his own skin and career. I want a partnership with no ego clashes, just mutual respect.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "She will not consider anyone who requires her to move out of Delhi or take a step back in her career.",
+        "evidence": "Expecting me to take a backseat in my career or relocate away from Delhi is an absolute no-go. I need someone who respects my duty to the country.",
+        "confidence": 0.99,
+        "visibility": "agent_only"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "HARD-FILTER FAIL: age 34 is outside a 24–30 range. Seeks partners aged 32–40 in Delhi only.",
+    "id": "s08_neha"
+  },
+  {
+    "name": "Sneha Nanduri",
+    "bio_note": "Sneha is a passionate architect and entrepreneur who recently launched her own design studio in Hyderabad. She is independent, creative, and deeply rooted in her city, looking for an equal partner who respects her career drive and loves a vibrant city life.",
+    "self_facts": {
+      "age": 27,
+      "city": "Hyderabad",
+      "education": "bachelors",
+      "profession": "Architect",
+      "income_band": "10-20L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "Telugu",
+        "English",
+        "Hindi"
+      ],
+      "height_cm": 165
+    },
+    "hard_criteria": {
+      "age_min": 27,
+      "age_max": 31,
+      "cities": [
+        "Hyderabad"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": "10-20L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "Telugu",
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.1,
+      "family_fit": 0.15,
+      "lifestyle": 0.15,
+      "career": 0.2,
+      "location": 0.35,
+      "communication": 0.05
+    },
+    "aspects": [
+      {
+        "category": "location_plans",
+        "statement": "She is firmly rooted in Hyderabad and cannot relocate under any circumstances.",
+        "evidence": "I've just set up my studio in Jubilee Hills. My entire network and client base is here, so moving out of Hyderabad is a complete no-go.",
+        "confidence": 1.0,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Passionate about her career and recently launched her own boutique architecture firm.",
+        "evidence": "Architecture isn't just a job for me. Starting my own firm has been a dream come true, and I pour my heart into my projects.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "Non-negotiable about her partner living in Hyderabad and refuses to compromise on her career location.",
+        "evidence": "A major dealbreaker is someone asking me to shift cities. It took me years to build my practice here, I can't just pack up and leave.",
+        "confidence": 1.0,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "Seeks a partner who is secure in his own career and supportive of her entrepreneurial journey.",
+        "evidence": "I'd love someone who is an equal partner, understands the grind of running a business, and cheers for my success.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "Enjoys a relaxed but culturally rich lifestyle, frequenting cafes and heritage spots.",
+        "evidence": "Weekends for me usually mean checking out a new indie cafe in Banjara Hills or doing a heritage walk around the Old City.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "Comes from a nuclear family with retired parents living nearby.",
+        "evidence": "My parents live just a few kilometers away. They are retired now and we are very close, we always do Sunday lunches together.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "Has invested her savings into her business and is managing her finances carefully while scaling.",
+        "evidence": "To be honest, all my savings went into the firm last year. I am bootstrapping right now, so I am quite mindful about my expenses.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "values",
+        "statement": "Holds progressive values and expects an egalitarian dynamic in marriage.",
+        "evidence": "I strongly believe a marriage is a team effort. Shared responsibilities at home are very important to me.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "Communicates clearly and directly, preferring to address issues immediately.",
+        "evidence": "I am quite straightforward. If something is bothering me, I will just say it out loud rather than giving the silent treatment.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "Maintains a casual but respectful approach to religion.",
+        "evidence": "I am not super religious on a daily basis, but I do like visiting the Birla Mandir on my birthday or for major festivals.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "Has creative hobbies including reading historical fiction and sketching.",
+        "evidence": "I usually unwind by sketching old buildings or getting lost in a good historical fiction novel.",
+        "confidence": 0.9,
+        "visibility": "public"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "HARD-FILTER FAIL on location: lives in Hyderabad, not open to relocate, seeks Hyderabad only.",
+    "id": "s09_sneha"
+  },
+  {
+    "name": "Divya Pillai",
+    "bio_note": "A strong, independent software engineer who values honesty, emotional maturity, and mutual respect, looking for a true partnership.",
+    "self_facts": {
+      "age": 28,
+      "city": "Bangalore",
+      "education": "bachelors",
+      "profession": "Software Engineer",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "divorced",
+      "languages": [
+        "English",
+        "Telugu",
+        "Hindi"
+      ],
+      "height_cm": 165
+    },
+    "hard_criteria": {
+      "age_min": 28,
+      "age_max": 34,
+      "cities": [
+        "Bangalore"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": "20-30L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married",
+        "divorced"
+      ],
+      "languages": []
+    },
+    "preference_weights": {
+      "values": 0.3,
+      "family_fit": 0.1,
+      "lifestyle": 0.1,
+      "career": 0.15,
+      "location": 0.15,
+      "communication": 0.2
+    },
+    "aspects": [
+      {
+        "category": "values",
+        "statement": "She believes in second chances, continuous personal growth, and treating a partner as an absolute equal.",
+        "evidence": "Life doesn't always go to plan, and my divorce taught me how important it is to just be honest and treat each other as equals.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "Divya shares a close bond with her parents and relies on them as her primary support system.",
+        "evidence": "My parents live in Indiranagar, and honestly, they were my rock over the last two years. I visit them every Sunday for lunch.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "She is highly focused on her professional growth and aims to transition into an engineering management role soon.",
+        "evidence": "I really enjoy mentoring the junior devs. Stepping into an Engineering Manager role is my main focus right now.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "She prefers a balanced lifestyle, mixing quiet weekends at home with occasional outdoor activities.",
+        "evidence": "I am pretty low-key. A good weekend is catching up on sleep, maybe trying a new cafe in Koramangala, or a short trek if the weather is nice.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "She is firm about staying in Bangalore to remain close to her job and family.",
+        "evidence": "I am not open to relocating. Bangalore is home, my job is here, and my parents are here. I need to be near my support system.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "She is financially independent and prefers to maintain some level of financial autonomy in a future marriage.",
+        "evidence": "I didn't take any alimony. I make my own money and I plan to keep my own savings account even after I remarry, just for peace of mind.",
+        "confidence": 0.9,
+        "visibility": "private"
+      },
+      {
+        "category": "communication_style",
+        "statement": "Divya is very direct and prefers to address issues head-on rather than letting them simmer.",
+        "evidence": "I don't do passive-aggressive. If something is bothering me, I will sit you down and we will talk it out right then and there.",
+        "confidence": 0.85,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "interests",
+        "statement": "She enjoys creative hobbies and reading to decompress from her screen-heavy job.",
+        "evidence": "I took up pottery a year ago and I absolutely love it. That, and reading sci-fi novels, keeps me away from screens.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "She is looking for an emotionally mature partner who is comfortable with her past and ready for a serious commitment.",
+        "evidence": "I am totally open to someone who has never been married, or someone divorced like me. The only thing that matters is that they have done the work to be emotionally available.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "She will not tolerate any form of controlling behavior or anyone who views her divorced status as a flaw.",
+        "evidence": "A massive dealbreaker for me is someone trying to control my choices, or anyone who subtly shames me for having a past marriage.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "She is moderately spiritual and appreciates the cultural aspects of her faith.",
+        "evidence": "I am not super religious on a daily basis, but I do light a diya on Fridays and enjoy the festive spirit during Diwali.",
+        "confidence": 0.75,
+        "visibility": "public"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "HARD-FILTER FAIL: divorced (marital_status 'divorced'); open to never-married or divorced partners.",
+    "id": "s10_divya"
+  },
+  {
+    "name": "Kavya Krishnan",
+    "bio_note": "A passionate clinical nutritionist who believes in mindful living, Kavya is looking for a partner who shares her dedication to a holistic, strictly vegetarian lifestyle.",
+    "self_facts": {
+      "age": 26,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "Nutritionist",
+      "income_band": "10-20L",
+      "community": null,
+      "diet": "veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Kannada",
+        "Hindi"
+      ],
+      "height_cm": 162
+    },
+    "hard_criteria": {
+      "age_min": 26,
+      "age_max": 31,
+      "cities": [
+        "Bangalore"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [
+        "Any"
+      ],
+      "income_band_min": "10-20L",
+      "community_pref": null,
+      "diet": "veg",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English",
+        "Kannada",
+        "Hindi"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.25,
+      "family_fit": 0.15,
+      "lifestyle": 0.35,
+      "career": 0.1,
+      "location": 0.1,
+      "communication": 0.05
+    },
+    "aspects": [
+      {
+        "category": "lifestyle",
+        "statement": "Kavya is highly health-conscious and leads a strictly plant-based lifestyle.",
+        "evidence": "I am a strict vegetarian, and it is not just a habit; it is a core part of my wellness philosophy. I live and breathe healthy eating.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "She is deeply invested in her clinical nutrition practice and plans to grow it further.",
+        "evidence": "I run my own nutrition consultancy and I am very invested in my clients' journeys. My career gives me immense purpose.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "She prioritizes mindfulness, compassion, and sustainable living.",
+        "evidence": "I value mindfulness and compassion above all else. Trying to live sustainably and leaving a lighter footprint is important to me.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "Kavya comes from a small, close-knit, and supportive family.",
+        "evidence": "My parents have always encouraged me to be independent. We are a small, tight-knit family and we share everything with each other.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "She is firmly tied to Bangalore due to her established client base.",
+        "evidence": "My entire clinical setup and loyal client base are in Namma Bengaluru, so I absolutely need to stay here post-marriage.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "Her hobbies revolve around wellness, including yoga and healthy baking.",
+        "evidence": "My weekends usually go into attending yoga retreats or experimenting with millet-based baking recipes in my kitchen.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "She leans more towards spirituality and meditation than traditional religious rituals.",
+        "evidence": "I practice Vipassana meditation. It keeps me grounded when clinic days get too hectic and stressful.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "She is an empathetic listener but appreciates blunt, honest conversations.",
+        "evidence": "As a counselor, I listen a lot, but I am quite straightforward when someone makes excuses. I value total transparency.",
+        "confidence": 0.85,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "She expects her partner to actively value fitness and a healthy routine.",
+        "evidence": "I want a guy who is naturally health-conscious. We do not have to do the exact same workouts, but he should genuinely value fitness.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "She absolutely requires a partner who is a strict vegetarian.",
+        "evidence": "My partner must be a strict vegetarian. It is an absolute non-negotiable for me; I could never share a kitchen or household otherwise.",
+        "confidence": 1.0,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "She has taken a manageable business loan to expand her clinic space.",
+        "evidence": "I recently took a small business loan to lease a bigger space for my clinic. It is well-managed, but I want my future husband to know early on.",
+        "confidence": 0.9,
+        "visibility": "private"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "HARD-FILTER FAIL in the other direction: strict vegetarian and requires a vegetarian partner (hard_criteria.diet='veg').",
+    "id": "s11_kavya"
+  },
+  {
+    "name": "Vivek Krishnan",
+    "bio_note": "A driven and independent Product Manager based in Bangalore. Vivek values ambition and is looking for a relationship that functions as a partnership of equals, where both can pursue their career goals while building a life together.",
+    "self_facts": {
+      "age": 29,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "Product Manager",
+      "income_band": "30-50L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Tamil",
+        "Hindi"
+      ],
+      "height_cm": 178
+    },
+    "hard_criteria": {
+      "age_min": 25,
+      "age_max": 29,
+      "cities": [
+        "Bangalore",
+        "Chennai"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": "10-20L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.2,
+      "family_fit": 0.1,
+      "lifestyle": 0.15,
+      "career": 0.35,
+      "location": 0.1,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "values",
+        "statement": "Vivek strongly believes in egalitarian principles and an equal partnership.",
+        "evidence": "I want a marriage that is a true partnership of equals, where we both cheer for each other's wins and split the load at home.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "He lives independently in Bangalore while maintaining a close relationship with his parents in Chennai.",
+        "evidence": "My parents are settled down south in Chennai. I live alone in Bangalore right now, but I visit them for a weekend every month or two.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "He is highly driven in his tech career and passionate about product management.",
+        "evidence": "Building scalable tech products is my absolute passion. It's demanding, but I love the startup energy and being a PM.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "Vivek is specifically looking for an ambitious, career-oriented woman.",
+        "evidence": "It is really important to me that she has her own career goals. I want us to be a power couple who supports each other's professional growth.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "He enjoys a typical Bangalore lifestyle, exploring cafes and staying active.",
+        "evidence": "Weekends are usually for discovering new coffee roasters in Indiranagar or unwinding with some good craft beer and friends.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "He intends to stay in Bangalore for the foreseeable future due to his career.",
+        "evidence": "Bangalore is basically the Silicon Valley of India. All the best PM roles are here, so I don't see myself relocating anywhere else anytime soon.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "He prefers a modern approach to finances, maintaining both shared and individual accounts.",
+        "evidence": "Financially, I'd like us to pool resources for big things like rent or buying a house, but I also think we should keep individual accounts for personal spending.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "communication_style",
+        "statement": "His communication style is direct and solution-oriented, heavily influenced by his profession.",
+        "evidence": "As a PM, my default mode is to try and 'fix' problems immediately. I'm actively working on just listening and empathizing when that's what is actually needed.",
+        "confidence": 0.8,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "interests",
+        "statement": "He is committed to his physical fitness and enjoys playing badminton.",
+        "evidence": "I play badminton every Tuesday and Thursday morning without fail. It keeps my mind clear before the workday starts.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "He will not proceed with someone who wishes to be a homemaker post-marriage.",
+        "evidence": "I have huge respect for homemakers, but for my own life, it's a firm dealbreaker if my partner wants to stop working after marriage.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "He describes himself as culturally connected but moderately spiritual rather than highly religious.",
+        "evidence": "I visit the temple on special occasions mostly when I'm with my parents in Chennai, but day-to-day I'm more spiritual than religious.",
+        "confidence": 0.8,
+        "visibility": "public"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Good fit; ambitious and supportive of a working partner; parents in Chennai, lives alone.",
+    "id": "s12_vivek"
+  },
+  {
+    "name": "Siddharth Desai",
+    "bio_note": "A dedicated Orthopaedic Surgeon in Bangalore who balances a highly demanding career with a strong commitment to his traditional joint family and personal fitness.",
+    "self_facts": {
+      "age": 30,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "Orthopaedic Surgeon",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Hindi",
+        "Kannada",
+        "Marathi"
+      ],
+      "height_cm": 180
+    },
+    "hard_criteria": {
+      "age_min": 25,
+      "age_max": 30,
+      "cities": [
+        "Bangalore"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English",
+        "Hindi"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.2,
+      "family_fit": 0.35,
+      "lifestyle": 0.2,
+      "career": 0.1,
+      "location": 0.1,
+      "communication": 0.05
+    },
+    "aspects": [
+      {
+        "category": "career_ambition",
+        "statement": "Siddharth is deeply committed to his medical career, often working long, unpredictable hours.",
+        "evidence": "I practically live at the hospital right now. Orthopaedics is demanding, so my hours are pretty long and unpredictable.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "He belongs to a traditional joint family and there is a strict expectation to spend every weekend with them.",
+        "evidence": "My family is a traditional joint setup here in Bangalore. Even though I have a flat near the hospital, the expectation is that I am at the family house every weekend, and my future wife will need to be part of that.",
+        "confidence": 0.98,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "He prioritizes physical fitness and maintains a strict workout routine despite his busy schedule.",
+        "evidence": "I make it a point to stay in good shape. Even if I finish surgery at 9 PM, I will hit the gym. Health is wealth, yaar.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "He is firmly settled in Bangalore and has no plans to relocate.",
+        "evidence": "Bangalore is home. My practice is here, my family is here, and I don't see myself moving anywhere else.",
+        "confidence": 1.0,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "He is financially stable but currently paying off a medical education loan.",
+        "evidence": "I still have a bit of my MS education loan to clear, but with my current hospital attachment and private consulting, I am comfortable.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "communication_style",
+        "statement": "His communication style is direct, clear, and practical.",
+        "evidence": "I am a straight shooter. In the OR, you have to be clear and precise, and I guess that spills over into my personal life.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "He enjoys a low-key personal life, focusing on fitness and watching movies to unwind.",
+        "evidence": "When I am not working or at the gym, I just want to watch a good sci-fi movie or catch up on sleep.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "He seeks an understanding partner who can adapt to his erratic schedule and willingly participate in traditional family weekends.",
+        "evidence": "I really need a partner who gets that I cannot always control my time. Also, she needs to be okay with the weekend family routine because it is very important to my parents.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "It is a dealbreaker if a partner is unwilling to spend weekends with his joint family or resents his family obligations.",
+        "evidence": "If someone wants to just do weekend getaways all the time and avoid the family, it won't work. Family time is non-negotiable for me.",
+        "confidence": 0.99,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "He is moderately religious, primarily participating in family-led rituals and festivals.",
+        "evidence": "I am not doing daily pujas myself, but I always join the family for aartis on weekends and festivals. It keeps me grounded.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "He holds traditional values, particularly regarding familial duty and respect for elders.",
+        "evidence": "I strongly believe that honoring our roots and taking care of our parents is our highest duty.",
+        "confidence": 0.9,
+        "visibility": "public"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Good fit; long hours; traditional joint family that expects the couple to visit every weekend.",
+    "id": "s13_siddharth"
+  },
+  {
+    "name": "Kabir Rao",
+    "bio_note": "A passionate sound engineer in Bangalore with a deep love for the indie arts scene, looking for a creative and open-minded partner.",
+    "self_facts": {
+      "age": 28,
+      "city": "Bangalore",
+      "education": "bachelors",
+      "profession": "Sound Engineer",
+      "income_band": "10-20L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Hindi",
+        "Kannada"
+      ],
+      "height_cm": 175
+    },
+    "hard_criteria": {
+      "age_min": 24,
+      "age_max": 29,
+      "cities": [
+        "Bangalore",
+        "Mumbai"
+      ],
+      "open_to_relocate": true,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.25,
+      "family_fit": 0.1,
+      "lifestyle": 0.3,
+      "career": 0.15,
+      "location": 0.1,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "lifestyle",
+        "statement": "Kabir is highly involved in the local indie music and arts scene.",
+        "evidence": "I spend most of my weekends at gigs, checking out new art spaces, or just absorbing the creative energy of the city.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "He has a strong appreciation for visual arts, aesthetics, and design.",
+        "evidence": "I love aesthetics. Even though I work in audio, I collect indie zines, love visiting galleries, and mostly hang out with designer friends.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "He is deeply passionate about sound design for films and immersive media.",
+        "evidence": "Audio isn't just a job for me, it's pure storytelling. I'm constantly pushing myself to work on more experimental and narrative-driven projects.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "He values individualism and unconventional life paths.",
+        "evidence": "I've never really fit the corporate mold, and I deeply respect people who carve out their own unique niche in life.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "Kabir is expressive and emotionally articulate in his relationships.",
+        "evidence": "I'm a fairly open book. If something's on my mind, I prefer to talk it out honestly over a nice cup of filter coffee.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "He is close to his family but maintains strict independence in his daily life.",
+        "evidence": "My folks in Mysore are super supportive of my weird studio hours, but I really value my independent setup here in Indiranagar.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "He is spiritual but not religious, leaning towards mindfulness over rituals.",
+        "evidence": "I don't really do traditional rituals, but I meditate. A highly religious partner probably wouldn't gel with my worldview.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "location_plans",
+        "statement": "He is open to relocating to Mumbai for industry opportunities or the right partner.",
+        "evidence": "Bangalore is home, but Mumbai obviously has the bigger studios. I'd definitely move if my partner or my work pulled me there.",
+        "confidence": 0.85,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "He wants a partner who understands the freelance hustle and shares his creative passions.",
+        "evidence": "I really want a partner who gets the creative hustle. Ideally, someone in a creative field like design, who might even collaborate on life's crazy projects with me.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "He cannot be with someone who demands a rigid, conventional 9-to-5 lifestyle.",
+        "evidence": "If she expects me to clock in and clock out at the exact same time every day and live a perfectly predictable life, it's just not going to work.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "His income is project-based and can fluctuate significantly from month to month.",
+        "evidence": "My earnings can be pretty irregular. Some months are massive when a feature film releases, and other months I'm budgeting carefully. I manage well, but it's not a steady corporate paycheck.",
+        "confidence": 0.95,
+        "visibility": "private"
+      },
+      {
+        "category": "interests",
+        "statement": "He enjoys quiet, culturally enriching activities like reading and hunting for vinyl records.",
+        "evidence": "Sundays are usually for flipping through vinyls at Blossom's and finding a quiet spot to read. It balances out the loud studio work.",
+        "confidence": 0.85,
+        "visibility": "public"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Creative, strong interest overlap with a designer; irregular income (worth exploring).",
+    "id": "s14_kabir"
+  },
+  {
+    "name": "Aryan Malhotra",
+    "bio_note": "A highly successful investment banker in Bangalore who is looking to settle down. He offers a very comfortable lifestyle and financial security, but holds traditional views on family roles and expects his future wife to prioritize home and children over her own career in the long run.",
+    "self_facts": {
+      "age": 31,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "Investment Banker",
+      "income_band": "50L+",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Hindi",
+        "Gujarati"
+      ],
+      "height_cm": 180
+    },
+    "hard_criteria": {
+      "age_min": 25,
+      "age_max": 29,
+      "cities": [
+        "Bangalore",
+        "Mumbai"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English",
+        "Hindi"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.35,
+      "family_fit": 0.25,
+      "lifestyle": 0.15,
+      "career": 0.05,
+      "location": 0.1,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "partner_expectations",
+        "statement": "Aryan explicitly expects his future wife to become a stay-at-home mother once they have children.",
+        "evidence": "Honestly, I want my kids raised by their mother, not a nanny or daycares. Once we start a family, I fully expect my wife to take a step back and quit her career to focus on the home.",
+        "confidence": 0.98,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "He will not match well with a woman who is highly ambitious or wants to prioritize her career long-term.",
+        "evidence": "If her job is the most important thing in her life, it won't work out. I need someone who is willing to put family first when the time comes.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Aryan is intensely driven and works demanding hours to maintain his rapid career trajectory.",
+        "evidence": "I routinely work 70-hour weeks in IB. It's intense, but I'm building a very secure and luxurious future for my family.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "He identifies as quite traditional regarding gender roles and family dynamics, despite his modern corporate lifestyle.",
+        "evidence": "I might wear a sharp suit to work and hit the microbreweries on weekends, but at heart, I'm a traditional Indian guy who believes in classic family roles.",
+        "confidence": 0.92,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "He is very wealthy and plans to be the sole provider for the household.",
+        "evidence": "I make more than enough to provide a very lavish lifestyle. My wife won't ever need to worry about money or earning a paycheck.",
+        "confidence": 0.99,
+        "visibility": "private"
+      },
+      {
+        "category": "family_structure",
+        "statement": "He has a close relationship with his parents and expects them to live with him in the future.",
+        "evidence": "My parents are in Surat right now, but eventually, as they get older, they will move in with us. Taking care of them is my duty.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "He enjoys high-end travel and luxury experiences to decompress from his stressful job.",
+        "evidence": "When I do get time off, I like to travel well. A nice resort in the Maldives or a ski trip in Switzerland helps me recharge.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "He follows standard religious traditions without being overly strict.",
+        "evidence": "We do the Diwali pooja properly every year and visit the temple on special occasions. I respect our traditions completely.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "He has a very direct, pragmatic communication style and dislikes emotional ambiguity.",
+        "evidence": "I negotiate for a living, so I really appreciate straight talk. I prefer sorting out issues logically without too much emotional drama.",
+        "confidence": 0.85,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "interests",
+        "statement": "He spends his limited free time on fitness and playing golf.",
+        "evidence": "Sunday mornings are strictly for a quick round of golf or hitting the gym to clear my head before the work week begins.",
+        "confidence": 0.75,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "He is strongly rooted in Bangalore for his career, though he is open to Mumbai if a major promotion arises.",
+        "evidence": "Bangalore is where all the big deals are happening for my sector right now, so I'm here for the foreseeable future.",
+        "confidence": 0.88,
+        "visibility": "public"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Strong on paper, BUT expects his wife to step back from her career once they have kids (should trigger a career dealbreaker for an ambitious woman). Say this explicitly in partner_expectations.",
+    "id": "s15_aryan"
+  },
+  {
+    "name": "Karthik Balasubramanian",
+    "bio_note": "EV Engineer based in Bangalore. An outdoorsy guy who loves hiking and nature. Quiet and thoughtful by nature.",
+    "self_facts": {
+      "age": 27,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "EV Engineer",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Tamil",
+        "Kannada"
+      ],
+      "height_cm": 178
+    },
+    "hard_criteria": {
+      "age_min": 23,
+      "age_max": 28,
+      "cities": [
+        "Bangalore",
+        "Chennai"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.15,
+      "family_fit": 0.1,
+      "lifestyle": 0.3,
+      "career": 0.1,
+      "location": 0.1,
+      "communication": 0.25
+    },
+    "aspects": [
+      {
+        "category": "lifestyle",
+        "statement": "Karthik is highly outdoorsy and spends most of his free time hiking.",
+        "evidence": "If I am not at the lab, I am probably on a trail in the Western Ghats.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "He is conflict-avoidant and tends to go completely silent during disagreements.",
+        "evidence": "When arguments happen, I just shut down. I need time to process before saying something I regret, so I stay quiet.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "He seeks a partner who either shares his love for nature or is comfortable with her own independent hobbies.",
+        "evidence": "I hope to find a partner who enjoys nature, but if she has her own weekend hobbies, that is totally cool too.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "He cannot handle highly confrontational or loud arguments.",
+        "evidence": "Yelling really stresses me out. If someone's communication style is explosive, we will not last.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "He is passionate about his work in green technology and plans to stay in the sector long-term.",
+        "evidence": "Working on EV battery efficiency is my dream job. I plan to stick to this sector long-term.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "He is environmentally conscious and prefers a simple, non-flashy lifestyle.",
+        "evidence": "I try to keep my carbon footprint low. Flashy lifestyles just do not appeal to me at all.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "finances",
+        "statement": "He financially supports his parents while actively saving for a house downpayment.",
+        "evidence": "I set aside a chunk of my salary for my folks in Coimbatore, and the rest goes into index funds for a home downpayment.",
+        "confidence": 0.9,
+        "visibility": "private"
+      },
+      {
+        "category": "family_structure",
+        "statement": "He comes from a small, tight-knit family and maintains a close relationship with his parents.",
+        "evidence": "My parents are back in my hometown. We are a small, tight-knit family, and I visit them every long weekend.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "He is firm on remaining in Bangalore because it is the hub for his industry.",
+        "evidence": "Bangalore is the hub for EV startups. Relocating anywhere else would really hurt my career trajectory.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "He is not strictly religious but participates in occasional temple visits for family.",
+        "evidence": "I visit the temple on festivals mainly for my mother's sake, but I find my real peace out in the mountains.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "Besides the outdoors, he enjoys science fiction and local coffee shops.",
+        "evidence": "Besides hiking, I am a big sci-fi nerd. I also spend a lot of time hunting for the perfect filter coffee in Indiranagar.",
+        "confidence": 0.85,
+        "visibility": "public"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 2,
+    "reserve": false,
+    "brief": "Outdoorsy hiker; quiet, avoids conflict and tends to go silent in disagreements (worth exploring).",
+    "id": "s16_karthik"
+  },
+  {
+    "name": "Nikhil Bhatia",
+    "bio_note": "A dedicated Chartered Accountant running his own practice in Mumbai. Strongly rooted in his family and city, looking for a partner who values tradition, understands the demands of a growing business, and appreciates the charm of a Mumbai life.",
+    "self_facts": {
+      "age": 33,
+      "city": "Mumbai",
+      "education": "masters",
+      "profession": "Chartered Accountant",
+      "income_band": "30-50L",
+      "community": null,
+      "diet": "veg",
+      "marital_status": "never_married",
+      "languages": [
+        "Marathi",
+        "Hindi",
+        "English"
+      ],
+      "height_cm": 175
+    },
+    "hard_criteria": {
+      "age_min": 27,
+      "age_max": 32,
+      "cities": [
+        "Mumbai",
+        "Pune",
+        "Navi Mumbai",
+        "Thane"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "Hindi",
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.2,
+      "family_fit": 0.25,
+      "lifestyle": 0.1,
+      "career": 0.1,
+      "location": 0.25,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "location_plans",
+        "statement": "Nikhil is strictly bound to Mumbai due to his established CA practice and refuses to relocate.",
+        "evidence": "Mumbai meri jaan hai. I started my firm here from scratch and it's doing well now. Honestly, I just can't imagine moving to another city or country.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "He is an ambitious entrepreneur who has successfully built his own CA firm over the last few years.",
+        "evidence": "Starting my own CA firm three years ago was tough, but it's finally paying off. I want to expand my team and take on bigger corporate audits soon.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "He lives with his parents in a joint setup and intends for this living arrangement to continue post-marriage.",
+        "evidence": "My parents live with me in Dadar. I'm the only son, so taking care of them and staying together is an absolute given.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "He believes in a balance of modern mindset while deeply respecting traditional family roots and elders.",
+        "evidence": "I want us to respect our roots and elders but still have a modern outlook on life and equality in our relationship.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "He leads a simple lifestyle, enjoying local vegetarian street food and casual weekend outings.",
+        "evidence": "Weekends are usually meant for trying new veg joints in Matunga, or just relaxing by catching the sunset at Marine Drive. Keep it simple, yaar.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "His primary hobbies revolve around tracking financial markets and closely following Indian cricket.",
+        "evidence": "Honestly, tracking the stock market is a hobby as much as it's my job. That, and I will literally cancel plans if there's a crucial India cricket match going on.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "He is moderately religious and visits the temple on specific days but is not overly rigid about rituals.",
+        "evidence": "I visit Siddhivinayak on Tuesdays if work permits. I believe in God, but I'm not rigid about daily fasting or heavy rituals.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "He prefers face-to-face, direct communication and is not very active on text messaging.",
+        "evidence": "I'm definitely not much of a texter. If there's something to discuss, let's grab a chai and talk it out face to face. It avoids misunderstandings.",
+        "confidence": 0.85,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "He expects his partner to be highly understanding of his intense work hours during the financial tax season.",
+        "evidence": "July and September are crazy for me with audits and filings. I need a partner who won't get upset when my time is not my own during tax seasons.",
+        "confidence": 0.92,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "Living separately from his parents or relocating outside Mumbai are absolute dealbreakers for him.",
+        "evidence": "If she wants to live separately or is looking for a guy who will move abroad, it's a hard no. My parents stay with me, period.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "He is financially secure but extremely frugal, choosing to heavily invest his income rather than spend on luxury items.",
+        "evidence": "I make good money, but I invest around 60% of it into real estate and mutual funds. I don't believe in show-off spending or buying luxury cars, which some girls don't get.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "family_structure",
+        "statement": "His father recently experienced a health scare, making him extra cautious about staying close to home.",
+        "evidence": "My dad had a mild stroke last year. He has recovered well, but we are a bit cautious now, so I really need to be around to handle any emergencies.",
+        "confidence": 0.9,
+        "visibility": "private"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "HARD-FILTER FAIL: age 33 and lives in Mumbai, not open to relocate.",
+    "id": "s17_nikhil"
+  },
+  {
+    "name": "Rahul Verma",
+    "bio_note": "A dedicated civil servant posted in Delhi, balancing a demanding public service career with a love for literature, quiet evenings, and strong family ties.",
+    "self_facts": {
+      "age": 29,
+      "city": "Delhi",
+      "education": "masters",
+      "profession": "Civil Servant",
+      "income_band": "10-20L",
+      "community": null,
+      "diet": "veg",
+      "marital_status": "never_married",
+      "languages": [
+        "Hindi",
+        "English"
+      ],
+      "height_cm": 178
+    },
+    "hard_criteria": {
+      "age_min": 25,
+      "age_max": 29,
+      "cities": [
+        "Delhi"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "Hindi",
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.2,
+      "family_fit": 0.15,
+      "lifestyle": 0.15,
+      "career": 0.15,
+      "location": 0.25,
+      "communication": 0.1
+    },
+    "aspects": [
+      {
+        "category": "location_plans",
+        "statement": "Strictly based in Delhi and cannot relocate due to his government posting.",
+        "evidence": "As a civil servant, my posting is fixed in Delhi for the foreseeable future. I just cannot relocate, so I need someone who is already here or happy to move to Delhi.",
+        "confidence": 0.99,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Highly dedicated to public service, which often involves demanding hours.",
+        "evidence": "Working in the ministry means my schedule can get quite hectic, but I find a lot of purpose in what I do for the country.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "Deeply rooted in traditional values while maintaining a progressive outlook on partnership.",
+        "evidence": "I respect our cultural roots a lot, but I firmly believe a modern marriage has to be a strict partnership of equals.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "Enjoys a quiet, simple life, reading, and occasionally exploring the city's food scene.",
+        "evidence": "My weekends are usually low-key. A good book, some classical music, and maybe a visit to a cozy cafe in CP with friends.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "Direct, thoughtful, and prefers calm resolutions to conflict.",
+        "evidence": "I'm a straightforward person. I much prefer having calm, sit-down conversations over any passive-aggressive silence.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "Avid reader of history and public policy, and enjoys morning runs for fitness.",
+        "evidence": "I run at Lodhi Gardens every morning to clear my head, and my bookshelf is completely overflowing with history and policy books.",
+        "confidence": 0.92,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "Currently lives with his parents in government housing and expects his partner to be comfortable with this arrangement.",
+        "evidence": "I live with my folks in the government quarters. They are very chill and give me my space, but whoever comes into my life should be okay with a joint setup for now.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "Moderately religious; participates in festivals but is not overly ritualistic in daily life.",
+        "evidence": "I go to the temple on big festivals and birthdays, but I'm not doing daily pujas. I'd say I'm more spiritual than ritualistic.",
+        "confidence": 0.8,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "Seeks an independent partner who understands his rigid work schedule.",
+        "evidence": "I'd love someone who has her own career or passions going on, but she really has to understand that sometimes my work will demand sudden late hours.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "Will not compromise on location and avoids superficiality.",
+        "evidence": "The biggest dealbreaker is location, hands down. She must be in Delhi or willing to move here. Also, I really can't handle superficiality or people who are obsessed with social media status.",
+        "confidence": 0.98,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "Values the financial security of his government job, though he manages his investments carefully as his income is fixed.",
+        "evidence": "My job gives immense security and perks, but I don't earn corporate CEO money. I'm very careful with my mutual funds and long-term investments.",
+        "confidence": 0.9,
+        "visibility": "private"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "HARD-FILTER FAIL on location: Delhi only, not open to relocate.",
+    "id": "s18_rahul"
+  },
+  {
+    "name": "Arvind Venkatraman",
+    "bio_note": "A thoughtful and observant Data Engineer from Chennai. Arvind is looking for a meaningful, equal partnership and is open to relocating to Bangalore for the right match.",
+    "self_facts": {
+      "age": 30,
+      "city": "Chennai",
+      "education": "masters",
+      "profession": "Data Engineer",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "veg",
+      "marital_status": "never_married",
+      "languages": [
+        "Tamil",
+        "English"
+      ],
+      "height_cm": 175
+    },
+    "hard_criteria": {
+      "age_min": 25,
+      "age_max": 31,
+      "cities": [
+        "Chennai",
+        "Bangalore"
+      ],
+      "open_to_relocate": true,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "Tamil",
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.2,
+      "family_fit": 0.15,
+      "lifestyle": 0.15,
+      "career": 0.1,
+      "location": 0.15,
+      "communication": 0.25
+    },
+    "aspects": [
+      {
+        "category": "communication_style",
+        "statement": "He is introverted and takes time to open up, but is deeply observant and thoughtful once comfortable.",
+        "evidence": "I'm not the loudest person in a room. I usually prefer listening and observing, but with the right person, we can talk for hours.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "Currently based in Chennai but is highly open to relocating to Bangalore for his partner or career.",
+        "evidence": "Chennai is home, but my company has a big hub in Bangalore, and I'm totally fine moving there if my future wife is settled there.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "Enjoys quiet weekends involving reading, tech tinkering, and exploring filter coffee spots.",
+        "evidence": "My perfect Sunday is a good sci-fi book, trying out a new mechanical keyboard build, and a strong cup of filter coffee.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Dedicated to his role as a Data Engineer but maintains a strict and healthy work-life balance.",
+        "evidence": "I love what I do with data pipelines, but I make sure to log off by 6 PM. Work shouldn't consume your entire life.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "Raised in a close-knit nuclear family in Chennai, valuing both connection and independent space.",
+        "evidence": "It's just my parents, my older sister who is married, and me. We're close but we give each other a lot of independent space.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "Strongly believes in an equal partnership where household responsibilities are shared.",
+        "evidence": "Marriage is a 50-50 partnership. I've lived alone for a few years, so I cook and clean, and I expect us to share the load.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "Leads a simple, clean lifestyle and tries to eat healthy, home-cooked meals.",
+        "evidence": "I avoid junk food as much as possible. I usually meal-prep on Sundays so I have healthy lunches during the work week.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "Seeking a partner who is understanding of his quiet nature and doesn't force him into highly social situations constantly.",
+        "evidence": "I'd love someone who balances me out, maybe slightly more extroverted, but who respects my need for downtime.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "Cannot tolerate arrogance, disrespect, or a lack of empathy towards others.",
+        "evidence": "It's a huge turn-off if someone is rude to service staff or lacks basic empathy. Kindness is non-negotiable for me.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "Follows traditions during festivals but is not overly religious in his daily routine.",
+        "evidence": "I enjoy the festive vibes and will go to the temple with my parents on special days, but I'm not doing daily pujas.",
+        "confidence": 0.85,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "Very diligent with saving and prefers secure investments like fixed deposits and mutual funds over risky ventures.",
+        "evidence": "I'm pretty conservative with money. I've built a solid safety net and prefer long-term mutual funds over day trading.",
+        "confidence": 0.9,
+        "visibility": "private"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Decent fit; open to relocate to Bangalore; reserved but thoughtful.",
+    "id": "s19_arvind"
+  },
+  {
+    "name": "Rohan Sharma",
+    "bio_note": "A passionate culinary professional who loves exploring new flavors and spending time with loved ones. Looking for a partner who enjoys food, laughter, and a vibrant, somewhat unconventional lifestyle.",
+    "self_facts": {
+      "age": 28,
+      "city": "Bangalore",
+      "education": "bachelors",
+      "profession": "Chef",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Hindi",
+        "Kannada"
+      ],
+      "height_cm": 178
+    },
+    "hard_criteria": {
+      "age_min": 24,
+      "age_max": 30,
+      "cities": [
+        "Bangalore"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": []
+    },
+    "preference_weights": {
+      "values": 0.15,
+      "family_fit": 0.1,
+      "lifestyle": 0.35,
+      "career": 0.1,
+      "location": 0.1,
+      "communication": 0.2
+    },
+    "aspects": [
+      {
+        "category": "lifestyle",
+        "statement": "Rohan is an energetic extrovert who enjoys late-night socializing, trying out new bars, and is a regular smoker.",
+        "evidence": "Being a chef, my hours are crazy. After a long kitchen shift, I usually head out with my crew to unwind. Just a heads-up, I am a regular smoker, it's a habit from the high-stress kitchen life that I haven't kicked yet.",
+        "confidence": 0.99,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "He aims to open his own fusion restaurant in Bangalore within the next five years and works extremely hard toward this goal.",
+        "evidence": "Right now I am an executive sous chef, but the dream is to open my own modern Indian tapas place in Indiranagar. I am hustling hard for it every single day.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "He values open-mindedness, creativity, and living life to the fullest over traditional societal norms.",
+        "evidence": "I believe in living in the moment, yaar. Life is too short to be stuck in boring routines or worrying about 'log kya kahenge'. Do what makes you happy.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "He comes from a relaxed, nuclear family that fully supports his unconventional career choice.",
+        "evidence": "My parents are super chill. When I said I wanted to chop onions for a living instead of writing code, they totally backed me up without any drama.",
+        "confidence": 0.92,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "Outside of cooking, he is deeply interested in motorcycle touring and street photography.",
+        "evidence": "On my rare days off, I just take my Royal Enfield out on the highway. I love taking candid photos of local food vendors and highway dhabas along the way.",
+        "confidence": 0.88,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "He is highly expressive, blunt, and uses a lot of humor to diffuse tension.",
+        "evidence": "Kitchens make you pretty direct. I do not sugarcoat things, but I will always make a joke right after so we can laugh it off and move on.",
+        "confidence": 0.91,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "He is anchored to Bangalore due to his professional network and potential investors for his business.",
+        "evidence": "I cannot really leave Namma Bengaluru. My entire vendor network and potential investors for my restaurant are based here. This city is my home base.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "He cannot compromise with a partner who expects a standard 9-to-5 lifestyle or is overly restrictive about his habits.",
+        "evidence": "It just will not work out if she expects me home by 7 PM on weekends or constantly nags me about my smoking or late nights. I need someone who gets the hospitality lifestyle.",
+        "confidence": 0.98,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "He seeks someone independent and outgoing who can match his energy and understand his demanding schedule.",
+        "evidence": "I would love a girl who has her own active life. We can meet up late, grab some amazing food, and just vibe. Independence is super attractive to me.",
+        "confidence": 0.94,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "He is saving aggressively for his restaurant venture, meaning he currently lives somewhat frugally despite a good income.",
+        "evidence": "I make decent money now, but honestly, almost every spare rupee goes into my 'restaurant fund'. So I am pretty tight on luxury spending right now.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "He is spiritual but not religious, rarely visiting places of worship.",
+        "evidence": "I am not the temple-going type at all. I believe in good karma and treating people well, that is my religion basically.",
+        "confidence": 0.89,
+        "visibility": "private"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": false,
+    "brief": "Warm and fun, BUT a regular smoker (should trigger a smoking dealbreaker). Mention smoking explicitly in a lifestyle aspect.",
+    "id": "s20_rohan"
+  },
+  {
+    "name": "Niharika Rao",
+    "bio_note": "A highly empathetic and ambitious UX Researcher based in Bangalore. Niharika is deeply rooted in her family values while thriving in the fast-paced tech ecosystem. She spends her weekends hiking and is looking for a driven, family-oriented partner who can match her pace both on the trails and in their careers.",
+    "self_facts": {
+      "age": 27,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "UX Researcher",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Kannada",
+        "Hindi"
+      ],
+      "height_cm": 164
+    },
+    "hard_criteria": {
+      "age_min": 27,
+      "age_max": 32,
+      "cities": [
+        "Bangalore"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [
+        "Software Engineer",
+        "Product Manager",
+        "IT Professional",
+        "Any"
+      ],
+      "income_band_min": "20-30L",
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.15,
+      "family_fit": 0.3,
+      "lifestyle": 0.2,
+      "career": 0.2,
+      "location": 0.1,
+      "communication": 0.05
+    },
+    "aspects": [
+      {
+        "category": "family_structure",
+        "statement": "Deeply connected to her family and specifically cherishes her relationships with elders.",
+        "evidence": "I'm incredibly close to my grandparents and my parents. Sunday family lunches at our house are basically a sacred ritual for me.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "career_ambition",
+        "statement": "Passionate and driven in her UX Research career, aiming for leadership roles.",
+        "evidence": "I love diving deep into user psychology to build better products. I'm currently working towards a Lead UXR position at my firm by next year.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "Highly active and loves the outdoors, frequently spending weekends on hiking trails.",
+        "evidence": "If I'm not analyzing user data, I'm probably trekking up Nandi Hills or planning a hiking trip in the Western Ghats.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "Firmly rooted in Bangalore and intends to build her life and career there.",
+        "evidence": "Bangalore is home. I love the weather, the vibrant tech ecosystem, and my family is here. I absolutely want to settle down in this city.",
+        "confidence": 0.98,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "Enjoys trekking, listening to psychology podcasts, and exploring local eateries.",
+        "evidence": "My ideal weekend involves an early morning hike, listening to a good behavioral economics podcast, followed by hot dosa at a classic Darshini.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "Culturally grounded and enthusiastically participates in family festivals.",
+        "evidence": "I might not do pooja every single morning, but I love our cultural traditions and celebrating all the major festivals with my entire extended family.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "Believes in balancing modern career success with traditional family respect.",
+        "evidence": "For me, true success is killing it at work while still having the time, energy, and heart to care for our parents as they age.",
+        "confidence": 0.88,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "communication_style",
+        "statement": "Empathetic, calm listener who prefers to understand all perspectives before reacting.",
+        "evidence": "As a researcher, active listening is an occupational hazard! I prefer to fully hear my partner out and talk things through logically rather than arguing.",
+        "confidence": 0.92,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "Seeking a family-oriented, ambitious tech professional who enjoys the outdoors and is based in or moving to Bangalore.",
+        "evidence": "I'd really love to meet someone driven—like a software engineer who gets the tech product world—who can join me on hikes and easily charm my grandparents.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "Cannot compromise on location (Bangalore) and will not tolerate disrespect toward elders.",
+        "evidence": "A major red flag for me is someone who doesn't value family ties or elders, or someone who expects me to leave Bangalore and my career behind.",
+        "confidence": 0.98,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "Financially independent and expects a transparent, dual-income partnership.",
+        "evidence": "I've worked hard to build a solid financial portfolio. I want us to be equal financial contributors and build our wealth together with total transparency.",
+        "confidence": 0.9,
+        "visibility": "private"
+      }
+    ],
+    "gender": "female",
+    "seeking_gender": "male",
+    "days_ago": 20,
+    "reserve": true,
+    "brief": "Very strong fit for a family-oriented software engineer moving to Bangalore; warm with elders, ambitious, hikes. Should rank near the top.",
+    "id": "s21_niharika"
+  },
+  {
+    "name": "Varun Menon",
+    "bio_note": "A passionate architect based in Bangalore who values good design, open communication, and weekends spent hiking in the Western Ghats. Looking for an ambitious partner to build a life with.",
+    "self_facts": {
+      "age": 29,
+      "city": "Bangalore",
+      "education": "masters",
+      "profession": "Architect",
+      "income_band": "20-30L",
+      "community": null,
+      "diet": "non_veg",
+      "marital_status": "never_married",
+      "languages": [
+        "English",
+        "Malayalam",
+        "Hindi",
+        "Kannada"
+      ],
+      "height_cm": 178
+    },
+    "hard_criteria": {
+      "age_min": 25,
+      "age_max": 30,
+      "cities": [
+        "Bangalore"
+      ],
+      "open_to_relocate": false,
+      "education_min": "bachelors",
+      "professions": [
+        "Designer",
+        "Product Designer",
+        "Architect",
+        "Product Manager",
+        "Software Engineer",
+        "Creative Professional"
+      ],
+      "income_band_min": null,
+      "community_pref": null,
+      "diet": "any",
+      "marital_status": [
+        "never_married"
+      ],
+      "languages": [
+        "English"
+      ]
+    },
+    "preference_weights": {
+      "values": 0.15,
+      "family_fit": 0.05,
+      "lifestyle": 0.2,
+      "career": 0.3,
+      "location": 0.05,
+      "communication": 0.25
+    },
+    "aspects": [
+      {
+        "category": "career_ambition",
+        "statement": "Varun is deeply passionate about his own career and enthusiastically supportive of a partner's professional goals, especially in creative fields.",
+        "evidence": "I have huge respect for folks in creative and tech fields, like product design. I want to be the biggest cheerleader for my wife's career.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "lifestyle",
+        "statement": "He is an outdoorsy person who spends his weekends hiking and trekking.",
+        "evidence": "Most weekends, you'll find me escaping the city traffic to hike up Nandi Hills or planning a proper trek in the Western Ghats.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "interests",
+        "statement": "He has a strong appreciation for design, aesthetics, and creative problem-solving.",
+        "evidence": "Being an architect, I'm just obsessed with good design, whether it's a beautifully planned building or a really intuitive app interface.",
+        "confidence": 0.85,
+        "visibility": "public"
+      },
+      {
+        "category": "values",
+        "statement": "Believes in a modern, equal partnership where chores and responsibilities are shared.",
+        "evidence": "Marriage has to be a partnership of equals. We share the chores, the bills, and celebrate each other's successes together.",
+        "confidence": 0.9,
+        "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "He is firmly rooted in Bangalore due to his practice and loves the city's vibe.",
+        "evidence": "Bangalore is home for me now. I've set up my architecture practice here and I just love the city's creative energy and start-up culture.",
+        "confidence": 0.95,
+        "visibility": "public"
+      },
+      {
+        "category": "family_structure",
+        "statement": "He comes from a nuclear family and maintains a close but independent relationship with his parents.",
+        "evidence": "My parents are settled back in Kochi. We are very close and talk often, but they totally respect my independence and space.",
+        "confidence": 0.8,
+        "visibility": "public"
+      },
+      {
+        "category": "communication_style",
+        "statement": "He values direct, calm communication and prefers to resolve conflicts by talking them through.",
+        "evidence": "I'm not one to sweep things under the rug. If there's an issue, let's just sit down, make some filter coffee, and talk it out properly.",
+        "confidence": 0.95,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "partner_expectations",
+        "statement": "He is looking for an ambitious, independent partner, ideally someone working in a creative or tech-oriented field.",
+        "evidence": "I'd love to match with someone who has her own strong passions. Someone in design or tech would be amazing because we'd have so much to geek out about.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "dealbreakers",
+        "statement": "He cannot tolerate poor communication or a lack of career drive in a partner.",
+        "evidence": "Someone who gives the silent treatment is a big no for me. Also, I really need a partner who is genuinely passionate about her work, whatever it may be.",
+        "confidence": 0.9,
+        "visibility": "agent_only"
+      },
+      {
+        "category": "finances",
+        "statement": "He is financially stable but prefers spending on experiences rather than luxury material items.",
+        "evidence": "I make a very comfortable living with my firm, but I'd rather spend my money on a trekking trip to Nepal than a flashy luxury car.",
+        "confidence": 0.85,
+        "visibility": "private"
+      },
+      {
+        "category": "faith_practice",
+        "statement": "He is more spiritual than religious and takes a progressive view on faith.",
+        "evidence": "I grew up going to the temple for festivals, but nowadays I'm more spiritual than strictly religious. I'm very open-minded about my partner's beliefs.",
+        "confidence": 0.75,
+        "visibility": "private"
+      }
+    ],
+    "gender": "male",
+    "seeking_gender": "female",
+    "days_ago": 20,
+    "reserve": true,
+    "brief": "Very strong fit for an ambitious product designer in Bangalore; proud of a partner's career, hikes, talks things through.",
+    "id": "s22_varun"
+  }
+]

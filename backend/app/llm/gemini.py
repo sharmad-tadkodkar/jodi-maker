@@ -17,10 +17,20 @@ T = TypeVar("T", bound=BaseModel)
 PROMPTS_DIR = Path(__file__).resolve().parents[2] / "prompts"
 
 
-@lru_cache
+_clients: dict[int, genai.Client] = {}
+
+
 def client() -> genai.Client:
-    s = get_settings()
-    return genai.Client(vertexai=True, project=s.gcp_project, location=s.gcp_llm_location)
+    """One client per event loop — the async transport is bound to the loop that first used it
+    (matters for scripts and the test client; the server runs a single loop)."""
+    try:
+        key = id(asyncio.get_running_loop())
+    except RuntimeError:
+        key = 0
+    if key not in _clients:
+        s = get_settings()
+        _clients[key] = genai.Client(vertexai=True, project=s.gcp_project, location=s.gcp_llm_location)
+    return _clients[key]
 
 
 @lru_cache

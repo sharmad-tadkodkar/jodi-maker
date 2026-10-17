@@ -341,7 +341,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Personas */
+        /**
+         * Personas
+         * @description Heroes first, then any users created through onboarding.
+         */
         get: operations["personas_demo_personas_get"];
         put?: never;
         post?: never;
@@ -1996,7 +1999,11 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["SeedRequest"] | null;
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {
@@ -2005,6 +2012,15 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OkResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

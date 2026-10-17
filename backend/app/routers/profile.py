@@ -1,24 +1,21 @@
-"""Onboarding & profile (spec §7). STUB — real logic lands in Phase 1 (users) and Phase 2 (intake, /me)."""
+"""Onboarding & profile (spec §7). Real: create/get user (Phase 1). STUB: the rest (Phase 2)."""
 from fastapi import APIRouter
 
 from app import mocks
 from app import models as m
+from app.services import users
 
 router = APIRouter(tags=["profile"])
 
 
 @router.post("/users", response_model=m.User)
 async def create_user(body: m.CreateUserRequest):
-    u = mocks.user()
-    return u.model_copy(update={"id": "new_user", "name": body.name, "gender": body.gender,
-                                "seeking_gender": "female" if body.gender == "male" else "male",
-                                "role": body.role, "status": "onboarding",
-                                "intake_completeness": 0.0, "is_seed": False})
+    return users.create_user(body)
 
 
 @router.get("/users/{user_id}", response_model=m.User)
 async def get_user(user_id: str):
-    return mocks.user(user_id)
+    return users.get_user_doc(user_id)
 
 
 @router.get("/users/{user_id}/aspects", response_model=list[m.Aspect])

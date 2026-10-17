@@ -146,6 +146,50 @@ async def _generate_one(brief: dict, sem: asyncio.Semaphore) -> dict:
     return data
 
 
+CITY_ALIASES = {"bengaluru": "Bangalore", "bombay": "Mumbai", "calcutta": "Kolkata", "gurugram": "Gurgaon"}
+
+
+def _city(c: str) -> str:
+    return CITY_ALIASES.get(c.strip().lower(), c.strip())
+
+
+def _snake(v: str | None) -> str | None:
+    return re.sub(r"[\s-]+", "_", v.strip().lower()) if isinstance(v, str) else v
+
+
+def normalize(p: dict) -> dict:
+    """Canonicalise LLM output so the deterministic hard filter compares like with like."""
+    f, h = p["self_facts"], p["hard_criteria"]
+    f["city"] = _city(f["city"])
+    f["marital_status"] = _snake(f.get("marital_status"))
+    f["diet"] = _snake(f.get("diet"))
+    f["education"] = _snake(f.get("education"))
+    h["cities"] = list(dict.fromkeys(_city(c) for c in h.get("cities", []) if c.lower() not in {"any", "anywhere"}))
+    h["marital_status"] = [_snake(s) for s in h.get("marital_status", [])] or ["never_married"]
+    h["diet"] = _snake(h.get("diet")) or "any"
+    h["education_min"] = _snake(h.get("education_min"))
+    return p
+
+
+def rename(p: dict, new_name: str) -> dict:
+    """Swap a profile's name everywhere it appears (aspects often mention the first name)."""
+    old_parts, new_parts = p["name"].split(), new_name.split()
+    pairs = [(p["name"], new_name), (old_parts[0], new_parts[0])]
+    if len(old_parts) > 1 and len(new_parts) > 1:
+        pairs.append((old_parts[-1], new_parts[-1]))
+    text = json.dumps({k: v for k, v in p.items() if k in ("bio_note", "aspects")}, ensure_ascii=False)
+    for old, new in pairs:
+        text = text.replace(old, new)
+    p.update(json.loads(text), name=new_name)
+    return p
+
+
+def assign_ids(profiles: list[dict]) -> None:
+    for i, p in enumerate(profiles):
+        slug = re.sub(r"[^a-z]", "", p["name"].split()[0].lower())
+        p["id"] = f"s{i + 1:02d}_{slug}"
+
+
 async def generate(count: int) -> None:
     existing = json.loads(PROFILES_FILE.read_text()) if PROFILES_FILE.exists() else []
     briefs = BRIEFS + [_extra_brief(i) for i in range(max(0, count + 2 - len(BRIEFS)))]
@@ -153,10 +197,13 @@ async def generate(count: int) -> None:
     log.info("generating %d profiles (%d already exist)", len(todo), len(existing))
     sem = asyncio.Semaphore(6)
     new = await asyncio.gather(*[_generate_one(b, sem) for b in todo])
-    profiles = existing + list(new)
-    for i, p in enumerate(profiles):
-        slug = re.sub(r"[^a-z]", "", p["name"].split()[0].lower())
-        p["id"] = f"s{i + 1:02d}_{slug}"
+    profiles = existing + [normalize(p) for p in new]
+    taken = {p["name"].split()[0] for p in existing} | {"Arjun", "Meera"}
+    for p in profiles[len(existing):]:
+        if p["name"].split()[0] in taken:
+            log.warning("duplicate first name %s (%s) — rename it in profiles.json", p["name"], p["brief"][:40])
+        taken.add(p["name"].split()[0])
+    assign_ids(profiles)
     PROFILES_FILE.write_text(json.dumps(profiles, indent=2, ensure_ascii=False))
     log.info("wrote %d profiles to %s", len(profiles), PROFILES_FILE)
 
