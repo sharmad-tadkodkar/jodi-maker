@@ -47,7 +47,7 @@ def _thinking(tier: str) -> types.ThinkingConfig | None:
 
 # Per-call cap: Vertex occasionally holds a request for 30s+ (shared capacity). Better to cut it and
 # retry / fall back than to make the user wait.
-CALL_TIMEOUT_S = {"fast": 12.0, "smart": 90.0}
+CALL_TIMEOUT_S = {"fast": 8.0, "smart": 90.0}
 
 
 def _models_for(tier: str) -> list[str]:
