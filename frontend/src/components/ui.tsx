@@ -129,3 +129,16 @@ export function PageHeader({ eyebrow, title, children }: { eyebrow?: string; tit
 export function SectionTitle({ children }: { children: ReactNode }) {
   return <h2 className="mb-3 font-display text-xl text-ink">{children}</h2>
 }
+
+export function Typing({ name }: { name: string }) {
+  return (
+    <div className="flex items-center gap-2 text-xs text-muted" role="status">
+      <span className="flex gap-1">
+        {[0, 150, 300].map((d) => (
+          <span key={d} className="size-1.5 animate-bounce rounded-full bg-muted/60" style={{ animationDelay: `${d}ms` }} />
+        ))}
+      </span>
+      {name} is typing…
+    </div>
+  )
+}

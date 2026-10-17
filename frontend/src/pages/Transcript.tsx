@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api, getUserId, type InterviewResponse, type InterviewTurn } from '../api/client'
-import { Button, Card, ErrorState, Loading, PageHeader } from '../components/ui'
+import { Button, Card, ErrorState, Loading, PageHeader, Typing } from '../components/ui'
 import { errorMessage } from '../lib/useAsync'
 
 const POLL_MS = 1500
@@ -59,19 +59,6 @@ function Bubble({ turn, mine }: { turn: InterviewTurn; mine: boolean }) {
         </div>
         {hl && <p className={`px-1 text-[11px] font-medium ${hl.labelClass}`}>● {hl.label}</p>}
       </div>
-    </div>
-  )
-}
-
-function Typing({ name }: { name: string }) {
-  return (
-    <div className="flex items-center gap-2 text-xs text-muted" role="status">
-      <span className="flex gap-1">
-        {[0, 150, 300].map((d) => (
-          <span key={d} className="size-1.5 animate-bounce rounded-full bg-muted/60" style={{ animationDelay: `${d}ms` }} />
-        ))}
-      </span>
-      {name} is typing…
     </div>
   )
 }

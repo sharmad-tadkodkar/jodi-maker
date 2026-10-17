@@ -3,11 +3,12 @@ import { api, API_URL, getUserId } from './api/client'
 import Layout from './components/Layout'
 import Brief from './pages/Brief'
 import Pipeline from './pages/Pipeline'
+import Onboard from './pages/Onboard'
 import Placeholder from './pages/Placeholder'
 import Transcript from './pages/Transcript'
 
 /**
- * Routes from spec §5. Pipeline, Brief and Transcript are real screens; the rest are Placeholder pages that
+ * Routes from spec §5. Onboard, Pipeline, Brief and Transcript are real screens; the rest are Placeholder pages that
  * render the raw response until their screen is built.
  */
 
@@ -38,7 +39,7 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Placeholder title="Jodi — health check" load={() => fetch(`${API_URL}/health`).then((r) => r.json())} />} />
-          <Route path="/onboard" element={<Placeholder title="Intake chat" load={() => api.getIntakeMessages(uid())} />} />
+          <Route path="/onboard" element={<Onboard />} />
           <Route path="/me" element={<Placeholder title="What my matchmaker knows" load={async () => ({ user: await api.getUser(uid()), aspects: await api.getAspects(uid()), learning: await api.getLearning(uid()) })} />} />
           <Route path="/pipeline" element={<Pipeline />} />
           <Route path="/brief" element={<BriefRoute />} />

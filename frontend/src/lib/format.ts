@@ -1,4 +1,18 @@
-import type { PipelineItem, Scores } from '../api/client'
+import type { Aspect, PipelineItem, Scores } from '../api/client'
+
+export const ASPECT_LABEL: Record<Aspect['category'], string> = {
+  values: 'Values',
+  family_structure: 'Family',
+  career_ambition: 'Career',
+  lifestyle: 'Lifestyle',
+  location_plans: 'Location plans',
+  finances: 'Finances',
+  faith_practice: 'Faith',
+  communication_style: 'Communication',
+  interests: 'Interests',
+  partner_expectations: 'In a partner',
+  dealbreakers: 'Dealbreakers',
+}
 
 export type Dimension = Exclude<keyof Scores, 'overall' | 'reasons'>
 
