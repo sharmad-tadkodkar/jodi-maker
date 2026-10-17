@@ -4,9 +4,10 @@ import Layout from './components/Layout'
 import Brief from './pages/Brief'
 import Pipeline from './pages/Pipeline'
 import Placeholder from './pages/Placeholder'
+import Transcript from './pages/Transcript'
 
 /**
- * Routes from spec §5. Pipeline and Brief are real screens; the rest are Placeholder pages that
+ * Routes from spec §5. Pipeline, Brief and Transcript are real screens; the rest are Placeholder pages that
  * render the raw response until their screen is built.
  */
 
@@ -16,10 +17,6 @@ const uid = getUserId
 function BriefRoute() {
   const { matchId } = useParams()
   return <Brief key={matchId ?? 'next'} />
-}
-function Transcript() {
-  const { matchId = '' } = useParams()
-  return <Placeholder title="Interview transcript" load={() => api.getInterview(matchId)} />
 }
 function Mutual() {
   const { matchId = '' } = useParams()

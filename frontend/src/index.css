@@ -28,6 +28,13 @@
   --color-amber-ink: #8a5a14;
 }
 
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
