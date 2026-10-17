@@ -1,0 +1,3257 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Jodi API",
+    "description": "Jodi \u2014 your AI matchmaker. Auth for the hackathon is an `X-User-Id` header.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Create User",
+        "operationId": "create_user_users_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Get User",
+        "operationId": "get_user_users__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/aspects": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "List Aspects",
+        "operationId": "list_aspects_users__user_id__aspects_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Aspect"
+                  },
+                  "title": "Response List Aspects Users  User Id  Aspects Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/aspects/{aspect_id}": {
+      "patch": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Patch Aspect",
+        "operationId": "patch_aspect_users__user_id__aspects__aspect_id__patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "aspect_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aspect Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AspectPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Aspect"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Delete Aspect",
+        "operationId": "delete_aspect_users__user_id__aspects__aspect_id__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "aspect_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aspect Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/hard-criteria": {
+      "patch": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Patch Hard Criteria",
+        "operationId": "patch_hard_criteria_users__user_id__hard_criteria_patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HardCriteriaPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/data": {
+      "delete": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Wipe Data",
+        "operationId": "wipe_data_users__user_id__data_delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/learning": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Learning History",
+        "operationId": "learning_history_users__user_id__learning_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LearningEntry"
+                  },
+                  "title": "Response Learning History Users  User Id  Learning Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intake/{user_id}/messages": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Intake History",
+        "description": "Not in original \u00a77 \u2014 needed so the chat can resume after a refresh. Returns the opening\nagent message for a brand-new user.",
+        "operationId": "intake_history_intake__user_id__messages_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IntakeMessage"
+                  },
+                  "title": "Response Intake History Intake  User Id  Messages Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intake/{user_id}/message": {
+      "post": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Intake Message",
+        "operationId": "intake_message_intake__user_id__message_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IntakeMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeMessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scout/{user_id}": {
+      "post": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Run Scout",
+        "operationId": "run_scout_scout__user_id__post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobRef"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pipeline/{user_id}": {
+      "get": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Pipeline",
+        "operationId": "pipeline_pipeline__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PipelineResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matches/{match_id}/interview": {
+      "post": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Run Interview",
+        "operationId": "run_interview_matches__match_id__interview_post",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/InterviewRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobRef"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Get Interview",
+        "operationId": "get_interview_matches__match_id__interview_get",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matches/{match_id}/brief/{user_id}": {
+      "get": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Get Brief",
+        "operationId": "get_brief_matches__match_id__brief__user_id__get",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Brief"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/briefs/next/{user_id}": {
+      "get": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Next Brief",
+        "operationId": "next_brief_briefs_next__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Brief"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Next Brief Briefs Next  User Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matches/{match_id}/decision": {
+      "post": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Decide",
+        "operationId": "decide_matches__match_id__decision_post",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/focus/{match_id}": {
+      "get": {
+        "tags": [
+          "focus"
+        ],
+        "summary": "Focus State",
+        "operationId": "focus_state_focus__match_id__get",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "arjun",
+              "title": "X-User-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FocusState"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/focus/{match_id}/chat": {
+      "get": {
+        "tags": [
+          "focus"
+        ],
+        "summary": "Get Chat",
+        "operationId": "get_chat_focus__match_id__chat_get",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatMessage"
+                  },
+                  "title": "Response Get Chat Focus  Match Id  Chat Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "focus"
+        ],
+        "summary": "Post Chat",
+        "operationId": "post_chat_focus__match_id__chat_post",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/focus/{match_id}/decision": {
+      "post": {
+        "tags": [
+          "focus"
+        ],
+        "summary": "Focus Decision",
+        "operationId": "focus_decision_focus__match_id__decision_post",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FocusDecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FocusDecisionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jobs/{job_id}": {
+      "get": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Get Job",
+        "operationId": "get_job_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/demo/personas": {
+      "get": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "Personas",
+        "operationId": "personas_demo_personas_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Persona"
+                  },
+                  "type": "array",
+                  "title": "Response Personas Demo Personas Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/demo/seed": {
+      "post": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "Seed",
+        "operationId": "seed_demo_seed_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/demo/reset": {
+      "post": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "Reset",
+        "operationId": "reset_demo_reset_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/demo/simulate-response": {
+      "post": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "Simulate Response",
+        "operationId": "simulate_response_demo_simulate_response_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulateResponseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/demo/fast-forward": {
+      "post": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "Fast Forward",
+        "operationId": "fast_forward_demo_fast_forward_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FastForwardRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FocusState"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/demo/new-profile": {
+      "post": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "New Profile",
+        "operationId": "new_profile_demo_new_profile_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidateSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Aspect": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "values",
+              "family_structure",
+              "career_ambition",
+              "lifestyle",
+              "location_plans",
+              "finances",
+              "faith_practice",
+              "communication_style",
+              "interests",
+              "partner_expectations",
+              "dealbreakers"
+            ],
+            "title": "Category"
+          },
+          "statement": {
+            "type": "string",
+            "title": "Statement"
+          },
+          "evidence": {
+            "type": "string",
+            "title": "Evidence"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": "intake"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "agent_only",
+              "private"
+            ],
+            "title": "Visibility",
+            "default": "agent_only"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "statement",
+          "evidence",
+          "confidence"
+        ],
+        "title": "Aspect"
+      },
+      "AspectPatch": {
+        "properties": {
+          "statement": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Statement"
+          },
+          "visibility": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "public",
+                  "agent_only",
+                  "private"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Visibility"
+          }
+        },
+        "type": "object",
+        "title": "AspectPatch"
+      },
+      "Brief": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "title": "Match Id"
+          },
+          "for_user_id": {
+            "type": "string",
+            "title": "For User Id"
+          },
+          "candidate": {
+            "$ref": "#/components/schemas/CandidateSummary"
+          },
+          "compatibility": {
+            "type": "number",
+            "title": "Compatibility"
+          },
+          "snapshot": {
+            "type": "string",
+            "title": "Snapshot"
+          },
+          "why_fit": {
+            "items": {
+              "$ref": "#/components/schemas/WhyFitItem"
+            },
+            "type": "array",
+            "title": "Why Fit"
+          },
+          "green_flags": {
+            "items": {
+              "$ref": "#/components/schemas/FlagItem"
+            },
+            "type": "array",
+            "title": "Green Flags"
+          },
+          "explore": {
+            "items": {
+              "$ref": "#/components/schemas/FlagItem"
+            },
+            "type": "array",
+            "title": "Explore"
+          },
+          "questions_only_you": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Questions Only You"
+          },
+          "family_fit": {
+            "type": "string",
+            "title": "Family Fit"
+          },
+          "generated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "match_id",
+          "for_user_id",
+          "candidate",
+          "compatibility",
+          "snapshot",
+          "why_fit",
+          "green_flags",
+          "explore",
+          "questions_only_you",
+          "family_fit"
+        ],
+        "title": "Brief"
+      },
+      "CandidateSummary": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "profession": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profession"
+          },
+          "verified": {
+            "type": "boolean",
+            "title": "Verified",
+            "default": true
+          },
+          "is_new": {
+            "type": "boolean",
+            "title": "Is New",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "display_name"
+        ],
+        "title": "CandidateSummary"
+      },
+      "ChatMessage": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "sender_id": {
+            "type": "string",
+            "title": "Sender Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "sender_id",
+          "text"
+        ],
+        "title": "ChatMessage"
+      },
+      "ChatPost": {
+        "properties": {
+          "sender_id": {
+            "type": "string",
+            "title": "Sender Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sender_id",
+          "text"
+        ],
+        "title": "ChatPost"
+      },
+      "CreateUserRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ],
+            "title": "Gender"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "candidate",
+              "parent"
+            ],
+            "title": "Role",
+            "default": "candidate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "gender"
+        ],
+        "title": "CreateUserRequest"
+      },
+      "DecisionRequest": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "interested",
+              "pass"
+            ],
+            "title": "Decision"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "decision"
+        ],
+        "title": "DecisionRequest"
+      },
+      "DecisionResponse": {
+        "properties": {
+          "match": {
+            "$ref": "#/components/schemas/Match"
+          },
+          "mutual": {
+            "type": "boolean",
+            "title": "Mutual"
+          },
+          "learning": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LearningResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "match",
+          "mutual"
+        ],
+        "title": "DecisionResponse"
+      },
+      "FastForwardRequest": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "title": "Match Id"
+          },
+          "day": {
+            "type": "integer",
+            "title": "Day"
+          }
+        },
+        "type": "object",
+        "required": [
+          "match_id",
+          "day"
+        ],
+        "title": "FastForwardRequest"
+      },
+      "FlagItem": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "evidence": {
+            "type": "string",
+            "title": "Evidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "evidence"
+        ],
+        "title": "FlagItem"
+      },
+      "FocusDecisionRequest": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "continue",
+              "stop",
+              "extend"
+            ],
+            "title": "Decision"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "decision"
+        ],
+        "title": "FocusDecisionRequest"
+      },
+      "FocusDecisionResponse": {
+        "properties": {
+          "match": {
+            "$ref": "#/components/schemas/Match"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "locked",
+              "closed",
+              "extended"
+            ],
+            "title": "Outcome"
+          },
+          "learning": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LearningResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "match",
+          "outcome"
+        ],
+        "title": "FocusDecisionResponse"
+      },
+      "FocusState": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "title": "Match Id"
+          },
+          "day": {
+            "type": "integer",
+            "title": "Day"
+          },
+          "total_days": {
+            "type": "integer",
+            "title": "Total Days"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "screening",
+              "briefed",
+              "awaiting_them",
+              "focus_week",
+              "locked",
+              "closed"
+            ],
+            "title": "Status"
+          },
+          "ends_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends At"
+          },
+          "partner": {
+            "$ref": "#/components/schemas/CandidateSummary"
+          },
+          "deck_today": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Deck Today"
+          },
+          "decision_me": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "continue",
+                  "stop",
+                  "extend"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision Me"
+          },
+          "decision_them_submitted": {
+            "type": "boolean",
+            "title": "Decision Them Submitted",
+            "default": false
+          },
+          "extended": {
+            "type": "boolean",
+            "title": "Extended",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "match_id",
+          "day",
+          "total_days",
+          "status",
+          "partner",
+          "deck_today"
+        ],
+        "title": "FocusState"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HardCriteria": {
+        "properties": {
+          "age_min": {
+            "type": "integer",
+            "title": "Age Min",
+            "default": 21
+          },
+          "age_max": {
+            "type": "integer",
+            "title": "Age Max",
+            "default": 40
+          },
+          "cities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cities",
+            "default": []
+          },
+          "open_to_relocate": {
+            "type": "boolean",
+            "title": "Open To Relocate",
+            "default": false
+          },
+          "education_min": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Education Min"
+          },
+          "professions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Professions",
+            "default": []
+          },
+          "income_band_min": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Income Band Min"
+          },
+          "community_pref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Community Pref"
+          },
+          "diet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diet"
+          },
+          "marital_status": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Marital Status",
+            "default": [
+              "never_married"
+            ]
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Languages",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "HardCriteria"
+      },
+      "HardCriteriaPatch": {
+        "properties": {
+          "age_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Min"
+          },
+          "age_max": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Max"
+          },
+          "cities": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cities"
+          },
+          "open_to_relocate": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Open To Relocate"
+          },
+          "education_min": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Education Min"
+          },
+          "professions": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Professions"
+          },
+          "income_band_min": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Income Band Min"
+          },
+          "community_pref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Community Pref"
+          },
+          "diet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diet"
+          },
+          "marital_status": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Marital Status"
+          },
+          "languages": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Languages"
+          }
+        },
+        "type": "object",
+        "title": "HardCriteriaPatch"
+      },
+      "IntakeMessage": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "agent",
+              "user"
+            ],
+            "title": "Role"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "text"
+        ],
+        "title": "IntakeMessage"
+      },
+      "IntakeMessageRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "IntakeMessageRequest"
+      },
+      "IntakeMessageResponse": {
+        "properties": {
+          "reply": {
+            "type": "string",
+            "title": "Reply"
+          },
+          "completeness": {
+            "type": "number",
+            "title": "Completeness"
+          },
+          "missing_categories": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "values",
+                "family_structure",
+                "career_ambition",
+                "lifestyle",
+                "location_plans",
+                "finances",
+                "faith_practice",
+                "communication_style",
+                "interests",
+                "partner_expectations",
+                "dealbreakers"
+              ]
+            },
+            "type": "array",
+            "title": "Missing Categories",
+            "default": []
+          },
+          "new_aspects": {
+            "items": {
+              "$ref": "#/components/schemas/Aspect"
+            },
+            "type": "array",
+            "title": "New Aspects",
+            "default": []
+          },
+          "done": {
+            "type": "boolean",
+            "title": "Done",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "reply",
+          "completeness"
+        ],
+        "title": "IntakeMessageResponse"
+      },
+      "InterviewRequest": {
+        "properties": {
+          "instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Instructions"
+          }
+        },
+        "type": "object",
+        "title": "InterviewRequest"
+      },
+      "InterviewResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "not_started",
+              "running",
+              "done",
+              "ended_dealbreaker"
+            ],
+            "title": "Status"
+          },
+          "turns": {
+            "items": {
+              "$ref": "#/components/schemas/InterviewTurn"
+            },
+            "type": "array",
+            "title": "Turns"
+          },
+          "round_summaries": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Round Summaries",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "turns"
+        ],
+        "title": "InterviewResponse"
+      },
+      "InterviewTurn": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "round": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3
+            ],
+            "title": "Round"
+          },
+          "speaker": {
+            "type": "string",
+            "enum": [
+              "agent_a",
+              "agent_b",
+              "moderator"
+            ],
+            "title": "Speaker"
+          },
+          "speaker_name": {
+            "type": "string",
+            "title": "Speaker Name"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "highlight": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "green",
+                  "yellow"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Highlight"
+          },
+          "turn_index": {
+            "type": "integer",
+            "title": "Turn Index"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "round",
+          "speaker",
+          "speaker_name",
+          "text",
+          "turn_index"
+        ],
+        "title": "InterviewTurn"
+      },
+      "Job": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "running",
+              "done",
+              "error"
+            ],
+            "title": "Status"
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "status"
+        ],
+        "title": "Job"
+      },
+      "JobRef": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "title": "JobRef"
+      },
+      "LearningEntry": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "match_id": {
+            "type": "string",
+            "title": "Match Id"
+          },
+          "decision": {
+            "type": "string",
+            "title": "Decision"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "old_weights": {
+            "$ref": "#/components/schemas/PreferenceWeights"
+          },
+          "new_weights": {
+            "$ref": "#/components/schemas/PreferenceWeights"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "match_id",
+          "decision",
+          "old_weights",
+          "new_weights",
+          "explanation"
+        ],
+        "title": "LearningEntry"
+      },
+      "LearningResult": {
+        "properties": {
+          "old_weights": {
+            "$ref": "#/components/schemas/PreferenceWeights"
+          },
+          "new_weights": {
+            "$ref": "#/components/schemas/PreferenceWeights"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "new_aspects": {
+            "items": {
+              "$ref": "#/components/schemas/Aspect"
+            },
+            "type": "array",
+            "title": "New Aspects",
+            "default": []
+          },
+          "moved_up": {
+            "type": "integer",
+            "title": "Moved Up",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "old_weights",
+          "new_weights",
+          "explanation"
+        ],
+        "title": "LearningResult"
+      },
+      "Match": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_a": {
+            "type": "string",
+            "title": "User A"
+          },
+          "user_b": {
+            "type": "string",
+            "title": "User B"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "screening",
+              "briefed",
+              "awaiting_them",
+              "focus_week",
+              "locked",
+              "closed"
+            ],
+            "title": "Status"
+          },
+          "scores": {
+            "$ref": "#/components/schemas/Scores",
+            "default": {
+              "overall": 0.0,
+              "values": 0.0,
+              "family_fit": 0.0,
+              "lifestyle": 0.0,
+              "career": 0.0,
+              "location": 0.0,
+              "communication": 0.0,
+              "reasons": {}
+            }
+          },
+          "decision_a": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "interested",
+                  "pass"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision A"
+          },
+          "decision_b": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "interested",
+                  "pass"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision B"
+          },
+          "pass_reason_a": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pass Reason A"
+          },
+          "pass_reason_b": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pass Reason B"
+          },
+          "closed_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closed Reason"
+          },
+          "briefed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Briefed At"
+          },
+          "mutual_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mutual At"
+          },
+          "focus_start": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focus Start"
+          },
+          "focus_end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focus End"
+          },
+          "extended": {
+            "type": "boolean",
+            "title": "Extended",
+            "default": false
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_a",
+          "user_b",
+          "status"
+        ],
+        "title": "Match"
+      },
+      "OkResponse": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok",
+            "default": true
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "OkResponse"
+      },
+      "Persona": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "candidate",
+              "parent"
+            ],
+            "title": "Role"
+          },
+          "tagline": {
+            "type": "string",
+            "title": "Tagline"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "name",
+          "role",
+          "tagline"
+        ],
+        "title": "Persona"
+      },
+      "PipelineItem": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "title": "Match Id"
+          },
+          "candidate": {
+            "$ref": "#/components/schemas/CandidateSummary"
+          },
+          "scores": {
+            "$ref": "#/components/schemas/Scores"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "screening",
+              "briefed",
+              "awaiting_them",
+              "focus_week",
+              "locked",
+              "closed"
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "match_id",
+          "candidate",
+          "scores",
+          "status"
+        ],
+        "title": "PipelineItem"
+      },
+      "PipelineResponse": {
+        "properties": {
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "paused": {
+            "type": "boolean",
+            "title": "Paused",
+            "default": false
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PipelineItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "count",
+          "items"
+        ],
+        "title": "PipelineResponse"
+      },
+      "PreferenceWeights": {
+        "properties": {
+          "values": {
+            "type": "number",
+            "title": "Values",
+            "default": 0.16666666666666666
+          },
+          "family_fit": {
+            "type": "number",
+            "title": "Family Fit",
+            "default": 0.16666666666666666
+          },
+          "lifestyle": {
+            "type": "number",
+            "title": "Lifestyle",
+            "default": 0.16666666666666666
+          },
+          "career": {
+            "type": "number",
+            "title": "Career",
+            "default": 0.16666666666666666
+          },
+          "location": {
+            "type": "number",
+            "title": "Location",
+            "default": 0.16666666666666666
+          },
+          "communication": {
+            "type": "number",
+            "title": "Communication",
+            "default": 0.16666666666666666
+          }
+        },
+        "type": "object",
+        "title": "PreferenceWeights"
+      },
+      "Scores": {
+        "properties": {
+          "overall": {
+            "type": "number",
+            "title": "Overall",
+            "default": 0
+          },
+          "values": {
+            "type": "number",
+            "title": "Values",
+            "default": 0
+          },
+          "family_fit": {
+            "type": "number",
+            "title": "Family Fit",
+            "default": 0
+          },
+          "lifestyle": {
+            "type": "number",
+            "title": "Lifestyle",
+            "default": 0
+          },
+          "career": {
+            "type": "number",
+            "title": "Career",
+            "default": 0
+          },
+          "location": {
+            "type": "number",
+            "title": "Location",
+            "default": 0
+          },
+          "communication": {
+            "type": "number",
+            "title": "Communication",
+            "default": 0
+          },
+          "reasons": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Reasons",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "title": "Scores"
+      },
+      "SeedRequest": {
+        "properties": {
+          "count": {
+            "type": "integer",
+            "title": "Count",
+            "default": 20
+          }
+        },
+        "type": "object",
+        "title": "SeedRequest"
+      },
+      "SelfFacts": {
+        "properties": {
+          "age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "education": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Education"
+          },
+          "profession": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profession"
+          },
+          "income_band": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Income Band"
+          },
+          "community": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Community"
+          },
+          "diet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diet"
+          },
+          "marital_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Marital Status"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Languages",
+            "default": []
+          },
+          "height_cm": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Height Cm"
+          }
+        },
+        "type": "object",
+        "title": "SelfFacts"
+      },
+      "SimulateResponseRequest": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "title": "Match Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "interested",
+              "pass"
+            ],
+            "title": "Decision"
+          }
+        },
+        "type": "object",
+        "required": [
+          "match_id",
+          "user_id",
+          "decision"
+        ],
+        "title": "SimulateResponseRequest"
+      },
+      "User": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ],
+            "title": "Gender"
+          },
+          "seeking_gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ],
+            "title": "Seeking Gender"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "candidate",
+              "parent"
+            ],
+            "title": "Role",
+            "default": "candidate"
+          },
+          "linked_candidate_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Linked Candidate Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "onboarding",
+              "active",
+              "in_focus",
+              "locked",
+              "paused"
+            ],
+            "title": "Status",
+            "default": "onboarding"
+          },
+          "photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Url"
+          },
+          "is_seed": {
+            "type": "boolean",
+            "title": "Is Seed",
+            "default": false
+          },
+          "hard_criteria": {
+            "$ref": "#/components/schemas/HardCriteria",
+            "default": {
+              "age_min": 21,
+              "age_max": 40,
+              "cities": [],
+              "open_to_relocate": false,
+              "professions": [],
+              "marital_status": [
+                "never_married"
+              ],
+              "languages": []
+            }
+          },
+          "self_facts": {
+            "$ref": "#/components/schemas/SelfFacts",
+            "default": {
+              "languages": []
+            }
+          },
+          "preference_weights": {
+            "$ref": "#/components/schemas/PreferenceWeights",
+            "default": {
+              "values": 0.16666666666666666,
+              "family_fit": 0.16666666666666666,
+              "lifestyle": 0.16666666666666666,
+              "career": 0.16666666666666666,
+              "location": 0.16666666666666666,
+              "communication": 0.16666666666666666
+            }
+          },
+          "intake_completeness": {
+            "type": "number",
+            "title": "Intake Completeness",
+            "default": 0.0
+          },
+          "active_match_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Match Id"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "last_active_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Active At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "gender",
+          "seeking_gender"
+        ],
+        "title": "User"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WhyFitItem": {
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "values",
+              "family_fit",
+              "lifestyle",
+              "career",
+              "location",
+              "communication"
+            ],
+            "title": "Dimension"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dimension",
+          "score",
+          "reason"
+        ],
+        "title": "WhyFitItem"
+      }
+    }
+  }
+}

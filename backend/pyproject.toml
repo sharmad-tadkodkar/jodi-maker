@@ -1,0 +1,24 @@
+[project]
+name = "jodi-backend"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.143.3",
+    "google-cloud-firestore>=2.34.1",
+    "google-genai>=2.31.0",
+    "numpy>=2.5.4",
+    "pydantic-settings>=2.16.0",
+    "python-multipart>=0.0.32",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+filterwarnings = ["ignore::DeprecationWarning"]
