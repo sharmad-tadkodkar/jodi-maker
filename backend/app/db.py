@@ -20,14 +20,17 @@ def now() -> datetime:
     return datetime.now(timezone.utc)
 
 
-def delete_tree(ref) -> int:
+def delete_tree(ref, _depth: int = 0) -> int:
     """Delete a document or collection and everything beneath it, using plain batched writes.
-    (Firestore's `recursive_delete` uses a BulkWriter thread pool that deadlocked under load.)"""
+    (Firestore's `recursive_delete` uses a BulkWriter thread pool that deadlocked under load.)
+    Our schema nests one level deep (users/{id}/aspects/{id}, matches/{id}/chat/{id}), so documents
+    inside subcollections are leaves — skipping their `collections()` lookup saves ~300 round trips."""
     docs = [ref] if isinstance(ref, firestore.DocumentReference) else list(ref.list_documents())
     batch, ops, total = get_db().batch(), 0, 0
     for doc in docs:
-        for sub in doc.collections():
-            total += delete_tree(sub)
+        if _depth == 0 or isinstance(ref, firestore.DocumentReference):
+            for sub in doc.collections():
+                total += delete_tree(sub, _depth + 1)
         batch.delete(doc)
         ops += 1
         if ops >= 400:

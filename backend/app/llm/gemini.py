@@ -45,6 +45,11 @@ def _thinking(tier: str) -> types.ThinkingConfig | None:
     return types.ThinkingConfig(thinking_budget=0) if tier == "fast" else None
 
 
+# Per-call cap: Vertex occasionally holds a request for 30s+ (shared capacity). Better to cut it and
+# retry / fall back than to make the user wait.
+CALL_TIMEOUT_S = {"fast": 12.0, "smart": 90.0}
+
+
 def _models_for(tier: str) -> list[str]:
     s = get_settings()
     if tier == "smart":
@@ -79,13 +84,14 @@ async def generate_json(
     for model in _models_for(tier):
         for attempt in range(retries + 1):
             try:
-                resp = await client().aio.models.generate_content(
-                    model=model, contents=prompt, config=config
+                resp = await asyncio.wait_for(
+                    client().aio.models.generate_content(model=model, contents=prompt, config=config),
+                    timeout=CALL_TIMEOUT_S[tier],
                 )
                 if resp.parsed is not None:
                     return resp.parsed
                 return schema.model_validate(json.loads(resp.text))
-            except Exception as e:  # noqa: BLE001 — retry on anything, log and move on
+            except Exception as e:  # noqa: BLE001 — retry on anything (incl. timeouts), log and move on
                 last_err = e
                 log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, e)
                 await _backoff(attempt, e)
@@ -101,8 +107,9 @@ async def generate_text(
     for model in _models_for(tier):
         for attempt in range(2):
             try:
-                resp = await client().aio.models.generate_content(
-                    model=model, contents=prompt, config=config
+                resp = await asyncio.wait_for(
+                    client().aio.models.generate_content(model=model, contents=prompt, config=config),
+                    timeout=CALL_TIMEOUT_S[tier],
                 )
                 return (resp.text or "").strip()
             except Exception as e:  # noqa: BLE001
