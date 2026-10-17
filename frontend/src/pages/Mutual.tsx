@@ -20,7 +20,7 @@ export default function Mutual() {
   }, [matchId, uid])
 
   if (loading && !data) return <Loading />
-  if (error || !data) return <ErrorState error={error ?? 'No data'} onRetry={reload} />
+  if (error || !data) return <ErrorState error={error ?? 'Your matchmaker hit a snag — please try again.'} onRetry={reload} />
 
   const partner = data.focus.partner
   const them = firstName(partner.display_name)

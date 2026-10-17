@@ -1,7 +1,16 @@
 import { useCallback, useEffect, useState, type DependencyList } from 'react'
 
-export function errorMessage(e: unknown): string {
+/** Raw error text — for the hidden demo panel and the console only. */
+export function rawError(e: unknown): string {
   return e instanceof Error ? e.message : String(e)
+}
+
+/** What users see: always calm, never raw server text (FRONTEND_GUIDE). The raw error goes to the console. */
+export function errorMessage(e: unknown): string {
+  console.error(e)
+  return e instanceof TypeError
+    ? "Can't reach your matchmaker right now — check your connection and try again."
+    : 'Your matchmaker hit a snag — please try again.'
 }
 
 /** Load data on mount (and whenever `deps` change). Stale responses are dropped. */

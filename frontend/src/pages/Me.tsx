@@ -100,7 +100,7 @@ export default function Me() {
   }, [uid])
 
   if (loading && !data) return <Loading label="Gathering what Jodi knows…" />
-  if (error || !data) return <ErrorState error={error ?? 'No data'} onRetry={reload} />
+  if (error || !data) return <ErrorState error={error ?? 'Your matchmaker hit a snag — please try again.'} onRetry={reload} />
 
   const { user, aspects, learning } = data
   const f = user.self_facts

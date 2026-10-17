@@ -105,8 +105,7 @@ export function Loading({ label = 'One moment…' }: { label?: string }) {
 export function ErrorState({ error, onRetry }: { error: string; onRetry?: () => void }) {
   return (
     <Card className="space-y-3 text-center">
-      <p className="font-display text-lg">Jodi couldn't reach the server</p>
-      <p className="break-words text-xs text-muted">{error}</p>
+      <p className="font-display text-lg">{error}</p>
       {onRetry && (
         <Button variant="secondary" onClick={onRetry}>
           Try again

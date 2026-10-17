@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { api, getUserId, setUserId, waitForJob } from '../api/client'
 import { Button, Card, Chip, ErrorState, Loading, PageHeader, SectionTitle } from '../components/ui'
 import { STATUS } from '../lib/format'
-import { errorMessage, useAsync } from '../lib/useAsync'
+import { rawError, useAsync } from '../lib/useAsync'
 
 /** Hidden route (spec §4.9) — not in the nav. Controls for recording the demo video. */
 
@@ -46,14 +46,14 @@ export default function Demo() {
       const text = await fn()
       setLog((l) => [{ id: Date.now(), ok: true, text }, ...l])
     } catch (e) {
-      setLog((l) => [{ id: Date.now(), ok: false, text: `${label} failed: ${errorMessage(e)}` }, ...l])
+      setLog((l) => [{ id: Date.now(), ok: false, text: `${label} failed: ${rawError(e)}` }, ...l])
     } finally {
       setBusy(undefined)
     }
   }
 
   if (loading && !data) return <Loading />
-  if (error || !data) return <ErrorState error={error ?? 'No data'} onRetry={reload} />
+  if (error || !data) return <ErrorState error={error ?? 'Your matchmaker hit a snag — please try again.'} onRetry={reload} />
 
   const needsTarget = !target
   const btn = (label: string, fn: () => Promise<ReactNode>, variant: 'primary' | 'secondary' = 'secondary', disabled = false) => (

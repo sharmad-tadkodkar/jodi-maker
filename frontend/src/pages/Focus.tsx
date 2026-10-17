@@ -118,7 +118,7 @@ function Chat({ uid, partnerName, messages, pollError, onSend }: {
         })}
         <div ref={end} />
       </div>
-      {(pollError || sendError) && <p className="px-4 pb-2 text-xs text-brand-700">{sendError ? `Couldn't send: ${sendError}` : 'Reconnecting…'}</p>}
+      {(pollError || sendError) && <p className="px-4 pb-2 text-xs text-brand-700">{sendError ? `Couldn't send that. ${sendError}` : 'Reconnecting…'}</p>}
       <form onSubmit={submit} className="flex items-center gap-2 border-t border-line p-2">
         <input
           aria-label={`Message ${partnerName}`}
@@ -256,7 +256,7 @@ export default function Focus() {
   }
 
   if (loading && !focus) return <Loading label="Opening your Focus Week…" />
-  if (error || !focus) return <ErrorState error={error ?? 'No data'} onRetry={reload} />
+  if (error || !focus) return <ErrorState error={error ?? 'Your matchmaker hit a snag — please try again.'} onRetry={reload} />
 
   const p = focus.partner
   const them = firstName(p.display_name)
@@ -312,7 +312,7 @@ export default function Focus() {
               )
             })}
           </div>
-          {promptError && <p className="mt-2 text-xs text-brand-700">Couldn't send: {promptError}</p>}
+          {promptError && <p className="mt-2 text-xs text-brand-700">Couldn't send that. {promptError}</p>}
         </div>
       )}
 

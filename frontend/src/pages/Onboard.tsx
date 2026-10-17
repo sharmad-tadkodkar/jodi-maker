@@ -134,10 +134,10 @@ export default function Onboard() {
       {done && (
         <Card className="mt-6 space-y-3 text-center">
           <p className="font-display text-xl">I know enough to start looking 💛</p>
-          <p className="text-sm text-muted">Check what I've learned — you decide what others can see. Then I'll start scouting. You can keep chatting too.</p>
+          <p className="text-sm text-muted">You decide what others can see. You can keep chatting too — the more I know, the better I choose.</p>
           <div className="flex gap-3">
             <Link to="/me" className="flex-1 rounded-full border border-line bg-white py-2.5 text-sm font-medium hover:bg-sand">
-              What Jodi knows
+              See what I learned about you
             </Link>
             <Link to="/pipeline" className="flex-1 rounded-full bg-brand-600 py-2.5 text-sm font-medium text-white hover:bg-brand-700">
               Start matching
@@ -148,7 +148,7 @@ export default function Onboard() {
 
       <div className="sticky bottom-16 z-10 mt-6 sm:bottom-4">
         <form onSubmit={send} className="space-y-2">
-          {sendError && <p className="rounded-xl bg-brand-50 p-2.5 text-xs text-brand-700">Couldn't send: {sendError}</p>}
+          {sendError && <p className="rounded-xl bg-brand-50 p-2.5 text-xs text-brand-700">Couldn't send that. {sendError}</p>}
           <div className="flex items-end gap-2 rounded-3xl border border-line bg-white p-2 shadow-lg">
             <textarea
               aria-label="Message your matchmaker"
