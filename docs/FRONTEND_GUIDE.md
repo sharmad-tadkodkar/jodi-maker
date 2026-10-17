@@ -4,6 +4,40 @@ The backend and frontend agree on one contract: **`backend/app/models.py`**. Fas
 OpenAPI, and the frontend's TypeScript types are **generated** from it. If you build through the typed
 client, the compiler tells you when a page doesn't match the backend.
 
+## Backend status (check this first — updated every phase)
+
+| Phase | Status | What's real |
+|---|---|---|
+| 1 Seeded world | ✅ live | personas, reset, seed, new-profile, `GET/POST /users` |
+| 2 Intake + /me | ✅ live | intake chat, aspects (edit/visibility/delete), hard criteria, delete-everything, learning history |
+| 3 Scout + pipeline | ✅ live | `POST /scout/{id}` (job), `GET /pipeline/{id}` |
+| 4 Interview + brief | ⏳ mock | interview, brief, next brief — mocks ignore the match ID, so real IDs already work |
+| 5 Decisions + Focus Week | ⏳ mock | decision, focus, chat, simulate-response, fast-forward |
+
+### Changelog
+
+- **Phase 3** — Real match IDs look like `m_arjun__meera` (sorted user IDs, double underscore). Use whatever
+  `getPipeline` returns; never build IDs yourself. Right after **Reset demo**, Arjun's and Meera's pipelines
+  are already filled (pre-computed), so the pipeline page works instantly. A new user must run scout first
+  (≈ 20–40 s) — see "Long-running jobs" below. Pipeline items exclude closed (dealbreaker) matches.
+- **Phase 2** — Intake chat is live. One turn takes ≈ 3 s (occasionally up to ≈ 10 s): show a typing
+  indicator, disable the send button while waiting. When `done` is true show a "See what I learned about you →
+  /me" CTA, but let them keep chatting. `GET /demo/personas` returns Arjun, Meera, then any onboarded users
+  (no parent persona — Parent Mode is cut).
+- **Phase 1** — Seeded world live; persona IDs `arjun` / `meera` are stable.
+
+### Long-running jobs (scout now; interview in Phase 4)
+
+`POST /scout/{userId}` returns `{job_id}`. Poll `waitForJob(job_id, onProgress)` from `client.ts`:
+- `job.progress` is friendly text for the user — show it as-is (e.g. *"8 passed the filters. Your matchmaker is
+  reading 8 profiles closely…"*, *"Scored 3/8 candidates…"*).
+- When `status === "done"`, `job.result` contains: `profiles_checked`, `passed_filter`, `filtered_out`,
+  `scored`, `new_in_queue`, `queue_size`, `top` (display names), and `excluded_dealbreakers`
+  (`[{name, reason}]`). Great material for a "Your matchmaker checked 22 profiles → 8 passed → 3 excluded for
+  dealbreakers" summary card — it shows the AI doing the father's filtering work.
+- If `status === "error"`, show a calm message ("Your matchmaker hit a snag — try again") with a retry button.
+  Never show raw error text. Gemini can occasionally be slow; the backend already retries and falls back.
+
 ## Start here (10 min, no Google Cloud access needed)
 
 You only need Node 20+ and git. The backend is already live on Cloud Run — you don't run it locally.
@@ -73,7 +107,7 @@ against the stubs now.
 | `/` | — | Landing: father's story, "Meet your matchmaker" CTA |
 | `/onboard` | `getIntakeMessages`, `sendIntakeMessage` | Progress bar from `completeness`; show `new_aspects` as they're learned; stop when `done` |
 | `/me` | `getUser`, `getAspects`, `patchAspect`, `deleteAspect`, `patchHardCriteria`, `getLearning`, `wipeData` | Group aspects by `category`; visibility toggle public / agent_only / private |
-| `/pipeline` | `runScout` → `waitForJob`, `getPipeline` | Cards only (name+initial, age, city, profession, score, mini bars, status chip). No full profiles |
+| `/pipeline` | `runScout` → `waitForJob`, `getPipeline` | Cards only (name+initial, age, city, profession, `scores.overall`, mini bars from the 6 dimension scores, status chip, "new" badge from `candidate.is_new`). No full profiles. `paused: true` → show "Scouting paused during your Focus Week" |
 | `/brief/:matchId` | `getBrief`, `decide` | Radar (recharts) from `why_fit`; Pass needs a reason chip |
 | `/brief/:matchId/transcript` | `runInterview` → poll `getInterview` every 1.5s | Render turns as they land; round dividers; green/yellow highlights |
 | `/mutual/:matchId` | `getFocus` | "It's mutual 💛" → CTA to Focus Week |

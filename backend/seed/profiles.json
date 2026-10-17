@@ -1624,6 +1624,13 @@
         "evidence": "I visit the temple on special occasions mostly when I'm with my parents in Chennai, but day-to-day I'm more spiritual than religious.",
         "confidence": 0.8,
         "visibility": "public"
+      },
+      {
+        "category": "location_plans",
+        "statement": "Seriously considering a 3–4 year stint in the US for his career in the next couple of years.",
+        "evidence": "\"Honestly, I'd love to do a few years in the Bay Area before I'm 35 — that's where product is happening.\"",
+        "confidence": 0.85,
+        "visibility": "public"
       }
     ],
     "gender": "male",

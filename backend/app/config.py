@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     # Model IDs live here so we can swap without touching code (spec §8).
     model_fast: str = "gemini-3.5-flash"
     model_fast_fallback: str = "gemini-3.5-flash-lite"
+    # reason tier: scoring + interview agents — needs judgement but runs many times per action
+    model_reason: str = "gemini-3.6-flash"
+    model_reason_fallback: str = "gemini-3.7-flash"
+    # smart tier: briefs — few calls, highest quality
     model_smart: str = "gemini-3.1-pro-preview"
     model_smart_fallback: str = "gemini-3.6-flash"
     model_embedding: str = "text-multilingual-embedding-002"

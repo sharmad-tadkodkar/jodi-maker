@@ -26,6 +26,9 @@ log = logging.getLogger(__name__)
 SEED_DIR = Path(__file__).resolve().parents[2] / "seed"
 HEROES_FILE = SEED_DIR / "heroes.json"
 PROFILES_FILE = SEED_DIR / "profiles.json"
+# Hero scout results (and later interviews/briefs) computed once with real Gemini calls and loaded on
+# reset, so the demo's happy path never waits on live LLM capacity. Regenerate: `... seed precompute`.
+PRECOMPUTED_FILE = SEED_DIR / "precomputed.json"
 HERO_IDS = ["arjun", "meera"]
 
 
@@ -256,9 +259,62 @@ def wipe_all() -> None:
         delete_tree(db.collection(name))
 
 
+def _strip_times(d: dict) -> dict:
+    return {k: v for k, v in d.items() if not k.endswith("_at")}
+
+
+def dump_matches() -> dict:
+    """Serialise all matches (+ subcollections) for the precomputed file. Timestamps are dropped
+    and re-stamped at load time."""
+    out = {}
+    for snap in get_db().collection(MATCHES).stream():
+        doc = _strip_times(snap.to_dict())
+        doc["_sub"] = {sub.id: {d.id: _strip_times(d.to_dict()) for d in sub.stream()}
+                       for sub in snap.reference.collections()}
+        out[snap.id] = doc
+    return out
+
+
+def load_precomputed() -> int:
+    if not PRECOMPUTED_FILE.exists():
+        return 0
+    data = json.loads(PRECOMPUTED_FILE.read_text())
+    db, t = get_db(), now()
+    batch, ops = db.batch(), 0
+    for mid, doc in data.get("matches", {}).items():
+        subs = doc.pop("_sub", {})
+        ref = db.collection(MATCHES).document(mid)
+        batch.set(ref, {**doc, "created_at": t, "updated_at": t})
+        for sub, docs in subs.items():
+            for did, d in docs.items():
+                batch.set(ref.collection(sub).document(did), {**d, "created_at": t})
+                ops += 1
+        ops += 1
+        if ops > 400:
+            batch.commit()
+            batch, ops = db.batch(), 0
+    batch.commit()
+    return len(data.get("matches", {}))
+
+
 async def reset_world(count: int = 20) -> int:
     wipe_all()
-    return await seed_world(count)
+    n = await seed_world(count)
+    load_precomputed()
+    return n
+
+
+async def precompute(count: int = 20) -> None:
+    """Run the heroes' scouts for real, then freeze the results into seed/precomputed.json."""
+    from app.services.matching import scout  # matching depends on seeded data, not vice versa
+
+    wipe_all()
+    await seed_world(count)
+    for hero in HERO_IDS:
+        r = await scout(hero, lambda msg: log.info("%s: %s", hero, msg))
+        log.info("%s → top %s, excluded %s", hero, r["top"], [e["name"] for e in r["excluded_dealbreakers"]])
+    PRECOMPUTED_FILE.write_text(json.dumps({"matches": dump_matches()}, indent=2, ensure_ascii=False))
+    log.info("wrote %s", PRECOMPUTED_FILE)
 
 
 async def add_reserve_profile() -> dict | None:
@@ -275,10 +331,12 @@ async def add_reserve_profile() -> dict | None:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["generate", "load"])
+    ap.add_argument("cmd", choices=["generate", "load", "precompute"])
     ap.add_argument("--count", type=int, default=20)
     args = ap.parse_args()
     if args.cmd == "generate":
         asyncio.run(generate(args.count))
+    elif args.cmd == "precompute":
+        asyncio.run(precompute(args.count))
     else:
         print("loaded", asyncio.run(reset_world(args.count)))

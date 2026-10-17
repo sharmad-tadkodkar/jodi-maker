@@ -1,11 +1,13 @@
-"""Scouting, interview, brief, decisions (spec §7). STUB — real logic lands in Phase 3 (scout,
-pipeline), Phase 4 (interview, brief) and Phase 5 (decision)."""
-from fastapi import APIRouter
+"""Scouting, interview, brief, decisions (spec §7). Real: scout, pipeline (Phase 3).
+STUB: interview, brief (Phase 4) and decision (Phase 5)."""
+from fastapi import APIRouter, BackgroundTasks, HTTPException
 
 from app import mocks
 from app import models as m
 from app.db import JOBS, get_db, now
-from app.jobs import create_job
+from app.jobs import create_job, run_job
+from app.services import matching
+from app.services.users import get_user_doc
 
 router = APIRouter(tags=["matching"])
 
@@ -19,13 +21,21 @@ def _done_job(kind: str, result: dict) -> m.JobRef:
 
 
 @router.post("/scout/{user_id}", response_model=m.JobRef)
-async def run_scout(user_id: str):
-    return _done_job("scout", {"candidates": 4, "new": 1})
+async def run_scout(user_id: str, bg: BackgroundTasks):
+    """Filter → semantic → Gemini scoring. Poll GET /jobs/{job_id}; `progress` is user-friendly text
+    and `result` has the scout summary (passed_filter, excluded_dealbreakers, top, …)."""
+    get_user_doc(user_id)
+    job_id = create_job("scout", {"user_id": user_id})
+    bg.add_task(run_job, job_id, lambda progress: matching.scout(user_id, progress))
+    return m.JobRef(job_id=job_id)
 
 
 @router.get("/pipeline/{user_id}", response_model=m.PipelineResponse)
 async def pipeline(user_id: str):
-    return mocks.pipeline()
+    try:
+        return matching.pipeline(user_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e)) from e
 
 
 @router.post("/matches/{match_id}/interview", response_model=m.JobRef)

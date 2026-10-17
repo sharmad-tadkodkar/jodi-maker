@@ -40,20 +40,22 @@ def load_prompt(name: str) -> str:
 
 
 def _thinking(tier: str) -> types.ThinkingConfig | None:
-    """Fast tier (chat, extraction, moderator) runs without thinking: ~4x lower latency.
-    Smart tier (scoring, interviews, briefs) keeps the model's default reasoning."""
+    """Tiers: fast (chat, extraction, moderator) runs without thinking — ~4x lower latency.
+    reason (scoring, interview agents) and smart (briefs) keep the model's default reasoning."""
     return types.ThinkingConfig(thinking_budget=0) if tier == "fast" else None
 
 
 # Per-call cap: Vertex occasionally holds a request for 30s+ (shared capacity). Better to cut it and
 # retry / fall back than to make the user wait.
-CALL_TIMEOUT_S = {"fast": 8.0, "smart": 90.0}
+CALL_TIMEOUT_S = {"fast": 8.0, "reason": 30.0, "smart": 90.0}
 
 
 def _models_for(tier: str) -> list[str]:
     s = get_settings()
     if tier == "smart":
         return [s.model_smart, s.model_smart_fallback]
+    if tier == "reason":
+        return [s.model_reason, s.model_reason_fallback]
     return [s.model_fast, s.model_fast_fallback]
 
 
