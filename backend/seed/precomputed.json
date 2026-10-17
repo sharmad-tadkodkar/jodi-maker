@@ -1,491 +1,1115 @@
 {
   "matches": {
     "m_arjun__meera": {
-      "user_b": "meera",
-      "scores_by_user": {
-        "meera": {
-          "lifestyle": 85,
-          "communication": 88,
-          "reasons": {
-            "lifestyle": "Both are early risers who enjoy active weekends through hiking or sports and appreciate cultural music and cooking.",
-            "career": "Meera's ambition to lead a design team is matched by Arjun's balance of professional goals and respect for an independent, driven partner.",
-            "values": "Both prioritize honesty and directness, and Arjun's desire for an ambitious partner aligns with Meera's dedication to her career and independence.",
-            "family_fit": "Meera's willingness to live with in-laws temporarily with a plan for a separate home fits well with Arjun's preference for his parents staying with them initially.",
-            "location": "Meera is committed to staying in Bangalore, which perfectly matches Arjun's confirmed relocation to Bangalore next year.",
-            "communication": "Both insist on resolving issues the same day and avoiding the silent treatment, though Arjun prefers a brief cool-off period first."
+      "_sub": {
+        "briefs": {
+          "arjun": {
+            "candidate_id": "meera",
+            "explore": [
+              {
+                "evidence": "She is comfortable with elders staying and spending quality time, provided there is open communication and a healthy balance for the couple's personal space and routines.",
+                "text": "Since you are hoping your parents can visit for extended stretches in Bangalore, you should discuss how to blend her need for independence with a full house. She is open to it, but will want to ensure her routine is respected."
+              }
+            ],
+            "family_fit": "Meera comes from a warm family based in Kolkata, consisting of her parents and a younger brother. Like your family, they are quite traditional about festivals, and Meera loves celebrating them. Even though she is settled in Bangalore for her career, she remains closely connected to her roots. Her matchmaker shared that she loves hosting and is naturally warm with elders, making her very open to having your parents visit for extended stays, provided you both can maintain a healthy balance of personal space.",
+            "for_user_id": "arjun",
+            "green_flags": [
+              {
+                "evidence": "She deeply prizes directness and honesty, preferring to talk things through on the same day as she really dislikes games or silence.",
+                "text": "You both have identical conflict resolution styles. Like you, she hates the silent treatment and wants to resolve issues immediately."
+              },
+              {
+                "evidence": "On weekends, she loves getting outdoors for hikes in the Western Ghats, sketching, or enjoying street food and Rabindra Sangeet.",
+                "text": "She is already established in Bangalore, which perfectly aligns with your upcoming relocation, and she shares your love for early mornings and the outdoors."
+              }
+            ],
+            "questions_only_you": [
+              "Since I am moving to Bangalore next year, what are your favorite parts of the city, and what does a perfect weekend look like for you there?",
+              "How do you usually balance your demanding studio hours with hosting family when they come to visit?",
+              "I love cooking Gujarati food to unwind—would you be open to being my taste-tester after a long day at work?",
+              "I am a big fan of old Hindi film music and I hear you love Rabindra Sangeet; do you think we can find a shared playlist for our road trips?"
+            ],
+            "snapshot": "Meera is a 27-year-old Senior Product Designer currently settled in Bangalore, with her family roots back in Kolkata. She is highly ambitious and deeply committed to her career, while remaining very close to her family and their festive traditions. Her daily life is active and structured, featuring early morning studio starts, evening sketching, and weekend hikes. She is looking for a steady, honest partner who will be genuinely proud of her professional drive and who values straightforward communication."
           },
-          "values": 90,
-          "family_fit": 85,
-          "location": 92,
-          "career": 88
+          "meera": {
+            "candidate_id": "arjun",
+            "explore": [
+              {
+                "evidence": "His matchmaker mentioned his parents are likely to visit and stay with him for extended stretches.",
+                "text": "While you are open to living with in-laws temporarily with a plan for your own space, Arjun anticipates his parents spending significant time with you both in Bangalore, which will require coordination to protect your personal routines."
+              },
+              {
+                "evidence": "His matchmaker noted post-marriage living arrangements are certainly something his family thinks about carefully and he hopes for a partner who is naturally warm and comfortable around elders.",
+                "text": "Arjun values an ambitious partner, but since he is very close to his joint family, you should explore how he balances his family's expectations with supporting your demanding studio hours and career goals."
+              }
+            ],
+            "family_fit": "Arjun comes from a warm, traditional joint family in Kolkata, where he currently lives with his parents and grandmother, to whom he is especially close. Like our family, they are culturally Hindu and cherish celebrating festivals together without being overly ritualistic. While Arjun is relocating to Bangalore for his career, he remains deeply connected to his roots and enjoys cooking Gujarati food for his loved ones. His parents plan to visit and stay for extended periods in Bangalore, and he is looking for a partner who is naturally warm and comfortable around elders, ensuring that family remains a central part of their new life in the city.",
+            "for_user_id": "meera",
+            "green_flags": [
+              {
+                "evidence": "His matchmaker noted he likes a brief period to cool off but always makes it a point to talk things through on the very same day, as he really dislikes the silent treatment.",
+                "text": "You both have a remarkably similar approach to handling disagreements, prioritizing honesty and resolving things quickly rather than letting them fester."
+              },
+              {
+                "evidence": "His matchmaker confirmed Arjun is actually relocating to Bangalore next year as his software engineering role there is confirmed.",
+                "text": "Your desire to stay rooted in Bangalore perfectly aligns with his confirmed career move, and he actively desires a partner with strong professional drive."
+              },
+              {
+                "evidence": "His matchmaker highlighted the overlap you already have with your mutual love for trekking and music.",
+                "text": "Your weekend routines and hobbies naturally complement each other, especially your shared love for early mornings, music, and the outdoors."
+              }
+            ],
+            "questions_only_you": [
+              "When your parents come to stay in Bangalore for extended stretches, how do you envision us balancing family time with our own personal space and my studio hours?",
+              "You mentioned wanting a partner with her own ambitions—how do you usually support the people you care about when they are going through a highly demanding phase at work?",
+              "Since you are moving to Bangalore next year, what are you most looking forward to about building a life in a new city away from your joint family?"
+            ],
+            "snapshot": "Arjun is a 28-year-old software engineer currently living in a joint family in Kolkata, but he has a confirmed relocation to Bangalore next year. He is an early riser who loves playing football on Sundays, cooking Gujarati food for his family, and trekking in the Himalayas. He is deeply family-oriented but specifically wants a partner with her own ambitions, rather than someone who just fits into the background."
+          }
         },
-        "arjun": {
-          "lifestyle": 88,
-          "communication": 95,
-          "reasons": {
-            "lifestyle": "Both are early risers who enjoy outdoor hiking, non-vegetarian food, and sharing active weekends.",
-            "career": "He actively seeks an ambitious partner and protects his weekends, complementing her strong dedication to her growing design leadership career.",
-            "values": "Both strongly value honesty, family ties, and maintaining personal independence and ambition within a marriage.",
-            "family_fit": "She is comfortable with a temporary shared living arrangement with in-laws before having their own space, fitting his hope for a transitional year with parents.",
-            "location": "He is moving to Bangalore next year where she is already settled and wishes to reside long term.",
-            "communication": "Both prioritize addressing disagreements on the same day and strongly dislike the silent treatment."
+        "focus": {
+          "deck": {
+            "days": [
+              {
+                "day": 1,
+                "prompts": [
+                  "Since we both love being active outdoors, what would a perfect weekend hike or football Sunday look like for us in Bangalore?",
+                  "As we both start our days early, what does your ideal morning routine look like before work begins?",
+                  "What are your favorite parts of Bangalore that you think we should explore together once we are both living there next year?"
+                ]
+              },
+              {
+                "day": 2,
+                "prompts": [
+                  "How do you usually unwind after a demanding day at work—would you be open to trying some homemade Gujarati food?",
+                  "What are you most looking forward to about building a new life and routine in Bangalore next year?",
+                  "How do you like to balance your busy work week with finding time for your creative hobbies and personal interests?"
+                ]
+              },
+              {
+                "day": 3,
+                "prompts": [
+                  "Since we are both close to our families, how do you envision us balancing family time with maintaining our own personal space?",
+                  "When our parents come to stay with us for extended stretches in Bangalore, how can we best protect our daily routines?",
+                  "How do you usually handle expectations from family while still prioritizing your own career goals and personal time?"
+                ]
+              },
+              {
+                "day": 4,
+                "prompts": [
+                  "How do you usually support the people you care about when they are going through a highly demanding phase at work?",
+                  "What does 'supporting each other's professional ambitions' look like to you in a daily marriage routine?",
+                  "When we have disagreements or stressful days, what is your preferred way to communicate and resolve things?"
+                ]
+              },
+              {
+                "day": 5,
+                "prompts": [
+                  "How do you envision us managing our household responsibilities alongside our busy work schedules?",
+                  "What are your thoughts on how we should plan and manage our joint finances and future savings together?",
+                  "How important is it for you to maintain independent social lives and friendships alongside our life as a couple?"
+                ]
+              },
+              {
+                "day": 6,
+                "prompts": [
+                  "What is something you are deeply passionate about that you hope we can share or explore together?",
+                  "Do you think we can find a shared road trip playlist that blends old Hindi film music with Rabindra Sangeet?",
+                  "What is a tradition from your childhood or family that you definitely want to bring into our future home?"
+                ]
+              },
+              {
+                "day": 7,
+                "prompts": [
+                  "What does a supportive, loving, and successful marriage look like to you in the long run?",
+                  "What is one way I can best support you emotionally when you are feeling overwhelmed or stressed?",
+                  "What are you most excited about when you think about our potential future together in Bangalore?"
+                ]
+              }
+            ]
+          }
+        },
+        "interview": {
+          "t000": {
+            "highlight": null,
+            "round": 1,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Namaste! I am the AI matchmaker representing Arjun and his family. Arjun is a 28-year-old software engineer based in Kolkata—a warm, grounded person who loves trekking, old Hindi music, and cooking for his loved ones. He currently lives in a joint family with his parents and grandmother, and family warmth is very central to his life. Could you share a bit about Meera's family background and her current living setup?",
+            "turn_index": 0
           },
-          "values": 90,
-          "family_fit": 85,
-          "location": 95,
-          "career": 92
+          "t001": {
+            "highlight": null,
+            "round": 1,
+            "speaker": "agent_b",
+            "speaker_name": "Meera's matchmaker",
+            "text": "Namaste! I am an AI matchmaker representing Meera and her family. Meera comes from a warm family in Kolkata—her parents and younger brother live there, and they are quite traditional about festivals—though Meera herself is currently settled in Bangalore as a senior product designer. She remains very close to her family while also cherishing her career and independence. Given that Arjun lives in a joint family setup in Kolkata, what are his family's expectations regarding post-marriage living arrangements?",
+            "turn_index": 1
+          },
+          "t002": {
+            "highlight": "green",
+            "round": 1,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Arjun is actually relocating to Bangalore next year as his software engineering role there is confirmed, though post-marriage living arrangements are certainly something his family thinks about carefully. His parents are likely to visit and stay with him for extended stretches, and he hopes for a partner who is naturally warm and comfortable around elders. How does Meera view balancing her independence with having in-laws stay for long periods?",
+            "turn_index": 2
+          },
+          "t003": {
+            "highlight": "yellow",
+            "round": 1,
+            "speaker": "agent_b",
+            "speaker_name": "Meera's matchmaker",
+            "text": "Meera is naturally warm and values family deeply—she loves hostings and traditional festive gatherings. She is comfortable with elders staying and spending quality time, provided there is open communication and a healthy balance for the couple's personal space and routines. Since her career in Bangalore is central to who she is, how does Arjun's family view supporting a daughter-in-law with strong professional ambitions?",
+            "turn_index": 3
+          },
+          "t004": {
+            "highlight": null,
+            "round": 2,
+            "speaker": "agent_b",
+            "speaker_name": "Meera's matchmaker",
+            "text": "Moving to a new city while balancing career and family involves a lot of coordination, so it’s wonderful that Arjun is thoughtful about these transitions. To get a better sense of his personality in day-to-day life, how does Arjun typically handle disagreements or moments of stress? Does he prefer addressing things right away through direct conversation, or does he tend to need time to process quietly?",
+            "turn_index": 4
+          },
+          "t005": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Arjun usually likes a brief period to cool off during a disagreement, but he always makes it a point to talk things through on the very same day, as he really dislikes the silent treatment. He believes in honest communication and keeping promises rather than letting stress linger. How does Meera typically navigate disagreements or moments of stress, and what does a typical weekend look like for her in Bangalore?",
+            "turn_index": 5
+          },
+          "t006": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_b",
+            "speaker_name": "Meera's matchmaker",
+            "text": "Meera handles stress and disagreements very similarly—she deeply prizes directness and honesty, preferring to talk things through on the same day as she really dislikes games or silence. On weekends, she loves getting outdoors for hikes in the Western Ghats, sketching, or enjoying street food and Rabindra Sangeet. To understand Arjun's daily lifestyle a bit better, does he smoke, and how does he usually like to unwind after a busy day at work?",
+            "turn_index": 6
+          },
+          "t007": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Arjun does not smoke at all, and he drinks only occasionally at family functions. After a busy work day, he usually likes to unwind by listening to old Hindi film music or spending time cooking Gujarati food for his loved ones. It is lovely to see how much overlap they already have with their love for trekking and music! Does Meera smoke, or have any specific lifestyle habits and routines she values?",
+            "turn_index": 7
+          },
+          "t008": {
+            "highlight": null,
+            "round": 3,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "As we wrap up our pre-screening conversation, I would love to clarify a few practical daily details. Does Meera smoke, and does she have any specific dietary preferences or routines that are important to her in daily life? Ensuring alignment on these everyday habits will help us see if this is truly a comfortable fit for both of them.",
+            "turn_index": 8
+          },
+          "t009": {
+            "highlight": "green",
+            "round": 3,
+            "speaker": "agent_b",
+            "speaker_name": "Meera's matchmaker",
+            "text": "Meera does not smoke, follows a non-vegetarian diet, and enjoys an occasional glass of wine with friends. Her daily routine involves early starts, being at her studio by 9 AM, and unwinding in the evenings with long walks and sketching. Given their strong alignment on living in Bangalore, shared commitment to same-day communication, mutual love for trekking, and mutual respect for both family warmth and career ambitions, I warmly recommend that we proceed with introducing Arjun and Meera.",
+            "turn_index": 9
+          },
+          "t010": {
+            "highlight": "green",
+            "round": 3,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Thank you for confirming that Meera does not smoke and sharing her daily preferences—that aligns very well with Arjun's lifestyle. Given their exceptional alignment on direct communication, mutual love for the outdoors, and shared values regarding family warmth alongside career ambitions in Bangalore, I whole-heartedly recommend that we proceed with introducing Arjun and Meera. I will share these positive notes with Arjun and his family so they can arrange a direct conversation.",
+            "turn_index": 10
+          },
+          "t011": {
+            "highlight": null,
+            "round": 3,
+            "speaker": "agent_b",
+            "speaker_name": "Meera's matchmaker",
+            "text": "Thank you so much—it has been a genuine pleasure speaking with you today. I am delighted that we both recommend moving forward, as Arjun and Meera share such strong alignment on their values, communication styles, and practical plans in Bangalore. I will share these positive notes with Meera and her family so they can take the next steps for a direct introduction. Wishing them both the very best!",
+            "turn_index": 11
+          }
         }
       },
+      "closed_reason": null,
       "decision_a": null,
-      "extended": false,
       "decision_b": null,
+      "extended": false,
+      "interview_requested_by": "arjun",
+      "interview_status": "done",
+      "open_questions": [
+        "How do Arjun and Meera envision balancing personal space and routine when family members visit for extended periods?",
+        "Does Meera smoke or have any specific lifestyle habits she values?"
+      ],
+      "round_summaries": [
+        "The matchmakers discussed family backgrounds and living arrangements, revealing that Arjun is relocating to Bangalore where Meera is already based. Meera's matchmaker confirmed she is comfortable with in-laws visiting for extended periods as long as personal space is respected, and asked about Arjun's family's support for a career-oriented daughter-in-law.",
+        "The matchmakers discussed how Arjun and Meera handle stress and disagreements, finding strong alignment in their preference for same-day, direct communication. They also confirmed that Arjun does not smoke and enjoys cooking and music to unwind.",
+        "Both matchmakers confirmed that neither party smokes and mutually agreed to proceed with introducing Arjun and Meera for a direct conversation."
+      ],
+      "scores_by_user": {
+        "arjun": {
+          "career": 92,
+          "communication": 95,
+          "family_fit": 85,
+          "lifestyle": 88,
+          "location": 95,
+          "reasons": {
+            "career": "He actively seeks an ambitious partner and protects his weekends, complementing her strong dedication to her growing design leadership career.",
+            "communication": "Both prioritize addressing disagreements on the same day and strongly dislike the silent treatment.",
+            "family_fit": "She is comfortable with a temporary shared living arrangement with in-laws before having their own space, fitting his hope for a transitional year with parents.",
+            "lifestyle": "Both are early risers who enjoy outdoor hiking, non-vegetarian food, and sharing active weekends.",
+            "location": "He is moving to Bangalore next year where she is already settled and wishes to reside long term.",
+            "values": "Both strongly value honesty, family ties, and maintaining personal independence and ambition within a marriage."
+          },
+          "values": 90
+        },
+        "meera": {
+          "career": 88,
+          "communication": 88,
+          "family_fit": 85,
+          "lifestyle": 85,
+          "location": 92,
+          "reasons": {
+            "career": "Meera's ambition to lead a design team is matched by Arjun's balance of professional goals and respect for an independent, driven partner.",
+            "communication": "Both insist on resolving issues the same day and avoiding the silent treatment, though Arjun prefers a brief cool-off period first.",
+            "family_fit": "Meera's willingness to live with in-laws temporarily with a plan for a separate home fits well with Arjun's preference for his parents staying with them initially.",
+            "lifestyle": "Both are early risers who enjoy active weekends through hiking or sports and appreciate cultural music and cooking.",
+            "location": "Meera is committed to staying in Bangalore, which perfectly matches Arjun's confirmed relocation to Bangalore next year.",
+            "values": "Both prioritize honesty and directness, and Arjun's desire for an ambitious partner aligns with Meera's dedication to her career and independence."
+          },
+          "values": 90
+        }
+      },
+      "status": "briefed",
       "user_a": "arjun",
+      "user_b": "meera",
       "users": [
         "arjun",
         "meera"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
     "m_arjun__s01_nithya": {
-      "user_b": "s01_nithya",
-      "scores_by_user": {
-        "arjun": {
-          "lifestyle": 82,
-          "communication": 85,
-          "reasons": {
-            "lifestyle": "Both share a love for outdoor trekking and active weekends, with compatible non-vegetarian diets and balanced urban routines.",
-            "career": "Both work in tech with ambitions to reach leadership roles, allowing them to understand each other's work culture while maintaining personal time.",
-            "values": "Both value personal independence alongside deep respect for elders, honesty, and individual career ambitions.",
-            "family_fit": "Arjun is deeply family-oriented and expects initial co-residence with his parents, whereas Nithya requires living independently as a couple.",
-            "location": "Arjun's confirmed upcoming move to Bangalore aligns seamlessly with Nithya's long-term plan to stay in Bangalore where she owns property.",
-            "communication": "Arjun's preference for talking things through on the same day meshes well with Nithya's calm, direct, and open approach to resolving issues."
-          },
-          "values": 80,
-          "family_fit": 45,
-          "location": 85,
-          "career": 88
-        }
-      },
-      "extended": false,
+      "_sub": {},
+      "closed_reason": "dealbreaker:Nithya has a strict dealbreaker against living in a joint family setup, which directly conflicts with Arjun's expectation for his partner to live with his parents for the first year of marriage.",
       "decision_a": null,
       "decision_b": null,
-      "closed_reason": "dealbreaker:Nithya has a strict dealbreaker against living in a joint family setup, which directly conflicts with Arjun's expectation for his partner to live with his parents for the first year of marriage.",
+      "extended": false,
+      "scores_by_user": {
+        "arjun": {
+          "career": 88,
+          "communication": 85,
+          "family_fit": 45,
+          "lifestyle": 82,
+          "location": 85,
+          "reasons": {
+            "career": "Both work in tech with ambitions to reach leadership roles, allowing them to understand each other's work culture while maintaining personal time.",
+            "communication": "Arjun's preference for talking things through on the same day meshes well with Nithya's calm, direct, and open approach to resolving issues.",
+            "family_fit": "Arjun is deeply family-oriented and expects initial co-residence with his parents, whereas Nithya requires living independently as a couple.",
+            "lifestyle": "Both share a love for outdoor trekking and active weekends, with compatible non-vegetarian diets and balanced urban routines.",
+            "location": "Arjun's confirmed upcoming move to Bangalore aligns seamlessly with Nithya's long-term plan to stay in Bangalore where she owns property.",
+            "values": "Both value personal independence alongside deep respect for elders, honesty, and individual career ambitions."
+          },
+          "values": 80
+        }
+      },
+      "status": "closed",
       "user_a": "arjun",
+      "user_b": "s01_nithya",
       "users": [
         "arjun",
         "s01_nithya"
-      ],
-      "status": "closed",
-      "_sub": {}
+      ]
     },
     "m_arjun__s02_ananya": {
-      "user_b": "s02_ananya",
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
       "scores_by_user": {
         "arjun": {
-          "lifestyle": 62,
+          "career": 82,
           "communication": 84,
-          "reasons": {
-            "lifestyle": "Arjun enjoys an active outdoor lifestyle with Sunday football and trekking, whereas Ananya requires a quiet, low-key environment to recover from high-stress medical shifts.",
-            "career": "Arjun's steady hours and protected weekends allow him to be the supportive partner Ananya needs to step up at home during her intensive medical residency.",
-            "values": "Both prioritize close family bonds while supporting individual ambition, with Arjun seeking an independent partner and Ananya valuing mutual respect and her medical career.",
-            "family_fit": "While both value family deeply, Arjun hopes for a partner open to living with his parents initially, which may conflict with Ananya's demanding hospital schedule and local family ties.",
-            "location": "Arjun has a confirmed move to Bangalore next year, while Ananya strongly prefers settling in Kolkata long-term and is only conditionally open to relocating.",
-            "communication": "Arjun's approach of cooling off briefly to talk things through the same day meshes well with Ananya's straightforward, practical communication style."
-          },
-          "values": 88,
           "family_fit": 68,
+          "lifestyle": 62,
           "location": 55,
-          "career": 82
+          "reasons": {
+            "career": "Arjun's steady hours and protected weekends allow him to be the supportive partner Ananya needs to step up at home during her intensive medical residency.",
+            "communication": "Arjun's approach of cooling off briefly to talk things through the same day meshes well with Ananya's straightforward, practical communication style.",
+            "family_fit": "While both value family deeply, Arjun hopes for a partner open to living with his parents initially, which may conflict with Ananya's demanding hospital schedule and local family ties.",
+            "lifestyle": "Arjun enjoys an active outdoor lifestyle with Sunday football and trekking, whereas Ananya requires a quiet, low-key environment to recover from high-stress medical shifts.",
+            "location": "Arjun has a confirmed move to Bangalore next year, while Ananya strongly prefers settling in Kolkata long-term and is only conditionally open to relocating.",
+            "values": "Both prioritize close family bonds while supporting individual ambition, with Arjun seeking an independent partner and Ananya valuing mutual respect and her medical career."
+          },
+          "values": 88
         }
       },
-      "decision_a": null,
-      "extended": false,
-      "decision_b": null,
+      "status": "queued",
       "user_a": "arjun",
+      "user_b": "s02_ananya",
       "users": [
         "arjun",
         "s02_ananya"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
     "m_arjun__s03_pooja": {
-      "user_b": "s03_pooja",
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
       "scores_by_user": {
         "arjun": {
-          "lifestyle": 60,
+          "career": 80,
           "communication": 70,
-          "reasons": {
-            "lifestyle": "Arjun enjoys non-vegetarian cooking, outdoor trekking, and Sunday football, whereas Pooja leads a vegetarian, quiet home life centered on devotional music and traditional arts.",
-            "career": "Arjun maintains steady engineering hours while seeking management, and Pooja balances her accounting profession with a primary focus on home life.",
-            "values": "While both value family respect, Pooja expects active participation in daily religious rituals, whereas Arjun is non-ritualistic and seeks a partner with distinct personal ambitions.",
-            "family_fit": "Pooja seeks a warm, traditional family environment, which aligns well with Arjun's close-knit joint family background and expectations around family involvement.",
-            "location": "Arjun has a confirmed move to Bangalore next year, and Pooja is completely flexible to relocate away from Pune for the right match.",
-            "communication": "Arjun prefers addressing disagreements directly on the same day, whereas Pooja avoids confrontation and expresses herself softly, requiring gentle handling."
-          },
-          "values": 58,
           "family_fit": 88,
+          "lifestyle": 60,
           "location": 85,
-          "career": 80
+          "reasons": {
+            "career": "Arjun maintains steady engineering hours while seeking management, and Pooja balances her accounting profession with a primary focus on home life.",
+            "communication": "Arjun prefers addressing disagreements directly on the same day, whereas Pooja avoids confrontation and expresses herself softly, requiring gentle handling.",
+            "family_fit": "Pooja seeks a warm, traditional family environment, which aligns well with Arjun's close-knit joint family background and expectations around family involvement.",
+            "lifestyle": "Arjun enjoys non-vegetarian cooking, outdoor trekking, and Sunday football, whereas Pooja leads a vegetarian, quiet home life centered on devotional music and traditional arts.",
+            "location": "Arjun has a confirmed move to Bangalore next year, and Pooja is completely flexible to relocate away from Pune for the right match.",
+            "values": "While both value family respect, Pooja expects active participation in daily religious rituals, whereas Arjun is non-ritualistic and seeks a partner with distinct personal ambitions."
+          },
+          "values": 58
         }
       },
-      "decision_a": null,
-      "extended": false,
-      "decision_b": null,
+      "status": "queued",
       "user_a": "arjun",
+      "user_b": "s03_pooja",
       "users": [
         "arjun",
         "s03_pooja"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
     "m_arjun__s04_tanya": {
-      "user_b": "s04_tanya",
-      "scores_by_user": {
-        "arjun": {
-          "lifestyle": 40,
-          "communication": 80,
-          "reasons": {
-            "lifestyle": "Arjun is an early riser who enjoys football, trekking, and quiet routines, whereas Tanya enjoys nightlife, visiting breweries, and social smoking.",
-            "career": "Both are driven 28-year-old professionals aiming for leadership roles in tech and marketing respectively while maintaining clear boundaries.",
-            "values": "Both value personal ambition and equality in a relationship, though Arjun places greater emphasis on family commitments than Tanya.",
-            "family_fit": "Arjun expects a partner open to living with his family initially and hosting parents for long visits, which contrasts with Tanya's independent nuclear family background.",
-            "location": "Arjun is relocating to Bangalore next year where Tanya is currently based, creating excellent geographic alignment.",
-            "communication": "Both prefer resolving disagreements promptly on the same day, with Tanya being direct and outspoken and Arjun taking a short cool-off period first."
-          },
-          "values": 75,
-          "family_fit": 50,
-          "location": 90,
-          "career": 85
-        }
-      },
-      "extended": false,
+      "_sub": {},
+      "closed_reason": "dealbreaker:Arjun's stated dealbreaker against smoking is triggered because Tanya explicitly mentions that she smokes socially.",
       "decision_a": null,
       "decision_b": null,
-      "closed_reason": "dealbreaker:Arjun's stated dealbreaker against smoking is triggered because Tanya explicitly mentions that she smokes socially.",
+      "extended": false,
+      "scores_by_user": {
+        "arjun": {
+          "career": 85,
+          "communication": 80,
+          "family_fit": 50,
+          "lifestyle": 40,
+          "location": 90,
+          "reasons": {
+            "career": "Both are driven 28-year-old professionals aiming for leadership roles in tech and marketing respectively while maintaining clear boundaries.",
+            "communication": "Both prefer resolving disagreements promptly on the same day, with Tanya being direct and outspoken and Arjun taking a short cool-off period first.",
+            "family_fit": "Arjun expects a partner open to living with his family initially and hosting parents for long visits, which contrasts with Tanya's independent nuclear family background.",
+            "lifestyle": "Arjun is an early riser who enjoys football, trekking, and quiet routines, whereas Tanya enjoys nightlife, visiting breweries, and social smoking.",
+            "location": "Arjun is relocating to Bangalore next year where Tanya is currently based, creating excellent geographic alignment.",
+            "values": "Both value personal ambition and equality in a relationship, though Arjun places greater emphasis on family commitments than Tanya."
+          },
+          "values": 75
+        }
+      },
+      "status": "closed",
       "user_a": "arjun",
+      "user_b": "s04_tanya",
       "users": [
         "arjun",
         "s04_tanya"
-      ],
-      "status": "closed",
-      "_sub": {}
+      ]
     },
     "m_arjun__s05_ishita": {
-      "user_b": "s05_ishita",
-      "scores_by_user": {
-        "arjun": {
-          "lifestyle": 65,
-          "communication": 88,
-          "reasons": {
-            "lifestyle": "Arjun enjoys early morning football, family cooking, and trekking, while Ishita prefers spending her downtime in local cafes and learning languages.",
-            "career": "Arjun aims for steady engineering leadership in India, whereas Ishita is aggressively focused on scaling her startup globally, leading to conflicting career trajectories.",
-            "values": "Both respect independence and ambition in a partner, though Arjun prioritizes family obligations while Ishita emphasizes self-reliance and global pursuits.",
-            "family_fit": "Arjun expects his partner to live with his parents for the first year of marriage, which directly collides with Ishita's stance against living with in-laws.",
-            "location": "Arjun is committed to moving to Bangalore for his confirmed role, while Ishita is firmly set on relocating to Germany within two years.",
-            "communication": "Both value clear, prompt resolution—Arjun addresses issues the same day, and Ishita is direct and straightforward."
-          },
-          "values": 70,
-          "family_fit": 20,
-          "location": 30,
-          "career": 55
-        }
-      },
-      "extended": false,
+      "_sub": {},
+      "closed_reason": "dealbreaker:Ishita strictly refuses to reside with in-laws even temporarily, directly conflicting with Arjun's expectation that his partner live with his parents during their first year of marriage.",
       "decision_a": null,
       "decision_b": null,
-      "closed_reason": "dealbreaker:Ishita strictly refuses to reside with in-laws even temporarily, directly conflicting with Arjun's expectation that his partner live with his parents during their first year of marriage.",
+      "extended": false,
+      "scores_by_user": {
+        "arjun": {
+          "career": 55,
+          "communication": 88,
+          "family_fit": 20,
+          "lifestyle": 65,
+          "location": 30,
+          "reasons": {
+            "career": "Arjun aims for steady engineering leadership in India, whereas Ishita is aggressively focused on scaling her startup globally, leading to conflicting career trajectories.",
+            "communication": "Both value clear, prompt resolution—Arjun addresses issues the same day, and Ishita is direct and straightforward.",
+            "family_fit": "Arjun expects his partner to live with his parents for the first year of marriage, which directly collides with Ishita's stance against living with in-laws.",
+            "lifestyle": "Arjun enjoys early morning football, family cooking, and trekking, while Ishita prefers spending her downtime in local cafes and learning languages.",
+            "location": "Arjun is committed to moving to Bangalore for his confirmed role, while Ishita is firmly set on relocating to Germany within two years.",
+            "values": "Both respect independence and ambition in a partner, though Arjun prioritizes family obligations while Ishita emphasizes self-reliance and global pursuits."
+          },
+          "values": 70
+        }
+      },
+      "status": "closed",
       "user_a": "arjun",
+      "user_b": "s05_ishita",
       "users": [
         "arjun",
         "s05_ishita"
-      ],
-      "status": "closed",
-      "_sub": {}
+      ]
     },
     "m_arjun__s06_aditi": {
-      "user_b": "s06_aditi",
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
       "scores_by_user": {
         "arjun": {
-          "lifestyle": 72,
+          "career": 85,
           "communication": 85,
-          "reasons": {
-            "lifestyle": "Arjun enjoys Sunday football, cooking, and trekking, while Aditi balances her work routine with fitness and exploring coffee shops.",
-            "career": "Arjun values an ambitious partner while maintaining steady hours, offering a supportive environment for Aditi's drive toward making law firm partner.",
-            "values": "Arjun values honesty and an ambitious partner, aligning well with Aditi's drive for autonomy and an egalitarian relationship.",
-            "family_fit": "Arjun is deeply attached to his family and hopes for initial co-living with parents, whereas Aditi prefers a nuclear family setup post-marriage.",
-            "location": "Both are well-aligned on Bangalore, as Arjun has a confirmed role transfer next year and Aditi is actively open to relocating there.",
-            "communication": "Arjun's habit of taking a brief cool-off before resolving issues the same day complements Aditi's direct and articulate communication style."
-          },
-          "values": 82,
           "family_fit": 52,
+          "lifestyle": 72,
           "location": 92,
-          "career": 85
+          "reasons": {
+            "career": "Arjun values an ambitious partner while maintaining steady hours, offering a supportive environment for Aditi's drive toward making law firm partner.",
+            "communication": "Arjun's habit of taking a brief cool-off before resolving issues the same day complements Aditi's direct and articulate communication style.",
+            "family_fit": "Arjun is deeply attached to his family and hopes for initial co-living with parents, whereas Aditi prefers a nuclear family setup post-marriage.",
+            "lifestyle": "Arjun enjoys Sunday football, cooking, and trekking, while Aditi balances her work routine with fitness and exploring coffee shops.",
+            "location": "Both are well-aligned on Bangalore, as Arjun has a confirmed role transfer next year and Aditi is actively open to relocating there.",
+            "values": "Arjun values honesty and an ambitious partner, aligning well with Aditi's drive for autonomy and an egalitarian relationship."
+          },
+          "values": 82
         }
       },
-      "decision_a": null,
-      "extended": false,
-      "decision_b": null,
+      "status": "queued",
       "user_a": "arjun",
+      "user_b": "s06_aditi",
       "users": [
         "arjun",
         "s06_aditi"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
     "m_arjun__s07_riya": {
-      "user_b": "s07_riya",
-      "scores_by_user": {
-        "arjun": {
-          "lifestyle": 78,
-          "communication": 85,
-          "reasons": {
-            "lifestyle": "Both appreciate home cooking and music, balancing Arjun's outdoor trekking and Sunday football with Riya's preference for quiet indoor arts and reading.",
-            "career": "Arjun maintains steady hours and protects weekends, fulfilling Riya's need for work-life balance, though Arjun's desire for an ambitious partner slightly diverges from Riya's contentment with teaching.",
-            "values": "Arjun values personal ambition in a partner, whereas Riya prioritizes domestic happiness over professional drive, though both place family firmly at their core.",
-            "family_fit": "Riya embraces being part of a close-knit family and warm elder dynamics, matching Arjun's close bond with his joint family and dadi.",
-            "location": "Arjun's confirmed relocation to Bangalore aligns perfectly with Riya's openness to moving there, where she already has familiar friends.",
-            "communication": "Arjun's habit of cooling off and addressing issues the same day pairs well with Riya's gentle, conflict-avoidant preference for calm discussions."
+      "_sub": {
+        "briefs": {
+          "arjun": {
+            "candidate_id": "s07_riya",
+            "explore": [
+              {
+                "evidence": "Her matchmaker shared that she is very content working as a school teacher, valuing a healthy work-life balance and prioritizing family happiness.",
+                "text": "You value a partner with strong personal ambitions who doesn't just fit in, whereas Riya is highly focused on domestic life and contentment over professional drive."
+              },
+              {
+                "evidence": "Her matchmaker emphasized that gentle and clear communication is very important to her.",
+                "text": "Your approaches to disagreements might require some syncing up, as you like to tackle issues directly after a brief cool-down, while she tends to shy away from conflict."
+              }
+            ],
+            "family_fit": "Riya comes from a very warm, close-knit family in Kolkata, where she shares a deep bond with her parents and younger brother. She is eager to be part of a loving joint family after marriage and deeply respects elders. Most importantly for us, she is completely open to relocating to Bangalore and has explicitly said she would genuinely welcome having us stay with them for extended periods. She has a gentle nature, enjoys cooking and classical music, and prioritizes family happiness over a high-stress career, making her a wonderful fit for our family's values and daily life.",
+            "for_user_id": "arjun",
+            "green_flags": [
+              {
+                "evidence": "Her matchmaker noted she would genuinely welcome having your parents stay with you for extended periods and building a warm relationship with them.",
+                "text": "She is fully on board with your move to Bangalore and embraces the idea of your family being a big part of your daily lives there."
+              },
+              {
+                "evidence": "She prefers a quiet, domestic rhythm on her weekends filled with cooking, reading, and classical music.",
+                "text": "Her weekend vibe perfectly complements your desire to protect your time off from work and enjoy simple pleasures at home."
+              },
+              {
+                "evidence": "Her matchmaker confirmed she does not smoke or use tobacco in any form.",
+                "text": "She aligns perfectly with your strict lifestyle requirement regarding tobacco."
+              }
+            ],
+            "questions_only_you": [
+              "Since I am moving to Bangalore next year and my parents will be visiting for long stretches, how do you envision us balancing our own space as a newlywed couple with hosting them?",
+              "I love that you are content with teaching and value a quiet home life. What are some personal goals or passions you want to pursue in the next few years outside of your daily routine?",
+              "I usually need a brief moment to cool off during a disagreement before talking it out the same day. How do you usually prefer to handle things when we might not see eye to eye?"
+            ],
+            "snapshot": "Riya is a twenty-four-year-old school teacher in Kolkata who holds a Master's degree and deeply values a healthy work-life balance. She comes from a close-knit family with her parents and younger brother, and she is looking for a stable, emotionally available partner to build a similarly warm home with. In her free time, she prefers a quiet, domestic rhythm, finding joy in cooking, reading, classical music, and arts and crafts rather than a fast-paced social life."
           },
-          "values": 68,
-          "family_fit": 88,
-          "location": 92,
-          "career": 75
+          "s07_riya": {
+            "candidate_id": "arjun",
+            "explore": [
+              {
+                "evidence": "His matchmaker specifically described him as a man who values \"honesty and independence\" in a partner.",
+                "text": "Arjun values a partner who is independent, so it is worth discussing how your contentment with teaching and focus on domestic life fits his vision."
+              },
+              {
+                "evidence": "His matchmaker mentioned he enjoys \"playing football\" on Sunday mornings and \"planning his next trekking trip to the Himalayas.\"",
+                "text": "While you both enjoy a domestic weekend rhythm, he also has an active, outdoorsy side that might require some balancing."
+              }
+            ],
+            "family_fit": "Arjun comes from a loving joint family in Kolkata, where he lives with his parents and grandmother, sharing a particularly close bond with his dadi. He deeply respects his elders and places family at the center of his life, which aligns beautifully with the close-knit environment Riya cherishes. While his career is taking him to Bangalore next year, he expects his parents to visit and stay for extended periods, ensuring that strong family ties are maintained. He enjoys cooking for his family and is looking for a partner who will be warm and welcoming with his elders, making this a very comfortable and respectful family match.",
+            "for_user_id": "s07_riya",
+            "green_flags": [
+              {
+                "evidence": "His matchmaker confirmed he \"keeps steady work hours during the week so he can protect his weekends for his family and personal interests.\"",
+                "text": "He actively protects his personal time, matching your desire for a partner who isn't a high-strung workaholic."
+              },
+              {
+                "evidence": "His matchmaker noted he takes a \"brief moment to cool off, but he always sits down to talk things through the very same day\" and \"deeply dislikes the silent treatment.\"",
+                "text": "His approach to conflict is calm and constructive, which aligns beautifully with your gentle, conflict-avoidant communication style."
+              },
+              {
+                "evidence": "His matchmaker shared that he loves \"cooking Gujarati dishes for the family, listening to old Hindi film music.\"",
+                "text": "You share a mutual love for domestic comforts, cooking, and music."
+              }
+            ],
+            "questions_only_you": [
+              "How do you envision us balancing your active weekend hobbies like trekking and football with my love for quiet, domestic weekends?",
+              "Since you are moving to Bangalore next year, how do you prefer to manage finances and household planning during that transition?",
+              "Your matchmaker mentioned you value independence in a partner. As someone who is very content being a school teacher and prioritizing family, how does that fit into your vision of our life together?",
+              "What does a typical routine look like for you when your parents come to stay for long stretches?"
+            ],
+            "snapshot": "Arjun is a 28-year-old software engineer currently living in a close-knit joint family in Kolkata, with confirmed plans to relocate to Bangalore next year. He is very close to his parents and grandmother, and he keeps steady work hours to protect his weekends for family time, cooking, and sports. He is looking for a partner who is warm with elders and values honesty, but also someone who brings her own independent spirit to the relationship."
+          }
+        },
+        "interview": {
+          "t000": {
+            "highlight": null,
+            "round": 1,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Namaste! I am the AI matchmaker representing Arjun and his family. Arjun is a 28-year-old software engineer currently based in Kolkata—a warm, family-minded young man who values honesty and independence, and is preparing to move to Bangalore next year for his work. He currently lives in a close-knit joint family with his parents and grandmother, who mean the world to him. I would love to hear a little about Riya's family background and the kind of family setup she grows up in?",
+            "turn_index": 0
+          },
+          "t001": {
+            "highlight": null,
+            "round": 1,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "Namaste! It is a pleasure to connect with you. Riya comes from a very warm, close-knit family here in Kolkata, where she lives with her parents and her younger brother. She shares a very deep bond with them and is looking forward to being part of a similarly loving and closely-knit family after marriage. Since Arjun currently lives in a joint family and plans to move to Bangalore next year, how does his family envision the living arrangements after marriage?",
+            "turn_index": 1
+          },
+          "t002": {
+            "highlight": null,
+            "round": 1,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Arjun’s move to Bangalore next year is confirmed, and post-marriage living arrangements during this transition are certainly something his family reflects on carefully. While Arjun will be building his base in Bangalore, his parents are likely to visit and stay with them for long stretches as well. How does Riya envision her post-marriage living setup, especially when it comes to living arrangements and sharing space with in-laws?",
+            "turn_index": 2
+          },
+          "t003": {
+            "highlight": "green",
+            "round": 1,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "Riya is actually very open to relocating to Bangalore, as she already has friends and a good sense of familiarity there. Being someone who deeply treasures family bonds and respect for elders, she would genuinely welcome having Arjun's parents stay with them for extended periods and building a warm relationship with them. Since family warmth is so central to both sides, could you share a bit more about the traditions or values that Arjun's family holds dear in their daily life?",
+            "turn_index": 3
+          },
+          "t004": {
+            "highlight": null,
+            "round": 2,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "It is wonderful to see how naturally their family values align. As we look a bit closer at Arjun as an individual, could you share how he balances his work as a software engineer with his personal life? We would love to know what a typical weekend looks like for him and how he likes to unwind.",
+            "turn_index": 4
+          },
+          "t005": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Arjun keeps steady work hours during the week so he can protect his weekends for his family and personal interests. He is an early riser—on Sunday mornings, you will usually find him playing football, and he loves cooking Gujarati dishes for the family, listening to old Hindi film music, or planning his next trekking trip to the Himalayas. \n\nHow does Riya like to spend her weekends and unwind after her work week?",
+            "turn_index": 5
+          },
+          "t006": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "Riya prefers a quiet, domestic rhythm on her weekends—she loves spending time cooking, reading, and listening to classical music rather than going out frequently. She also enjoys indulging her passion for arts and crafts, which brings her a lot of joy and peace. Since gentle and clear communication is so important to her, could you share a bit about Arjun's communication style and how he usually handles stress or disagreements when they arise?",
+            "turn_index": 6
+          },
+          "t007": {
+            "highlight": "green",
+            "round": 2,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "When a disagreement arises, Arjun prefers taking a brief moment to cool off, but he always sits down to talk things through the very same day. He believes in honest, direct communication and deeply dislikes the silent treatment. \n\nOn the professional side, could you share a bit about Riya's work and what her career ambitions look like for the coming years?",
+            "turn_index": 7
+          },
+          "t008": {
+            "highlight": null,
+            "round": 3,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "As we move towards concluding our initial discussion, I would love to clarify one quick lifestyle detail to ensure smooth alignment between them. Does Riya smoke, or use tobacco in any form? We find that understanding these personal everyday habits early on helps ensure complete clarity and comfort for both Arjun and Riya.",
+            "turn_index": 8
+          },
+          "t009": {
+            "highlight": "green",
+            "round": 3,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "Riya holds a Master's degree and is very content working as a school teacher, valuing a healthy work-life balance and prioritizing family happiness. She does not smoke or use tobacco in any form. \n\nGiven how seamlessly Arjun’s calm communication style, respect for elders, and balanced lifestyle align with Riya's values, I warmly **recommend** that we proceed with introducing Riya and Arjun to each other.",
+            "turn_index": 9
+          },
+          "t010": {
+            "highlight": null,
+            "round": 3,
+            "speaker": "agent_a",
+            "speaker_name": "Arjun's matchmaker",
+            "text": "Thank you for sharing that—it is wonderful to hear about Riya's fulfilling work as a teacher and her healthy lifestyle. Given their mutual deep respect for family, alignment on living arrangements, and commitment to clear, honest communication, I warmly **recommend** that we proceed with introducing Arjun and Riya to one another. I will share these positive notes with Arjun and his family so they can take the next steps.",
+            "turn_index": 10
+          },
+          "t011": {
+            "highlight": null,
+            "round": 3,
+            "speaker": "agent_b",
+            "speaker_name": "Riya's matchmaker",
+            "text": "It is a joy to see such strong mutual alignment between Arjun and Riya. Because of their shared devotion to family warmth, calm communication style, and balanced lifestyles, I fully **recommend** that we take this forward to both families. I will share these details with Riya and her parents, and I look forward to their families connecting directly soon. Namaste!",
+            "turn_index": 11
+          }
         }
       },
+      "closed_reason": null,
       "decision_a": null,
-      "extended": false,
       "decision_b": null,
+      "extended": false,
+      "interview_requested_by": "arjun",
+      "interview_status": "done",
+      "open_questions": [
+        "How do Riya and Arjun feel about transitioning from a joint family setup to living independently in Bangalore with visiting parents?",
+        "How does Riya balance her career ambitions with her preference for a quiet, domestic weekend rhythm?"
+      ],
+      "round_summaries": [
+        "The matchmakers discussed family backgrounds and future living arrangements, confirming that Riya is open to relocating to Bangalore and welcomes Arjun's parents staying with them for extended periods.",
+        "The matchmakers discussed the candidates' weekend routines and communication styles, revealing that both value family time, domestic hobbies, and constructive conflict resolution.",
+        "Both matchmakers confirmed that Riya does not smoke, satisfying Arjun's lifestyle preference. With all major alignment points verified, both sides warmly recommended proceeding to introduce Arjun and Riya to each other."
+      ],
+      "scores_by_user": {
+        "arjun": {
+          "career": 75,
+          "communication": 85,
+          "family_fit": 88,
+          "lifestyle": 78,
+          "location": 92,
+          "reasons": {
+            "career": "Arjun maintains steady hours and protects weekends, fulfilling Riya's need for work-life balance, though Arjun's desire for an ambitious partner slightly diverges from Riya's contentment with teaching.",
+            "communication": "Arjun's habit of cooling off and addressing issues the same day pairs well with Riya's gentle, conflict-avoidant preference for calm discussions.",
+            "family_fit": "Riya embraces being part of a close-knit family and warm elder dynamics, matching Arjun's close bond with his joint family and dadi.",
+            "lifestyle": "Both appreciate home cooking and music, balancing Arjun's outdoor trekking and Sunday football with Riya's preference for quiet indoor arts and reading.",
+            "location": "Arjun's confirmed relocation to Bangalore aligns perfectly with Riya's openness to moving there, where she already has familiar friends.",
+            "values": "Arjun values personal ambition in a partner, whereas Riya prioritizes domestic happiness over professional drive, though both place family firmly at their core."
+          },
+          "values": 68
+        },
+        "s07_riya": {
+          "career": 90,
+          "communication": 84,
+          "family_fit": 88,
+          "lifestyle": 83,
+          "location": 95,
+          "reasons": {
+            "career": "Arjun maintains steady work hours and protects his weekends despite career goals, perfectly fulfilling Riya's preference for a partner who is not a high-strung workaholic.",
+            "communication": "Riya's gentle, calm approach pairs well with Arjun's habit of cooling off briefly before talking through disagreements constructively on the same day.",
+            "family_fit": "Riya wants a close-knit family, matching Arjun's strong bond with his dadi and joint family structure, including his plan to live with parents initially.",
+            "lifestyle": "They share an appreciation for cooking, music, and home-centric living, easily accommodating Arjun's weekend football and Himalayan trekking alongside Riya's quiet reading and arts.",
+            "location": "Both are based in Kolkata and Arjun's confirmed upcoming relocation to Bangalore aligns seamlessly with Riya's preference to move to Bangalore.",
+            "values": "Both place family first, though Arjun desires a partner with strong individual ambitions while Riya prioritizes domestic warmth and teaching over worldly success."
+          },
+          "values": 70
+        }
+      },
+      "status": "briefed",
       "user_a": "arjun",
+      "user_b": "s07_riya",
       "users": [
         "arjun",
         "s07_riya"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
-    "m_meera__s12_vivek": {
-      "user_b": "s12_vivek",
+    "m_arjun__s24_bhavna": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
       "scores_by_user": {
-        "meera": {
-          "lifestyle": 75,
-          "communication": 88,
+        "arjun": {
+          "career": 88,
+          "communication": 85,
+          "family_fit": 90,
+          "lifestyle": 70,
+          "location": 92,
           "reasons": {
-            "lifestyle": "Both maintain active lifestyles in Bangalore, though Meera leans toward outdoor hiking and sketching while Vivek focuses on gym fitness, badminton, and cafes.",
-            "career": "Both are highly ambitious tech product professionals in Bangalore whose career goals and mutual expectations for an equal, driven partner align exceptionally well.",
-            "values": "Both strongly value equal partnership, honesty, and independence, with Vivek actively seeking an ambitious partner and Meera treasuring her personal autonomy.",
-            "family_fit": "Both live independently in Bangalore while maintaining close, supportive relationships with their parents in Kolkata and Chennai.",
-            "location": "While both currently live in Bangalore, Vivek plans a 3–4 year career stint in the US soon, conflicting with Meera's clear preference not to relocate from Bangalore.",
-            "communication": "Meera's need for prompt, same-day resolution without silent treatment complements Vivek's direct and solution-oriented style."
+            "career": "Both hold stable professional roles in tech/corporate sectors while strongly valuing work-life balance and protected personal time.",
+            "communication": "Arjun prefers talking things through directly on the same day, which complements Bhavna's calm, empathetic approach to conflict resolution.",
+            "family_fit": "Bhavna actively desires to live in a joint family setup with in-laws, perfectly aligning with Arjun's close ties to his family and expectation of living with parents.",
+            "lifestyle": "They share an appreciation for domestic life and cooking, but differ on dietary preferences (non-veg vs. veg) and active outdoor pursuits versus home-centric leisure.",
+            "location": "Arjun's confirmed job move to Bangalore aligns seamlessly with Bhavna's permanent presence and firm requirement to stay in Bangalore.",
+            "values": "Both prioritize family deeply, though Bhavna leans more traditional and ritualistic compared to Arjun's moderate cultural practice and emphasis on partner ambition."
           },
-          "values": 90,
-          "family_fit": 80,
-          "location": 52,
-          "career": 95
+          "values": 75
         }
       },
+      "status": "queued",
+      "user_a": "arjun",
+      "user_b": "s24_bhavna",
+      "users": [
+        "arjun",
+        "s24_bhavna"
+      ]
+    },
+    "m_arjun__s25_chitra": {
+      "_sub": {},
       "decision_a": null,
-      "extended": false,
       "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "arjun": {
+          "career": 82,
+          "communication": 74,
+          "family_fit": 62,
+          "lifestyle": 70,
+          "location": 62,
+          "reasons": {
+            "career": "Arjun respects partner ambition and keeps predictable hours, which accommodates Chitra's demanding schedule in finance.",
+            "communication": "Arjun's practice of discussing issues the same day aligns well with Chitra's direct and analytical approach to discussions.",
+            "family_fit": "Arjun values strong involvement with elders and an initial period of co-living with family, whereas Chitra comes from a nuclear family background.",
+            "lifestyle": "Both are non-smokers who appreciate food, though Arjun's early mornings and outdoor sports contrast with Chitra's weekend restaurant exploration.",
+            "location": "Arjun is moving to Bangalore next year for his confirmed role, whereas Chitra strongly prefers to remain in Kolkata.",
+            "values": "Both value personal ambition, gender equality in marriage, and cultural festival celebrations without strict daily rituals."
+          },
+          "values": 85
+        }
+      },
+      "status": "queued",
+      "user_a": "arjun",
+      "user_b": "s25_chitra",
+      "users": [
+        "arjun",
+        "s25_chitra"
+      ]
+    },
+    "m_arjun__s30_harini": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "arjun": {
+          "career": 76,
+          "communication": 84,
+          "family_fit": 52,
+          "lifestyle": 70,
+          "location": 38,
+          "reasons": {
+            "career": "Both work in software engineering with steady work structures, though their preferred work locations eventually diverge.",
+            "communication": "Both favor direct, timely communication to resolve issues rather than avoiding discussion or using silent treatment.",
+            "family_fit": "Arjun expects a partner open to living with his parents, whereas Harini is focused on moving closer to her own parents in her hometown.",
+            "lifestyle": "Both are early risers who value routine, though Arjun enjoys active sports and non-vegetarian food while Harini prefers quiet indoor hobbies and a vegetarian diet.",
+            "location": "Arjun is moving to Bangalore for a confirmed engineering role, while Harini has a firm plan to relocate to her hometown within two years.",
+            "values": "Both balance personal independence with deep respect for family commitments and traditional values."
+          },
+          "values": 82
+        }
+      },
+      "status": "queued",
+      "user_a": "arjun",
+      "user_b": "s30_harini",
+      "users": [
+        "arjun",
+        "s30_harini"
+      ]
+    },
+    "m_meera__s12_vivek": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 95,
+          "communication": 88,
+          "family_fit": 80,
+          "lifestyle": 75,
+          "location": 52,
+          "reasons": {
+            "career": "Both are highly ambitious tech product professionals in Bangalore whose career goals and mutual expectations for an equal, driven partner align exceptionally well.",
+            "communication": "Meera's need for prompt, same-day resolution without silent treatment complements Vivek's direct and solution-oriented style.",
+            "family_fit": "Both live independently in Bangalore while maintaining close, supportive relationships with their parents in Kolkata and Chennai.",
+            "lifestyle": "Both maintain active lifestyles in Bangalore, though Meera leans toward outdoor hiking and sketching while Vivek focuses on gym fitness, badminton, and cafes.",
+            "location": "While both currently live in Bangalore, Vivek plans a 3–4 year career stint in the US soon, conflicting with Meera's clear preference not to relocate from Bangalore.",
+            "values": "Both strongly value equal partnership, honesty, and independence, with Vivek actively seeking an ambitious partner and Meera treasuring her personal autonomy."
+          },
+          "values": 90
+        }
+      },
+      "status": "queued",
       "user_a": "meera",
+      "user_b": "s12_vivek",
       "users": [
         "meera",
         "s12_vivek"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
     "m_meera__s13_siddharth": {
-      "user_b": "s13_siddharth",
-      "scores_by_user": {
-        "meera": {
-          "lifestyle": 50,
-          "communication": 82,
-          "reasons": {
-            "lifestyle": "Meera spends weekends hiking in the Western Ghats and sketching, while Siddharth spends weekends tied to family duties and gym routines around erratic surgeon shifts.",
-            "career": "Both are highly dedicated professionals in Bangalore, though Siddharth's unpredictable medical hours leave limited room for shared time.",
-            "values": "Meera prioritizes personal independence alongside family ties, whereas Siddharth holds strict traditional views centered on familial duty.",
-            "family_fit": "Meera desires independent living after an initial adjustment period, contrasting with Siddharth's deeply embedded joint family commitments.",
-            "location": "Both are established in Bangalore with no plans to relocate in the near future.",
-            "communication": "Both appreciate direct, transparent, and practical communication style during discussions."
-          },
-          "values": 58,
-          "family_fit": 45,
-          "location": 95,
-          "career": 75
-        }
-      },
-      "extended": false,
+      "_sub": {},
+      "closed_reason": "dealbreaker:Siddharth strictly requires his partner to spend every weekend with his joint family, which directly clashes with Meera's weekend outdoor lifestyle and personal independence.",
       "decision_a": null,
       "decision_b": null,
-      "closed_reason": "dealbreaker:Siddharth strictly requires his partner to spend every weekend with his joint family, which directly clashes with Meera's weekend outdoor lifestyle and personal independence.",
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 75,
+          "communication": 82,
+          "family_fit": 45,
+          "lifestyle": 50,
+          "location": 95,
+          "reasons": {
+            "career": "Both are highly dedicated professionals in Bangalore, though Siddharth's unpredictable medical hours leave limited room for shared time.",
+            "communication": "Both appreciate direct, transparent, and practical communication style during discussions.",
+            "family_fit": "Meera desires independent living after an initial adjustment period, contrasting with Siddharth's deeply embedded joint family commitments.",
+            "lifestyle": "Meera spends weekends hiking in the Western Ghats and sketching, while Siddharth spends weekends tied to family duties and gym routines around erratic surgeon shifts.",
+            "location": "Both are established in Bangalore with no plans to relocate in the near future.",
+            "values": "Meera prioritizes personal independence alongside family ties, whereas Siddharth holds strict traditional views centered on familial duty."
+          },
+          "values": 58
+        }
+      },
+      "status": "closed",
       "user_a": "meera",
+      "user_b": "s13_siddharth",
       "users": [
         "meera",
         "s13_siddharth"
-      ],
-      "status": "closed",
-      "_sub": {}
+      ]
     },
     "m_meera__s14_kabir": {
-      "user_b": "s14_kabir",
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
       "scores_by_user": {
         "meera": {
-          "lifestyle": 72,
+          "career": 88,
           "communication": 90,
-          "reasons": {
-            "lifestyle": "Both appreciate visual arts, music, and cultural activities, though Meera follows a structured early-morning routine while Kabir thrives in the flexible indie arts scene.",
-            "career": "Both are ambitious creative professionals who respect each other's dedication to work without expecting either career to take a back seat.",
-            "values": "Both share a respect for personal independence and non-ritualistic worldviews, though Kabir prioritizes unconventional individualism while Meera values family closeness and traditional festivals.",
-            "family_fit": "Both maintain strong bonds with their families while prioritizing personal independence in their daily living arrangements.",
-            "location": "Both are currently based in Bangalore, and Kabir is flexible with location for the right partner, complementing Meera's commitment to staying in the city.",
-            "communication": "Kabir's expressive and emotionally articulate style directly fits Meera's requirement for immediate, direct conversations without silent treatment."
-          },
-          "values": 78,
           "family_fit": 82,
+          "lifestyle": 72,
           "location": 80,
-          "career": 88
+          "reasons": {
+            "career": "Both are ambitious creative professionals who respect each other's dedication to work without expecting either career to take a back seat.",
+            "communication": "Kabir's expressive and emotionally articulate style directly fits Meera's requirement for immediate, direct conversations without silent treatment.",
+            "family_fit": "Both maintain strong bonds with their families while prioritizing personal independence in their daily living arrangements.",
+            "lifestyle": "Both appreciate visual arts, music, and cultural activities, though Meera follows a structured early-morning routine while Kabir thrives in the flexible indie arts scene.",
+            "location": "Both are currently based in Bangalore, and Kabir is flexible with location for the right partner, complementing Meera's commitment to staying in the city.",
+            "values": "Both share a respect for personal independence and non-ritualistic worldviews, though Kabir prioritizes unconventional individualism while Meera values family closeness and traditional festivals."
+          },
+          "values": 78
         }
       },
-      "decision_a": null,
-      "extended": false,
-      "decision_b": null,
+      "status": "queued",
       "user_a": "meera",
+      "user_b": "s14_kabir",
       "users": [
         "meera",
         "s14_kabir"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
     "m_meera__s15_aryan": {
-      "user_b": "s15_aryan",
-      "scores_by_user": {
-        "meera": {
-          "lifestyle": 45,
-          "communication": 75,
-          "reasons": {
-            "lifestyle": "Meera prefers sketching, street food, and hiking in the Western Ghats, whereas Aryan focuses on golf, fitness, and luxury travel to unwind from demanding work hours.",
-            "career": "Meera's design career is central to her identity and leadership goals, whereas Aryan expects his spouse to step away from her career once they start a family.",
-            "values": "Meera values personal independence and equality in her career, whereas Aryan holds traditional views on gender roles and expects a traditional family setup.",
-            "family_fit": "Aryan expects his parents to live with them permanently, whereas Meera desires her own independent home after a brief initial transition period.",
-            "location": "Both are currently settled in Bangalore with no immediate relocation plans, though Aryan might consider Mumbai for a promotion and Meera favors Kolkata long term.",
-            "communication": "Both appreciate clear, direct communication and dislike ambiguity, though Meera seeks same-day resolution while Aryan leans toward a pragmatic style."
-          },
-          "values": 30,
-          "family_fit": 45,
-          "location": 80,
-          "career": 15
-        }
-      },
-      "extended": false,
+      "_sub": {},
+      "closed_reason": "dealbreaker:Meera's dealbreaker against scaling back or leaving her career directly conflicts with Aryan's expectation for his wife to become a full-time stay-at-home mother.",
       "decision_a": null,
       "decision_b": null,
-      "closed_reason": "dealbreaker:Meera's dealbreaker against scaling back or leaving her career directly conflicts with Aryan's expectation for his wife to become a full-time stay-at-home mother.",
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 15,
+          "communication": 75,
+          "family_fit": 45,
+          "lifestyle": 45,
+          "location": 80,
+          "reasons": {
+            "career": "Meera's design career is central to her identity and leadership goals, whereas Aryan expects his spouse to step away from her career once they start a family.",
+            "communication": "Both appreciate clear, direct communication and dislike ambiguity, though Meera seeks same-day resolution while Aryan leans toward a pragmatic style.",
+            "family_fit": "Aryan expects his parents to live with them permanently, whereas Meera desires her own independent home after a brief initial transition period.",
+            "lifestyle": "Meera prefers sketching, street food, and hiking in the Western Ghats, whereas Aryan focuses on golf, fitness, and luxury travel to unwind from demanding work hours.",
+            "location": "Both are currently settled in Bangalore with no immediate relocation plans, though Aryan might consider Mumbai for a promotion and Meera favors Kolkata long term.",
+            "values": "Meera values personal independence and equality in her career, whereas Aryan holds traditional views on gender roles and expects a traditional family setup."
+          },
+          "values": 30
+        }
+      },
+      "status": "closed",
       "user_a": "meera",
+      "user_b": "s15_aryan",
       "users": [
         "meera",
         "s15_aryan"
-      ],
-      "status": "closed",
-      "_sub": {}
+      ]
     },
     "m_meera__s16_karthik": {
-      "user_b": "s16_karthik",
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
       "scores_by_user": {
         "meera": {
-          "lifestyle": 88,
+          "career": 85,
           "communication": 35,
-          "reasons": {
-            "lifestyle": "Both are avid outdoor enthusiasts who love hiking while respecting each other's individual hobbies like sketching or coffee shops.",
-            "career": "Both are ambitious, dedicated professionals based in Bangalore who view career focus as integral to their lives.",
-            "values": "Both place high value on family closeness, career dedication, and leading authentic, non-flashy lives.",
-            "family_fit": "Both maintain close, positive relationships with their families and respect family bonds.",
-            "location": "Both are aligned on remaining in Bangalore long-term for their respective careers.",
-            "communication": "Meera requires direct, same-day discussion and cannot stand silence, whereas Karthik tends to withdraw and go quiet during disagreements."
-          },
-          "values": 82,
           "family_fit": 80,
+          "lifestyle": 88,
           "location": 90,
-          "career": 85
+          "reasons": {
+            "career": "Both are ambitious, dedicated professionals based in Bangalore who view career focus as integral to their lives.",
+            "communication": "Meera requires direct, same-day discussion and cannot stand silence, whereas Karthik tends to withdraw and go quiet during disagreements.",
+            "family_fit": "Both maintain close, positive relationships with their families and respect family bonds.",
+            "lifestyle": "Both are avid outdoor enthusiasts who love hiking while respecting each other's individual hobbies like sketching or coffee shops.",
+            "location": "Both are aligned on remaining in Bangalore long-term for their respective careers.",
+            "values": "Both place high value on family closeness, career dedication, and leading authentic, non-flashy lives."
+          },
+          "values": 82
         }
       },
-      "decision_a": null,
-      "extended": false,
-      "decision_b": null,
+      "status": "queued",
       "user_a": "meera",
+      "user_b": "s16_karthik",
       "users": [
         "meera",
         "s16_karthik"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
     "m_meera__s19_arvind": {
-      "user_b": "s19_arvind",
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
       "scores_by_user": {
         "meera": {
-          "lifestyle": 68,
+          "career": 88,
           "communication": 64,
-          "reasons": {
-            "lifestyle": "Meera favors active outdoor hiking and non-vegetarian street food, while Arvind prefers quiet weekends with filter coffee, tech tinkering, and vegetarian meals.",
-            "career": "Arvind maintains a solid work-life balance and supports equal partnerships, complementing Meera's ambition to lead a design team.",
-            "values": "Both cherish an equal partnership that respects individual independence and share a cultural appreciation for family festivals without strict daily rituals.",
-            "family_fit": "Both value warm family ties alongside maintaining independent living space for themselves as a couple.",
-            "location": "Meera is firm about remaining in Bangalore, which perfectly matches Arvind's willingness to relocate to Bangalore.",
-            "communication": "Meera requires immediate same-day resolution without silent periods, whereas Arvind is introverted and takes time to process and open up."
-          },
-          "values": 84,
           "family_fit": 85,
+          "lifestyle": 68,
           "location": 92,
-          "career": 88
+          "reasons": {
+            "career": "Arvind maintains a solid work-life balance and supports equal partnerships, complementing Meera's ambition to lead a design team.",
+            "communication": "Meera requires immediate same-day resolution without silent periods, whereas Arvind is introverted and takes time to process and open up.",
+            "family_fit": "Both value warm family ties alongside maintaining independent living space for themselves as a couple.",
+            "lifestyle": "Meera favors active outdoor hiking and non-vegetarian street food, while Arvind prefers quiet weekends with filter coffee, tech tinkering, and vegetarian meals.",
+            "location": "Meera is firm about remaining in Bangalore, which perfectly matches Arvind's willingness to relocate to Bangalore.",
+            "values": "Both cherish an equal partnership that respects individual independence and share a cultural appreciation for family festivals without strict daily rituals."
+          },
+          "values": 84
         }
       },
-      "decision_a": null,
-      "extended": false,
-      "decision_b": null,
+      "status": "queued",
       "user_a": "meera",
+      "user_b": "s19_arvind",
       "users": [
         "meera",
         "s19_arvind"
-      ],
-      "status": "queued",
-      "_sub": {}
+      ]
     },
     "m_meera__s20_rohan": {
-      "user_b": "s20_rohan",
-      "scores_by_user": {
-        "meera": {
-          "lifestyle": 30,
-          "communication": 80,
-          "reasons": {
-            "lifestyle": "Meera favors early starts, quiet walks, and weekend hikes, whereas Rohan keeps late chef hours, socializes in bars late at night, and smokes regularly.",
-            "career": "Both are fiercely driven and dedicated to their work goals, though Rohan's demanding chef schedule conflicts with standard domestic routines.",
-            "values": "Both value personal independence and strong career ambition, though Rohan prioritizes non-traditional living over traditional cultural family connections like Meera's.",
-            "family_fit": "Rohan's supportive nuclear family aligns well with Meera's independence, and neither presents rigid family living expectations that conflict.",
-            "location": "Both are fully settled in Bangalore with long-term plans to stay in the city for their respective professional networks.",
-            "communication": "Meera prefers direct, same-day resolution without silent treatment, which aligns well with Rohan's expressive and candid style."
-          },
-          "values": 70,
-          "family_fit": 75,
-          "location": 95,
-          "career": 75
-        }
-      },
-      "extended": false,
+      "_sub": {},
+      "closed_reason": "dealbreaker:Meera has a strict dealbreaker against dating a smoker, whereas Rohan is a regular smoker.",
       "decision_a": null,
       "decision_b": null,
-      "closed_reason": "dealbreaker:Meera has a strict dealbreaker against dating a smoker, whereas Rohan is a regular smoker.",
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 75,
+          "communication": 80,
+          "family_fit": 75,
+          "lifestyle": 30,
+          "location": 95,
+          "reasons": {
+            "career": "Both are fiercely driven and dedicated to their work goals, though Rohan's demanding chef schedule conflicts with standard domestic routines.",
+            "communication": "Meera prefers direct, same-day resolution without silent treatment, which aligns well with Rohan's expressive and candid style.",
+            "family_fit": "Rohan's supportive nuclear family aligns well with Meera's independence, and neither presents rigid family living expectations that conflict.",
+            "lifestyle": "Meera favors early starts, quiet walks, and weekend hikes, whereas Rohan keeps late chef hours, socializes in bars late at night, and smokes regularly.",
+            "location": "Both are fully settled in Bangalore with long-term plans to stay in the city for their respective professional networks.",
+            "values": "Both value personal independence and strong career ambition, though Rohan prioritizes non-traditional living over traditional cultural family connections like Meera's."
+          },
+          "values": 70
+        }
+      },
+      "status": "closed",
       "user_a": "meera",
+      "user_b": "s20_rohan",
       "users": [
         "meera",
         "s20_rohan"
-      ],
-      "status": "closed",
-      "_sub": {}
+      ]
+    },
+    "m_meera__s43_abhishek": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 85,
+          "communication": 82,
+          "family_fit": 82,
+          "lifestyle": 78,
+          "location": 95,
+          "reasons": {
+            "career": "Both are dedicated Bangalore professionals whose career ambitions and mutual respect for independent work align well.",
+            "communication": "Both prioritize direct honesty over politeness, aligning well with Meera's desire for non-evasive, open discussions.",
+            "family_fit": "Both maintain warm, close ties with their respective families in Kolkata and Kerala while living in Bangalore.",
+            "lifestyle": "Both stay active through physical pursuits like hiking and rock climbing, though their relaxing hours contrast between board game nights and sketching.",
+            "location": "Both are already based in Bangalore and plan to remain there for the medium to long term.",
+            "values": "Both deeply value honesty, direct communication, and personal independence within a relationship."
+          },
+          "values": 90
+        }
+      },
+      "status": "queued",
+      "user_a": "meera",
+      "user_b": "s43_abhishek",
+      "users": [
+        "meera",
+        "s43_abhishek"
+      ]
+    },
+    "m_meera__s46_dev": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 78,
+          "communication": 62,
+          "family_fit": 85,
+          "lifestyle": 78,
+          "location": 92,
+          "reasons": {
+            "career": "Both work in design roles in Bangalore, but Meera actively strives for team leadership while Dev is content with a stable role focused on work-life balance.",
+            "communication": "Meera needs direct, same-day resolution without silent treatment, which could create friction with Dev's introverted tendency to take time and space before opening up.",
+            "family_fit": "Both prefer maintaining an independent nuclear living arrangement in Bangalore while keeping warm ties with their families based in other cities.",
+            "lifestyle": "They share an appreciation for nature and creative pursuits like design and sketching, though Dev favors quiet solitary time while Meera enjoys outdoor hikes and street food.",
+            "location": "Both are settled in Bangalore with no immediate plans or desire to move away from the city.",
+            "values": "Both share an egalitarian, independent outlook and cultural approach to festivals, though Meera is intensely career-focused while Dev emphasizes work-life balance."
+          },
+          "values": 82
+        }
+      },
+      "status": "queued",
+      "user_a": "meera",
+      "user_b": "s46_dev",
+      "users": [
+        "meera",
+        "s46_dev"
+      ]
+    },
+    "m_meera__s62_yash": {
+      "_sub": {},
+      "decision_a": null,
+      "decision_b": null,
+      "extended": false,
+      "scores_by_user": {
+        "meera": {
+          "career": 92,
+          "communication": 65,
+          "family_fit": 84,
+          "lifestyle": 78,
+          "location": 95,
+          "reasons": {
+            "career": "Yash actively seeks a career-driven partner, which aligns seamlessly with Meera's deep commitment to her work and leadership goals.",
+            "communication": "Meera requires direct, same-day discussions, whereas Yash relies on humor and takes longer to process deep emotions.",
+            "family_fit": "Both cherish close bonds with their parents in Kolkata and Pune while comfortably managing independent lives in Bangalore.",
+            "lifestyle": "Both enjoy outdoor pursuits and food, though Meera's early-morning routine may contrast with Yash's late nights during launch cycles.",
+            "location": "Both are fully settled in Bangalore and plan to remain there long-term for their respective industries.",
+            "values": "Both strongly value personal independence, equal partnership, and maintaining close family ties while building their separate lives."
+          },
+          "values": 88
+        }
+      },
+      "status": "queued",
+      "user_a": "meera",
+      "user_b": "s62_yash",
+      "users": [
+        "meera",
+        "s62_yash"
+      ]
     }
   }
 }

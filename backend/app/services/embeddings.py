@@ -38,7 +38,5 @@ async def embed_profiles(profiles: list[tuple[dict, list[dict]]]) -> list[tuple[
     texts: list[str] = []
     for facts, aspects in profiles:
         texts += [profile_text(facts, aspects, False), profile_text(facts, aspects, True)]
-    vecs: list[list[float]] = []
-    for i in range(0, len(texts), 100):  # stay well under per-request limits
-        vecs += await embed(texts[i : i + 100])
+    vecs = await embed(texts)  # batched + concurrent inside embed()
     return [(vecs[i], vecs[i + 1]) for i in range(0, len(vecs), 2)]

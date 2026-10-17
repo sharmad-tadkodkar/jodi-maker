@@ -576,6 +576,7 @@
           "matching"
         ],
         "summary": "Run Interview",
+        "description": "Run the 3-round matchmaker interview + briefs as a job. Poll GET /matches/{id}/interview every\n1\u20132 s to render turns live. If an interview already finished (e.g. the pre-computed Arjun\u2013Meera one),\nreturns a finished job instantly \u2014 pass `?rerun=true` to run it live again.",
         "operationId": "run_interview_matches__match_id__interview_post",
         "parameters": [
           {
@@ -585,6 +586,32 @@
             "schema": {
               "type": "string",
               "title": "Match Id"
+            }
+          },
+          {
+            "name": "rerun",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Rerun"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
             }
           }
         ],
@@ -776,6 +803,7 @@
           "matching"
         ],
         "summary": "Decide",
+        "description": "Interested / Pass on the brief (spec \u00a74.4\u20134.5).\n- Interested (first side) \u2192 status `awaiting_them`; the other side's brief becomes visible to them.\n- Interested (second side) \u2192 `mutual: true`, Focus Week starts, both users `in_focus`.\n- Pass \u2192 reason required (422 without); match closes quietly (never revealed); returns `learning`\n  (the \"What I learned about you\" card) and the queue re-ranks.",
         "operationId": "decide_matches__match_id__decision_post",
         "parameters": [
           {
@@ -822,12 +850,72 @@
         }
       }
     },
+    "/matches/{match_id}": {
+      "get": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Get Match",
+        "description": "Match status + decisions. `scores` are from the X-User-Id viewer's perspective.",
+        "operationId": "get_match_matches__match_id__get",
+        "parameters": [
+          {
+            "name": "match_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Match Id"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Match"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/focus/{match_id}": {
       "get": {
         "tags": [
           "focus"
         ],
         "summary": "Focus State",
+        "description": "Day counter, today's 3 deck prompts, and decision state from the X-User-Id viewer's side.\n`decision_them_submitted` says only *whether* the other side decided, never what.\nAuto-closes (status `closed`) if the week ended without both decisions.",
         "operationId": "focus_state_focus__match_id__get",
         "parameters": [
           {
@@ -844,8 +932,14 @@
             "in": "header",
             "required": false,
             "schema": {
-              "type": "string",
-              "default": "arjun",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "X-User-Id"
             }
           }
@@ -880,6 +974,7 @@
           "focus"
         ],
         "summary": "Get Chat",
+        "description": "Oldest first. 403 until both said Interested. Poll every ~2 s.",
         "operationId": "get_chat_focus__match_id__chat_get",
         "parameters": [
           {
@@ -889,6 +984,22 @@
             "schema": {
               "type": "string",
               "title": "Match Id"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
             }
           }
         ],
@@ -924,6 +1035,7 @@
           "focus"
         ],
         "summary": "Post Chat",
+        "description": "403 unless the Focus Week is active (or locked).",
         "operationId": "post_chat_focus__match_id__chat_post",
         "parameters": [
           {
@@ -976,6 +1088,7 @@
           "focus"
         ],
         "summary": "Focus Decision",
+        "description": "Day-7 decision. `stop` works any day (reason required) and closes immediately with `learning`.\n`continue` / `extend` open on the last day (409 before): both continue \u2192 `locked`; any extend \u2192 `extended`\n(+7 days, once); first answer \u2192 `pending`.",
         "operationId": "focus_decision_focus__match_id__decision_post",
         "parameters": [
           {
@@ -1137,7 +1250,20 @@
           "demo"
         ],
         "summary": "Reset",
+        "description": "Full reset (~15\u201320 s): wipe + reseed profiles + load pre-computed matches.\n`?soft=true` (~2 s): keep profiles, restore all matches and the heroes' starting state \u2014 use between takes.",
         "operationId": "reset_demo_reset_post",
+        "parameters": [
+          {
+            "name": "soft",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Soft"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1185,6 +1311,7 @@
           "demo"
         ],
         "summary": "Simulate Response",
+        "description": "Answer the brief as the *other* side (`user_id`), e.g. Meera says Interested \u2192 mutual \u2192 Focus Week.\nNeeds the requester to have said Interested first. A simulated Pass uses reason \"just not feeling it\"\nand skips the learning loop (it's not the demo user's learning).",
         "operationId": "simulate_response_demo_simulate_response_post",
         "requestBody": {
           "content": {
@@ -1226,16 +1353,35 @@
           "demo"
         ],
         "summary": "Fast Forward",
+        "description": "Jump an active Focus Week to `day` (e.g. 4 or 7). `day` = total_days + 1 demos the auto-close\n(nobody waits forever).",
         "operationId": "fast_forward_demo_fast_forward_post",
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/FastForwardRequest"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -1261,12 +1407,78 @@
         }
       }
     },
+    "/demo/interview-top/{user_id}": {
+      "post": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "Interview Top",
+        "description": "\"Run interview for top candidate now\": starts a live interview (~2 min) with the highest-ranked candidate in\n`user_id`'s queue that hasn't been interviewed yet. Poll GET /matches/{match_id}/interview for the turns.",
+        "operationId": "interview_top_demo_interview_top__user_id__post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewStarted"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/demo/state": {
+      "get": {
+        "tags": [
+          "demo"
+        ],
+        "summary": "State",
+        "description": "Where the demo is right now: each hero's status, Focus Week day, queue size and next brief.",
+        "operationId": "state_demo_state_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoState"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/demo/new-profile": {
       "post": {
         "tags": [
           "demo"
         ],
         "summary": "New Profile",
+        "description": "\"Someone just joined\": loads a held-back profile with a `new` badge (2 available per reset). Run scout for\na hero afterwards to see them appear in the queue.",
         "operationId": "new_profile_demo_new_profile_post",
         "responses": {
           "200": {
@@ -1697,6 +1909,53 @@
           "mutual"
         ],
         "title": "DecisionResponse"
+      },
+      "DemoState": {
+        "properties": {
+          "heroes": {
+            "items": {
+              "$ref": "#/components/schemas/HeroState"
+            },
+            "type": "array",
+            "title": "Heroes"
+          },
+          "hero_match_status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "queued",
+                  "screening",
+                  "briefed",
+                  "awaiting_them",
+                  "focus_week",
+                  "locked",
+                  "closed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hero Match Status"
+          },
+          "profiles": {
+            "type": "integer",
+            "title": "Profiles"
+          },
+          "reserves_left": {
+            "type": "integer",
+            "title": "Reserves Left"
+          }
+        },
+        "type": "object",
+        "required": [
+          "heroes",
+          "profiles",
+          "reserves_left"
+        ],
+        "title": "DemoState",
+        "description": "One-glance demo panel status."
       },
       "FastForwardRequest": {
         "properties": {
@@ -2139,6 +2398,74 @@
         "type": "object",
         "title": "HardCriteriaPatch"
       },
+      "HeroState": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "onboarding",
+              "active",
+              "in_focus",
+              "locked",
+              "paused"
+            ],
+            "title": "Status"
+          },
+          "active_match_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Match Id"
+          },
+          "focus_day": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focus Day"
+          },
+          "queue_size": {
+            "type": "integer",
+            "title": "Queue Size",
+            "default": 0
+          },
+          "next_brief_match_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Brief Match Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "name",
+          "status"
+        ],
+        "title": "HeroState"
+      },
       "IntakeMessage": {
         "properties": {
           "id": {
@@ -2294,6 +2621,28 @@
           "turns"
         ],
         "title": "InterviewResponse"
+      },
+      "InterviewStarted": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "title": "Match Id"
+          },
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "candidate": {
+            "$ref": "#/components/schemas/CandidateSummary"
+          }
+        },
+        "type": "object",
+        "required": [
+          "match_id",
+          "job_id",
+          "candidate"
+        ],
+        "title": "InterviewStarted"
       },
       "InterviewTurn": {
         "properties": {

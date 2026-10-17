@@ -7,6 +7,7 @@ import asyncio
 import logging
 
 import numpy as np
+from google.cloud.firestore_v1.base_query import FieldFilter
 from pydantic import BaseModel
 
 from app import models as m
@@ -143,7 +144,7 @@ def _cosine(a: list[float], b: list[float]) -> float:
 
 
 def _matches_for(user_id: str) -> list[dict]:
-    snaps = get_db().collection(MATCHES).where("users", "array_contains", user_id).stream()
+    snaps = get_db().collection(MATCHES).where(filter=FieldFilter("users", "array_contains", user_id)).stream()
     return [{"id": s.id, **s.to_dict()} for s in snaps]
 
 
@@ -250,7 +251,10 @@ def pipeline(user_id: str) -> m.PipelineResponse:
         other = db.collection(USERS).document(other_id).get()
         if not other.exists:
             continue
-        items.append(m.PipelineItem(match_id=mt["id"], candidate=candidate_summary(other.to_dict(), other_id),
+        od = other.to_dict()
+        if od.get("status") in ("in_focus", "locked") and od.get("active_match_id") != mt["id"]:
+            continue  # they're in a Focus Week with someone else (spec §4.6 exclusivity)
+        items.append(m.PipelineItem(match_id=mt["id"], candidate=candidate_summary(od, other_id),
                                     scores=scores_for(me, stored), status=mt["status"]))
     items.sort(key=lambda i: i.scores.overall, reverse=True)
     return m.PipelineResponse(count=len(items), paused=me.get("status") in UNAVAILABLE, items=items)

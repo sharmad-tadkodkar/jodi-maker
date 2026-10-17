@@ -101,7 +101,7 @@ async def generate_json(
                 return schema.model_validate(json.loads(resp.text))
             except Exception as e:  # noqa: BLE001 — retry on anything (incl. timeouts), log and move on
                 last_err = e
-                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200])
+                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200] or type(e).__name__)
                 if not _retryable(e):
                     break
                 await _backoff(attempt, e)
@@ -124,20 +124,40 @@ async def generate_text(
                 return (resp.text or "").strip()
             except Exception as e:  # noqa: BLE001
                 last_err = e
-                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200])
+                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200] or type(e).__name__)
                 if not _retryable(e):
                     break
                 await _backoff(attempt, e)
     raise RuntimeError(f"Gemini call failed after retries: {last_err}")
 
 
-async def embed(texts: list[str]) -> list[list[float]]:
+EMBED_BATCH = 40  # texts per request: the embedding model caps a request at 20k input tokens (~250 per profile text)
+
+
+async def _embed_batch(texts: list[str]) -> list[list[float]]:
     s = get_settings()
-    resp = await client().aio.models.embed_content(
-        model=s.model_embedding,
-        contents=texts,
-        config=types.EmbedContentConfig(
-            output_dimensionality=s.embedding_dim, task_type="SEMANTIC_SIMILARITY"
-        ),
-    )
-    return [e.values for e in resp.embeddings]
+    last_err: Exception | None = None
+    for attempt in range(3):
+        try:
+            resp = await asyncio.wait_for(client().aio.models.embed_content(
+                model=s.model_embedding,
+                contents=texts,
+                config=types.EmbedContentConfig(
+                    output_dimensionality=s.embedding_dim, task_type="SEMANTIC_SIMILARITY"
+                ),
+            ), timeout=30)
+            return [e.values for e in resp.embeddings]
+        except Exception as e:  # noqa: BLE001
+            last_err = e
+            log.warning("embedding attempt %d failed: %s", attempt + 1, str(e)[:200] or type(e).__name__)
+            if not _retryable(e):
+                break
+            await _backoff(attempt, e)
+    raise RuntimeError(f"Embedding failed after retries: {last_err}")
+
+
+async def embed(texts: list[str]) -> list[list[float]]:
+    """Embed any number of texts: split into token-safe batches, run them concurrently, keep order."""
+    batches = [texts[i : i + EMBED_BATCH] for i in range(0, len(texts), EMBED_BATCH)]
+    results = await asyncio.gather(*[_embed_batch(b) for b in batches])
+    return [v for batch in results for v in batch]

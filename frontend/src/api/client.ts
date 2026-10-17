@@ -23,12 +23,15 @@ export type Scores = S['Scores']
 export type InterviewResponse = S['InterviewResponse']
 export type InterviewTurn = S['InterviewTurn']
 export type Brief = S['Brief']
+export type Match = S['Match']
 export type DecisionResponse = S['DecisionResponse']
 export type LearningResult = S['LearningResult']
 export type FocusState = S['FocusState']
 export type ChatMessage = S['ChatMessage']
 export type FocusDecisionResponse = S['FocusDecisionResponse']
 export type Persona = S['Persona']
+export type DemoState = S['DemoState']
+export type InterviewStarted = S['InterviewStarted']
 export type Gender = User['gender']
 export type Visibility = Aspect['visibility']
 
@@ -98,6 +101,7 @@ export const api = {
   getNextBrief: (userId: string) => req<Brief | null>('GET', `/briefs/next/${userId}`),
   decide: (matchId: string, userId: string, decision: 'interested' | 'pass', reason?: string) =>
     req<DecisionResponse>('POST', `/matches/${matchId}/decision`, { user_id: userId, decision, reason }),
+  getMatch: (matchId: string) => req<Match>('GET', `/matches/${matchId}`),
 
   // Focus Week — screens: /mutual/:matchId, /focus/:matchId
   getFocus: (matchId: string) => req<FocusState>('GET', `/focus/${matchId}`),
@@ -110,10 +114,17 @@ export const api = {
   // Demo — screen: /demo
   personas: () => req<Persona[]>('GET', '/demo/personas'),
   seed: (count = 20) => req('POST', '/demo/seed', { count }),
-  reset: () => req('POST', '/demo/reset'),
+  /** soft = ~2 s: restore matches + heroes' starting state (use between takes). Full = ~15–20 s reseed. */
+  reset: (soft = false) => req('POST', `/demo/reset${soft ? '?soft=true' : ''}`),
   simulateResponse: (matchId: string, userId: string, decision: 'interested' | 'pass') =>
     req<DecisionResponse>('POST', '/demo/simulate-response', { match_id: matchId, user_id: userId, decision }),
   fastForward: (matchId: string, day: number) =>
     req<FocusState>('POST', '/demo/fast-forward', { match_id: matchId, day }),
   newProfile: () => req<CandidateSummary>('POST', '/demo/new-profile'),
+  /** One-glance status for the demo panel: heroes' status, Focus Week day, queue size, next brief. */
+  demoState: () => req<DemoState>('GET', '/demo/state'),
+  /** "Run interview for top candidate now" — live (~2 min); poll getInterview(result.match_id). */
+  interviewTop: (userId: string) => req<InterviewStarted>('POST', `/demo/interview-top/${userId}`),
+  /** Re-run an already-finished interview live (e.g. the pre-computed Arjun–Meera one). */
+  rerunInterview: (matchId: string) => req<{ job_id: string }>('POST', `/matches/${matchId}/interview?rerun=true`, {}),
 }

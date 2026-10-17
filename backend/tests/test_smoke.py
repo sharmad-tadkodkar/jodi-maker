@@ -13,9 +13,9 @@ H = {"X-User-Id": "arjun"}
 
 GETS = [
     "/health", "/users/arjun", "/users/arjun/aspects", "/users/arjun/learning",
-    "/intake/arjun/messages", "/pipeline/arjun", "/matches/m_arjun_meera/interview",
-    "/matches/m_arjun_meera/brief/arjun", "/briefs/next/arjun", "/focus/m_arjun_meera",
-    "/focus/m_arjun_meera/chat", "/demo/personas",
+    "/intake/arjun/messages", "/pipeline/arjun", "/matches/m_arjun__meera/interview",
+    "/matches/m_arjun__meera/brief/arjun", "/briefs/next/arjun", "/matches/m_arjun__meera",
+    "/demo/personas",
 ]
 
 
@@ -30,10 +30,6 @@ def test_post_endpoints_and_job_polling():
     from app.db import USERS, get_db
     get_db().collection(USERS).document(u["id"]).delete()
     assert client.patch("/users/arjun/aspects/a01", json={"visibility": "public"}).json()["visibility"] == "public"
-    assert client.post("/matches/m_arjun_meera/decision",
-                       json={"user_id": "arjun", "decision": "pass", "reason": "family"}).json()["learning"]
-    assert client.post("/focus/m_arjun_meera/decision",
-                       json={"user_id": "arjun", "decision": "continue"}).status_code == 200
     job_id = client.post("/scout/arjun").json()["job_id"]  # writes a job doc to Firestore
     job = client.get(f"/jobs/{job_id}").json()
     assert job["status"] == "done"

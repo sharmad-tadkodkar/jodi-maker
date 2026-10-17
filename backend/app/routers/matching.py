@@ -1,11 +1,13 @@
-"""Scouting, interview, brief, decisions (spec §7). Real: scout, pipeline (Phase 3).
-STUB: interview, brief (Phase 4) and decision (Phase 5)."""
-from fastapi import APIRouter, BackgroundTasks, HTTPException
+"""Scouting, interview, brief, decisions (spec §7). Real: scout, pipeline (Phase 3), interview,
+brief, next brief (Phase 4), decision + match (Phase 5)."""
+from fastapi import APIRouter, BackgroundTasks, Header, HTTPException
 
-from app import mocks
 from app import models as m
-from app.db import JOBS, get_db, now
+from app.db import JOBS, MATCHES, get_db, now
 from app.jobs import create_job, run_job
+from app.services import brief as brief_svc
+from app.services import focus as focus_svc
+from app.services import interview as interview_svc
 from app.services import matching
 from app.services.users import get_user_doc
 
@@ -32,6 +34,7 @@ async def run_scout(user_id: str, bg: BackgroundTasks):
 
 @router.get("/pipeline/{user_id}", response_model=m.PipelineResponse)
 async def pipeline(user_id: str):
+    focus_svc.expire_stale(user_id)
     try:
         return matching.pipeline(user_id)
     except ValueError as e:
@@ -39,28 +42,67 @@ async def pipeline(user_id: str):
 
 
 @router.post("/matches/{match_id}/interview", response_model=m.JobRef)
-async def run_interview(match_id: str, body: m.InterviewRequest | None = None):
-    return _done_job("interview", {"match_id": match_id, "status": "done"})
+async def run_interview(match_id: str, bg: BackgroundTasks, body: m.InterviewRequest | None = None,
+                        rerun: bool = False, x_user_id: str | None = Header(default=None)):
+    """Run the 3-round matchmaker interview + briefs as a job. Poll GET /matches/{id}/interview every
+    1–2 s to render turns live. If an interview already finished (e.g. the pre-computed Arjun–Meera one),
+    returns a finished job instantly — pass `?rerun=true` to run it live again."""
+    snap = get_db().collection(MATCHES).document(match_id).get()
+    if not snap.exists:
+        raise HTTPException(404, "match not found")
+    match = snap.to_dict()
+    requester = x_user_id if x_user_id in match["users"] else match["user_a"]
+    if match.get("interview_status") == "running":
+        raise HTTPException(409, "interview already running")
+    if match.get("interview_status") in ("done", "ended_dealbreaker") and not rerun:
+        return _done_job("interview", {"match_id": match_id, "status": match["interview_status"], "cached": True})
+    if match.get("status") == "closed" and not rerun:
+        raise HTTPException(409, "match is closed")
+    job_id = create_job("interview", {"match_id": match_id, "requested_by": requester})
+    instructions = body.instructions if body else None
+    bg.add_task(run_job, job_id, lambda progress: interview_svc.run_interview(match_id, requester, instructions, progress))
+    return m.JobRef(job_id=job_id)
 
 
 @router.get("/matches/{match_id}/interview", response_model=m.InterviewResponse)
 async def get_interview(match_id: str):
-    return mocks.interview()
+    try:
+        return interview_svc.get_interview(match_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e)) from e
 
 
 @router.get("/matches/{match_id}/brief/{user_id}", response_model=m.Brief)
 async def get_brief(match_id: str, user_id: str):
-    return mocks.brief(user_id)
+    b = brief_svc.build_brief(match_id, user_id)
+    if not b:
+        raise HTTPException(404, "No brief available for this user yet")
+    return b
 
 
 @router.get("/briefs/next/{user_id}", response_model=m.Brief | None)
 async def next_brief(user_id: str):
-    return mocks.brief(user_id)
+    get_user_doc(user_id)
+    focus_svc.expire_stale(user_id)
+    return brief_svc.next_brief(user_id)
 
 
 @router.post("/matches/{match_id}/decision", response_model=m.DecisionResponse)
-async def decide(match_id: str, body: m.DecisionRequest):
-    if body.decision == "pass":
-        return m.DecisionResponse(match=mocks.match("closed"), mutual=False,
-                                  learning=mocks.learning_result())
-    return m.DecisionResponse(match=mocks.match("awaiting_them"), mutual=False)
+async def decide(match_id: str, body: m.DecisionRequest, bg: BackgroundTasks):
+    """Interested / Pass on the brief (spec §4.4–4.5).
+    - Interested (first side) → status `awaiting_them`; the other side's brief becomes visible to them.
+    - Interested (second side) → `mutual: true`, Focus Week starts, both users `in_focus`.
+    - Pass → reason required (422 without); match closes quietly (never revealed); returns `learning`
+      (the "What I learned about you" card) and the queue re-ranks."""
+    res = await focus_svc.decide(match_id, body.user_id, body.decision, body.reason)
+    if res.mutual:
+        bg.add_task(focus_svc.ensure_deck, match_id)
+    return res
+
+
+@router.get("/matches/{match_id}", response_model=m.Match)
+async def get_match(match_id: str, x_user_id: str | None = Header(default=None)):
+    """Match status + decisions. `scores` are from the X-User-Id viewer's perspective."""
+    _, match = focus_svc.load_match(match_id)
+    viewer = x_user_id if x_user_id in match["users"] else match["user_a"]
+    return focus_svc.match_model(match_id, match, viewer)

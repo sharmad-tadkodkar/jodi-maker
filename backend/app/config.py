@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     embedding_dim: int = 768
 
     demo_mode: bool = True
+    # Prefix for Firestore collections. Tests use "test_" so they never touch the live demo data.
+    collection_prefix: str = ""
     cors_origins: str = "http://localhost:5173,http://localhost:5180,http://127.0.0.1:5180"
 
     # Matching knobs

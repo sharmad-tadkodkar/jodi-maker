@@ -1,5 +1,5 @@
 """Phase 3: hard filter (pure), precomputed pipeline after reset, re-rank on weight change.
-NOTE: resets the shared demo data."""
+Runs on the test_ collections (see conftest.py)."""
 from fastapi.testclient import TestClient
 
 from app.db import USERS, get_db
