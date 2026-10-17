@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
-import { api, API_URL } from './api/client'
+import { API_URL } from './api/client'
 import Layout from './components/Layout'
 import Brief from './pages/Brief'
+import Demo from './pages/Demo'
 import Focus from './pages/Focus'
 import Me from './pages/Me'
 import Mutual from './pages/Mutual'
@@ -11,7 +12,7 @@ import Placeholder from './pages/Placeholder'
 import Transcript from './pages/Transcript'
 
 /**
- * Routes from spec §5. Onboard, Me, Pipeline, Brief, Transcript, Mutual and Focus are real screens; the rest are Placeholder pages that
+ * Routes from spec §5. Onboard, Me, Pipeline, Brief, Transcript, Mutual, Focus and Demo are real screens; the rest are Placeholder pages that
  * render the raw response until their screen is built.
  */
 
@@ -35,7 +36,7 @@ export default function App() {
           <Route path="/brief/:matchId/transcript" element={<Transcript />} />
           <Route path="/mutual/:matchId" element={<Mutual />} />
           <Route path="/focus/:matchId" element={<Focus />} />
-          <Route path="/demo" element={<Placeholder title="Demo panel" load={() => api.personas()} />} />
+          <Route path="/demo" element={<Demo />} />
         </Route>
       </Routes>
     </BrowserRouter>
