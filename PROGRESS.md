@@ -13,7 +13,7 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 | — Model lineup refresh (drop Gemini 2.5) | | –18:30 | ✅ |
 | 3 Scout + pipeline | –19:10 | –18:47 | ✅ |
 | 4 Interview + Match Brief | –20:00 | 18:55–19:35 | ✅ |
-| 5 Mutual consent + Focus Week + learning loop | –20:45 | 19:40–20:15 | ✅ |
+| 5 Mutual consent + Focus Week + learning loop | –20:45 | 19:35–19:55 | ✅ |
 | 6 Demo panel endpoints + polish | –21:00 | | ⏳ |
 | Deploy window: Firebase Hosting, end-to-end on prod, scale seed to 60 | 21:00–23:00 | | ⏳ |
 | Sat: video, deck, submit (target ~4 PM, buffer to 6 PM) | | | ⏳ |
@@ -72,8 +72,13 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 - Fairness, evaluated lazily on read: unanswered brief expires after 72 h; a Focus Week past its end auto-closes.
 - Demo: `simulate-response`, `fast-forward` (day = total+1 demos auto-close), **soft reset ≈ 2 s** (was 15–20 s).
 - Mocks removed — every endpoint is real. 34 tests pass.
+- Live (Cloud Run): consent/decision/focus/chat calls 0.1–0.3 s; learning-loop decisions 2–3 s; soft reset 1–2 s.
 - Fixed: deck prompts written in one person's voice ("I love cooking…") and one touching past relationships →
   prompts are now sender-neutral, with a banned-topics list; learning explanations overclaimed ("absolute priority").
+
+### Next (Phase 6)
+- Pre-compute a second Arjun interview (his #2) so that after a Pass the next brief appears instantly in the demo
+  (today `getNextBrief` returns null until another interview runs, ~2 min).
 
 ## Key decisions
 
