@@ -44,7 +44,7 @@ should read: *Arjun Mehta — Searching · 8 in queue · brief waiting · Hero m
   4. `Sunday mornings are football, then I cook thepla for everyone. I trek every year. When we disagree I need ten minutes to cool off, but I never go to bed angry.`
   5. `Culturally Hindu — Diwali is big at home, but no daily puja. I still have two years left on my education loan and I send money home every month.`
   6. `Smoking is a hard no for me. My grandfather had lung problems.`
-- When **"I know enough to start looking 💛"** appears, tap **See what I learned** (`/me`). Show:
+- When **"I know enough to start looking 💛"** appears, tap **See what I learned about you** (`/me`). Show:
   - aspects grouped by topic, each with its *evidence quote*;
   - the **visibility toggle** (public / agent-only / private). Point at the **loan → private** item:
     "My matchmaker uses it, but it never leaves Jodi";
@@ -54,24 +54,25 @@ should read: *Arjun Mehta — Searching · 8 in queue · brief waiting · Hero m
 > If a reply is slow, keep going: the take is edited anyway. If the chat isn't done after message 6, send one
 > more line about career ("I want to lead a team in three years, but I protect my weekends").
 
-## 3. Scout → matchmakers talk → the brief — 1:00–1:45 · `/pipeline` → transcript → `/brief/m_arjun__meera`
+## 3. Scout → matchmakers talk → the brief — 1:00–1:45 · `/pipeline` → brief → transcript → brief
 
 - Switch persona to **Arjun Mehta** (the seeded one; the voiceover carries on as "Arjun").
 - **Matches** → **Find new matches**. Live progress text, then the **Today's search** card: profiles checked → passed
   the filters → excluded for dealbreakers, with **Niharika (New)** in the queue (~5–10 s).
 - The queue: **Meera S. 90%** on top (Briefed), with mini-bars per dimension; Niharika, Bhavna, Riya and others below.
-- Tap Meera → **Listen in** → the transcript. Press **Replay**: 12 turns animate in (~1 s each) across three rounds
+- Tap Meera's card (**Read brief →**) → at the bottom of the brief, **Read the full matchmaker conversation →**
+  (or open `/brief/m_arjun__meera/transcript` directly to show the conversation first). Press **Replay**: 12 turns animate in (~1 s each) across three rounds
   (Family → Getting to know them → Closing), with green and yellow highlights and round summaries. Speed it up 2–3× in the edit.
   Point out: "Does Meera smoke?" is *asked*, never "Arjun's dealbreaker is smoking". The education loan never comes up.
-- **Read the brief**: compatibility + **Why you fit** radar, **Green flags** and **Worth exploring** (each with a
+- Tap **Read the brief**: compatibility + **Why you fit** radar, **Green flags** and **Worth exploring** (each with a
   quote from the conversation), **Questions only you can ask**, and **For your family** (a paragraph for his parents).
 - VO: "Before Arjun ever sees her, his matchmaker interviewed hers, the way my father called their family first."
 
 ## 4. Mutual → Focus Week — 1:45–2:20 · brief → **D** → `/mutual` → `/focus`
 
-- On the brief, tap **Interested** → *"Your interest is with Jodi"*. (Meera can now see *her* brief about Arjun.
+- On the brief, tap **I'm interested** → *"Your interest is with Jodi"*. (Meera can now see *her* brief about Arjun.
   Before this, it didn't exist for her.)
-- **D** → *Their response* → **Meera says Interested**. The app jumps to **It's mutual 💛** → **Start Focus Week**.
+- **D** → *Their response* → **Meera says Interested**. The app jumps to **It's mutual 💛** → **Start Focus Week with Meera**.
 - **Focus Week**: *Day 1 of 7*, **Today's prompts** ("Practical things"), all written from both briefs. Tap one
   and it lands in the chat.
 - Optional reply: switch persona to **Meera Sen** (the page reloads), open the same Focus Week, answer, then switch back.
@@ -79,8 +80,8 @@ should read: *Arjun Mehta — Searching · 8 in queue · brief waiting · Hero m
 
 ## 5. Decide → learn → next — 2:20–2:45 · **D** → `/focus` → learning card → `/brief`
 
-- **D** → **Jump to Day 7** → back on Focus Week: **Time to decide** (Continue / Extend / Stop).
-- Tap **Stop** → *"What made you decide to stop with Meera?"* → **Other** →
+- **D** → **Jump to Day 7** → back on Focus Week: **Time to decide** (*Move forward with Meera* / *Take one more week* / *End it kindly*).
+- Tap **End it kindly** → *"What made you decide to stop with Meera?"* → **Other** →
   `She wants to stay in Bangalore for good; I'd like to be near my parents in Kolkata eventually` → **End Focus Week**.
 - *"Your matchmaker is thinking about this…"* (~3–5 s), then the **What I learned about you** card:
   - one line (e.g. *"…returning to Kolkata for your parents is your long-term plan. I've moved 2 candidates up."*);
@@ -90,8 +91,8 @@ should read: *Arjun Mehta — Searching · 8 in queue · brief waiting · Hero m
   learned from your decisions**.
 - VO: "Every decision teaches Jodi. Nobody waits forever: briefs expire and weeks end."
 
-**Alternative happy ending** (for the live presentation): at Day 7 tap **Continue** → *"Jodi will let you know…"* →
-switch persona to Meera → **Continue** → 🎉 **We're moving forward**. Both searches stop.
+**Alternative happy ending** (for the live presentation): at Day 7 tap **Move forward with Meera** → *"Jodi will let you know…"* →
+switch persona to Meera → **Move forward with Arjun** → 🎉 **We're moving forward**. Both searches stop.
 
 ## 6. Architecture — 2:45–3:00 (slide)
 
