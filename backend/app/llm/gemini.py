@@ -1,6 +1,7 @@
 """Single Gemini client wrapper: retries, structured JSON output, embeddings (spec §8, §9)."""
 import asyncio
 import json
+import random
 import logging
 from functools import lru_cache
 from pathlib import Path
@@ -38,11 +39,36 @@ def load_prompt(name: str) -> str:
     return (PROMPTS_DIR / f"{name}.md").read_text()
 
 
+def _thinking(tier: str) -> types.ThinkingConfig | None:
+    """Tiers: fast (chat, extraction, moderator) runs without thinking — ~4x lower latency.
+    reason (scoring, interview agents) and smart (briefs) keep the model's default reasoning."""
+    return types.ThinkingConfig(thinking_budget=0) if tier == "fast" else None
+
+
+# Per-call cap: Vertex occasionally holds a request for 30s+ (shared capacity). Better to cut it and
+# retry / fall back than to make the user wait.
+CALL_TIMEOUT_S = {"fast": 8.0, "reason": 30.0, "smart": 90.0}
+
+
 def _models_for(tier: str) -> list[str]:
     s = get_settings()
     if tier == "smart":
         return [s.model_smart, s.model_smart_fallback]
-    return [s.model_fast]
+    if tier == "reason":
+        return [s.model_reason, s.model_reason_fallback]
+    return [s.model_fast, s.model_fast_fallback]
+
+
+def _retryable(err: Exception) -> bool:
+    """404 / 400 / 403 won't fix themselves — skip straight to the fallback model."""
+    msg = str(err)
+    return not any(code in msg for code in ("404 NOT_FOUND", "400 INVALID_ARGUMENT", "403 PERMISSION_DENIED"))
+
+
+async def _backoff(attempt: int, err: Exception) -> None:
+    """Exponential backoff with jitter; longer on 429s (new projects have small Vertex quotas)."""
+    base = 2.0 if "429" in str(err) or "RESOURCE_EXHAUSTED" in str(err) else 0.5
+    await asyncio.sleep(base * (2**attempt) * (0.75 + random.random() / 2))
 
 
 async def generate_json(
@@ -52,7 +78,7 @@ async def generate_json(
     system: str | None = None,
     tier: str = "fast",
     temperature: float = 0.7,
-    retries: int = 2,
+    retries: int = 1,
 ) -> T:
     """Call Gemini with a response schema and parse into `schema`. Falls back across models."""
     config = types.GenerateContentConfig(
@@ -60,40 +86,48 @@ async def generate_json(
         temperature=temperature,
         response_mime_type="application/json",
         response_schema=schema,
+        thinking_config=_thinking(tier),
     )
     last_err: Exception | None = None
     for model in _models_for(tier):
         for attempt in range(retries + 1):
             try:
-                resp = await client().aio.models.generate_content(
-                    model=model, contents=prompt, config=config
+                resp = await asyncio.wait_for(
+                    client().aio.models.generate_content(model=model, contents=prompt, config=config),
+                    timeout=CALL_TIMEOUT_S[tier],
                 )
                 if resp.parsed is not None:
                     return resp.parsed
                 return schema.model_validate(json.loads(resp.text))
-            except Exception as e:  # noqa: BLE001 — retry on anything, log and move on
+            except Exception as e:  # noqa: BLE001 — retry on anything (incl. timeouts), log and move on
                 last_err = e
-                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, e)
-                await asyncio.sleep(0.5 * (attempt + 1))
+                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200])
+                if not _retryable(e):
+                    break
+                await _backoff(attempt, e)
     raise RuntimeError(f"Gemini call failed after retries: {last_err}")
 
 
 async def generate_text(
     prompt: str, *, system: str | None = None, tier: str = "fast", temperature: float = 0.8
 ) -> str:
-    config = types.GenerateContentConfig(system_instruction=system, temperature=temperature)
+    config = types.GenerateContentConfig(system_instruction=system, temperature=temperature,
+                                         thinking_config=_thinking(tier))
     last_err: Exception | None = None
     for model in _models_for(tier):
-        for attempt in range(3):
+        for attempt in range(2):
             try:
-                resp = await client().aio.models.generate_content(
-                    model=model, contents=prompt, config=config
+                resp = await asyncio.wait_for(
+                    client().aio.models.generate_content(model=model, contents=prompt, config=config),
+                    timeout=CALL_TIMEOUT_S[tier],
                 )
                 return (resp.text or "").strip()
             except Exception as e:  # noqa: BLE001
                 last_err = e
-                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, e)
-                await asyncio.sleep(0.5 * (attempt + 1))
+                log.warning("gemini %s attempt %d failed: %s", model, attempt + 1, str(e)[:200])
+                if not _retryable(e):
+                    break
+                await _backoff(attempt, e)
     raise RuntimeError(f"Gemini call failed after retries: {last_err}")
 
 

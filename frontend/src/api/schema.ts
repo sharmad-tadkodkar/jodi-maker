@@ -100,7 +100,10 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        /** Wipe Data */
+        /**
+         * Wipe Data
+         * @description 'Delete everything my matchmaker knows' — aspects, intake chat, embeddings.
+         */
         delete: operations["wipe_data_users__user_id__data_delete"];
         options?: never;
         head?: never;
@@ -133,8 +136,8 @@ export interface paths {
         };
         /**
          * Intake History
-         * @description Not in original §7 — needed so the chat can resume after a refresh. Returns the opening
-         *     agent message for a brand-new user.
+         * @description Not in original §7 — lets the chat resume after a refresh. Creates the opening message for a
+         *     brand-new user.
          */
         get: operations["intake_history_intake__user_id__messages_get"];
         put?: never;
@@ -171,7 +174,11 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Run Scout */
+        /**
+         * Run Scout
+         * @description Filter → semantic → Gemini scoring. Poll GET /jobs/{job_id}; `progress` is user-friendly text
+         *     and `result` has the scout summary (passed_filter, excluded_dealbreakers, top, …).
+         */
         post: operations["run_scout_scout__user_id__post"];
         delete?: never;
         options?: never;

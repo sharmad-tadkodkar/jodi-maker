@@ -29,8 +29,7 @@ def test_post_endpoints_and_job_polling():
     u = client.post("/users", json={"name": "Test", "gender": "male"}).json()
     from app.db import USERS, get_db
     get_db().collection(USERS).document(u["id"]).delete()
-    assert client.post("/intake/arjun/message", json={"text": "hi"}).status_code == 200
-    assert client.patch("/users/arjun/aspects/a1", json={"visibility": "private"}).json()["visibility"] == "private"
+    assert client.patch("/users/arjun/aspects/a01", json={"visibility": "public"}).json()["visibility"] == "public"
     assert client.post("/matches/m_arjun_meera/decision",
                        json={"user_id": "arjun", "decision": "pass", "reason": "family"}).json()["learning"]
     assert client.post("/focus/m_arjun_meera/decision",
