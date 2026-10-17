@@ -1,4 +1,4 @@
-import type { Aspect, PipelineItem, Scores } from '../api/client'
+import type { Aspect, PipelineItem, Scores, Visibility } from '../api/client'
 
 export const ASPECT_LABEL: Record<Aspect['category'], string> = {
   values: 'Values',
@@ -50,3 +50,9 @@ export const HAS_BRIEF: MatchStatus[] = ['briefed', 'awaiting_them', 'focus_week
 export function firstName(displayName: string): string {
   return displayName.split(' ')[0]
 }
+
+export const VISIBILITY: { value: Visibility; label: string; hint: string }[] = [
+  { value: 'public', label: 'Shown', hint: 'May appear on their brief about you' },
+  { value: 'agent_only', label: 'Matchmaker only', hint: 'Your matchmaker uses it, but never quotes it' },
+  { value: 'private', label: 'Private', hint: 'Only used to find people for you — never shared' },
+]
