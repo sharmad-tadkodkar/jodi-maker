@@ -31,6 +31,10 @@ def test_clamp_weights():
     assert abs(sum(new.values()) - 1) < 0.01
     assert new["family_fit"] > old["family_fit"] and new["career"] < old["career"]
     assert new["family_fit"] < 0.3  # clamped, not 0.9
+    # A location reason raises location; unrelated dimensions shrink only proportionally (no −10 on communication).
+    hero = {"values": .2, "family_fit": .2, "lifestyle": .15, "career": .15, "location": .15, "communication": .15}
+    new = clamp_weights(hero, {**hero, "location": .25, "communication": .05}, 0.1)
+    assert new["location"] > 0.2 and hero["communication"] - new["communication"] < 0.03
 
 
 def test_consent_order_and_mutual():

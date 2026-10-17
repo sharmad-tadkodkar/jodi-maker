@@ -179,7 +179,7 @@ async def scout(user_id: str, progress: ProgressFn = lambda _: None) -> dict:
     # Score only pairs we haven't scored from this user's side before (cache).
     to_score = [c for c in top if user_id not in (existing.get(match_id(user_id, c["id"]), {}).get("scores_by_user") or {})]
     if to_score:
-        progress(f"{len(passed)} passed the filters. Your matchmaker is reading {len(to_score)} profiles closely…")
+        progress(f"{len(passed)} passed the filters. Your matchmaker is reading {len(to_score)} profile{'s' if len(to_score) != 1 else ''} closely…")
     else:
         progress(f"{len(passed)} passed the filters — all already assessed. Refreshing your queue…")
 

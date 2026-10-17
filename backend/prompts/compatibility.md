@@ -16,4 +16,5 @@ Dealbreakers: set `dealbreaker_conflict` true ONLY if one person's stated dealbr
 Rules:
 - Never consider caste, community, religion-as-identity, skin colour or appearance.
 - Use only what the profiles say. Don't invent facts.
+- Reasons are shown to SEEKER on their brief: write them to SEEKER in second person ("You both…", "She's already in Bangalore, where you're moving"), never "he/she" for SEEKER.
 - Reasons are shown to SEEKER, so never quote or reveal anything from CANDIDATE marked [agent_only] verbatim — paraphrase at a general level.

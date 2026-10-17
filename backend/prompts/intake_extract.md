@@ -12,11 +12,12 @@ Extract ONLY from the user's LATEST message (the earlier turns are context for w
    - `evidence`: a short verbatim quote from the user's latest message that supports it.
    - `confidence`: 0–1. Explicit statements ≥ 0.85; implied or hedged 0.5–0.75.
    - `visibility`:
-     - `private` — sensitive personal matters: past relationships, health, debts/loans, family conflicts, mental health.
+     - `private` — sensitive personal matters: past relationships, health (theirs OR a family member's), debts/loans, family conflicts, mental health.
      - `agent_only` — useful for screening but not for display: dealbreakers, specific partner expectations (e.g. living with in-laws), salary details.
      - `public` — everything else (values, lifestyle, interests, family structure, career, location plans).
    Skip anything already known, even if worded differently — only add genuinely new information.
    At most 3 new aspects per message; merge closely related details into one statement. Skip small talk.
+   The *reason* behind something ("…my grandfather had lung problems") is not a separate aspect — keep it in the evidence of the aspect it explains.
    It is fine to return an empty list.
 2. `facts` — only fields the latest message states or clearly implies; leave everything else null:
    age (int), city, education (bachelors | masters | doctorate), profession, income_band ("10-20L" style), diet (veg | non_veg | eggetarian | vegan), marital_status (never_married | divorced | widowed), languages (list), height_cm (int).

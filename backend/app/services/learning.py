@@ -45,11 +45,16 @@ class LearningOut(BaseModel):
 
 
 def clamp_weights(old: dict, proposed: dict, clamp: float) -> dict:
-    """Limit each dimension's move to ±clamp, floor at MIN_WEIGHT, renormalise to sum 1."""
-    w = {}
-    for d in m.DIMENSIONS:
-        o, p = float(old.get(d, 1 / 6)), float(proposed.get(d, old.get(d, 1 / 6)))
-        w[d] = max(MIN_WEIGHT, min(o + clamp, max(o - clamp, p)))
+    """Raise the dimensions the decision points at (each by at most `clamp`), then renormalise so every other
+    dimension shrinks proportionally. One decision shouldn't slash an unrelated dimension (a Stop for *location*
+    must not cut *communication* from 15% to 5%). If the model only proposes decreases, apply those (clamped)."""
+    o = {d: float(old.get(d, 1 / 6)) for d in m.DIMENSIONS}
+    p = {d: float(proposed.get(d, o[d])) for d in m.DIMENSIONS}
+    raised = {d: min(p[d] - o[d], clamp) for d in m.DIMENSIONS if p[d] - o[d] > 0.005}
+    if raised:
+        w = {d: o[d] + raised.get(d, 0) for d in m.DIMENSIONS}
+    else:
+        w = {d: max(MIN_WEIGHT, o[d] + max(-clamp, p[d] - o[d])) for d in m.DIMENSIONS}
     total = sum(w.values())
     return {d: round(v / total, 3) for d, v in w.items()}
 

@@ -103,6 +103,27 @@ one-click "delete everything"; and data minimisation in line with the DPDP Act.
 
 ---
 
+## Dry run — Sat 18 Oct, phone width, against prod ✅
+
+Every scene ran end to end in the browser, with these results:
+- Intake reached 93% after the 6 scripted messages. The loan was stored as **private**, and the live-with-parents
+  wish and the smoking dealbreaker as **matchmaker-only**.
+- The search card read "checked 63 profiles → 16 met your must-haves · 1 new · strongest: Meera, Niharika, Bhavna".
+- Replay, the brief, I'm interested, Meera says Interested → It's mutual → Day 1 prompts → a tapped prompt → chat all worked.
+- Jump to Day 7 → End it kindly (Other + text) → learning card (Location +, "moved 2 candidates up") → Riya's brief.
+
+Fixed after the run (backend, redeployed):
+- The intake reply re-greeted with "Namaste" mid-chat.
+- A family member's health detail was stored as a public aspect. Health is now private, and reasons are kept as evidence.
+- The learning loop could slash an unrelated weight (Communication −10 on a location reason). Now only the
+  dimensions the reason points at go up, and the rest rebalance proportionally.
+- "reading 1 profiles" → "reading 1 profile".
+- New compatibility reasons address the viewer as "you". The frozen Arjun–Meera reasons still say "he"; that's minor.
+
+UI notes for the partner (optional polish):
+- On phone width, the *Start Focus Week with Meera* button sits under the bottom tab bar until you scroll.
+- The persona dropdown briefly shows a raw user ID (`u_arjun_…`) until the persona list loads.
+
 ## Timings to expect (live API)
 
 | Action | Time |
