@@ -2,14 +2,16 @@ import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import { api, API_URL } from './api/client'
 import Layout from './components/Layout'
 import Brief from './pages/Brief'
-import Pipeline from './pages/Pipeline'
+import Focus from './pages/Focus'
 import Me from './pages/Me'
+import Mutual from './pages/Mutual'
 import Onboard from './pages/Onboard'
+import Pipeline from './pages/Pipeline'
 import Placeholder from './pages/Placeholder'
 import Transcript from './pages/Transcript'
 
 /**
- * Routes from spec §5. Onboard, Me, Pipeline, Brief and Transcript are real screens; the rest are Placeholder pages that
+ * Routes from spec §5. Onboard, Me, Pipeline, Brief, Transcript, Mutual and Focus are real screens; the rest are Placeholder pages that
  * render the raw response until their screen is built.
  */
 
@@ -17,19 +19,6 @@ import Transcript from './pages/Transcript'
 function BriefRoute() {
   const { matchId } = useParams()
   return <Brief key={matchId ?? 'next'} />
-}
-function Mutual() {
-  const { matchId = '' } = useParams()
-  return <Placeholder title="It's mutual 💛" load={() => api.getFocus(matchId)} />
-}
-function Focus() {
-  const { matchId = '' } = useParams()
-  return (
-    <Placeholder
-      title="Focus Week"
-      load={async () => ({ state: await api.getFocus(matchId), chat: await api.getChat(matchId) })}
-    />
-  )
 }
 
 export default function App() {
