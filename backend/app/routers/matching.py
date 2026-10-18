@@ -10,6 +10,7 @@ from app.services import focus as focus_svc
 from app.services import interview as interview_svc
 from app.services import matching
 from app.services.users import get_user_doc
+from app.services.guardrails import guard_text
 
 router = APIRouter(tags=["matching"])
 
@@ -47,6 +48,7 @@ async def run_interview(match_id: str, bg: BackgroundTasks, body: m.InterviewReq
     """Run the 3-round matchmaker interview + briefs as a job. Poll GET /matches/{id}/interview every
     1–2 s to render turns live. If an interview already finished (e.g. the pre-computed Arjun–Meera one),
     returns a finished job instantly — pass `?rerun=true` to run it live again."""
+    guard_text(body.instructions if body else None)  # before any lookup or job is created
     snap = get_db().collection(MATCHES).document(match_id).get()
     if not snap.exists:
         raise HTTPException(404, "match not found")
@@ -94,6 +96,7 @@ async def decide(match_id: str, body: m.DecisionRequest, bg: BackgroundTasks):
     - Interested (second side) → `mutual: true`, Focus Week starts, both users `in_focus`.
     - Pass → reason required (422 without); match closes quietly (never revealed); returns `learning`
       (the "What I learned about you" card) and the queue re-ranks."""
+    guard_text(body.reason)
     res = await focus_svc.decide(match_id, body.user_id, body.decision, body.reason)
     if res.mutual:
         bg.add_task(focus_svc.ensure_deck, match_id)

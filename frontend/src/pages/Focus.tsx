@@ -170,7 +170,7 @@ function Chat({
       </div>
       {(pollError || sendError) && (
         <p className="px-4 pb-2 text-xs text-brand-700">
-          {sendError ? `Couldn't send that. ${sendError}` : "Reconnecting…"}
+          {sendError ?? "Reconnecting…"}
         </p>
       )}
       <form

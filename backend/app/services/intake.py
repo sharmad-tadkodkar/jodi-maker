@@ -13,6 +13,7 @@ from pydantic import BaseModel
 from app import models as m
 from app.db import USERS, get_db, now
 from app.llm.gemini import generate_json, generate_text, load_prompt
+from app.services import guardrails
 from app.services.users import get_user_doc, list_aspects
 
 DONE_THRESHOLD = 0.8
@@ -172,21 +173,36 @@ def _apply_extraction(user: dict, ex: Extraction) -> list[dict]:
 
 
 async def handle_message(user_id: str, text: str) -> tuple[m.IntakeMessageResponse, bool]:
-    """Returns (response, should_refresh_embeddings)."""
-    user = get_user_doc(user_id)
-    ensure_opening(user)
-    _add_message(user_id, "user", text)
-    msgs = get_messages(user_id)
-    aspects = list_aspects(user_id)
+    """Returns (response, should_refresh_embeddings).
 
+    Guardrails (services/guardrails.py): a deterministic screen runs first (no model calls if it blocks); the
+    LLM classifier runs in parallel with the reply + extraction. Nothing — the user's message, extracted notes or
+    the reply — is stored until the message has cleared both.
+    """
+    user = get_user_doc(user_id)
+    history = ensure_opening(user)
+    aspects = list_aspects(user_id)
     before, missing_cats, missing_facts = coverage(aspects, user.get("self_facts") or {})
+
+    verdict = guardrails.screen_text(text)
+    if verdict != guardrails.Verdict.ok:
+        return _blocked(verdict, before, missing_cats), False
+
+    # Work on the transcript in memory; persist only if the message is allowed.
+    msgs = history + [{"id": "pending", "role": "user", "text": text, "created_at": now()}]
     # Reply and extraction in parallel. The reply sees the user's message, so it already knows what
     # was just covered; "nearly done" uses pre-extraction coverage plus this turn's likely gain.
     nearly_done = before >= DONE_THRESHOLD - 0.1 and len(missing_cats) <= 2
-    reply, ex = await asyncio.gather(
+    last_agent = next((x["text"] for x in reversed(history) if x["role"] == "agent"), "")
+    verdict, reply, ex = await asyncio.gather(
+        guardrails.classify_intake(text, last_agent),
         _reply(user, msgs, aspects, missing_cats, missing_facts, nearly_done),
         _extract(user, msgs, aspects),
     )
+    if verdict != guardrails.Verdict.ok:
+        return _blocked(verdict, before, missing_cats), False
+
+    _add_message(user_id, "user", text)
     created = _apply_extraction(user, ex)
     completeness, missing_cats, _ = coverage(aspects + created, user.get("self_facts") or {})
     done = completeness >= DONE_THRESHOLD
@@ -202,5 +218,13 @@ async def handle_message(user_id: str, text: str) -> tuple[m.IntakeMessageRespon
         new_aspects=[m.Aspect(**a) for a in created], done=done,
     )
     return resp, bool(created or ex.facts.model_dump(exclude_none=True))
+
+
+def _blocked(verdict: "guardrails.Verdict", completeness: float, missing_cats: list[str]) -> m.IntakeMessageResponse:
+    """Calm redirect for a message that failed a guardrail. Nothing is stored; progress is unchanged."""
+    return m.IntakeMessageResponse(
+        reply=guardrails.INTAKE_REPLY[verdict], completeness=completeness, missing_categories=missing_cats,
+        new_aspects=[], done=completeness >= DONE_THRESHOLD,
+    )
 
 
