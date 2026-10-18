@@ -39,6 +39,11 @@ function ScrollCue() {
   )
 }
 
+/** The card colour easing out to transparent, for merging the hero scene into the card. */
+const fade = (dir: string) =>
+  `linear-gradient(${dir}, #fcf4ec 0%, #fcf4ec 10%, rgb(252 244 236 / 0.93) 22%, rgb(252 244 236 / 0.76) 36%, ` +
+  `rgb(252 244 236 / 0.5) 52%, rgb(252 244 236 / 0.26) 68%, rgb(252 244 236 / 0.09) 84%, rgb(252 244 236 / 0) 100%)`
+
 /** Where the current user should go next, based on their status. */
 function useNextStep() {
   const uid = getUserId()
@@ -60,10 +65,11 @@ export default function Landing() {
   return (
     <div className="pb-4">
       <section className={`relative ${CONTAINER}`}>
-        {/* Hero: text, then the father. Mobile/tablet stack; from lg two columns — the illustration is anchored
-            right so its empty left margin is what gets cropped (its background is the card colour, so the edge
-            is invisible). Art-directed: portrait crop under 768px, wide banner above. Eager — it's the LCP. */}
-        <div className="-mx-4 overflow-hidden bg-[#fcf4ec] sm:mx-0 sm:rounded-3xl sm:border sm:border-line lg:grid lg:min-h-[560px] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+        {/* Hero: text, then the couple. Mobile/tablet stack, the scene fading up into the card colour; from lg the
+            scene fills the right ~62% of the card and dissolves leftwards into the cream behind the text (the faded
+            part is park, never the couple). Art-directed: portrait crop under 768px, wide scene above. Eager — it's
+            the LCP. */}
+        <div className="relative -mx-4 overflow-hidden bg-[#fcf4ec] sm:mx-0 sm:rounded-3xl sm:border sm:border-line lg:grid lg:min-h-[560px] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
           <div className="relative z-10 space-y-5 px-6 pt-10 text-center lg:flex lg:flex-col lg:justify-center lg:py-12 lg:pr-4 lg:pl-12 lg:text-left xl:pl-14">
             <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Your AI matchmaker</p>
             <h1 className="font-display text-4xl leading-[1.1] sm:text-5xl xl:text-[3.5rem]">
@@ -72,7 +78,8 @@ export default function Landing() {
               <span className="text-brand-600">You get a briefing.</span>
             </h1>
             <p className="mx-auto max-w-md text-muted lg:mx-0">
-              Jodi knows you and your family, talks to other people's matchmakers on your behalf, and brings you one thoughtful match at a time.
+              In a world of endless swiping and empty promises, a master matchmaker protects your time, silences the noise, and brings you only
+              the ones truly destined for your heart.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:flex-wrap lg:justify-start">
               <Link to={next.to} className={PRIMARY}>
@@ -86,21 +93,24 @@ export default function Landing() {
             </div>
             {next.note && <p className="text-sm text-muted">{next.note}</p>}
           </div>
-          <div className="relative">
+          <div className="relative mt-8 lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:w-[62%]">
             <picture className="block lg:absolute lg:inset-0">
-              <source media="(min-width: 768px)" srcSet={`${ILLUSTRATIONS}hero-father.webp`} width={1600} height={893} />
+              <source media="(min-width: 768px)" srcSet={`${ILLUSTRATIONS}hero-couple.webp`} width={998} height={533} />
               <img
-                src={`${ILLUSTRATIONS}hero-father-mobile.webp`}
-                width={1600}
-                height={2143}
-                alt=""
+                src={`${ILLUSTRATIONS}hero-couple-mobile.webp`}
+                width={480}
+                height={533}
+                alt="A smiling couple walking together through a sunlit park"
                 fetchPriority="high"
                 decoding="async"
-                className="-mt-8 block h-auto w-full md:mt-4 lg:absolute lg:inset-0 lg:mt-0 lg:h-full lg:object-cover lg:object-right"
+                className="block h-auto w-full lg:absolute lg:inset-0 lg:h-full lg:object-cover lg:object-[51%_50%]"
               />
             </picture>
-            {/* soften the crop edge into the text column */}
-            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/3 bg-gradient-to-r from-[#fcf4ec] via-[#fcf4ec]/60 to-transparent lg:block" />
+            {/* Merge the scene into the card: up into the text when stacked, left into the text column from lg. Eased
+                stops (a straight ramp reads as an edge where it starts), and 2px outside the image so its anti-aliased
+                sub-pixel edge never shows as a line. */}
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-0.5 h-20 lg:hidden" style={{ background: fade('to bottom') }} />
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 -left-0.5 hidden w-[38%] lg:block" style={{ background: fade('to right') }} />
           </div>
         </div>
         <ScrollCue />
