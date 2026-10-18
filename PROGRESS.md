@@ -107,6 +107,22 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 - "Focus Week" is now **Jodi Week** in everything users see. Code and API names (`focus`, `focus_week`, `/focus/...`) unchanged.
 - `docs/DEMO_FLOW.md` → `DEMO.md` (root): judge path first, then the 3-minute script; intake scene uses the new button.
 
+### Safety hardening ✅ (Sat 18 Oct)
+- Tested the guardrails branch with a misuse probe (`backend/bench/safety_probe.py`, local server, `test_` data).
+  Intake abuse was already 17/17 blocked. Fixed what it found (results in `docs/BENCHMARKS.md`):
+  - **Jodi Week chat** had only a word list, and 6/6 abusive messages were delivered (sexual request, threat, UPI
+    scam, "go kill yourself", `f***`). Now every message also gets a fast-tier check (`prompts/chat_guardrail.md`):
+    6/6 blocked, 5/5 genuine sent.
+  - **False positives:** the word list blocked real answers before the model saw them (4/12 live: "IT capital",
+    "weather in", "Lund University", "brother died by suicide"). Now it only hard-blocks unambiguous words and explicit
+    code/maths/essay requests; ambiguous words, off-topic and self-harm wording are judged by the model. Self-harm
+    wording still gets the crisis message if the model is down.
+  - **Learning loop learned caste** ("not from our caste" → "Prefers same caste", re-ranked). Now a caste / community /
+    skin-colour reason teaches nothing (no model call, weights unchanged), and learned statements are filtered too.
+  - **Spam cost:** blocked messages didn't count towards the daily limit, but each cost 1–3 model calls. They now leave
+    a text-less placeholder that counts (hidden from the transcript, never delivered).
+  - Stale test: Day-1 `continue` is allowed now (confirm any day); the test checks Day-1 `extend` → 409 instead.
+
 ## Key decisions
 
 | Decision | Why |

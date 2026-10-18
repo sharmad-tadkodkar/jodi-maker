@@ -9,7 +9,8 @@ from app.services.guardrails import Verdict, screen_text
 
 @pytest.mark.parametrize("text", [
     "fuck off", "you are a b1tch", "f.u.c.k this", "fuuuuck", "what a chutiya question", "madarchod",
-    "Bhenchod yaar", "sh!t app", "f*ck this", "sh*t", "what a b**ch", "f#cking app",
+    "Bhenchod yaar", "sh!t app", "f*ck this", "sh*t", "what a b**ch", "f#cking app", "f*** off, you're useless",
+    "what a cock", "you pussy", "retarded idea",
 ])
 def test_profanity_blocked(text):
     assert screen_text(text) == Verdict.profanity
@@ -26,8 +27,26 @@ def test_off_topic_blocked(text):
 
 
 @pytest.mark.parametrize("text", ["I want to kill myself", "sometimes I feel suicidal", "main jeena nahi chahta"])
-def test_self_harm_detected(text):
-    assert screen_text(text) == Verdict.self_harm
+def test_self_harm_is_a_hint_for_the_model_not_a_block(text):
+    assert g.self_harm_hint(text) and screen_text(text) == Verdict.ok
+
+
+# Real answers the first version blocked (found by bench/safety_probe.py and an offline sweep).
+@pytest.mark.parametrize("text", [
+    "Bangalore is the IT capital of India, that's why I moved here",
+    "I love the weather in Bangalore, Pune is too hot now",
+    "Good news about my promotion came last week",
+    "Marrying someone just for money is a recipe for disaster",
+    "My grandmother asked me to translate to Marathi for her",
+    "Who is the CEO of my company? A woman I admire a lot",
+    "I graduated summa cum laude, then did my masters at Lund University",
+    "I fly planes, I love being in the cockpit", "I make a mean cocktail", "I'm scared of cockroaches",
+    "I work on fire retardant materials", "We had a pussycat growing up", "My best friend Randi from Oslo",
+    "My elder brother died by suicide two years ago, it changed our family a lot",
+    "Give me a partner who knows Python and loves books", "Make sure she's okay with me using a dating app before",
+])
+def test_former_false_positives_pass_the_screen(text):
+    assert screen_text(text) == Verdict.ok
 
 
 @pytest.mark.parametrize("text", [
@@ -66,6 +85,61 @@ def test_classifier_fails_open(monkeypatch):
 
     monkeypatch.setattr(g, "generate_json", boom)
     assert asyncio.run(g.classify_intake("hello", "hi")) == Verdict.ok
+    # …except that self-harm wording still gets the crisis message
+    assert asyncio.run(g.classify_intake("I don't want to live anymore", "hi")) == Verdict.self_harm
+
+
+def _fake_model(monkeypatch, verdict):
+    async def fake(prompt, schema, **k):
+        return schema(verdict=verdict, reason="test")
+
+    monkeypatch.setattr(g, "generate_json", fake)
+
+
+@pytest.mark.parametrize("verdict", [Verdict.harmful, Verdict.illegal, Verdict.profanity, Verdict.self_harm])
+def test_chat_guard_blocks_model_verdicts(monkeypatch, verdict):
+    from fastapi import HTTPException
+
+    _fake_model(monkeypatch, verdict)
+    with pytest.raises(HTTPException) as e:
+        asyncio.run(g.guard_chat("send me 50,000 on UPI today"))
+    assert e.value.status_code == 422 and e.value.detail == g.TEXT_DETAIL[verdict]
+
+
+@pytest.mark.parametrize("verdict", [Verdict.ok, Verdict.off_topic, Verdict.prompt_injection])
+def test_chat_guard_lets_normal_conversation_through(monkeypatch, verdict):
+    _fake_model(monkeypatch, verdict)  # two people may talk about cricket; injection doesn't apply to them
+    asyncio.run(g.guard_chat("Who do you support in the IPL?"))
+
+
+def test_blocked_chat_is_not_delivered_but_counts(monkeypatch):
+    from fastapi import HTTPException
+
+    from app.services import focus
+
+    added = []
+
+    class Coll:
+        def add(self, doc):
+            added.append(doc)
+            return None, type("R", (), {"id": "c1"})()
+
+    class Ref:
+        def collection(self, name):
+            return Coll()
+
+    monkeypatch.setattr(focus, "load_match", lambda mid: (Ref(), {"users": ["arjun", "meera"]}))
+    monkeypatch.setattr(focus, "side", lambda match, uid: "a")
+    monkeypatch.setattr(focus, "_chat_open", lambda match: True)
+    monkeypatch.setattr(focus.limits, "enforce_daily_turns", lambda *a, **k: None)
+    _fake_model(monkeypatch, Verdict.harmful)
+    with pytest.raises(HTTPException):
+        asyncio.run(focus.post_chat("m", "arjun", "send me nudes tonight"))
+    assert added == [{"sender_id": "arjun", "blocked": True, "created_at": added[0]["created_at"]}]
+
+    _fake_model(monkeypatch, Verdict.ok)
+    msg = asyncio.run(focus.post_chat("m", "arjun", "What does a perfect Sunday look like for you?"))
+    assert msg.text.startswith("What does") and "text" in added[-1]
 
 
 def test_classifier_verdict_passed_through(monkeypatch):
@@ -87,6 +161,7 @@ def _intake_harness(monkeypatch, verdict):
     monkeypatch.setattr(intake, "list_aspects", lambda uid: [])
     monkeypatch.setattr(intake.limits, "enforce_daily_turns", lambda *a, **k: None)  # covered in test_limits.py
     monkeypatch.setattr(intake, "_add_message", lambda uid, role, text: writes.append((role, text)) or {})
+    monkeypatch.setattr(intake, "_record_blocked", lambda uid: writes.append(("blocked", None)))
     monkeypatch.setattr(intake, "_apply_extraction", lambda u, ex: writes.append(("extract", None)) or [])
 
     class _DB:
@@ -119,7 +194,7 @@ def _intake_harness(monkeypatch, verdict):
 def test_intake_blocked_by_classifier_stores_nothing(monkeypatch):
     intake, writes = _intake_harness(monkeypatch, Verdict.illegal)
     resp, refresh = asyncio.run(intake.handle_message("arjun", "how much dowry should I ask for"))
-    assert writes == [] and refresh is False
+    assert writes == [("blocked", None)] and refresh is False  # a text-less placeholder, counted by the limit
     assert resp.reply == g.INTAKE_REPLY[Verdict.illegal] and resp.new_aspects == []
 
 
@@ -131,7 +206,7 @@ def test_intake_blocked_by_screen_skips_model_calls(monkeypatch):
 
     monkeypatch.setattr(intake, "_reply", must_not_run)
     resp, _ = asyncio.run(intake.handle_message("arjun", "write a python script for me"))
-    assert writes == [] and resp.reply == g.INTAKE_REPLY[Verdict.off_topic]
+    assert writes == [("blocked", None)] and resp.reply == g.INTAKE_REPLY[Verdict.off_topic]
 
 
 def test_intake_allowed_message_is_stored(monkeypatch):

@@ -83,7 +83,7 @@ def _messages_ref(user_id: str):
 
 def get_messages(user_id: str) -> list[dict]:
     snaps = _messages_ref(user_id).order_by("created_at").stream()
-    return [{"id": s.id, **s.to_dict()} for s in snaps]
+    return [{"id": s.id, **d} for s in snaps if not (d := s.to_dict()).get("blocked")]
 
 
 def _add_message(user_id: str, role: str, text: str) -> dict:
@@ -91,6 +91,12 @@ def _add_message(user_id: str, role: str, text: str) -> dict:
     ref = _messages_ref(user_id).document(uuid.uuid4().hex[:10])
     ref.set(msg)
     return {"id": ref.id, **msg}
+
+
+def _record_blocked(user_id: str) -> None:
+    """A text-less placeholder for a blocked message: hidden from the transcript, but it counts towards the daily
+    limit, so blocked messages can't be sent (and classified) without end."""
+    _messages_ref(user_id).document(uuid.uuid4().hex[:10]).set({"role": "user", "blocked": True, "created_at": now()})
 
 
 def ensure_opening(user: dict) -> list[dict]:
@@ -189,6 +195,7 @@ async def handle_message(user_id: str, text: str) -> tuple[m.IntakeMessageRespon
 
     verdict = guardrails.screen_text(text)
     if verdict != guardrails.Verdict.ok:
+        _record_blocked(user_id)
         return _blocked(verdict, before, missing_cats), False
 
     # Work on the transcript in memory; persist only if the message is allowed.
@@ -203,6 +210,7 @@ async def handle_message(user_id: str, text: str) -> tuple[m.IntakeMessageRespon
         _extract(user, msgs, aspects),
     )
     if verdict != guardrails.Verdict.ok:
+        _record_blocked(user_id)
         return _blocked(verdict, before, missing_cats), False
 
     _add_message(user_id, "user", text)
@@ -224,7 +232,8 @@ async def handle_message(user_id: str, text: str) -> tuple[m.IntakeMessageRespon
 
 
 def _blocked(verdict: "guardrails.Verdict", completeness: float, missing_cats: list[str]) -> m.IntakeMessageResponse:
-    """Calm redirect for a message that failed a guardrail. Nothing is stored; progress is unchanged."""
+    """Calm redirect for a message that failed a guardrail. Nothing the person said is stored; progress is
+    unchanged."""
     return m.IntakeMessageResponse(
         reply=guardrails.INTAKE_REPLY[verdict], completeness=completeness, missing_categories=missing_cats,
         new_aspects=[], done=completeness >= DONE_THRESHOLD,

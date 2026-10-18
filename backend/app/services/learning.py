@@ -3,6 +3,7 @@ learned aspects. Gemini proposes; we clamp (±0.1 per dimension) and normalise f
 `overall` is computed at read time from current weights, the queue re-ranks the moment weights change.
 """
 import logging
+import re
 import uuid
 
 from pydantic import BaseModel
@@ -21,6 +22,25 @@ log = logging.getLogger(__name__)
 REASON_DIMENSION = {"values": "values", "family": "family_fit", "lifestyle": "lifestyle",
                     "location": "location", "career": "career", "communication": "communication"}
 MIN_WEIGHT = 0.03
+
+# Jodi never matches on caste, community or skin colour (spec §2). The prompt says so, but a Pass reason like
+# "she's not from our caste" still got learned as "Prefers a partner from the same caste", so this is enforced in
+# code: such a reason teaches nothing, and any learned statement or explanation that mentions it is dropped.
+_SENSITIVE_RE = re.compile(
+    r"\b(?:sub-?)?castes?\b|\bjaa?ti\b|\bgotra\b|\bvarna\b|\b(?:brahmin|kshatriya|vaishya|shudra|dalit)s?\b"
+    r"|\b(?:same|our|my|own|different|other|another|lower|upper|higher)\s+(?:community|communities)\b"
+    r"|\bcommunity (?:background|match|preference)\b"
+    r"|\bskin (?:colou?r|tone)\b|\bcomplexion\b|\bwheatish\b|\bdusky\b|\bfairness\b"
+    r"|\b(?:fair|dark|light|brown)(?:er)?[- ]skin(?:ned)?\b|\btoo (?:dark|fair)\b|\b(?:dark|fair)(?:er)? colou?r(?:ed)?\b"
+    r"|\bgor[ai]\b",
+    re.I,
+)
+NOT_LEARNED = ("Jodi never matches on caste, community or skin colour, so I haven't learned anything from that. "
+               "If something else didn't feel right, tell me and I'll take it into account.")
+
+
+def is_sensitive(text: str | None) -> bool:
+    return bool(text and _SENSITIVE_RE.search(text))
 
 
 class WeightsOut(BaseModel):
@@ -84,10 +104,17 @@ async def learn(user_id: str, match_id: str, decision: str, reason: str | None) 
     so the decided match is already out of the queue when we measure re-ranking."""
     db = get_db()
     user = get_user_doc(user_id)
+    old = {d: float((user.get("preference_weights") or {}).get(d, 1 / 6)) for d in m.DIMENSIONS}
+    if is_sensitive(reason):
+        # No model call, no weight change, no aspect: the reason is logged for the record and nothing else.
+        get_db().collection(USERS).document(user_id).collection("learning_log").document().set({
+            "match_id": match_id, "decision": decision, "reason": reason, "old_weights": old, "new_weights": old,
+            "explanation": NOT_LEARNED, "new_aspect_ids": [], "ignored": "sensitive", "created_at": now(),
+        })
+        return m.LearningResult(old_weights=old, new_weights=old, explanation=NOT_LEARNED, new_aspects=[], moved_up=0)
     match = db.collection(MATCHES).document(match_id).get().to_dict()
     other_id = match["user_b"] if match["user_a"] == user_id else match["user_a"]
     other_name = get_user_doc(other_id)["name"].split()[0]
-    old = {d: float((user.get("preference_weights") or {}).get(d, 1 / 6)) for d in m.DIMENSIONS}
     scores = scores_for(user, (match.get("scores_by_user") or {}).get(user_id, {}))
 
     brief = db.collection(MATCHES).document(match_id).collection("briefs").document(user_id).get()
@@ -117,7 +144,7 @@ async def learn(user_id: str, match_id: str, decision: str, reason: str | None) 
     t = now()
     learned = []
     for a in out.new_aspects[:2]:
-        if a.category not in m.ASPECT_CATEGORIES:
+        if a.category not in m.ASPECT_CATEGORIES or is_sensitive(a.statement):
             continue
         aid = f"l_{uuid.uuid4().hex[:8]}"
         doc = {"category": a.category, "statement": a.statement, "evidence": a.evidence, "source": "learned",
@@ -134,6 +161,8 @@ async def learn(user_id: str, match_id: str, decision: str, reason: str | None) 
     ranks_after = _ranks(user_id)
     moved_up = sum(1 for mid, r in ranks_after.items() if mid in ranks_before and r < ranks_before[mid])
     explanation = out.explanation.strip()
+    if is_sensitive(explanation):
+        explanation = "Noted — I'll keep that in mind for the next one."
     if moved_up:
         explanation += f" I've moved {moved_up} candidate{'s' if moved_up > 1 else ''} up."
 

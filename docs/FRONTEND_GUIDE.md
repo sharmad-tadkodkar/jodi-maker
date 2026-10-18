@@ -66,6 +66,9 @@ client, the compiler tells you when a page doesn't match the backend.
     The deck is personalised from both briefs; for Arjun–Meera it's pre-computed.
   - **Chat**: poll `getChat` every 2 s. 403 before mutual (don't render chat then). Show sender by `sender_id`.
     In the demo, switch persona to Meera to reply (or just show Arjun's side).
+    `sendChat` takes ≈ 1–2 s (each message is checked by a small model first). **422** = blocked (insults, sexual
+    content, threats, money requests, profanity): it was *not* delivered; show `detail` and keep the draft so they
+    can rephrase. **429** = today's 50-message limit (resets at midnight IST); blocked messages count towards it.
   - **Decision** (`focusDecide`), any day: **Confirm match** = `continue` and **End conversation** = `stop`
     (reason required, same chips → `outcome: "closed"` + `learning` card → back to the pipeline). First confirm →
     `outcome: "pending"` (the panel shows "You've confirmed Meera", End conversation still available); both

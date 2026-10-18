@@ -75,8 +75,8 @@ def test_focus_week_deck_chat_and_day7():
     chat = client.get(f"/focus/{MID}/chat", headers={"X-User-Id": "meera"}).json()
     assert [c["sender_id"] for c in chat] == ["arjun", "meera"]
 
-    # Day-7 decision isn't open on day 1; stop is (but we don't stop here).
-    assert client.post(f"/focus/{MID}/decision", json={"user_id": "arjun", "decision": "continue"}).status_code == 409
+    # Confirming and stopping are open any day; asking for more time only opens on the last day.
+    assert client.post(f"/focus/{MID}/decision", json={"user_id": "arjun", "decision": "extend"}).status_code == 409
     ff = client.post("/demo/fast-forward", json={"match_id": MID, "day": 7}, headers={"X-User-Id": "arjun"}).json()
     assert ff["day"] == 7 and ff["deck_today"] != st["deck_today"]
 

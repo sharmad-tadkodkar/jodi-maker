@@ -20,7 +20,7 @@ from app import models as m
 from app.db import MATCHES, USERS, get_db, now
 from app.llm.gemini import generate_json, load_prompt
 from app.services import brief as brief_svc
-from app.services import learning, limits
+from app.services import guardrails, learning, limits
 from app.services.matching import scores_for
 from app.services.users import candidate_summary, get_user_doc
 
@@ -245,10 +245,13 @@ def get_chat(match_id: str, viewer_id: str | None) -> list[m.ChatMessage]:
         side(match, viewer_id)
     if not match.get("mutual_at"):
         raise HTTPException(403, "Chat unlocks only when you both say Interested")
-    return [m.ChatMessage(id=s.id, **s.to_dict()) for s in ref.collection("chat").order_by("created_at").stream()]
+    snaps = ref.collection("chat").order_by("created_at").stream()
+    return [m.ChatMessage(id=s.id, **d) for s in snaps if not (d := s.to_dict()).get("blocked")]
 
 
-def post_chat(match_id: str, sender_id: str, text: str) -> m.ChatMessage:
+async def post_chat(match_id: str, sender_id: str, text: str) -> m.ChatMessage:
+    """Limit first (no model call once today's turns are used), then the guardrails. A blocked message is never
+    delivered: only a text-less placeholder is kept, so it still counts towards the daily limit."""
     ref, match = load_match(match_id)
     side(match, sender_id)
     if not _chat_open(match):
@@ -257,6 +260,11 @@ def post_chat(match_id: str, sender_id: str, text: str) -> m.ChatMessage:
     if not text:
         raise HTTPException(422, "Empty message")
     limits.enforce_daily_turns(ref.collection("chat"), "sender_id", sender_id)
+    try:
+        await guardrails.guard_chat(text)
+    except HTTPException:
+        ref.collection("chat").add({"sender_id": sender_id, "blocked": True, "created_at": now()})
+        raise
     doc = {"sender_id": sender_id, "text": text[:2000], "created_at": now()}
     _, msg_ref = ref.collection("chat").add(doc)
     return m.ChatMessage(id=msg_ref.id, **doc)

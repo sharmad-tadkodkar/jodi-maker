@@ -3,7 +3,7 @@ from fastapi import APIRouter, Header
 
 from app import models as m
 from app.services import focus as focus_svc
-from app.services.guardrails import guard_text
+from app.services.guardrails import guard_screen, guard_text
 
 router = APIRouter(prefix="/focus", tags=["focus"])
 
@@ -29,9 +29,10 @@ async def get_chat(match_id: str, x_user_id: str | None = Header(default=None)):
 
 @router.post("/{match_id}/chat", response_model=m.ChatMessage)
 async def post_chat(match_id: str, body: m.ChatPost):
-    """403 unless the Focus Week is active (or locked)."""
-    guard_text(body.text)
-    return focus_svc.post_chat(match_id, body.sender_id, body.text)
+    """403 unless the Focus Week is active (or locked). 422 (readable detail, not delivered) if the guardrails block
+    it: profanity, insults, sexual content, threats, money requests. 429 after the daily limit."""
+    guard_screen(body.text)  # instant, before any lookup; the model check runs inside post_chat
+    return await focus_svc.post_chat(match_id, body.sender_id, body.text)
 
 
 @router.post("/{match_id}/decision", response_model=m.FocusDecisionResponse)
