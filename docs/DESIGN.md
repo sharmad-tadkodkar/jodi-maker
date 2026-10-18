@@ -93,7 +93,9 @@ Chip text always uses the `-700` shade on its `-100` tint. `sage-500`, `amber-50
   inside cards. Card padding `p-5` (`p-4` for dense list rows and side panels).
 - Sticky header at the top (`z-20`, 56 px); on mobile a fixed bottom tab bar (`z-20`, ~56 px). Anything
   sticky at the bottom of a page (decision bars, composers) sits at `bottom-16 md:bottom-4` with `z-10` so it
-  clears the tab bar; on Brief the bottom bar is `lg:hidden` because the buttons move into the left column.
+  clears the tab bar; on Brief the decision bar is `fixed` above the tab bar with a spacer measured to its live height (so even the
+  open Pass sheet never covers content), and `lg:hidden` — from `lg` the buttons live in the sticky left column,
+  which scrolls on its own (`max-h-[calc(100dvh-6rem)]`) on short screens.
   `<main>` reserves space with `pb-28 md:pb-12`.
 - Grids of cards use `grid-cols-1` explicitly — an implicit track lets `truncate` text push cards wider
   than the screen.
@@ -170,9 +172,22 @@ Shared pieces in `components/`: `LearningCard`, `ReasonSheet`, `FitRadar` (radar
 to "Comms" under 400 px so it isn't clipped), `PersonaMenu` (avatar pill + dropdown in the header),
 illustrations are plain `<img>`s (see Imagery).
 
+## Brief patterns
+
+- **Snapshot:** lead sentence as a 2-line serif pull-quote (gold rule), gold fact chips found in the text
+  (`lib/snapshot.ts` — literal matches only: hometown, interests), full text behind "Read more".
+- **Why you fit:** radar (single series, maroon with gold vertices) + rows: icon, dimension dot, label, score pill,
+  one-line reason.
+- **Green flags / Worth exploring:** one tinted card per item — `sage-50` + `CircleCheck` / `amber-50` + `Compass`;
+  claim `font-semibold`, evidence muted italic.
+- **Questions only you can ask:** gold note cards with a Copy button (clipboard API; calm fallback text if refused).
+
 ## Motion
 
 - `animate-[fadeUp_.35s_ease-out]` for things that arrive (chat bubbles, learned notes, cards after an action).
+- Page sections enter with `.rise` + `--rise-i` (70 ms stagger). It's defined only under
+  `prefers-reduced-motion: no-preference`, so the resting state is always visible — never hide content
+  behind an animation (no JS-driven `opacity: 0` initial states).
 - Progress bars and rings animate width / dash offset over 700 ms. Nothing bounces except the typing dots.
 - Lists that re-order (Pipeline) use framer-motion `layout` (spring, ~0.3 s) inside
   `<MotionConfig reducedMotion="user">`; expanding content animates height over ~220 ms. Use framer-motion

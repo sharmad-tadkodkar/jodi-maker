@@ -1,31 +1,147 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefCallback } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { api, getUserId, type Brief as BriefT, type LearningResult } from '../api/client'
 import FitRadar from '../components/FitRadar'
 import LearningCard from '../components/LearningCard'
 import ReasonSheet from '../components/ReasonSheet'
-import { Briefcase, Cake, MapPin } from 'lucide-react'
+import {
+  Briefcase,
+  Cake,
+  Check,
+  CircleCheck,
+  Compass,
+  Copy,
+  Gem,
+  type LucideIcon,
+  MapPin,
+  MessageCircle,
+  Sun,
+  Users,
+} from 'lucide-react'
 import { Avatar, Button, Card, Chip, ErrorState, Icon, Loading, ScoreRing, SectionTitle, VerifiedBadge } from '../components/ui'
-import { DIMENSION_LABEL, firstName, pct } from '../lib/format'
+import { DIMENSION_COLOR, DIMENSION_LABEL, firstName, pct, type Dimension } from '../lib/format'
+import { leadSentences, snapshotFacts } from '../lib/snapshot'
 import { avatarFor, useViewerGenders } from '../lib/avatars'
 import { errorMessage, httpStatus, useAsync } from '../lib/useAsync'
 
 type Phase = 'reading' | 'passing' | 'learned' | 'waiting'
 
-function Flags({ items, tone }: { items: BriefT['green_flags']; tone: 'green' | 'yellow' }) {
-  const dot = tone === 'green' ? 'bg-sage-600' : 'bg-amber-500' // DESIGN.md: sage = green flag, amber = worth exploring
+/** Staggered entrance wrapper — see `.rise` in index.css (content is visible even if it never animates). */
+function Rise({ i, children, className }: { i: number; children: ReactNode; className?: string }) {
   return (
-    <ul className="space-y-3">
-      {items.map((f) => (
-        <li key={f.text} className="flex gap-3">
-          <span aria-hidden className={`mt-2 size-2 shrink-0 rounded-full ${dot}`} />
-          <div>
-            <p className="font-medium">{f.text}</p>
-            <p className="mt-0.5 text-sm italic text-muted">{f.evidence}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div className={`rise ${className ?? ''}`} style={{ '--rise-i': i } as CSSProperties}>
+      {children}
+    </div>
+  )
+}
+
+const FLAG_STYLE = {
+  green: { card: 'border-sage-500/30 bg-sage-50', icon: CircleCheck, iconClass: 'text-sage-600', title: 'Green flags' },
+  yellow: { card: 'border-amber-500/30 bg-amber-50', icon: Compass, iconClass: 'text-amber-600', title: 'Worth exploring' },
+} as const
+
+/** DESIGN.md: sage = green flag, amber = worth exploring. Claim in bold, evidence as a muted italic quote. */
+function FlagCards({ items, tone }: { items: BriefT['green_flags']; tone: keyof typeof FLAG_STYLE }) {
+  const st = FLAG_STYLE[tone]
+  return (
+    <section>
+      <SectionTitle>{st.title}</SectionTitle>
+      <ul className="space-y-3">
+        {items.map((f) => (
+          <li key={f.text} className={`flex gap-3 rounded-2xl border p-4 ${st.card}`}>
+            <Icon icon={st.icon} size="md" className={`mt-0.5 ${st.iconClass}`} />
+            <div className="min-w-0">
+              <p className="font-semibold leading-snug text-ink">{f.text}</p>
+              <p className="mt-1.5 text-sm italic leading-relaxed text-muted">{f.evidence}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+const DIMENSION_ICON: Record<Dimension, LucideIcon> = {
+  values: Gem,
+  family_fit: Users,
+  lifestyle: Sun,
+  career: Briefcase,
+  location: MapPin,
+  communication: MessageCircle,
+}
+
+/** Pull-quote (lead sentence, 2 lines) + chips found in the text; full snapshot behind "Read more". */
+function Snapshot({ text }: { text: string }) {
+  const [open, setOpen] = useState(false)
+  const lead = leadSentences(text)
+  const facts = snapshotFacts(text)
+  const hasMore = text.trim().length > lead.length + 1
+  return (
+    <section aria-label="Snapshot" className="space-y-3">
+      <blockquote className="border-l-4 border-gold-500 pl-4">
+        <p className={`font-display text-xl leading-snug text-ink lg:text-2xl ${open ? '' : 'line-clamp-2'}`}>
+          {open ? text : lead}
+        </p>
+      </blockquote>
+      <div className="flex flex-wrap items-center gap-1.5 pl-5">
+        {facts.map((f) => (
+          <Chip key={f} tone="gold">
+            {f}
+          </Chip>
+        ))}
+        {hasMore && (
+          <button
+            type="button"
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
+            className="ml-1 text-sm font-medium text-brand-600 hover:underline"
+          >
+            {open ? 'Show less' : 'Read more'}
+          </button>
+        )}
+      </div>
+    </section>
+  )
+}
+
+/** Note card with a copy button (clipboard API; falls back to a calm message if it's unavailable). */
+function QuestionNote({ q, n }: { q: string; n: number }) {
+  const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle')
+  useEffect(() => {
+    if (state === 'idle') return
+    const t = setTimeout(() => setState('idle'), 1800)
+    return () => clearTimeout(t)
+  }, [state])
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(q)
+      setState('copied')
+    } catch {
+      setState('failed')
+    }
+  }
+  return (
+    <li className="flex flex-col justify-between gap-3 rounded-2xl border border-gold-500/30 bg-gold-100/40 p-4 shadow-card">
+      <p className="text-sm leading-relaxed text-ink">
+        <span className="mr-1.5 font-display text-gold-700">{n}.</span>
+        {q}
+      </p>
+      <div className="flex items-center justify-end gap-2">
+        {/* Success is shown on the button; announce it for screen readers only. Failure is shown to everyone. */}
+        <span aria-live="polite" className={state === 'failed' ? 'text-xs text-muted' : 'sr-only'}>
+          {state === 'copied' ? 'Question copied' : state === 'failed' ? "Couldn't copy — select the text instead" : ''}
+        </span>
+        <button
+          type="button"
+          onClick={copy}
+          aria-label={`Copy question ${n}`}
+          className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink hover:bg-sand"
+        >
+          <Icon icon={state === 'copied' ? Check : Copy} size="xs" className={state === 'copied' ? 'text-sage-600' : ''} />
+          {state === 'copied' ? 'Copied' : 'Copy'}
+        </button>
+      </div>
+    </li>
   )
 }
 
@@ -70,65 +186,83 @@ function ProfileCard({ brief }: { brief: BriefT }) {
   )
 }
 
-/** Snapshot, why-you-fit, flags, questions, family — the right column from lg. */
+/** Snapshot, why-you-fit, flags, questions, family — the right column from lg. Sections rise in sequence. */
 function BriefContent({ brief }: { brief: BriefT }) {
   return (
-    <div className="space-y-6">
-      <p className="font-display text-lg leading-relaxed text-ink/90 lg:text-xl">{brief.snapshot}</p>
+    <div className="space-y-8">
+      <Rise i={0}>
+        <Snapshot text={brief.snapshot} />
+      </Rise>
 
-      <Card>
-        <SectionTitle>Why you fit</SectionTitle>
-        <FitRadar whyFit={brief.why_fit} />
-        <ul className="mt-2 grid lg:grid-cols-2 lg:gap-x-8">
-          {brief.why_fit.map((w) => (
-            <li key={w.dimension} className="border-t border-line py-3 text-sm first:border-t-0 lg:[&:nth-child(2)]:border-t-0">
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="font-medium">{DIMENSION_LABEL[w.dimension]}</span>
-                <span className="tabular-nums text-brand-600">{pct(w.score)}</span>
-              </div>
-              <p className="mt-0.5 text-muted">{w.reason}</p>
-            </li>
-          ))}
-        </ul>
-      </Card>
-
-      <div className="grid gap-6 xl:grid-cols-2">
-        {brief.green_flags.length > 0 && (
-          <Card>
-            <SectionTitle>Green flags</SectionTitle>
-            <Flags items={brief.green_flags} tone="green" />
-          </Card>
-        )}
-
-        {brief.explore.length > 0 && (
-          <Card>
-            <SectionTitle>Worth exploring</SectionTitle>
-            <Flags items={brief.explore} tone="yellow" />
-          </Card>
-        )}
-      </div>
-
-      {brief.questions_only_you.length > 0 && (
+      <Rise i={1}>
         <Card>
-          <SectionTitle>Questions only you can ask</SectionTitle>
-          <ol className="list-decimal space-y-2 pl-5 text-sm marker:text-gold-700">
-            {brief.questions_only_you.map((q) => (
-              <li key={q}>{q}</li>
+          <SectionTitle>Why you fit</SectionTitle>
+          <FitRadar whyFit={brief.why_fit} />
+          <ul className="mt-4 grid gap-2 lg:grid-cols-2">
+            {brief.why_fit.map((w) => (
+              <li key={w.dimension} className="flex items-start gap-3 rounded-xl bg-cream p-3">
+                <span className="relative flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-card">
+                  <Icon icon={DIMENSION_ICON[w.dimension]} size="sm" className="text-ink" />
+                  <span aria-hidden className={`absolute -right-0.5 -bottom-0.5 size-2.5 rounded-full border-2 border-cream ${DIMENSION_COLOR[w.dimension]}`} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-medium">{DIMENSION_LABEL[w.dimension]}</span>
+                    <span className="rounded-full bg-white px-2 py-0.5 text-xs font-semibold tabular-nums text-ink shadow-card">{pct(w.score)}</span>
+                  </div>
+                  <p className="mt-0.5 text-xs leading-relaxed text-muted">{w.reason}</p>
+                </div>
+              </li>
             ))}
-          </ol>
+          </ul>
         </Card>
+      </Rise>
+
+      {(brief.green_flags.length > 0 || brief.explore.length > 0) && (
+        <Rise i={2} className="grid gap-8 xl:grid-cols-2">
+          {brief.green_flags.length > 0 && <FlagCards items={brief.green_flags} tone="green" />}
+          {brief.explore.length > 0 && <FlagCards items={brief.explore} tone="yellow" />}
+        </Rise>
       )}
 
-      <Card className="bg-sand/60">
-        <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">For your family</p>
-        <p className="mt-2 text-sm leading-relaxed">{brief.family_fit}</p>
-      </Card>
+      {brief.questions_only_you.length > 0 && (
+        <Rise i={3}>
+          <section>
+            <SectionTitle>Questions only you can ask</SectionTitle>
+            <ol className="grid gap-3 sm:grid-cols-2">
+              {brief.questions_only_you.map((q, i) => (
+                <QuestionNote key={q} q={q} n={i + 1} />
+              ))}
+            </ol>
+          </section>
+        </Rise>
+      )}
+
+      <Rise i={4}>
+        <Card className="bg-sand/60">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">For your family</p>
+          <p className="mt-2 text-sm leading-relaxed">{brief.family_fit}</p>
+        </Card>
+      </Rise>
 
       <Link to={`/brief/${brief.match_id}/transcript`} className="block text-center text-sm font-medium text-brand-600 hover:underline lg:hidden">
         Read the full matchmaker conversation →
       </Link>
     </div>
   )
+}
+
+/** Live height of an element (ResizeObserver). */
+function useHeight<T extends HTMLElement>(): [RefCallback<T>, number] {
+  const [h, setH] = useState(0)
+  const ro = useRef<ResizeObserver | null>(null)
+  const ref = useCallback((el: T | null) => {
+    ro.current?.disconnect()
+    if (!el) return
+    ro.current = new ResizeObserver(([e]) => setH(Math.ceil(e.borderBoxSize?.[0]?.blockSize ?? el.offsetHeight)))
+    ro.current.observe(el)
+  }, [])
+  return [ref, h]
 }
 
 function noBriefYet(e: unknown): null {
@@ -181,6 +315,7 @@ export default function Brief() {
   const [learning, setLearning] = useState<LearningResult>()
   const [busy, setBusy] = useState(false)
   const [actionError, setActionError] = useState<string>()
+  const [barRef, barHeight] = useHeight<HTMLDivElement>()
 
   function nextBrief() {
     setPhase('reading')
@@ -273,7 +408,7 @@ export default function Brief() {
   // One decision state; it renders in the sticky left column from lg, and as a sticky bottom bar below lg.
   return (
     <section className="lg:grid lg:grid-cols-[300px_minmax(0,1fr)] lg:items-start lg:gap-10 xl:grid-cols-[340px_minmax(0,1fr)]">
-      <aside className="space-y-4 lg:sticky lg:top-20">
+      <aside className="space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)] lg:overflow-y-auto lg:pb-2">
         <ProfileCard brief={brief} />
         <div className="hidden space-y-3 lg:block">
           {status}
@@ -299,7 +434,10 @@ export default function Brief() {
         <BriefContent brief={brief} />
 
         <div className="space-y-3 lg:hidden">{status}</div>
-        <div className="sticky bottom-16 z-10 md:bottom-4 lg:hidden">
+        {/* Below lg the decision bar is fixed above the tab bar; this spacer is exactly its height (measured,
+            so the taller Pass sheet is covered too) — the bar can never sit on top of the last content. */}
+        <div aria-hidden className="lg:hidden" style={{ height: barHeight + 16 }} />
+        <div ref={barRef} className="fixed inset-x-0 bottom-16 z-10 mx-auto max-w-6xl px-4 md:bottom-4 lg:hidden">
           {phase === 'passing' ? (
             passSheet
           ) : (

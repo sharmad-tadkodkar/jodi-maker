@@ -71,6 +71,16 @@
   }
 }
 
+/* Staggered entrance: <div className="rise" style={{ '--rise-i': n }}>. The resting state is fully visible —
+   the animation only runs when motion is allowed, so content never depends on it (reduced motion, no-JS
+   screenshots, print). */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: fadeUp 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    animation-delay: calc(var(--rise-i, 0) * 70ms);
+  }
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
