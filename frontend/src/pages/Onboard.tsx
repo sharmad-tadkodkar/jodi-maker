@@ -1,14 +1,60 @@
+import { Check, ChevronDown, NotebookPen, SendHorizontal } from 'lucide-react'
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { api, getUserId, type Aspect, type IntakeMessageResponse } from '../api/client'
-import { Avatar, Button, Card, Chip, ErrorState, Loading, ScoreRing, Typing } from '../components/ui'
+import { Avatar, Card, Chip, ErrorState, Icon, Loading, ScoreRing, Spinner } from '../components/ui'
 import { MATCHMAKER_AVATAR } from '../lib/avatars'
 import { ASPECT_LABEL } from '../lib/format'
 import { errorMessage, useAsync } from '../lib/useAsync'
 
 type Msg = { id: string; role: 'agent' | 'user'; text: string; learned?: Aspect[] }
 
-function Progress({ value, missing }: { value: number; missing: IntakeMessageResponse['missing_categories'] }) {
+type Category = Aspect['category']
+const CATEGORIES = Object.keys(ASPECT_LABEL) as Category[]
+
+/** One chip per aspect category; lit once Jodi has something for it. `scroll` = single swipeable row (mobile header). */
+function CategoryChips({ filled, fresh, scroll }: { filled: Set<Category>; fresh: Set<Category>; scroll?: boolean }) {
+  const row = useRef<HTMLUListElement>(null)
+  const freshKey = [...fresh].join()
+  // In the swipeable row, bring a just-lit chip into view (horizontally only — never move the page).
+  useEffect(() => {
+    const el = row.current
+    const chip = el?.querySelector<HTMLElement>('[data-fresh="true"]')
+    if (!scroll || !el || !chip) return
+    el.scrollTo({ left: chip.offsetLeft - el.clientWidth / 2 + chip.offsetWidth / 2, behavior: 'smooth' })
+  }, [freshKey, scroll])
+  return (
+    <ul
+      ref={row}
+      aria-label={`Topics covered: ${filled.size} of ${CATEGORIES.length}`}
+      className={
+        scroll
+          ? // relative: keeps the chips' sr-only text inside the scroll box (absolute children escape otherwise)
+            'relative -mx-4 flex gap-1.5 overflow-x-auto px-4 pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+          : 'relative flex flex-wrap gap-1.5'
+      }
+    >
+      {CATEGORIES.map((c) => {
+        const on = filled.has(c)
+        return (
+          <li
+            key={c}
+            data-fresh={fresh.has(c) || undefined}
+            className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors duration-500 ${
+              on ? 'border-gold-500/40 bg-gold-100 text-gold-700' : 'border-dashed border-line bg-transparent text-muted'
+            } ${fresh.has(c) ? 'animate-[fadeUp_.45s_ease-out] ring-2 ring-gold-500/40' : ''}`}
+          >
+            {on && <Icon icon={Check} size="xs" className="size-3" />}
+            {ASPECT_LABEL[c]}
+            <span className="sr-only">{on ? ' — covered' : ' — not yet'}</span>
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+function Progress({ value, filled, fresh }: { value: number; filled: Set<Category>; fresh: Set<Category> }) {
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100)
   return (
     <div className="space-y-2">
@@ -16,21 +62,75 @@ function Progress({ value, missing }: { value: number; missing: IntakeMessageRes
         <p className="text-sm">
           Your matchmaker knows you <span className="font-display text-xl text-brand-600">{pct}%</span>
         </p>
+        <p className="text-xs text-muted">
+          {filled.size}/{CATEGORIES.length} topics
+        </p>
       </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-sand" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
+      <div className="h-1.5 overflow-hidden rounded-full bg-sand" role="progressbar" aria-label="How well Jodi knows you" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
         <div className="h-full rounded-full bg-gradient-to-r from-gold-500 to-brand-500 transition-[width] duration-700" style={{ width: `${pct}%` }} />
       </div>
-      {missing.length > 0 && (
-        <p className="text-xs text-muted">Still to talk about: {missing.map((c) => ASPECT_LABEL[c]).join(', ')}</p>
+      <CategoryChips filled={filled} fresh={fresh} scroll />
+    </div>
+  )
+}
+
+/** Notes Jodi already holds (e.g. seeded profiles, earlier sessions) — shown as notes, never as fake chat turns. */
+function KnownNotes({ aspects }: { aspects: Aspect[] }) {
+  const [open, setOpen] = useState(false)
+  const cats = [...new Set(aspects.map((a) => a.category))]
+  return (
+    <div className="rounded-2xl border border-line bg-white/70">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls="known-notes"
+        onClick={() => setOpen((o) => !o)}
+        className="flex w-full items-center gap-3 p-4 text-left"
+      >
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gold-100 text-gold-700">
+          <Icon icon={NotebookPen} size="sm" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-sm font-medium text-ink">What you've already told Jodi</span>
+          <span className="block truncate text-xs text-muted">
+            {aspects.length} notes · {cats.map((c) => ASPECT_LABEL[c]).join(', ')}
+          </span>
+        </span>
+        <Icon icon={ChevronDown} size="sm" className={`text-muted transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && (
+        <ul id="known-notes" className="space-y-3 border-t border-line p-4">
+          {aspects.map((a) => (
+            <li key={a.id} className="text-sm">
+              <span className="text-xs font-medium uppercase tracking-[0.12em] text-gold-700">{ASPECT_LABEL[a.category]}</span>
+              <p className="text-ink">{a.statement}</p>
+              {a.evidence && <p className="mt-0.5 text-xs italic text-muted">{a.evidence}</p>}
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   )
 }
 
+function TypingBubble() {
+  return (
+    <div className="flex items-end gap-2" role="status" aria-label="Jodi is typing">
+      <Avatar name="Jodi" src={MATCHMAKER_AVATAR.mine} size="sm" />
+      <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-line bg-white px-4 py-3.5">
+        {[0, 150, 300].map((d) => (
+          <span key={d} className="size-2 animate-bounce rounded-full bg-muted/60" style={{ animationDelay: `${d}ms` }} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /** Desktop side panel: how well Jodi knows you, what's left to cover, what was noted in this chat. */
-function IntakePanel({ value, missing, learned, done }: {
+function IntakePanel({ value, filled, fresh, learned, done }: {
   value: number
-  missing: IntakeMessageResponse['missing_categories'] | undefined
+  filled: Set<Category>
+  fresh: Set<Category>
   learned: Aspect[]
   done: boolean
 }) {
@@ -45,18 +145,10 @@ function IntakePanel({ value, missing, learned, done }: {
         </div>
       </div>
       <div className="space-y-2">
-        <p className="text-xs font-medium text-muted">Still to talk about</p>
-        {missing === undefined ? (
-          <p className="text-xs text-muted">Jodi will tell you what's left after your next message.</p>
-        ) : missing.length === 0 ? (
-          <p className="text-xs text-sage-700">Every topic covered.</p>
-        ) : (
-          <div className="flex flex-wrap gap-1.5">
-            {missing.map((c) => (
-              <Chip key={c}>{ASPECT_LABEL[c]}</Chip>
-            ))}
-          </div>
-        )}
+        <p className="text-xs font-medium text-muted">
+          Topics covered · {filled.size}/{CATEGORIES.length}
+        </p>
+        <CategoryChips filled={filled} fresh={fresh} />
       </div>
       <div className="space-y-2">
         <p className="text-xs font-medium text-muted">Noted in this chat</p>
@@ -117,8 +209,12 @@ export default function Onboard() {
   const uid = getUserId()
   const { data, error, loading, reload } = useAsync(
     async () => {
-      const [history, user] = await Promise.all([api.getIntakeMessages(uid), api.getUser(uid).catch(() => null)])
-      return { history, completeness: user?.intake_completeness ?? 0 }
+      const [history, user, aspects] = await Promise.all([
+        api.getIntakeMessages(uid),
+        api.getUser(uid).catch(() => null),
+        api.getAspects(uid).catch(() => [] as Aspect[]),
+      ])
+      return { history, completeness: user?.intake_completeness ?? 0, aspects }
     },
     [uid],
   )
@@ -170,20 +266,27 @@ export default function Onboard() {
 
   const value = progress?.value ?? data?.completeness ?? 0
   const learned = sent.flatMap((m) => m.learned ?? [])
+  // A topic is lit when Jodi holds an aspect for it, or the latest reply no longer lists it as missing.
+  const filled = new Set<Category>([...(data?.aspects ?? []), ...learned].map((a) => a.category))
+  if (progress) for (const c of CATEGORIES) if (!progress.missing.includes(c)) filled.add(c)
+  const fresh = new Set<Category>((sent.at(-1)?.learned ?? []).map((a) => a.category))
 
   return (
+    // The column is at least one screen tall, so the composer sits at the bottom (above the mobile tab bar)
+    // even when the conversation is short; once it's long, the composer sticks there while you scroll.
     <section className="lg:grid lg:grid-cols-[minmax(0,760px)_280px] lg:items-start lg:justify-center lg:gap-10">
-      <div className="mx-auto flex w-full max-w-[760px] flex-col">
+      <div className="mx-auto -mb-10 flex min-h-[calc(100dvh-153px)] w-full max-w-[760px] flex-col md:-mb-8 md:min-h-[calc(100dvh-97px)]">
         {/* Below lg the progress sits on top; from lg it's in the side panel */}
         <div className="sticky top-[57px] z-10 -mx-4 mb-4 border-b border-line bg-cream/95 px-4 pt-1 pb-3 backdrop-blur lg:hidden">
-          <Progress value={value} missing={progress?.missing ?? []} />
+          <Progress value={value} filled={filled} fresh={fresh} />
         </div>
 
-        <div className="space-y-4">
+        <div className="flex-1 space-y-4">
+          {data && data.aspects.length > 0 && <KnownNotes aspects={data.aspects} />}
           {messages.map((m) => (
             <Bubble key={m.id} msg={m} />
           ))}
-          {sending && <Typing name="Jodi" />}
+          {sending && <TypingBubble />}
           <div ref={bottom} />
         </div>
 
@@ -215,9 +318,17 @@ export default function Onboard() {
                 placeholder="Tell Jodi about yourself…"
                 className="field-sizing-content max-h-36 min-h-10 flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none"
               />
-              <Button type="submit" className="shrink-0" disabled={!draft.trim()} busy={sending}>
+              {/* Neutral until there's something to send, then full maroon — so "ready" is unmistakable. */}
+              <button
+                type="submit"
+                disabled={!draft.trim() || sending}
+                className={`inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-medium transition-colors ${
+                  draft.trim() && !sending ? 'bg-brand-600 text-white shadow-sm hover:bg-brand-700' : 'cursor-not-allowed bg-sand text-muted'
+                }`}
+              >
+                {sending ? <Spinner className="size-4" /> : <Icon icon={SendHorizontal} size="sm" />}
                 Send
-              </Button>
+              </button>
             </div>
             <p className="text-center text-[11px] text-muted">
               <Chip>Private</Chip> Only your matchmaker sees this chat. You control what's shared on the <Link to="/me" className="underline">Me</Link> page.
@@ -227,7 +338,7 @@ export default function Onboard() {
       </div>
 
       <aside className="hidden lg:sticky lg:top-20 lg:block">
-        <IntakePanel value={value} missing={progress?.missing} learned={learned} done={done} />
+        <IntakePanel value={value} filled={filled} fresh={fresh} learned={learned} done={done} />
       </aside>
     </section>
   )

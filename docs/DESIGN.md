@@ -193,6 +193,19 @@ illustrations are plain `<img>`s (see Imagery).
   counts); collapsed, it shows the round summary. A stepper at the top (Family → Getting to know → Closing:
   done ✓ / live / up next) jumps to and re-opens a round; the desktop side panel uses the same round states.
 
+## Chat (intake) patterns
+
+- **History:** renders `intake_messages` as-is. Aspects Jodi already holds (seeded profiles, earlier sessions)
+  appear in a collapsible "What you've already told Jodi" notes card — never re-written as fake chat turns.
+- **Topics:** one chip per aspect category under the progress bar (swipeable single row on mobile, wrapped in
+  the desktop panel); lit (gold, ✓) once an aspect exists or the latest reply no longer lists it as missing;
+  a newly lit chip gets a gold ring and scrolls into view.
+- **Composer:** the chat column is at least one screen tall, so the composer sits at the bottom above the tab
+  bar even in a short conversation, and sticks there in a long one. Send is neutral (sand) when empty and
+  full maroon once there's text. Jodi "typing" is a dots bubble with the matchmaker avatar.
+- Absolutely positioned children (e.g. `sr-only` text) inside a scrolling row need a `relative` scroll
+  container, or they escape its clipping and widen the page.
+
 ## Motion
 
 - `animate-[fadeUp_.35s_ease-out]` for things that arrive (chat bubbles, learned notes, cards after an action).
