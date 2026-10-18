@@ -12,6 +12,7 @@
     "gen:api:file": "openapi-typescript openapi.json -o src/api/schema.ts"
   },
   "dependencies": {
+    "lucide-react": "^1.59.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-is": "^19.3.1",

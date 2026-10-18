@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api, getUserId, type InterviewResponse, type InterviewTurn } from '../api/client'
-import { Button, Card, ErrorState, Loading, PageHeader, Typing } from '../components/ui'
+import { Avatar, Button, Card, ErrorState, Loading, PageHeader, Typing } from '../components/ui'
 import { errorMessage } from '../lib/useAsync'
 
 const POLL_MS = 1500
@@ -13,9 +13,6 @@ const ROUND_TITLE: Record<InterviewTurn['round'], string> = {
   3: 'Closing',
 }
 
-function initials(speakerName: string) {
-  return speakerName.charAt(0).toUpperCase()
-}
 
 /** Whose matchmaker is "mine": match the viewer's first name against speaker names, else assume agent_a. */
 function useMySpeaker(turns: InterviewTurn[]) {
@@ -34,20 +31,14 @@ function Bubble({ turn, mine }: { turn: InterviewTurn; mine: boolean }) {
   }
   const hl =
     turn.highlight === 'green'
-      ? { ring: 'ring-2 ring-sage-600/40', label: 'Green flag', labelClass: 'text-sage-600' }
+      ? { ring: 'ring-2 ring-sage-600/40', label: 'Green flag', labelClass: 'text-sage-700' }
       : turn.highlight === 'yellow'
-        ? { ring: 'ring-2 ring-gold-500/50', label: 'Worth exploring', labelClass: 'text-gold-700' }
+        ? { ring: 'ring-2 ring-amber-500/50', label: 'Worth exploring', labelClass: 'text-amber-700' }
         : null
   return (
     <div className={`flex items-end gap-2 ${mine ? 'flex-row-reverse' : ''} animate-[fadeUp_.35s_ease-out]`}>
-      <div
-        aria-hidden
-        className={`flex size-8 shrink-0 items-center justify-center rounded-full font-display text-sm ${
-          mine ? 'bg-brand-100 text-brand-700' : 'bg-gold-100 text-gold-700'
-        }`}
-      >
-        {initials(turn.speaker_name)}
-      </div>
+      {/* DESIGN.md: brand = my matchmaker, teal = their matchmaker */}
+      <Avatar name={turn.speaker_name} size="sm" tone={mine ? 'brand' : 'teal'} />
       <div className={`max-w-[80%] space-y-1 ${mine ? 'items-end text-right' : ''} flex flex-col`}>
         <p className="px-1 text-[11px] text-muted">{turn.speaker_name}</p>
         <div

@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
-/* Jodi design tokens — calm, warm, premium (spec §5). Use these over raw Tailwind colours. */
+/* Jodi design tokens — calm, warm, premium (spec §5). Documented in docs/DESIGN.md; use these over raw
+   Tailwind colours. Each colour has a job — see "Semantic colours" in DESIGN.md before reaching for one. */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Fraunces", ui-serif, Georgia, serif;
 
+  /* Neutrals: ivory page, sand fills, warm hairlines, ink text */
   --color-cream: #fbf7f2;
   --color-sand: #f1e9df;
   --color-line: #e6dccf;
   --color-ink: #2b2420;
-  --color-muted: #7a6d63;
+  --color-muted: #72655b; /* AA on cream, white and sand */
 
+  /* Brand — maroon. Primary actions, "mine", scores */
   --color-brand-50: #fbf1f2;
   --color-brand-100: #f5dfe2;
   --color-brand-200: #ebbdc4;
@@ -18,14 +21,37 @@
   --color-brand-600: #8e3440;
   --color-brand-700: #742a35;
 
+  /* Gold — accents: eyebrows, "new", learning, the family voice */
   --color-gold-100: #f6ecd4;
   --color-gold-500: #c09a4a;
-  --color-gold-700: #8a6a26;
+  --color-gold-700: #836422; /* AA on gold-100 */
 
+  /* Sage — green flags, verified, positive outcomes */
+  --color-sage-50: #f1f6f1;
   --color-sage-100: #e3eee4;
+  --color-sage-500: #6a9470;
   --color-sage-600: #4f7a56;
-  --color-amber-soft: #f7ead2;
-  --color-amber-ink: #8a5a14;
+  --color-sage-700: #3d5f43;
+
+  /* Amber / teal replace Tailwind's palettes outright so only these shades exist */
+  --color-amber-*: initial;
+  --color-teal-*: initial;
+
+  /* Amber — worth exploring: open questions, not warnings */
+  --color-amber-50: #fdf6e9;
+  --color-amber-100: #f7ead2;
+  --color-amber-500: #d39a3a;
+  --color-amber-600: #b07a1e;
+  --color-amber-700: #8a5a14;
+
+  /* Teal — secondary: "their matchmaker" / the other side */
+  --color-teal-50: #eef6f6;
+  --color-teal-100: #d6ebea;
+  --color-teal-500: #3f8f8b;
+  --color-teal-600: #2f726f;
+  --color-teal-700: #245a58;
+
+  --shadow-card: 0 1px 2px rgba(43, 36, 32, 0.04);
 }
 
 @keyframes fadeUp {

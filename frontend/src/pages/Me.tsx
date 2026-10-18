@@ -117,7 +117,7 @@ export default function Me() {
       </PageHeader>
 
       <Card className="flex items-center gap-4">
-        <Avatar name={user.name} size="lg" />
+        <Avatar name={user.name} src={user.photo_url} size="lg" />
         <div className="min-w-0 flex-1">
           <p className="font-display text-xl">{user.name}</p>
           <p className="truncate text-sm text-muted">{facts}</p>

@@ -1,5 +1,6 @@
-/** Shared building blocks. Keep screens composed from these so the look stays consistent. */
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+/** Shared building blocks. Keep screens composed from these so the look stays consistent (docs/DESIGN.md). */
+import { BadgeCheck, type LucideIcon } from 'lucide-react'
+import { useState, type ButtonHTMLAttributes, type ReactNode } from 'react'
 
 const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ')
 
@@ -34,13 +35,15 @@ export function Button({
 }
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cx('rounded-2xl border border-line bg-white p-5 shadow-[0_1px_2px_rgba(43,36,32,0.04)]', className)}>{children}</div>
+  return <div className={cx('rounded-2xl border border-line bg-white p-5 shadow-card', className)}>{children}</div>
 }
 
 const CHIP_TONE = {
   brand: 'bg-brand-50 text-brand-700',
   gold: 'bg-gold-100 text-gold-700',
-  sage: 'bg-sage-100 text-sage-600',
+  sage: 'bg-sage-100 text-sage-700',
+  amber: 'bg-amber-100 text-amber-700',
+  teal: 'bg-teal-100 text-teal-700',
   muted: 'bg-sand text-muted',
 } as const
 
@@ -52,16 +55,120 @@ export function Chip({ tone = 'muted', children }: { tone?: keyof typeof CHIP_TO
   )
 }
 
-export function Avatar({ name, size = 'md' }: { name: string; size?: 'md' | 'lg' }) {
+const AVATAR_SIZE = {
+  sm: 'size-8 text-sm',
+  md: 'size-12 text-lg',
+  lg: 'size-16 text-2xl',
+  xl: 'size-20 text-3xl',
+} as const
+const AVATAR_TONE = {
+  brand: 'from-brand-100 to-gold-100 text-brand-700', // me / the person
+  teal: 'from-teal-100 to-sage-100 text-teal-700', // their matchmaker / the other side
+} as const
+
+/** Photo if `src` loads, otherwise the first letter of `name`. Decorative: the name is always shown beside it. */
+export function Avatar({
+  name,
+  src,
+  size = 'md',
+  tone = 'brand',
+  className,
+}: {
+  name: string
+  src?: string | null
+  size?: keyof typeof AVATAR_SIZE
+  tone?: keyof typeof AVATAR_TONE
+  className?: string
+}) {
+  const [failedSrc, setFailedSrc] = useState<string>()
+  const showImage = src && src !== failedSrc
   return (
     <div
       aria-hidden
       className={cx(
-        'flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-100 to-gold-100 font-display text-brand-700',
-        size === 'lg' ? 'size-16 text-2xl' : 'size-12 text-lg',
+        'flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br font-display',
+        AVATAR_SIZE[size],
+        AVATAR_TONE[tone],
+        className,
       )}
     >
-      {name.charAt(0).toUpperCase()}
+      {showImage ? (
+        <img src={src} alt="" className="size-full object-cover" onError={() => setFailedSrc(src)} />
+      ) : (
+        name.charAt(0).toUpperCase()
+      )}
+    </div>
+  )
+}
+
+const ICON_SIZE = { xs: 'size-3.5', sm: 'size-4', md: 'size-5', lg: 'size-6' } as const
+
+/** lucide-react icon at a design-system size. Decorative unless `label` is given. */
+export function Icon({
+  icon: Glyph,
+  size = 'sm',
+  label,
+  className,
+}: {
+  icon: LucideIcon
+  size?: keyof typeof ICON_SIZE
+  label?: string
+  className?: string
+}) {
+  return (
+    <Glyph
+      aria-hidden={label ? undefined : true}
+      aria-label={label}
+      role={label ? 'img' : undefined}
+      strokeWidth={size === 'xs' ? 2.25 : 1.75} // thin strokes vanish at 14 px
+      className={cx('shrink-0', ICON_SIZE[size], className)}
+    />
+  )
+}
+
+const RING_TONE = { brand: 'text-brand-500', sage: 'text-sage-600', teal: 'text-teal-600', gold: 'text-gold-500' } as const
+
+/** Circular 0–100 score (compatibility, fit). Pass percentages — use `pct()` from lib/format for raw scores. */
+export function ScoreRing({
+  value,
+  size = 56,
+  stroke = 5,
+  label,
+  tone = 'brand',
+}: {
+  value: number
+  size?: number
+  stroke?: number
+  label?: string
+  tone?: keyof typeof RING_TONE
+}) {
+  const v = Math.round(Math.min(100, Math.max(0, value)))
+  const r = (size - stroke) / 2
+  const circumference = 2 * Math.PI * r
+  return (
+    <div role="img" aria-label={`${v}%${label ? ` ${label}` : ''}`} className="relative shrink-0" style={{ width: size, height: size }}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--color-sand)" strokeWidth={stroke} />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference * (1 - v / 100)}
+          className={cx('transition-[stroke-dashoffset] duration-700', RING_TONE[tone])}
+        />
+      </svg>
+      <div aria-hidden className="absolute inset-0 flex flex-col items-center justify-center leading-none">
+        <span className="font-display tabular-nums text-ink" style={{ fontSize: size * 0.3 }}>
+          {v}
+          <span style={{ fontSize: size * 0.16 }}>%</span>
+        </span>
+        {label && size >= 64 && <span className="mt-0.5 text-[10px] text-muted">{label}</span>}
+      </div>
     </div>
   )
 }
@@ -81,9 +188,7 @@ export function ScoreBar({ label, value, title }: { label: string; value: number
 export function VerifiedBadge() {
   return (
     <span className="inline-flex items-center gap-0.5 text-xs text-sage-600" title="ID verified">
-      <svg viewBox="0 0 20 20" className="size-3.5" fill="currentColor" aria-hidden>
-        <path d="M10 1.5l2.2 1.6 2.7-.1.9 2.6 2.2 1.6-.8 2.6.8 2.6-2.2 1.6-.9 2.6-2.7-.1L10 18.5l-2.2-1.6-2.7.1-.9-2.6-2.2-1.6.8-2.6-.8-2.6 2.2-1.6.9-2.6 2.7.1L10 1.5zm-1.1 11.3l5-5-1.1-1.1-3.9 3.9-1.8-1.8L6 9.9l2.9 2.9z" />
-      </svg>
+      <Icon icon={BadgeCheck} size="xs" />
       Verified
     </span>
   )

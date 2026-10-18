@@ -11,7 +11,7 @@ import { errorMessage, httpStatus, useAsync } from '../lib/useAsync'
 type Phase = 'reading' | 'passing' | 'learned' | 'waiting'
 
 function Flags({ items, tone }: { items: BriefT['green_flags']; tone: 'green' | 'yellow' }) {
-  const dot = tone === 'green' ? 'bg-sage-600' : 'bg-gold-500'
+  const dot = tone === 'green' ? 'bg-sage-600' : 'bg-amber-500' // DESIGN.md: sage = green flag, amber = worth exploring
   return (
     <ul className="space-y-3">
       {items.map((f) => (

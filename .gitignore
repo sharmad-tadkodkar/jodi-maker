@@ -11,3 +11,5 @@ dist/
 # OS / editor
 .DS_Store
 .claude/settings.local.json
+# Playwright MCP screenshots / snapshots
+.playwright-mcp/
