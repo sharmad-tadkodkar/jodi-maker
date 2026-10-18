@@ -20,7 +20,7 @@ from app import models as m
 from app.db import MATCHES, USERS, get_db, now
 from app.llm.gemini import generate_json, load_prompt
 from app.services import brief as brief_svc
-from app.services import learning
+from app.services import learning, limits
 from app.services.matching import scores_for
 from app.services.users import candidate_summary, get_user_doc
 
@@ -256,6 +256,7 @@ def post_chat(match_id: str, sender_id: str, text: str) -> m.ChatMessage:
     text = text.strip()
     if not text:
         raise HTTPException(422, "Empty message")
+    limits.enforce_daily_turns(ref.collection("chat"), "sender_id", sender_id)
     doc = {"sender_id": sender_id, "text": text[:2000], "created_at": now()}
     _, msg_ref = ref.collection("chat").add(doc)
     return m.ChatMessage(id=msg_ref.id, **doc)

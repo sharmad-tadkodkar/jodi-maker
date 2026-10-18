@@ -28,7 +28,7 @@ export function apiDetail(e: unknown): string | undefined {
 
 /**
  * What users see: always calm, never raw server text (FRONTEND_GUIDE). 403/409 carry a human-readable
- * `detail` ("The decision opens on Day 7…"), and so do guardrail rejections (422 with a string detail — "Let's keep
+ * `detail` ("The decision opens on Day 7…"), and so do guardrail rejections and the daily chat limit (422 / 429 with a string detail — "Let's keep
  * it kind…"), so those are shown; everything else gets a calm generic line. FastAPI's own 422 validation errors
  * have a list detail and stay generic.
  */
@@ -36,7 +36,7 @@ export function errorMessage(e: unknown): string {
   console.error(e)
   const status = httpStatus(e)
   const detail = apiDetail(e)
-  if ((status === 403 || status === 409 || status === 422) && detail) return detail
+  if ((status === 403 || status === 409 || status === 422 || status === 429) && detail) return detail
   return e instanceof TypeError
     ? "Can't reach your matchmaker right now — check your connection and try again."
     : 'Your matchmaker hit a snag — please try again.'

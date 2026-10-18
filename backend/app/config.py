@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     embedding_dim: int = 768
 
     demo_mode: bool = True
+
+    # Each person's messages per conversation per day (intake chat; each Jodi Week chat). Resets at IST midnight.
+    chat_turns_per_day: int = 50
     # Prefix for Firestore collections. Tests use "test_" so they never touch the live demo data.
     collection_prefix: str = ""
     cors_origins: str = "http://localhost:5173,http://localhost:5180,http://127.0.0.1:5180"

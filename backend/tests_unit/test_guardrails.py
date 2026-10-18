@@ -85,6 +85,7 @@ def _intake_harness(monkeypatch, verdict):
     monkeypatch.setattr(intake, "get_user_doc", lambda uid: {"id": uid, "name": "Arjun Mehta", "status": "active", "self_facts": {}})
     monkeypatch.setattr(intake, "ensure_opening", lambda u: [{"id": "o", "role": "agent", "text": "Namaste!", "created_at": None}])
     monkeypatch.setattr(intake, "list_aspects", lambda uid: [])
+    monkeypatch.setattr(intake.limits, "enforce_daily_turns", lambda *a, **k: None)  # covered in test_limits.py
     monkeypatch.setattr(intake, "_add_message", lambda uid, role, text: writes.append((role, text)) or {})
     monkeypatch.setattr(intake, "_apply_extraction", lambda u, ex: writes.append(("extract", None)) or [])
 

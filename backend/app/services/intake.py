@@ -13,7 +13,7 @@ from pydantic import BaseModel
 from app import models as m
 from app.db import USERS, get_db, now
 from app.llm.gemini import generate_json, generate_text, load_prompt
-from app.services import guardrails
+from app.services import guardrails, limits
 from app.services.users import get_user_doc, list_aspects
 
 DONE_THRESHOLD = 0.8
@@ -183,6 +183,9 @@ async def handle_message(user_id: str, text: str) -> tuple[m.IntakeMessageRespon
     history = ensure_opening(user)
     aspects = list_aspects(user_id)
     before, missing_cats, missing_facts = coverage(aspects, user.get("self_facts") or {})
+
+    # Daily turn limit first — before any model call (only the person's stored messages count).
+    limits.enforce_daily_turns(_messages_ref(user_id), "role", "user")
 
     verdict = guardrails.screen_text(text)
     if verdict != guardrails.Verdict.ok:
