@@ -36,8 +36,8 @@ async def post_chat(match_id: str, body: m.ChatPost):
 
 @router.post("/{match_id}/decision", response_model=m.FocusDecisionResponse)
 async def focus_decision(match_id: str, body: m.FocusDecisionRequest):
-    """Day-7 decision. `stop` works any day (reason required) and closes immediately with `learning`.
-    `continue` / `extend` open on the last day (409 before): both continue → `locked`; any extend → `extended`
-    (+7 days, once); first answer → `pending`."""
+    """Decision during the Focus Week. `continue` = confirm the match — any day; once both have confirmed the
+    match is `locked`, first answer → `pending`. `stop` = end the conversation — any day (reason required), closes
+    immediately with `learning`. `extend` opens on the last day (409 before), once: any extend → `extended`."""
     guard_text(body.reason)
     return await focus_svc.focus_decide(match_id, body.user_id, body.decision, body.reason)

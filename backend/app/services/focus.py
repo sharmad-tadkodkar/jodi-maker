@@ -2,9 +2,9 @@
 
 - Interested/Pass on a brief. The other side's brief unlocks only after the requester says Interested; a Pass is
   never revealed (the match just quietly closes). Two Interested → "It's mutual" → Focus Week.
-- Focus Week: exclusivity (both users `in_focus`, queues paused), chat, a personalised 7-day deck, and a Day-7
-  decision: continue (both → locked), stop (either side, reason required → closed + learning), extend once
-  (both → +7 days, 14 max).
+- Focus Week: exclusivity (both users `in_focus`, queues paused), chat, a personalised 7-day deck, and the
+  decision: continue = "confirm match", any day (both → locked), stop = "end conversation", any day (reason
+  required → closed + learning), extend once on the last day (both → +7 days, 14 max).
 - Fairness, evaluated lazily on read: a brief nobody answers within 72 h expires; a Focus Week that reaches its
   end without both decisions auto-closes.
 - Day arithmetic is relative to `focus_start`, so the demo fast-forward just moves `focus_start` back.
@@ -279,10 +279,12 @@ async def focus_decide(match_id: str, user_id: str, decision: str, reason: str |
         return m.FocusDecisionResponse(match=match_model(match_id, ref.get().to_dict(), user_id),
                                        outcome="closed", learning=result)
 
+    # Confirming ("continue") works any day — once both have confirmed, the match locks immediately.
+    # Asking for more time only makes sense at the end, so "extend" still opens on the last day.
     day, total = current_day(match), _total_days(match)
-    if day < total:
-        raise HTTPException(409, f"The decision opens on Day {total} (today is Day {day}). "
-                                 "In the demo, fast-forward from the demo panel.")
+    if decision == "extend" and day < total:
+        raise HTTPException(409, f"Taking one more week opens on Day {total} (today is Day {day}). "
+                                 "You can confirm the match or end the conversation any day.")
     if decision == "extend" and match.get("extended"):
         raise HTTPException(409, "This Focus Week was already extended once (14 days max)")
 

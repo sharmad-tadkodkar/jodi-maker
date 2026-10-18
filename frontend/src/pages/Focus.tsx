@@ -1,3 +1,4 @@
+import { CircleCheck, Clock, HeartHandshake } from 'lucide-react'
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -9,15 +10,7 @@ import {
 } from "../api/client";
 import LearningCard from "../components/LearningCard";
 import ReasonSheet from "../components/ReasonSheet";
-import {
-  Avatar,
-  Button,
-  Card,
-  ErrorState,
-  Loading,
-  SectionTitle,
-  VerifiedBadge,
-} from "../components/ui";
+import { Avatar, Button, Card, ErrorState, Icon, Loading, SectionTitle, VerifiedBadge } from '../components/ui'
 import { firstName } from "../lib/format";
 import { avatarFor, useViewerGenders } from "../lib/avatars";
 import { errorMessage, httpStatus, useAsync } from "../lib/useAsync";
@@ -192,38 +185,36 @@ function Chat({
   );
 }
 
-/** Stop works any day; Continue / Extend only on the last day (the backend 409s before that). */
-function Decision({
-  focus,
-  uid,
-  onDecided,
-}: {
-  focus: FocusState;
-  uid: string;
-  onDecided: (r: FocusDecisionResponse) => void;
-}) {
-  const [stopping, setStopping] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string>();
-  const them = firstName(focus.partner.display_name);
+/**
+ * Decide any day: "Confirm match" (both confirm → the match locks) or "End conversation" (reason required).
+ * "Take one more week" appears on the last day only (the backend refuses it earlier). After confirming, the
+ * card shows the waiting state and keeps "End conversation" available. Choices stay private until both decide.
+ */
+function Decision({ focus, uid, onDecided }: { focus: FocusState; uid: string; onDecided: (r: FocusDecisionResponse) => void }) {
+  const [mode, setMode] = useState<'idle' | 'confirming' | 'stopping'>('idle')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string>()
+  const them = firstName(focus.partner.display_name)
+  const lastDay = focus.day >= focus.total_days
+  const mine = focus.decision_me
 
-  async function decide(
-    decision: "continue" | "stop" | "extend",
-    reason?: string,
-  ) {
-    setBusy(true);
-    setError(undefined);
+  async function decide(decision: 'continue' | 'stop' | 'extend', reason?: string) {
+    setBusy(true)
+    setError(undefined)
     try {
-      onDecided(await api.focusDecide(focus.match_id, uid, decision, reason));
+      const r = await api.focusDecide(focus.match_id, uid, decision, reason)
+      setMode('idle') // back to the panel — it now shows the waiting state (or the page shows the outcome)
+      onDecided(r)
     } catch (e) {
-      setError(errorMessage(e));
+      setError(errorMessage(e))
     } finally {
-      setBusy(false);
+      setBusy(false)
     }
   }
 
-  const lastDay = focus.day >= focus.total_days;
-  if (stopping) {
+  const err = error && <p className="text-xs text-brand-700">{error}</p>
+
+  if (mode === 'stopping') {
     return (
       <div className="space-y-2">
         {busy && (
@@ -232,65 +223,91 @@ function Decision({
           </p>
         )}
         <ReasonSheet
-          title={`What made you decide to stop with ${them}?`}
+          title={`What made you decide to end things with ${them}?`}
           hint={`${them} only learns that the week has ended — never your reason. It helps Jodi find someone better suited.`}
-          submitLabel="End Jodi Week"
+          submitLabel="End conversation"
           busy={busy}
-          onCancel={() => setStopping(false)}
-          onSubmit={(r) => decide("stop", r)}
+          onCancel={() => setMode('idle')}
+          onSubmit={(r) => decide('stop', r)}
         />
-        {error && <p className="text-center text-xs text-brand-700">{error}</p>}
+        {err}
       </div>
-    );
+    )
   }
-  if (!lastDay) {
+
+  if (mode === 'confirming') {
     return (
-      <p className="text-center text-xs text-muted">
-        Your decision opens on Day {focus.total_days}. Until then, just get to
-        know {them}.{" "}
-        <button
-          type="button"
-          className="underline hover:text-ink"
-          onClick={() => setStopping(true)}
-        >
-          End it early
-        </button>
-      </p>
-    );
+      <Card className="space-y-4 border-brand-200 bg-brand-50/60">
+        <div className="space-y-1">
+          <p className="font-display text-xl">Confirm your match with {them}?</p>
+          <p className="text-sm text-muted">
+            Once you've both confirmed, Jodi locks the match and stops searching for you both. {them} won't see your answer until
+            they've decided too.
+          </p>
+        </div>
+        <div className="grid gap-2">
+          <Button busy={busy} onClick={() => decide('continue')}>
+            <Icon icon={HeartHandshake} size="sm" />
+            Yes, confirm match
+          </Button>
+          <Button variant="secondary" disabled={busy} onClick={() => setMode('idle')}>
+            Not yet
+          </Button>
+        </div>
+        {err}
+      </Card>
+    )
   }
+
+  // Already answered: waiting on them (confirm), or more time requested (extend). Ending stays possible.
+  if (mine) {
+    return (
+      <Card className="space-y-3 border-sage-500/40 bg-sage-50">
+        <p className="flex items-center gap-2 font-display text-lg text-ink">
+          <Icon icon={mine === 'continue' ? CircleCheck : Clock} size="md" className="text-sage-600" />
+          {mine === 'continue' ? `You've confirmed ${them}` : 'You asked for one more week'}
+        </p>
+        <p className="text-sm text-muted">
+          {mine === 'continue'
+            ? `The match is confirmed as soon as ${them} confirms too. Until then, keep talking — Jodi will let you know.`
+            : `Jodi will let you know once ${them} has decided.`}
+        </p>
+        <button type="button" disabled={busy} onClick={() => setMode('stopping')} className="text-sm text-muted underline hover:text-ink">
+          Changed your mind? End conversation
+        </button>
+        {err}
+      </Card>
+    )
+  }
+
   return (
     <Card className="space-y-4 border-gold-500/40">
-      <div>
-        <p className="font-display text-xl">Time to decide</p>
+      <div className="space-y-1">
+        <p className="font-display text-xl">{lastDay ? 'Time to decide' : `Decided on ${them}?`}</p>
         <p className="text-sm text-muted">
-          Your choice stays private until you've both decided.
-          {focus.decision_them_submitted && ` ${them} has already made theirs.`}
+          {lastDay
+            ? 'Your choice stays private until you have both decided.'
+            : `No need to wait for Day ${focus.total_days} — confirm whenever you're sure. The match locks once you both confirm.`}
+          {focus.decision_them_submitted && ` ${them} has already made their choice.`}
         </p>
       </div>
       <div className="grid gap-2">
-        <Button busy={busy} onClick={() => decide("continue")}>
-          Move forward with {them}
+        <Button busy={busy} onClick={() => setMode('confirming')}>
+          <Icon icon={HeartHandshake} size="sm" />
+          Confirm match
         </Button>
-        {!focus.extended && (
-          <Button
-            variant="secondary"
-            disabled={busy}
-            onClick={() => decide("extend")}
-          >
+        {lastDay && !focus.extended && (
+          <Button variant="secondary" disabled={busy} onClick={() => decide('extend')}>
             Take one more week
           </Button>
         )}
-        <Button
-          variant="ghost"
-          disabled={busy}
-          onClick={() => setStopping(true)}
-        >
-          End it kindly
+        <Button variant="secondary" disabled={busy} onClick={() => setMode('stopping')}>
+          End conversation
         </Button>
       </div>
-      {error && <p className="text-xs text-brand-700">{error}</p>}
+      {err}
     </Card>
-  );
+  )
 }
 
 function Moving({ them }: { them: string }) {
@@ -299,10 +316,10 @@ function Moving({ them }: { them: string }) {
       <p className="text-3xl" aria-hidden>
         🎉
       </p>
-      <p className="font-display text-2xl">We're moving forward</p>
+      <p className="font-display text-2xl">Match confirmed</p>
       <p className="text-sm text-muted">
-        You and {them} both chose each other. Jodi has stopped searching —
-        wishing you both the very best.
+        You and {them} both confirmed each other — you're moving forward together. Jodi has stopped searching for you
+        both. Wishing you the very best.
       </p>
     </Card>
   );
@@ -441,7 +458,6 @@ export default function Focus() {
   const p = focus.partner;
   const them = firstName(p.display_name);
   const active = focus.status === "focus_week";
-  const lastDay = focus.day >= focus.total_days;
   const facts = [p.age, p.city, p.profession].filter(Boolean).join(" · ");
 
   return (
@@ -483,14 +499,8 @@ export default function Focus() {
           <Moving them={them} />
         ) : !active ? (
           <Ended them={them} />
-        ) : focus.decision_me ? (
-          <Card className="text-center text-sm text-muted">
-            You chose to{" "}
-            <span className="font-medium text-ink">{focus.decision_me}</span>.
-            Waiting for {them} to decide.
-          </Card>
         ) : (
-          lastDay && <Decision focus={focus} uid={uid} onDecided={setResult} />
+          <Decision focus={focus} uid={uid} onDecided={(r) => (r.outcome === "pending" ? reload() : setResult(r))} />
         )}
 
         {active && !result && focus.deck_today.length > 0 && (
@@ -545,9 +555,6 @@ export default function Focus() {
           </div>
         )}
 
-        {active && !result && !focus.decision_me && !lastDay && (
-          <Decision focus={focus} uid={uid} onDecided={setResult} />
-        )}
       </div>
     </section>
   );

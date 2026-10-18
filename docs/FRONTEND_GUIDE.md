@@ -66,11 +66,11 @@ client, the compiler tells you when a page doesn't match the backend.
     The deck is personalised from both briefs; for Arjun–Meera it's pre-computed.
   - **Chat**: poll `getChat` every 2 s. 403 before mutual (don't render chat then). Show sender by `sender_id`.
     In the demo, switch persona to Meera to reply (or just show Arjun's side).
-  - **Day-7 decision** (`focusDecide`): **Stop** works any day (reason required, same chips) → `outcome:
-    "closed"` + `learning` card → back to the pipeline. **Continue / Extend** only from the last day (409
-    before — the message says so). First answer → `outcome: "pending"` ("Waiting for Meera…"); both continue →
-    `"locked"` → celebration screen ("We're moving forward" 🎉); either extends → `"extended"` (+7 days,
-    once; extending again → 409).
+  - **Decision** (`focusDecide`), any day: **Confirm match** = `continue` and **End conversation** = `stop`
+    (reason required, same chips → `outcome: "closed"` + `learning` card → back to the pipeline). First confirm →
+    `outcome: "pending"` (the panel shows "You've confirmed Meera", End conversation still available); both
+    confirm → `"locked"` → "Match confirmed" screen. **Extend** ("Take one more week") only on the last day (409
+    before — the message says so); either extends → `"extended"` (+7 days, once; again → 409).
   - **Demo panel:** "Fast-forward to Day 4 / Day 7" → `fastForward(matchId, day)` (returns the new FocusState).
     `day = total_days + 1` demos the fairness rule: the week auto-closes (`status: "closed"`), nobody waits forever.
   - **Exclusivity:** while in a Focus Week, `getPipeline` returns `paused: true`, `getNextBrief` returns `null`,
@@ -181,7 +181,7 @@ cd backend && uv sync && uv run uvicorn app.main:app --reload --port 8080
 | `/brief/:matchId` | `getBrief`, `decide` | Radar (recharts) from `why_fit`; Pass needs a reason chip |
 | `/brief/:matchId/transcript` | `runInterview` → poll `getInterview` every 1.5s | Render turns as they land; round dividers; green/yellow highlights |
 | `/mutual/:matchId` | `getFocus` | "It's mutual 💛" (partner name from `partner`) → CTA to Focus Week |
-| `/focus/:matchId` | `getFocus`, `getChat` (poll 2s), `sendChat`, `focusDecide` | Day counter, today's 3 prompts (tap → send to chat), Stop any day, Continue/Extend on the last day, learning card after Stop |
+| `/focus/:matchId` | `getFocus`, `getChat` (poll 2s), `sendChat`, `focusDecide` | Day counter, today's 3 prompts (tap → send to chat), Confirm match / End conversation any day, Take one more week on the last day, learning card after End |
 | `/demo` | `personas`, `reset(true)`, `reset()`, `seed`, `runScout`, `runInterview` (+`?rerun=true`), `simulateResponse`, `fastForward`, `newProfile` | Hidden route for the video |
 
 ## Flow the UI needs to support
