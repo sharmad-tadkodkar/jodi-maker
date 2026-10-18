@@ -101,14 +101,19 @@ Chip text always uses the `-700` shade on its `-100` tint. `sage-500`, `amber-50
 - **Files:** `frontend/public/avatars/` (256 px square WebP, q82) and `frontend/public/illustrations/`
   (≤ 1600 px wide WebP, q82). Sources live untracked in `frontend/src/assets/raw/`; the Gemini sparkle
   watermark is removed before export.
-- **Avatars:** `avatarFor(userId, gender, photoUrl)` in `lib/avatars.ts` — own photo first, then the hero
-  portraits (`arjun`, `meera`), then a seed portrait `avatar-{w|m}-1..9` chosen by gender + FNV-1a hash of
-  the user id (stable everywhere). Candidates' gender = the viewer's `seeking_gender` (`useViewerGenders`).
+- **Avatars:** `avatarFor(userId, gender, photoUrl)` in `lib/avatars.ts` — profile photo, then
+  `public/avatars/{userId}.webp` if that file exists (Arjun, Meera, or any you drop in — the
+  `virtual:avatar-files` Vite plugin lists the folder at build time, so missing files are never requested;
+  both Vite and Firebase would answer a missing file with index.html), then a seed portrait
+  `avatar-{w|m}-1..9` chosen by gender + FNV-1a hash of the user id. Candidates' gender = the viewer's `seeking_gender` (`useViewerGenders`).
   Unknown gender → the `Avatar` letter fallback. Avatars are always shown round.
 - **Matchmakers:** `MATCHMAKER_AVATAR.mine` = maroon paisley (`agent-a`), `.theirs` = teal paisley
   (`agent-b`) — chosen by mine/theirs, not by the interview's `agent_a`/`agent_b` slot.
-- Illustrations (`hero-father`, `step-1..5`, `value-1..3`, `scouting`, `empty-queue`, `mutual`,
-  `focus-week`, `learning`, `og-image`) are decorative: `alt=""`, never the only carrier of meaning.
+- Illustrations are decorative: `alt=""`, never the only carrier of meaning. In use: `hero-father`
+  (`-mobile` under 768 px via `<picture>`) on Home, `step-1..5` in "How it works". Not yet used: `value-1..3`,
+  `scouting`, `empty-queue`, `mutual`, `focus-week`, `learning`, `og-image`.
+- **Loading:** every `<img>` is WebP with `width`/`height` (no layout shift) and `loading="lazy"` —
+  except the Home hero, which is the LCP image: eager + `fetchpriority="high"`.
 
 ## Shape & elevation
 
@@ -139,7 +144,7 @@ Chip text always uses the `-700` shade on its `-100` tint. `sage-500`, `amber-50
 
 Shared pieces in `components/`: `LearningCard`, `ReasonSheet`, `FitRadar` (radar; shortens "Communication"
 to "Comms" under 400 px so it isn't clipped), `PersonaMenu` (avatar pill + dropdown in the header),
-`HeroIllustration` (decorative landing art built from these components).
+illustrations are plain `<img>`s (see Imagery).
 
 ## Motion
 

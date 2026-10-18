@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
+import avatarFiles from 'virtual:avatar-files'
 import { api, getUserId, type Gender, type User } from '../api/client'
 
-/** Seed portraits live in public/avatars/ (256px WebP): avatar-w-1..9, avatar-m-1..9, plus the heroes'
- * own portraits and the two matchmaker badges. See docs/DESIGN.md → Imagery. */
+/** public/avatars/ (256px WebP): per-user portraits named {userId}.webp (e.g. arjun, meera), seed portraits
+ * avatar-w-1..9 / avatar-m-1..9, and the two matchmaker badges. See docs/DESIGN.md → Imagery. */
 const BASE = `${import.meta.env.BASE_URL}avatars/`
 const SEED_COUNT = 9
-
-const HERO_PORTRAIT: Record<string, string> = {
-  arjun: `${BASE}arjun.webp`,
-  meera: `${BASE}meera.webp`,
-}
+const SEEDS = /^(avatar-[wm]-\d+|agent-[ab])$/
+const OWN_FILE = new Set(avatarFiles.filter((f) => !SEEDS.test(f)))
 
 /** Matchmaker badges: maroon paisley = your matchmaker, teal = theirs (DESIGN.md: brand = mine, teal = theirs). */
 export const MATCHMAKER_AVATAR = {
@@ -28,13 +26,16 @@ function hash(s: string): number {
 }
 
 /**
- * Portrait for a user: their own photo if they have one, the hero portraits for Arjun and Meera, otherwise a
- * seed portrait picked deterministically from gender + hash(userId) — the same person always gets the same
- * face. Returns undefined when gender is unknown, so `Avatar` falls back to the letter.
+ * Portrait for a user, first match wins:
+ *   1. `photoUrl` from their profile
+ *   2. public/avatars/{userId}.webp, if that file exists (Arjun, Meera, any you drop in)
+ *   3. a seed portrait picked from gender + hash(userId) — the same person always gets the same face
+ * Returns undefined when none applies (gender unknown), so `Avatar` shows the letter. `Avatar` also falls
+ * back to the letter if an image fails to load.
  */
 export function avatarFor(userId: string, gender?: Gender | null, photoUrl?: string | null): string | undefined {
   if (photoUrl) return photoUrl
-  if (HERO_PORTRAIT[userId]) return HERO_PORTRAIT[userId]
+  if (OWN_FILE.has(userId)) return `${BASE}${userId}.webp`
   if (!gender) return undefined
   return `${BASE}avatar-${gender === 'female' ? 'w' : 'm'}-${(hash(userId) % SEED_COUNT) + 1}.webp`
 }

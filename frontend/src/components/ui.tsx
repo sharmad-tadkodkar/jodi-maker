@@ -61,12 +61,14 @@ const AVATAR_SIZE = {
   lg: 'size-16 text-2xl',
   xl: 'size-20 text-3xl',
 } as const
+const AVATAR_PX = { sm: 32, md: 48, lg: 64, xl: 80 } as const
 const AVATAR_TONE = {
   brand: 'from-brand-100 to-gold-100 text-brand-700', // me / the person
   teal: 'from-teal-100 to-sage-100 text-teal-700', // their matchmaker / the other side
 } as const
 
-/** Photo if `src` loads, otherwise the first letter of `name`. Decorative: the name is always shown beside it. */
+/** Photo if `src` loads, otherwise the first letter of `name`. Decorative: the name is always shown beside it.
+ * Images are lazy and carry width/height (square) so nothing shifts while they load. */
 export function Avatar({
   name,
   src,
@@ -93,7 +95,16 @@ export function Avatar({
       )}
     >
       {showImage ? (
-        <img src={src} alt="" decoding="async" className="size-full object-cover" onError={() => setFailedSrc(src)} />
+        <img
+          src={src}
+          alt=""
+          width={AVATAR_PX[size]}
+          height={AVATAR_PX[size]}
+          loading="lazy"
+          decoding="async"
+          className="size-full object-cover"
+          onError={() => setFailedSrc(src)}
+        />
       ) : (
         name.charAt(0).toUpperCase()
       )}

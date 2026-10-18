@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { api, getUserId, type Aspect, type IntakeMessageResponse } from '../api/client'
-import { Button, Card, Chip, ErrorState, Loading, ScoreRing, Typing } from '../components/ui'
+import { Avatar, Button, Card, Chip, ErrorState, Loading, ScoreRing, Typing } from '../components/ui'
+import { MATCHMAKER_AVATAR } from '../lib/avatars'
 import { ASPECT_LABEL } from '../lib/format'
 import { errorMessage, useAsync } from '../lib/useAsync'
 
@@ -104,9 +105,7 @@ function Bubble({ msg }: { msg: Msg }) {
   return (
     <div className="space-y-2">
       <div className="flex items-end gap-2">
-        <div aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-100 font-display text-sm text-brand-700">
-          J
-        </div>
+        <Avatar name="Jodi" src={MATCHMAKER_AVATAR.mine} size="sm" />
         <p className="max-w-[80%] whitespace-pre-wrap rounded-2xl rounded-bl-sm border border-line bg-white px-4 py-2.5 text-sm leading-relaxed">{msg.text}</p>
       </div>
       {msg.learned && msg.learned.length > 0 && <Learned aspects={msg.learned} />}
