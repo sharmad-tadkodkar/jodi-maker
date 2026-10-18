@@ -73,14 +73,10 @@ export default function Landing() {
           <div className="relative z-10 space-y-5 px-6 pt-10 text-center lg:flex lg:flex-col lg:justify-center lg:py-12 lg:pr-4 lg:pl-12 lg:text-left xl:pl-14">
             <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Your AI matchmaker</p>
             <h1 className="font-display text-4xl leading-[1.1] sm:text-5xl xl:text-[3.5rem]">
-              You never browse profiles.
-              <br />
-              <span className="text-brand-600">You get a briefing.</span>
+              In a world of endless swiping and empty promises, a master matchmaker protects your time, silences the noise, and{' '}
+              <span className="text-brand-600">brings you only the ones truly destined for your heart.</span>
             </h1>
-            <p className="mx-auto max-w-md text-muted lg:mx-0">
-              In a world of endless swiping and empty promises, a master matchmaker protects your time, silences the noise, and brings you only
-              the ones truly destined for your heart.
-            </p>
+            <p className="mx-auto max-w-md text-muted lg:mx-0">You never browse profiles. You get a briefing.</p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:flex-wrap lg:justify-start">
               <Link to={next.to} className={PRIMARY}>
                 {next.label}
