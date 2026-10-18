@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import { api, getUserId, type Aspect, type LearningEntry, type User } from '../api/client'
 import AspectItem from '../components/AspectItem'
 import HardCriteriaForm from '../components/HardCriteriaForm'
-import { Avatar, Button, Card, ErrorState, Loading, PageHeader, SectionTitle } from '../components/ui'
+import { Avatar, Button, Card, ErrorState, Icon, Loading, PageHeader, ScoreRing, SectionTitle } from '../components/ui'
 import { avatarFor } from '../lib/avatars'
+import { ASPECT_ICON, VISIBILITY_ICON } from '../lib/icons'
 import { ASPECT_LABEL, DIMENSION_LABEL, DIMENSIONS, VISIBILITY } from '../lib/format'
 import { errorMessage, useAsync } from '../lib/useAsync'
 
@@ -124,19 +125,21 @@ export default function Me() {
           <p className="truncate text-sm text-muted">{facts}</p>
           {f?.languages && f.languages.length > 0 && <p className="text-xs text-muted">Speaks {f.languages.join(', ')}</p>}
         </div>
-        <div className="text-right">
-          <p className="font-display text-2xl text-brand-600">{Math.round((user.intake_completeness ?? 0) * 100)}%</p>
-          <p className="text-[11px] text-muted">known</p>
-        </div>
+        <ScoreRing value={Math.round((user.intake_completeness ?? 0) * 100)} size={72} label="known" tone="gold" />
       </Card>
 
       <div>
         <SectionTitle>Who sees what</SectionTitle>
         <ul className="grid gap-2 text-xs sm:grid-cols-3">
           {VISIBILITY.map((v) => (
-            <li key={v.value} className="rounded-xl bg-sand/60 px-3 py-2">
-              <span className="font-medium">{v.label}</span>
-              <span className="block text-muted">{v.hint}</span>
+            <li key={v.value} className="flex gap-2.5 rounded-xl bg-sand/60 px-3 py-2.5">
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white text-brand-600 shadow-card">
+                <Icon icon={VISIBILITY_ICON[v.value]} size="sm" />
+              </span>
+              <span>
+                <span className="font-medium">{v.label}</span>
+                <span className="block text-muted">{v.hint}</span>
+              </span>
             </li>
           ))}
         </ul>
@@ -152,7 +155,13 @@ export default function Me() {
       ) : (
         grouped.map(({ c, items }) => (
           <Card key={c}>
-            <SectionTitle>{ASPECT_LABEL[c]}</SectionTitle>
+            <div className="mb-3 flex items-center gap-2.5">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gold-100 text-gold-700">
+                <Icon icon={ASPECT_ICON[c]} size="sm" />
+              </span>
+              <h2 className="font-display text-xl text-ink">{ASPECT_LABEL[c]}</h2>
+              <span className="ml-auto text-xs text-muted">{items.length === 1 ? '1 note' : `${items.length} notes`}</span>
+            </div>
             <ul className="divide-y divide-line">
               {items.map((a) => (
                 <AspectItem

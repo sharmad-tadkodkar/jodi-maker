@@ -122,6 +122,11 @@ worst adjacent CVD ΔE 17.0, normal-vision ΔE 20.2. On the sand bar track gold 
 colours; only the bar or dot carries the hue. Used by `ScoreBar` (`color` prop) and the strength dots on
 pipeline cards. (The Brief radar is a single series and stays maroon.)
 
+## Icons
+
+- lucide-react via `Icon`. Visibility: `Globe` shown · `Sparkles` matchmaker only · `Lock` private
+  (`VISIBILITY_ICON`). Aspect categories: `ASPECT_ICON` in `lib/icons.ts`. Dimensions: `DIMENSION_ICON` (Brief).
+
 ## Imagery
 
 - **Files:** `frontend/public/avatars/` (256 px square WebP, q82) and `frontend/public/illustrations/`
@@ -209,6 +214,9 @@ illustrations are plain `<img>`s (see Imagery).
 ## Motion
 
 - `animate-[fadeUp_.35s_ease-out]` for things that arrive (chat bubbles, learned notes, cards after an action).
+- Scroll-reveal uses `<Reveal>` (components/Reveal.tsx): visible by default; JS hides a section only when
+  motion is allowed, IntersectionObserver exists and it starts below the fold; reveals at 5% (10% early
+  margin), with a 2.5 s timer fallback. Never hide above-the-fold content.
 - Page sections enter with `.rise` + `--rise-i` (70 ms stagger). It's defined only under
   `prefers-reduced-motion: no-preference`, so the resting state is always visible — never hide content
   behind an animation (no JS-driven `opacity: 0` initial states).

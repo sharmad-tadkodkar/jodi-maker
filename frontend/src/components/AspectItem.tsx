@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import type { Aspect, Visibility } from '../api/client'
 import { VISIBILITY } from '../lib/format'
+import { VISIBILITY_ICON } from '../lib/icons'
 import { errorMessage } from '../lib/useAsync'
-import { Button } from './ui'
+import { Button, Icon } from './ui'
 
 function confidenceLabel(c: number) {
   return c >= 0.85 ? 'Sure' : c >= 0.6 ? 'Fairly sure' : 'Still guessing'
@@ -75,10 +76,11 @@ export default function AspectItem({ aspect, onPatch, onDelete }: Props) {
               title={v.hint}
               disabled={busy}
               onClick={() => aspect.visibility !== v.value && run(() => onPatch({ visibility: v.value }))}
-              className={`rounded-full px-2.5 py-1 transition-colors ${
+              className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 transition-colors ${
                 aspect.visibility === v.value ? 'bg-white font-medium text-brand-700 shadow-sm' : 'text-muted hover:text-ink'
               }`}
             >
+              <Icon icon={VISIBILITY_ICON[v.value]} size="xs" className="size-3.5" />
               {v.label}
             </button>
           ))}

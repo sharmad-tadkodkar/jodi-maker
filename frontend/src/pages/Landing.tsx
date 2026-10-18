@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { api, getMyPeople, getUserId } from '../api/client'
-import { Card } from '../components/ui'
+import { Clock, HeartHandshake, ShieldCheck, Sparkles, type LucideIcon } from 'lucide-react'
+import Reveal from '../components/Reveal'
+import { Card, Icon } from '../components/ui'
 import { useAsync } from '../lib/useAsync'
 
 const ILLUSTRATIONS = `${import.meta.env.BASE_URL}illustrations/`
@@ -13,6 +15,12 @@ const STEPS = [
   ['He called their family first', "Your matchmaker interviews theirs before you're ever involved."],
   ['He gave me the update', 'You get one brief at a time — with reasons and evidence, not a profile feed.'],
   ['One week, one person', 'If you both say yes, you get a Jodi Week — then decide together.'],
+]
+
+const VALUES: [LucideIcon, string, string][] = [
+  [HeartHandshake, 'One at a time', 'No feed, no swiping. Each match gets your full attention.'],
+  [ShieldCheck, 'You stay in control', 'See everything Jodi knows, and choose who sees what.'],
+  [Clock, 'Nobody left waiting', 'Briefs expire and Jodi Weeks end — decisions are kind and quick.'],
 ]
 
 const PRIMARY = 'inline-flex min-h-12 whitespace-nowrap items-center justify-center rounded-full bg-brand-600 px-6 text-sm font-medium text-white shadow-sm hover:bg-brand-700'
@@ -80,32 +88,18 @@ export default function Landing() {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
-        {!isMine && (
-          <Card className="flex flex-col items-center justify-center space-y-3 border-gold-500/40 text-center lg:order-2">
-            <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Try it as yourself</p>
-            <p className="font-display text-2xl leading-snug">Tell Jodi about yourself and watch it learn.</p>
-            <p className="text-sm text-muted">
-              A private profile of your own, about 3 minutes of chat. Then Jodi searches 60 people for you. Arjun and Meera's story stays
-              untouched.
-            </p>
-            <Link to="/start" className={PRIMARY}>
-              Try it as a new person
-            </Link>
-          </Card>
-        )}
-
-        <Card className={`space-y-4 bg-sand/50 ${isMine ? 'lg:col-span-2' : ''}`}>
+      <Reveal>
+        <Card className="space-y-4 bg-sand/50 lg:px-10 lg:py-8">
           <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Where Jodi comes from</p>
-          <p className="font-display text-xl leading-relaxed">
+          <p className="max-w-4xl font-display text-xl leading-relaxed lg:text-2xl">
             “My father found matches the patient way. He filtered quietly, called the other family first, read people carefully — and only
             then handed me one name. One week, one person. Decide, then move on.”
           </p>
           <p className="text-sm text-muted">Jodi turns that father into a matchmaker everyone gets.</p>
         </Card>
-      </div>
+      </Reveal>
 
-      <div>
+      <Reveal>
         <h2 className="mb-4 font-display text-2xl">How it works</h2>
         <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {STEPS.map(([dad, jodi], i) => (
@@ -131,20 +125,49 @@ export default function Landing() {
             </li>
           ))}
         </ol>
-      </div>
+      </Reveal>
 
-      <div className="grid gap-3 sm:grid-cols-3">
-        {[
-          ['One at a time', 'No feed, no swiping. Each match gets your full attention.'],
-          ['You stay in control', 'See everything Jodi knows, and choose who sees what.'],
-          ['Nobody left waiting', 'Briefs expire and Jodi Weeks end — decisions are kind and quick.'],
-        ].map(([t, b]) => (
-          <div key={t} className="rounded-2xl bg-white p-4 text-sm">
-            <p className="font-medium">{t}</p>
-            <p className="mt-1 text-xs text-muted">{b}</p>
+      {!isMine && (
+        <Reveal>
+          <Card className="flex flex-col items-center gap-4 border-gold-500/40 text-center md:flex-row md:justify-between md:text-left lg:px-10">
+            <div className="space-y-2">
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Try it as yourself</p>
+              <p className="font-display text-2xl leading-snug">Tell Jodi about yourself and watch it learn.</p>
+              <p className="max-w-xl text-sm text-muted">
+                A private profile of your own, about 3 minutes of chat. Then Jodi searches 60 people for you. Arjun and Meera's story stays
+                untouched.
+              </p>
+            </div>
+            <Link to="/start" className={`${PRIMARY} shrink-0`}>
+              Try it as a new person
+            </Link>
+          </Card>
+        </Reveal>
+      )}
+
+      <Reveal className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {VALUES.map(([icon, t, b]) => (
+          <div key={t} className="flex gap-3 rounded-2xl border border-line bg-white p-4 text-sm">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+              <Icon icon={icon} size="sm" />
+            </span>
+            <div>
+              <p className="font-medium">{t}</p>
+              <p className="mt-1 text-xs text-muted">{b}</p>
+            </div>
           </div>
         ))}
-      </div>
+      </Reveal>
+
+      <footer className="flex flex-col items-center gap-1 border-t border-line pt-6 text-center text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
+        <p>
+          <span className="font-display text-base text-brand-600">Jodi</span> · your AI matchmaker
+        </p>
+        <p className="inline-flex items-center gap-1.5">
+          <Icon icon={Sparkles} size="xs" className="text-gold-700" />
+          Built with Gemini on Google Cloud
+        </p>
+      </footer>
     </section>
   )
 }
