@@ -1,0 +1,630 @@
+{
+  "api": "https://jodi-api-560807723160.asia-south1.run.app",
+  "started_at": "2026-10-18T10:37:02.058313+00:00",
+  "reads": {
+    "pipeline": {
+      "n": 20,
+      "min": 0.18,
+      "median": 0.21,
+      "p90": 0.53,
+      "max": 0.61,
+      "mean": 0.26
+    },
+    "interview_transcript": {
+      "n": 20,
+      "min": 0.05,
+      "median": 0.05,
+      "p90": 0.07,
+      "max": 0.08,
+      "mean": 0.06
+    },
+    "demo_state": {
+      "n": 20,
+      "min": 0.48,
+      "median": 0.49,
+      "p90": 0.56,
+      "max": 0.62,
+      "mean": 0.51
+    },
+    "personas": {
+      "n": 20,
+      "min": 0.06,
+      "median": 0.07,
+      "p90": 0.07,
+      "max": 0.08,
+      "mean": 0.07
+    }
+  },
+  "scout_cached_arjun": {
+    "n": 5,
+    "min": 0.63,
+    "median": 0.68,
+    "p90": 0.76,
+    "max": 0.76,
+    "mean": 0.7
+  },
+  "people": [
+    {
+      "gender": "male",
+      "user_id": "u_bench_f94a4c",
+      "completeness": 0.85,
+      "done": true,
+      "intake_reply_s": [
+        2.66,
+        4.85,
+        3.07,
+        15.36,
+        2.25,
+        11.45
+      ],
+      "scout_cold_s": 10.06,
+      "scout_result": {
+        "new_in_queue": 4,
+        "filtered_out": 59,
+        "scored": 4,
+        "passed_filter": 4,
+        "profiles_checked": 63
+      },
+      "match_id": "m_s07_riya__u_bench_f94a4c",
+      "candidate": "Riya S.",
+      "interview_total_s": 129.63,
+      "interview_status": "done",
+      "interview_rounds_s": 86.25,
+      "briefs_s": 43.38,
+      "progress_log": [
+        [
+          0.17,
+          "Family round: the matchmakers are talking…"
+        ],
+        [
+          4.48,
+          "Family round: 1/4 turns…"
+        ],
+        [
+          8.92,
+          "Family round: 2/4 turns…"
+        ],
+        [
+          13.75,
+          "Family round: 3/4 turns…"
+        ],
+        [
+          19.22,
+          "Family round: 4/4 turns…"
+        ],
+        [
+          23.56,
+          "Candidate round: the matchmakers are talking…"
+        ],
+        [
+          28.39,
+          "Candidate round: 1/4 turns…"
+        ],
+        [
+          34.3,
+          "Candidate round: 2/4 turns…"
+        ],
+        [
+          38.7,
+          "Candidate round: 3/4 turns…"
+        ],
+        [
+          44.09,
+          "Candidate round: 4/4 turns…"
+        ],
+        [
+          54.37,
+          "Closing round: the matchmakers are talking…"
+        ],
+        [
+          66.76,
+          "Closing round: 1/4 turns…"
+        ],
+        [
+          73.3,
+          "Closing round: 2/4 turns…"
+        ],
+        [
+          80.29,
+          "Closing round: 3/4 turns…"
+        ],
+        [
+          84.1,
+          "Closing round: 4/4 turns…"
+        ],
+        [
+          86.25,
+          "Interview done. Writing your Match Brief…"
+        ]
+      ],
+      "brief_read_s": 0.07,
+      "brief_ok": true
+    },
+    {
+      "gender": "female",
+      "user_id": "u_bench_807c87",
+      "completeness": 0.89,
+      "done": true,
+      "intake_reply_s": [
+        2.42,
+        10.96,
+        10.73,
+        2.92,
+        2.98,
+        2.35
+      ],
+      "scout_cold_s": 18.44,
+      "scout_result": {
+        "new_in_queue": 7,
+        "filtered_out": 43,
+        "scored": 8,
+        "passed_filter": 20,
+        "profiles_checked": 63
+      },
+      "match_id": "m_s19_arvind__u_bench_807c87",
+      "candidate": "Arvind V.",
+      "interview_total_s": 117.04,
+      "interview_status": "done",
+      "interview_rounds_s": 69.19,
+      "briefs_s": 47.85,
+      "progress_log": [
+        [
+          0.15,
+          "Family round: the matchmakers are talking…"
+        ],
+        [
+          3.38,
+          "Family round: 1/4 turns…"
+        ],
+        [
+          8.2,
+          "Family round: 2/4 turns…"
+        ],
+        [
+          14.27,
+          "Family round: 3/4 turns…"
+        ],
+        [
+          18.05,
+          "Family round: 4/4 turns…"
+        ],
+        [
+          19.67,
+          "Candidate round: the matchmakers are talking…"
+        ],
+        [
+          26.84,
+          "Candidate round: 1/4 turns…"
+        ],
+        [
+          32.21,
+          "Candidate round: 2/4 turns…"
+        ],
+        [
+          37.59,
+          "Candidate round: 3/4 turns…"
+        ],
+        [
+          40.84,
+          "Candidate round: 4/4 turns…"
+        ],
+        [
+          43.13,
+          "Closing round: the matchmakers are talking…"
+        ],
+        [
+          50.64,
+          "Closing round: 1/4 turns…"
+        ],
+        [
+          58.29,
+          "Closing round: 2/4 turns…"
+        ],
+        [
+          64.34,
+          "Closing round: 3/4 turns…"
+        ],
+        [
+          67.57,
+          "Closing round: 4/4 turns…"
+        ],
+        [
+          69.19,
+          "Interview done. Writing your Match Brief…"
+        ]
+      ],
+      "brief_read_s": 0.09,
+      "brief_ok": true
+    },
+    {
+      "gender": "male",
+      "user_id": "u_bench_597a03",
+      "completeness": 0.93,
+      "done": true,
+      "intake_reply_s": [
+        3.19,
+        10.9,
+        3.18,
+        2.59,
+        2.79,
+        10.37
+      ],
+      "scout_cold_s": 12.42,
+      "scout_result": {
+        "new_in_queue": 4,
+        "filtered_out": 59,
+        "scored": 4,
+        "passed_filter": 4,
+        "profiles_checked": 63
+      },
+      "match_id": "m_s07_riya__u_bench_597a03",
+      "candidate": "Riya S.",
+      "interview_total_s": 155.91,
+      "interview_status": "done",
+      "interview_rounds_s": 79.95,
+      "briefs_s": 75.96,
+      "progress_log": [
+        [
+          0.25,
+          "Family round: the matchmakers are talking…"
+        ],
+        [
+          4.57,
+          "Family round: 1/4 turns…"
+        ],
+        [
+          8.93,
+          "Family round: 2/4 turns…"
+        ],
+        [
+          12.16,
+          "Family round: 3/4 turns…"
+        ],
+        [
+          18.28,
+          "Family round: 4/4 turns…"
+        ],
+        [
+          20.42,
+          "Candidate round: the matchmakers are talking…"
+        ],
+        [
+          29.01,
+          "Candidate round: 1/4 turns…"
+        ],
+        [
+          33.91,
+          "Candidate round: 2/4 turns…"
+        ],
+        [
+          38.74,
+          "Candidate round: 3/4 turns…"
+        ],
+        [
+          47.89,
+          "Candidate round: 4/4 turns…"
+        ],
+        [
+          49.74,
+          "Closing round: the matchmakers are talking…"
+        ],
+        [
+          61.13,
+          "Closing round: 1/4 turns…"
+        ],
+        [
+          67.6,
+          "Closing round: 2/4 turns…"
+        ],
+        [
+          74.05,
+          "Closing round: 3/4 turns…"
+        ],
+        [
+          78.33,
+          "Closing round: 4/4 turns…"
+        ],
+        [
+          79.95,
+          "Interview done. Writing your Match Brief…"
+        ]
+      ],
+      "brief_read_s": 0.07,
+      "brief_ok": true
+    },
+    {
+      "gender": "female",
+      "user_id": "u_bench_88e18d",
+      "completeness": 0.82,
+      "done": true,
+      "intake_reply_s": [
+        2.09,
+        3.82,
+        3.72,
+        2.88,
+        2.24,
+        2.05
+      ],
+      "scout_cold_s": 20.99,
+      "scout_result": {
+        "new_in_queue": 5,
+        "filtered_out": 43,
+        "scored": 8,
+        "passed_filter": 20,
+        "profiles_checked": 63
+      },
+      "match_id": "m_s19_arvind__u_bench_88e18d",
+      "candidate": "Arvind V.",
+      "interview_total_s": 115.15,
+      "interview_status": "done",
+      "interview_rounds_s": 73.09,
+      "briefs_s": 42.06,
+      "progress_log": [
+        [
+          0.17,
+          "Family round: the matchmakers are talking…"
+        ],
+        [
+          3.41,
+          "Family round: 1/4 turns…"
+        ],
+        [
+          7.85,
+          "Family round: 2/4 turns…"
+        ],
+        [
+          13.22,
+          "Family round: 3/4 turns…"
+        ],
+        [
+          19.14,
+          "Family round: 4/4 turns…"
+        ],
+        [
+          20.81,
+          "Candidate round: the matchmakers are talking…"
+        ],
+        [
+          26.84,
+          "Candidate round: 1/4 turns…"
+        ],
+        [
+          31.7,
+          "Candidate round: 2/4 turns…"
+        ],
+        [
+          39.32,
+          "Candidate round: 3/4 turns…"
+        ],
+        [
+          43.79,
+          "Candidate round: 4/4 turns…"
+        ],
+        [
+          46.02,
+          "Closing round: the matchmakers are talking…"
+        ],
+        [
+          56.35,
+          "Closing round: 1/4 turns…"
+        ],
+        [
+          65.01,
+          "Closing round: 2/4 turns…"
+        ],
+        [
+          68.26,
+          "Closing round: 3/4 turns…"
+        ],
+        [
+          71.47,
+          "Closing round: 4/4 turns…"
+        ],
+        [
+          73.09,
+          "Interview done. Writing your Match Brief…"
+        ]
+      ],
+      "brief_read_s": 0.07,
+      "brief_ok": true
+    }
+  ],
+  "intake_reply": {
+    "n": 24,
+    "min": 2.05,
+    "median": 3.02,
+    "p90": 10.96,
+    "max": 15.36,
+    "mean": 5.08
+  },
+  "scout_cold": {
+    "n": 4,
+    "min": 10.06,
+    "median": 15.43,
+    "p90": 20.99,
+    "max": 20.99,
+    "mean": 15.48
+  },
+  "interview_total": {
+    "n": 4,
+    "min": 115.15,
+    "median": 123.34,
+    "p90": 155.91,
+    "max": 155.91,
+    "mean": 129.43
+  },
+  "interview_rounds": {
+    "n": 4,
+    "min": 69.19,
+    "median": 76.52,
+    "p90": 86.25,
+    "max": 86.25,
+    "mean": 77.12
+  },
+  "briefs": {
+    "n": 4,
+    "min": 42.06,
+    "median": 45.62,
+    "p90": 75.96,
+    "max": 75.96,
+    "mean": 52.31
+  },
+  "leaks": [
+    {
+      "match_id": "m_s07_riya__u_bench_f94a4c",
+      "turns": 12,
+      "briefs": [
+        "s07_riya",
+        "u_bench_f94a4c"
+      ],
+      "checks": [
+        {
+          "owner": "u_bench_f94a4c",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        },
+        {
+          "owner": "s07_riya",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        }
+      ]
+    },
+    {
+      "match_id": "m_s19_arvind__u_bench_807c87",
+      "turns": 12,
+      "briefs": [
+        "s19_arvind",
+        "u_bench_807c87"
+      ],
+      "checks": [
+        {
+          "owner": "u_bench_807c87",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        },
+        {
+          "owner": "s19_arvind",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        }
+      ]
+    },
+    {
+      "match_id": "m_s07_riya__u_bench_597a03",
+      "turns": 12,
+      "briefs": [
+        "s07_riya",
+        "u_bench_597a03"
+      ],
+      "checks": [
+        {
+          "owner": "u_bench_597a03",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        },
+        {
+          "owner": "s07_riya",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        }
+      ]
+    },
+    {
+      "match_id": "m_s19_arvind__u_bench_88e18d",
+      "turns": 12,
+      "briefs": [
+        "s19_arvind",
+        "u_bench_88e18d"
+      ],
+      "checks": [
+        {
+          "owner": "u_bench_88e18d",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        },
+        {
+          "owner": "s19_arvind",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        }
+      ]
+    },
+    {
+      "match_id": "m_arjun__meera",
+      "turns": 12,
+      "briefs": [
+        "arjun",
+        "meera"
+      ],
+      "checks": [
+        {
+          "owner": "arjun",
+          "private_facts": 3,
+          "substring_hits": [],
+          "judge_flagged": [
+            {
+              "fact": "Family comes first, but he wants a partner with her own ambitions, not someone who just fits in.",
+              "quote": "He is deeply family-oriented but specifically wants a partner with her own ambitions, rather than someone who just fits into the background."
+            },
+            {
+              "fact": "Lives in a joint family in Kolkata with his parents and grandmother; very close to his dadi.",
+              "quote": "where he currently lives with his parents and grandmother, to whom he is especially close."
+            }
+          ]
+        },
+        {
+          "owner": "meera",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        }
+      ]
+    },
+    {
+      "match_id": "m_arjun__s07_riya",
+      "turns": 12,
+      "briefs": [
+        "arjun",
+        "s07_riya"
+      ],
+      "checks": [
+        {
+          "owner": "arjun",
+          "private_facts": 3,
+          "substring_hits": [],
+          "judge_flagged": [
+            {
+              "fact": "Lives in a joint family in Kolkata with his parents and grandmother; very close to his dadi.",
+              "quote": "Arjun comes from a loving joint family in Kolkata, where he lives with his parents and grandmother, sharing a particularly close bond with his dadi."
+            }
+          ]
+        },
+        {
+          "owner": "s07_riya",
+          "private_facts": 1,
+          "substring_hits": [],
+          "judge_flagged": []
+        }
+      ]
+    }
+  ],
+  "soft_reset": {
+    "n": 3,
+    "min": 0.43,
+    "median": 0.49,
+    "p90": 0.82,
+    "max": 0.82,
+    "mean": 0.58
+  },
+  "seeded_profiles_live": 63,
+  "finished_at": "2026-10-18T10:49:46.937719+00:00"
+}
