@@ -200,29 +200,32 @@ export default function ScrollFilm({ cta }: { cta: { to: string; label: string }
         <canvas ref={canvas} aria-hidden className="absolute inset-0 size-full" />
 
         {/* soft ivory scrim behind the captions: bottom third (desktop) / bottom (mobile) */}
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-cream via-cream/80 to-transparent md:h-[42%]" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-cream via-cream/80 to-transparent md:h-[42%]"
+        />
 
         <div className="absolute inset-x-0 bottom-0 px-6 pb-28 md:px-12 md:pb-16 lg:px-20">
           <div className="mx-auto max-w-6xl">
             <div className="relative">
-            {CAPTIONS.map((c, i) => (
-              <div
-                key={c.eyebrow}
-                ref={(el) => {
-                  captions.current[i] = el
-                }}
-                className="absolute inset-x-0 bottom-0 will-change-[opacity,transform]"
-                style={{ opacity: i === 0 ? 1 : 0, visibility: i === 0 ? 'visible' : 'hidden' }}
-              >
-                <p className="mb-2 text-xs font-medium uppercase tracking-[0.16em] text-gold-700">{c.eyebrow}</p>
-                <p className="max-w-3xl font-display text-[clamp(28px,4.2vw,52px)] leading-[1.12] text-ink">{c.text}</p>
+              {CAPTIONS.map((c, i) => (
+                <div
+                  key={c.eyebrow}
+                  ref={(el) => {
+                    captions.current[i] = el
+                  }}
+                  className="absolute inset-x-0 bottom-0 will-change-[opacity,transform]"
+                  style={{ opacity: i === 0 ? 1 : 0, visibility: i === 0 ? 'visible' : 'hidden' }}
+                >
+                  <p className="mb-2 text-xs font-medium uppercase tracking-[0.16em] text-gold-700">{c.eyebrow}</p>
+                  <p className="max-w-3xl font-display text-[clamp(28px,4.2vw,52px)] leading-[1.12] text-ink">{c.text}</p>
+                </div>
+              ))}
+              {/* reserve height for the tallest caption so the block doesn't collapse */}
+              <div aria-hidden className="invisible">
+                <p className="mb-2 text-xs">&nbsp;</p>
+                <p className="max-w-3xl font-display text-[clamp(28px,4.2vw,52px)] leading-[1.12]">{CAPTIONS[2].text}</p>
               </div>
-            ))}
-            {/* reserve height for the tallest caption so the block doesn't collapse */}
-            <div aria-hidden className="invisible">
-              <p className="mb-2 text-xs">&nbsp;</p>
-              <p className="max-w-3xl font-display text-[clamp(28px,4.2vw,52px)] leading-[1.12]">{CAPTIONS[2].text}</p>
-            </div>
             </div>
             <div ref={ctaRef} className="mt-6" style={{ opacity: 0, pointerEvents: 'none' }}>
               <Link
@@ -240,7 +243,10 @@ export default function ScrollFilm({ cta }: { cta: { to: string; label: string }
           aria-label="Chapters"
           className="absolute top-[72px] left-1/2 flex -translate-x-1/2 gap-2 md:top-1/2 md:right-6 md:left-auto md:translate-x-0 md:-translate-y-1/2 md:flex-col md:gap-3"
         >
-          <span aria-hidden className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-ink/15 md:top-0 md:left-1/2 md:h-full md:w-px md:-translate-x-1/2 md:translate-y-0" />
+          <span
+            aria-hidden
+            className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-ink/15 md:top-0 md:left-1/2 md:h-full md:w-px md:-translate-x-1/2 md:translate-y-0"
+          />
           {chapters.map((c, i) => (
             <li key={c.scene} className="relative">
               <span
