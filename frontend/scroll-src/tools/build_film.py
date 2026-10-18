@@ -65,15 +65,48 @@ ff('-i', str(landing), '-frames:v', '1', '-vf', 'scale=1600:-2:flags=lanczos', '
 
 # 4) frames (~180)
 fps = TARGET_FRAMES / total
-for kind, vf, q in (
-    ('desktop', f'fps={fps:.6f},scale=1600:900:flags=lanczos', DQ),
-    ('mobile', f'fps={fps:.6f},crop=ih*9/16:ih,scale=720:1280:flags=lanczos', MQ),
-):
-    d = OUT / kind
-    d.mkdir(exist_ok=True)
-    for old in d.glob('f_*.webp'):
-        old.unlink()
-    ff('-i', str(landing), '-vf', vf, '-c:v', 'libwebp', '-quality', str(q), '-compression_level', '6', str(d / 'f_%04d.webp'))
+d = OUT / 'desktop'
+d.mkdir(exist_ok=True)
+for old in d.glob('f_*.webp'):
+    old.unlink()
+ff('-i', str(landing), '-vf', f'fps={fps:.6f},scale=1600:900:flags=lanczos', '-c:v', 'libwebp', '-quality', str(DQ), '-compression_level', '6',
+   str(d / 'f_%04d.webp'))
+
+# Mobile: 9:16 crop that is centred everywhere except scene 3 (two people at the frame edges), where it eases from
+# centre to her during the crossfade in, pans slowly to him across the scene, and eases back during the crossfade out.
+from PIL import Image  # noqa: E402
+
+full = WORK / 'full'
+full.mkdir(exist_ok=True)
+for old in full.glob('*.png'):
+    old.unlink()
+ff('-i', str(landing), '-vf', f'fps={fps:.6f}', str(full / 'f_%04d.png'))
+CW = round(H * 9 / 16)  # 608
+CENTRE, HER, HIM = (W - CW) / 2, 90, 1230
+s3 = sum(d_ - XF for _, _, d_ in ORDER[:2])  # scene 3 start on the final timeline
+s3_end = s3 + ORDER[2][2]
+ease = lambda u: (lambda v: v * v * (3 - 2 * v))(min(1.0, max(0.0, u)))
+lerp = lambda a, b, u: a + (b - a) * ease(u)
+
+
+def crop_x(t: float) -> float:
+    if t < s3 or t > s3_end:
+        return CENTRE
+    if t < s3 + XF:
+        return lerp(CENTRE, HER, (t - s3) / XF)
+    if t < s3_end - XF:
+        return lerp(HER, HIM, (t - s3 - XF) / (ORDER[2][2] - 2 * XF))
+    return lerp(HIM, CENTRE, (t - (s3_end - XF)) / XF)
+
+
+d = OUT / 'mobile'
+d.mkdir(exist_ok=True)
+for old in d.glob('f_*.webp'):
+    old.unlink()
+for i, src in enumerate(sorted(full.glob('f_*.png'))):
+    x = round(crop_x(i / fps))
+    Image.open(src).convert('RGB').crop((x, 0, x + CW, H)).resize((720, 1280), Image.LANCZOS).save(
+        d / src.with_suffix('.webp').name, 'WEBP', quality=MQ, method=6)
 
 # 5) manifest — chapter boundaries at crossfade midpoints
 starts, s = [], 0.0

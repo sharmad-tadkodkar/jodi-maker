@@ -10,5 +10,7 @@ WORK=/tmp/jodi-film && mkdir -p $WORK
 python tools/unsparkle_video.py $FF clip1.mp4 $WORK/clip1-clean.mp4 1157.5 598 24 0.29 0
 python tools/unsparkle_video.py $FF clip3.mp4 $WORK/clip3-clean.mp4 1157.5 598 24 0.29 0.16
 # 2) normalise, Ken Burns stills, crossfade → landing.mp4, poster, frames, manifest   (run from frontend/)
+#    Mobile frames are a centred 9:16 crop, except scene 3: eased pan from her (x≈90) to him (x≈1230).
+#    Needs Pillow too.
 cd .. && python scroll-src/tools/build_film.py $FF scroll-src public/scroll $WORK 70 65
 ```
