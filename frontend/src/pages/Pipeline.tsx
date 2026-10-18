@@ -72,7 +72,7 @@ function MatchCard({ item }: { item: PipelineItem }) {
       : null
 
   const body = (
-    <Card className={to ? 'transition-shadow group-hover:shadow-md' : 'opacity-70'}>
+    <Card className={`flex h-full flex-col ${to ? 'transition-shadow group-hover:shadow-md' : 'opacity-70'}`}>
       <div className="flex items-start gap-4">
         <Avatar name={c.display_name} />
         <div className="min-w-0 flex-1">
@@ -95,7 +95,7 @@ function MatchCard({ item }: { item: PipelineItem }) {
         ))}
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-auto flex items-center justify-between pt-4">
         <Chip tone={s.tone}>{s.label}</Chip>
         {to && <span className="text-sm font-medium text-brand-600">{to.label}</span>}
       </div>
@@ -103,7 +103,7 @@ function MatchCard({ item }: { item: PipelineItem }) {
   )
 
   return to ? (
-    <Link to={to.href} className="group block" aria-label={`${c.display_name}: ${to.label.replace(' →', '')}`}>
+    <Link to={to.href} className="group block h-full" aria-label={`${c.display_name}: ${to.label.replace(' →', '')}`}>
       {body}
     </Link>
   ) : (
@@ -179,7 +179,7 @@ export default function Pipeline() {
         <Card className="text-center text-sm text-muted">No one in your queue yet. Ask Jodi to find new matches — it takes about half a minute.</Card>
       )}
       {data && (
-        <ul className="space-y-4">
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {data.items.map((item) => (
             <li key={item.match_id}>
               <MatchCard item={item} />

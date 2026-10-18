@@ -1,74 +1,19 @@
-import { useEffect, useState } from 'react'
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { api, getMyPeople, getUserId, setUserId, type Persona } from '../api/client'
+import { FileText, Home, MessageCircle, User, Users, type LucideIcon } from 'lucide-react'
+import { useEffect } from 'react'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import PersonaMenu from './PersonaMenu'
+import { Icon } from './ui'
 
-// Persona IDs are stable (FRONTEND_GUIDE); used if /demo/personas is unreachable (e.g. local backend without GCP).
-const FALLBACK_PERSONAS: Persona[] = [
-  { user_id: 'arjun', name: 'Arjun Mehta', role: 'candidate', tagline: '' },
-  { user_id: 'meera', name: 'Meera Sen', role: 'candidate', tagline: '' },
+const NAV: { to: string; label: string; icon: LucideIcon; end?: boolean }[] = [
+  { to: '/', label: 'Home', icon: Home, end: true },
+  { to: '/onboard', label: 'Chat', icon: MessageCircle },
+  { to: '/pipeline', label: 'Matches', icon: Users },
+  { to: '/brief', label: 'Brief', icon: FileText },
+  { to: '/me', label: 'Me', icon: User },
 ]
 
-const NEW_PERSON = '__new__'
-
-/** The two heroes + people created in *this* browser. /demo/personas also lists every visitor's new user;
- * those stay on the director's panel so judges never see each other's profiles here. */
-function PersonaSwitcher() {
-  const [heroes, setHeroes] = useState<Persona[]>(FALLBACK_PERSONAS)
-  const current = getUserId()
-  const navigate = useNavigate()
-  useEffect(() => {
-    api
-      .personas()
-      .then((ps) => setHeroes(ps.filter((p) => FALLBACK_PERSONAS.some((h) => h.user_id === p.user_id))))
-      .catch(() => setHeroes(FALLBACK_PERSONAS))
-  }, [])
-  const mine = getMyPeople()
-  const known = [...heroes, ...mine].some((p) => p.user_id === current)
-  return (
-    <label className="flex items-center gap-2 text-xs text-muted">
-      <span className="hidden sm:inline">Viewing as</span>
-      <select
-        aria-label="Switch persona"
-        className="max-w-44 rounded-full border border-line bg-white px-3 py-1.5 text-sm text-ink"
-        value={current}
-        onChange={(e) => {
-          if (e.target.value === NEW_PERSON) return navigate('/start')
-          setUserId(e.target.value)
-          window.location.reload()
-        }}
-      >
-        <optgroup label="The demo story">
-          {heroes.map((p) => (
-            <option key={p.user_id} value={p.user_id}>
-              {p.name}
-            </option>
-          ))}
-        </optgroup>
-        <optgroup label="You">
-          {mine.map((p) => (
-            <option key={p.user_id} value={p.user_id}>
-              {p.name} (you)
-            </option>
-          ))}
-          {!known && <option value={current}>{current}</option>}
-          <option value={NEW_PERSON}>+ Try it as yourself…</option>
-        </optgroup>
-      </select>
-    </label>
-  )
-}
-
-const NAV = [
-  { to: '/', label: 'Home', end: true },
-  { to: '/onboard', label: 'Chat' },
-  { to: '/pipeline', label: 'Matches' },
-  { to: '/brief', label: 'Brief' },
-  { to: '/me', label: 'Me' },
-]
-
-function navClass({ isActive }: { isActive: boolean }) {
-  return isActive ? 'text-brand-600' : 'text-muted hover:text-ink'
-}
+/** Screens laid out for wide viewports (multi-column at lg). Everything else keeps the reading column. */
+const WIDE = /^\/($|onboard|pipeline|brief)/
 
 /** Start every page at the top — otherwise e.g. "Jump to Day 7" on /demo lands mid-page on /focus,
  * with the "Time to decide" card scrolled out of view. */
@@ -81,36 +26,56 @@ function ScrollToTop() {
 }
 
 export default function Layout() {
+  const { pathname } = useLocation()
+  const wide = WIDE.test(pathname)
   return (
     <div className="min-h-dvh">
       <ScrollToTop />
       <header className="sticky top-0 z-20 border-b border-line bg-cream/90 backdrop-blur">
-        <div className="mx-auto flex max-w-2xl items-center gap-6 px-4 py-3">
+        <div className="mx-auto flex h-14 max-w-6xl items-center gap-8 px-4 lg:px-8">
           <Link to="/" className="font-display text-2xl text-brand-600">
             Jodi
           </Link>
-          <nav className="hidden gap-5 text-sm font-medium sm:flex">
+          {/* Desktop / tablet nav — the tab bar takes over below md */}
+          <nav aria-label="Main" className="hidden items-center gap-1 text-sm font-medium md:flex">
             {NAV.map((n) => (
-              <NavLink key={n.to} to={n.to} end={n.end} className={navClass}>
+              <NavLink
+                key={n.to}
+                to={n.to}
+                end={n.end}
+                className={({ isActive }) =>
+                  `rounded-full px-3.5 py-1.5 transition-colors ${isActive ? 'bg-brand-50 text-brand-700' : 'text-muted hover:bg-sand hover:text-ink'}`
+                }
+              >
                 {n.label}
               </NavLink>
             ))}
           </nav>
           <div className="ml-auto">
-            <PersonaSwitcher />
+            <PersonaMenu />
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-4 pt-6 pb-28 sm:pb-12">
+      {/* pb clears the mobile tab bar; sticky bottom bars in pages use bottom-16 md:bottom-4 to match */}
+      <main className={`mx-auto px-4 pt-6 pb-28 md:pb-12 lg:px-8 ${wide ? 'max-w-6xl' : 'max-w-2xl'}`}>
         <Outlet />
       </main>
 
       {/* Mobile tab bar */}
-      <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden">
-        <div className="mx-auto grid max-w-2xl grid-cols-5 text-center text-xs font-medium">
+      <nav
+        aria-label="Main"
+        className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-5 text-center text-[11px] font-medium">
           {NAV.map((n) => (
-            <NavLink key={n.to} to={n.to} end={n.end} className={(s) => `py-3.5 ${navClass(s)}`}>
+            <NavLink
+              key={n.to}
+              to={n.to}
+              end={n.end}
+              className={({ isActive }) => `flex flex-col items-center gap-0.5 py-2 ${isActive ? 'text-brand-600' : 'text-muted'}`}
+            >
+              <Icon icon={n.icon} size="md" />
               {n.label}
             </NavLink>
           ))}

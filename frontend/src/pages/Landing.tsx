@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { api, getMyPeople, getUserId } from '../api/client'
+import HeroIllustration from '../components/HeroIllustration'
 import { Card } from '../components/ui'
 import { useAsync } from '../lib/useAsync'
 
@@ -32,58 +33,64 @@ export default function Landing() {
   const next = useNextStep()
   const isMine = getMyPeople().some((p) => p.user_id === getUserId())
   return (
-    <section className="space-y-12 pb-4">
-      <div className="space-y-5 pt-6 text-center">
-        <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Your AI matchmaker</p>
-        <h1 className="font-display text-4xl leading-[1.1] sm:text-5xl">
-          You never browse profiles.
-          <br />
-          <span className="text-brand-600">You get a briefing.</span>
-        </h1>
-        <p className="mx-auto max-w-md text-muted">
-          Jodi knows you and your family, talks to other people's matchmakers on your behalf, and brings you one thoughtful match at a time.
-        </p>
-        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <Link to={next.to} className={PRIMARY}>
-            {next.label}
-          </Link>
-          {next.to !== '/pipeline' && (
-            <Link to="/pipeline" className={SECONDARY}>
-              See who Jodi is considering
+    <section className="space-y-12 pb-4 lg:space-y-16">
+      {/* Hero: stacked and centred on mobile; text left + illustration right from lg */}
+      <div className="grid items-center gap-12 pt-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-16 lg:pt-12">
+        <div className="space-y-5 text-center lg:text-left">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Your AI matchmaker</p>
+          <h1 className="font-display text-4xl leading-[1.1] sm:text-5xl lg:text-6xl">
+            You never browse profiles.
+            <br />
+            <span className="text-brand-600">You get a briefing.</span>
+          </h1>
+          <p className="mx-auto max-w-md text-muted lg:mx-0 lg:text-lg">
+            Jodi knows you and your family, talks to other people's matchmakers on your behalf, and brings you one thoughtful match at a time.
+          </p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <Link to={next.to} className={PRIMARY}>
+              {next.label}
             </Link>
-          )}
+            {next.to !== '/pipeline' && (
+              <Link to="/pipeline" className={SECONDARY}>
+                See who Jodi is considering
+              </Link>
+            )}
+          </div>
+          {next.note && <p className="text-sm text-muted">{next.note}</p>}
         </div>
-        {next.note && <p className="text-sm text-muted">{next.note}</p>}
+        <HeroIllustration />
       </div>
 
-      {!isMine && (
-        <Card className="space-y-3 border-gold-500/40 text-center">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Try it as yourself</p>
-          <p className="font-display text-2xl leading-snug">Tell Jodi about yourself and watch it learn.</p>
-          <p className="text-sm text-muted">
-            A private profile of your own, about 3 minutes of chat. Then Jodi searches 60 people for you. Arjun and Meera's story stays
-            untouched.
-          </p>
-          <Link to="/start" className={PRIMARY}>
-            Try it as a new person
-          </Link>
-        </Card>
-      )}
+      <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+        {!isMine && (
+          <Card className="flex flex-col items-center justify-center space-y-3 border-gold-500/40 text-center lg:order-2">
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Try it as yourself</p>
+            <p className="font-display text-2xl leading-snug">Tell Jodi about yourself and watch it learn.</p>
+            <p className="text-sm text-muted">
+              A private profile of your own, about 3 minutes of chat. Then Jodi searches 60 people for you. Arjun and Meera's story stays
+              untouched.
+            </p>
+            <Link to="/start" className={PRIMARY}>
+              Try it as a new person
+            </Link>
+          </Card>
+        )}
 
-      <Card className="space-y-4 bg-sand/50">
-        <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Where Jodi comes from</p>
-        <p className="font-display text-xl leading-relaxed">
-          “My father found matches the patient way. He filtered quietly, called the other family first, read people carefully — and only
-          then handed me one name. One week, one person. Decide, then move on.”
-        </p>
-        <p className="text-sm text-muted">Jodi turns that father into a matchmaker everyone gets.</p>
-      </Card>
+        <Card className={`space-y-4 bg-sand/50 ${isMine ? 'lg:col-span-2' : ''}`}>
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Where Jodi comes from</p>
+          <p className="font-display text-xl leading-relaxed">
+            “My father found matches the patient way. He filtered quietly, called the other family first, read people carefully — and only
+            then handed me one name. One week, one person. Decide, then move on.”
+          </p>
+          <p className="text-sm text-muted">Jodi turns that father into a matchmaker everyone gets.</p>
+        </Card>
+      </div>
 
       <div>
         <h2 className="mb-4 font-display text-2xl">How it works</h2>
-        <ol className="space-y-3">
+        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {STEPS.map(([dad, jodi], i) => (
-            <li key={dad} className="flex gap-4 rounded-2xl border border-line bg-white p-4">
+            <li key={dad} className="flex gap-4 rounded-2xl border border-line bg-white p-4 lg:flex-col lg:gap-3">
               <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-50 font-display text-brand-700">{i + 1}</span>
               <div>
                 <p className="text-xs italic text-muted">{dad}</p>

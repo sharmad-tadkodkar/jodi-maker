@@ -4,7 +4,8 @@ import { api, getUserId, type Brief as BriefT, type LearningResult } from '../ap
 import FitRadar from '../components/FitRadar'
 import LearningCard from '../components/LearningCard'
 import ReasonSheet from '../components/ReasonSheet'
-import { Avatar, Button, Card, ErrorState, Loading, SectionTitle, VerifiedBadge } from '../components/ui'
+import { Briefcase, Cake, MapPin } from 'lucide-react'
+import { Avatar, Button, Card, Chip, ErrorState, Icon, Loading, ScoreRing, SectionTitle, VerifiedBadge } from '../components/ui'
 import { DIMENSION_LABEL, firstName, pct } from '../lib/format'
 import { errorMessage, httpStatus, useAsync } from '../lib/useAsync'
 
@@ -27,56 +28,83 @@ function Flags({ items, tone }: { items: BriefT['green_flags']; tone: 'green' | 
   )
 }
 
-function BriefBody({ brief }: { brief: BriefT }) {
+/** Who they are + the score. Plain header on mobile; a card in the sticky left column from lg. */
+function ProfileCard({ brief }: { brief: BriefT }) {
   const c = brief.candidate
-  const facts = [c.age, c.city, c.profession].filter(Boolean).join(' · ')
+  const facts: [typeof Cake, string | number | null | undefined][] = [
+    [Cake, c.age],
+    [MapPin, c.city],
+    [Briefcase, c.profession],
+  ]
+  return (
+    <header className="flex items-center gap-4 lg:flex-col lg:rounded-2xl lg:border lg:border-line lg:bg-white lg:p-6 lg:text-center lg:shadow-card">
+      <Avatar name={c.display_name} size="lg" className="lg:size-24 lg:text-4xl" />
+      <div className="min-w-0 flex-1 space-y-1.5 lg:flex-none">
+        <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Today's brief</p>
+        <div className="flex flex-wrap items-center gap-2 lg:justify-center">
+          <h1 className="font-display text-3xl leading-tight">{c.display_name}</h1>
+          {c.verified && <VerifiedBadge />}
+        </div>
+        <div className="flex flex-wrap gap-1.5 lg:justify-center">
+          {facts.map(
+            ([icon, v]) =>
+              v != null &&
+              v !== '' && (
+                <Chip key={String(v)}>
+                  <Icon icon={icon} size="xs" />
+                  {v}
+                </Chip>
+              ),
+          )}
+        </div>
+      </div>
+      <div className="lg:hidden">
+        <ScoreRing value={pct(brief.compatibility)} size={64} label="match" />
+      </div>
+      <div className="hidden lg:block">
+        <ScoreRing value={pct(brief.compatibility)} size={128} stroke={8} label="compatible" />
+      </div>
+    </header>
+  )
+}
+
+/** Snapshot, why-you-fit, flags, questions, family — the right column from lg. */
+function BriefContent({ brief }: { brief: BriefT }) {
   return (
     <div className="space-y-6">
-      <header className="flex items-center gap-4">
-        <Avatar name={c.display_name} size="lg" />
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Today's brief</p>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="font-display text-3xl leading-tight">{c.display_name}</h1>
-            {c.verified && <VerifiedBadge />}
-          </div>
-          <p className="text-sm text-muted">{facts}</p>
-        </div>
-        <div className="text-right">
-          <p className="font-display text-3xl leading-none text-brand-600">{pct(brief.compatibility)}%</p>
-          <p className="mt-1 text-xs text-muted">compatible</p>
-        </div>
-      </header>
-
-      <p className="font-display text-lg leading-relaxed text-ink/90">{brief.snapshot}</p>
+      <p className="font-display text-lg leading-relaxed text-ink/90 lg:text-xl">{brief.snapshot}</p>
 
       <Card>
         <SectionTitle>Why you fit</SectionTitle>
         <FitRadar whyFit={brief.why_fit} />
-        <ul className="mt-2 divide-y divide-line">
+        <ul className="mt-2 grid lg:grid-cols-2 lg:gap-x-8">
           {brief.why_fit.map((w) => (
-            <li key={w.dimension} className="flex gap-3 py-2.5 text-sm">
-              <span className="w-28 shrink-0 font-medium">{DIMENSION_LABEL[w.dimension]}</span>
-              <span className="flex-1 text-muted">{w.reason}</span>
-              <span className="tabular-nums text-brand-600">{pct(w.score)}</span>
+            <li key={w.dimension} className="border-t border-line py-3 text-sm first:border-t-0 lg:[&:nth-child(2)]:border-t-0">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="font-medium">{DIMENSION_LABEL[w.dimension]}</span>
+                <span className="tabular-nums text-brand-600">{pct(w.score)}</span>
+              </div>
+              <p className="mt-0.5 text-muted">{w.reason}</p>
             </li>
           ))}
         </ul>
       </Card>
 
-      {brief.green_flags.length > 0 && (
-        <Card>
-          <SectionTitle>Green flags</SectionTitle>
-          <Flags items={brief.green_flags} tone="green" />
-        </Card>
-      )}
+      <div className="grid gap-6 xl:grid-cols-2">
+        {brief.green_flags.length > 0 && (
+          <Card>
+            <SectionTitle>Green flags</SectionTitle>
+            <Flags items={brief.green_flags} tone="green" />
+          </Card>
+        )}
 
-      {brief.explore.length > 0 && (
-        <Card>
-          <SectionTitle>Worth exploring</SectionTitle>
-          <Flags items={brief.explore} tone="yellow" />
-        </Card>
-      )}
+        {brief.explore.length > 0 && (
+          <Card>
+            <SectionTitle>Worth exploring</SectionTitle>
+            <Flags items={brief.explore} tone="yellow" />
+          </Card>
+        )}
+      </div>
 
       {brief.questions_only_you.length > 0 && (
         <Card>
@@ -94,7 +122,7 @@ function BriefBody({ brief }: { brief: BriefT }) {
         <p className="mt-2 text-sm leading-relaxed">{brief.family_fit}</p>
       </Card>
 
-      <Link to={`/brief/${brief.match_id}/transcript`} className="block text-center text-sm font-medium text-brand-600 hover:underline">
+      <Link to={`/brief/${brief.match_id}/transcript`} className="block text-center text-sm font-medium text-brand-600 hover:underline lg:hidden">
         Read the full matchmaker conversation →
       </Link>
     </div>
@@ -219,37 +247,70 @@ export default function Brief() {
     )
   }
 
-  return (
-    <section className="space-y-6">
-      <BriefBody brief={brief} />
-
+  const status = (
+    <>
       {actionError && <p className="rounded-xl bg-brand-50 p-3 text-sm text-brand-700">{actionError}</p>}
       {busy && (
         <p role="status" className="text-center text-sm text-muted">
           Your matchmaker is thinking about this…
         </p>
       )}
+    </>
+  )
+  const passSheet = (
+    <ReasonSheet
+      title="What didn't feel right?"
+      hint={`Only Jodi sees this — ${name} is never told. It helps me find better people for you.`}
+      submitLabel="Pass"
+      busy={busy}
+      onCancel={() => setPhase('reading')}
+      onSubmit={(r) => decide('pass', r)}
+    />
+  )
 
-      <div className="sticky bottom-16 z-10 sm:bottom-4">
-        {phase === 'passing' ? (
-          <ReasonSheet
-            title="What didn't feel right?"
-            hint={`Only Jodi sees this — ${name} is never told. It helps me find better people for you.`}
-            submitLabel="Pass"
-            busy={busy}
-            onCancel={() => setPhase('reading')}
-            onSubmit={(r) => decide('pass', r)}
-          />
-        ) : (
-          <div className="flex gap-3 rounded-full border border-line bg-white/95 p-2 shadow-lg backdrop-blur">
-            <Button variant="secondary" className="flex-1" onClick={() => setPhase('passing')} disabled={busy}>
-              Pass
-            </Button>
-            <Button className="flex-1" busy={busy} onClick={() => decide('interested')}>
-              I'm interested
-            </Button>
-          </div>
-        )}
+  // One decision state; it renders in the sticky left column from lg, and as a sticky bottom bar below lg.
+  return (
+    <section className="lg:grid lg:grid-cols-[300px_minmax(0,1fr)] lg:items-start lg:gap-10 xl:grid-cols-[340px_minmax(0,1fr)]">
+      <aside className="space-y-4 lg:sticky lg:top-20">
+        <ProfileCard brief={brief} />
+        <div className="hidden space-y-3 lg:block">
+          {status}
+          {phase === 'passing' ? (
+            passSheet
+          ) : (
+            <div className="grid gap-2">
+              <Button busy={busy} onClick={() => decide('interested')}>
+                I'm interested
+              </Button>
+              <Button variant="secondary" onClick={() => setPhase('passing')} disabled={busy}>
+                Pass
+              </Button>
+            </div>
+          )}
+          <Link to={`/brief/${brief.match_id}/transcript`} className="block pt-1 text-center text-sm font-medium text-brand-600 hover:underline">
+            Read the full matchmaker conversation →
+          </Link>
+        </div>
+      </aside>
+
+      <div className="mt-6 space-y-6 lg:mt-0">
+        <BriefContent brief={brief} />
+
+        <div className="space-y-3 lg:hidden">{status}</div>
+        <div className="sticky bottom-16 z-10 md:bottom-4 lg:hidden">
+          {phase === 'passing' ? (
+            passSheet
+          ) : (
+            <div className="flex gap-3 rounded-full border border-line bg-white/95 p-2 shadow-lg backdrop-blur">
+              <Button variant="secondary" className="flex-1" onClick={() => setPhase('passing')} disabled={busy}>
+                Pass
+              </Button>
+              <Button className="flex-1" busy={busy} onClick={() => decide('interested')}>
+                I'm interested
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   )

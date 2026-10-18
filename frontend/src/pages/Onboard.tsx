@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { api, getUserId, type Aspect, type IntakeMessageResponse } from '../api/client'
-import { Button, Card, Chip, ErrorState, Loading, Typing } from '../components/ui'
+import { Button, Card, Chip, ErrorState, Loading, ScoreRing, Typing } from '../components/ui'
 import { ASPECT_LABEL } from '../lib/format'
 import { errorMessage, useAsync } from '../lib/useAsync'
 
@@ -23,6 +23,58 @@ function Progress({ value, missing }: { value: number; missing: IntakeMessageRes
         <p className="text-xs text-muted">Still to talk about: {missing.map((c) => ASPECT_LABEL[c]).join(', ')}</p>
       )}
     </div>
+  )
+}
+
+/** Desktop side panel: how well Jodi knows you, what's left to cover, what was noted in this chat. */
+function IntakePanel({ value, missing, learned, done }: {
+  value: number
+  missing: IntakeMessageResponse['missing_categories'] | undefined
+  learned: Aspect[]
+  done: boolean
+}) {
+  const pct = Math.round(Math.min(1, Math.max(0, value)) * 100)
+  return (
+    <Card className="space-y-5 p-4">
+      <div className="flex items-center gap-4">
+        <ScoreRing value={pct} size={72} label="known" tone="gold" />
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Your profile</p>
+          <p className="text-sm">{done ? 'Enough to start looking' : 'Keep going — every answer helps'}</p>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-muted">Still to talk about</p>
+        {missing === undefined ? (
+          <p className="text-xs text-muted">Jodi will tell you what's left after your next message.</p>
+        ) : missing.length === 0 ? (
+          <p className="text-xs text-sage-700">Every topic covered.</p>
+        ) : (
+          <div className="flex flex-wrap gap-1.5">
+            {missing.map((c) => (
+              <Chip key={c}>{ASPECT_LABEL[c]}</Chip>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-muted">Noted in this chat</p>
+        {learned.length === 0 ? (
+          <p className="text-xs text-muted">Nothing new yet.</p>
+        ) : (
+          <ul className="space-y-1.5">
+            {learned.map((a) => (
+              <li key={a.id} className="text-xs">
+                <span className="font-medium text-gold-700">✦ {ASPECT_LABEL[a.category]}:</span> {a.statement}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <Link to="/me" className="block text-sm font-medium text-brand-600 hover:underline">
+        Everything Jodi knows →
+      </Link>
+    </Card>
   )
 }
 
@@ -117,57 +169,67 @@ export default function Onboard() {
   if (loading && !data) return <Loading label="Your matchmaker is on the way…" />
   if (error) return <ErrorState error={error} onRetry={reload} />
 
+  const value = progress?.value ?? data?.completeness ?? 0
+  const learned = sent.flatMap((m) => m.learned ?? [])
+
   return (
-    <section className="flex flex-col">
-      <div className="sticky top-[57px] z-10 -mx-4 mb-4 border-b border-line bg-cream/95 px-4 pt-1 pb-3 backdrop-blur">
-        <Progress value={progress?.value ?? data?.completeness ?? 0} missing={progress?.missing ?? []} />
+    <section className="lg:grid lg:grid-cols-[minmax(0,760px)_280px] lg:items-start lg:justify-center lg:gap-10">
+      <div className="mx-auto flex w-full max-w-[760px] flex-col">
+        {/* Below lg the progress sits on top; from lg it's in the side panel */}
+        <div className="sticky top-[57px] z-10 -mx-4 mb-4 border-b border-line bg-cream/95 px-4 pt-1 pb-3 backdrop-blur lg:hidden">
+          <Progress value={value} missing={progress?.missing ?? []} />
+        </div>
+
+        <div className="space-y-4">
+          {messages.map((m) => (
+            <Bubble key={m.id} msg={m} />
+          ))}
+          {sending && <Typing name="Jodi" />}
+          <div ref={bottom} />
+        </div>
+
+        {done && (
+          <Card className="mt-6 space-y-3 text-center">
+            <p className="font-display text-xl">I know enough to start looking 💛</p>
+            <p className="text-sm text-muted">You decide what others can see. You can keep chatting too — the more I know, the better I choose.</p>
+            <div className="flex gap-3">
+              <Link to="/me" className="flex-1 rounded-full border border-line bg-white py-2.5 text-sm font-medium hover:bg-sand">
+                See what I learned about you
+              </Link>
+              <Link to="/pipeline" className="flex-1 rounded-full bg-brand-600 py-2.5 text-sm font-medium text-white hover:bg-brand-700">
+                Start matching
+              </Link>
+            </div>
+          </Card>
+        )}
+
+        <div className="sticky bottom-16 z-10 mt-6 md:bottom-4">
+          <form onSubmit={send} className="space-y-2">
+            {sendError && <p className="rounded-xl bg-brand-50 p-2.5 text-xs text-brand-700">Couldn't send that. {sendError}</p>}
+            <div className="flex items-end gap-2 rounded-3xl border border-line bg-white p-2 shadow-lg">
+              <textarea
+                aria-label="Message your matchmaker"
+                rows={1}
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onKeyDown={onKey}
+                placeholder="Tell Jodi about yourself…"
+                className="field-sizing-content max-h-36 min-h-10 flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none"
+              />
+              <Button type="submit" className="shrink-0" disabled={!draft.trim()} busy={sending}>
+                Send
+              </Button>
+            </div>
+            <p className="text-center text-[11px] text-muted">
+              <Chip>Private</Chip> Only your matchmaker sees this chat. You control what's shared on the <Link to="/me" className="underline">Me</Link> page.
+            </p>
+          </form>
+        </div>
       </div>
 
-      <div className="space-y-4">
-        {messages.map((m) => (
-          <Bubble key={m.id} msg={m} />
-        ))}
-        {sending && <Typing name="Jodi" />}
-        <div ref={bottom} />
-      </div>
-
-      {done && (
-        <Card className="mt-6 space-y-3 text-center">
-          <p className="font-display text-xl">I know enough to start looking 💛</p>
-          <p className="text-sm text-muted">You decide what others can see. You can keep chatting too — the more I know, the better I choose.</p>
-          <div className="flex gap-3">
-            <Link to="/me" className="flex-1 rounded-full border border-line bg-white py-2.5 text-sm font-medium hover:bg-sand">
-              See what I learned about you
-            </Link>
-            <Link to="/pipeline" className="flex-1 rounded-full bg-brand-600 py-2.5 text-sm font-medium text-white hover:bg-brand-700">
-              Start matching
-            </Link>
-          </div>
-        </Card>
-      )}
-
-      <div className="sticky bottom-16 z-10 mt-6 sm:bottom-4">
-        <form onSubmit={send} className="space-y-2">
-          {sendError && <p className="rounded-xl bg-brand-50 p-2.5 text-xs text-brand-700">Couldn't send that. {sendError}</p>}
-          <div className="flex items-end gap-2 rounded-3xl border border-line bg-white p-2 shadow-lg">
-            <textarea
-              aria-label="Message your matchmaker"
-              rows={1}
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={onKey}
-              placeholder="Tell Jodi about yourself…"
-              className="field-sizing-content max-h-36 min-h-10 flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none"
-            />
-            <Button type="submit" className="shrink-0" disabled={!draft.trim()} busy={sending}>
-              Send
-            </Button>
-          </div>
-          <p className="text-center text-[11px] text-muted">
-            <Chip>Private</Chip> Only your matchmaker sees this chat. You control what's shared on the <Link to="/me" className="underline">Me</Link> page.
-          </p>
-        </form>
-      </div>
+      <aside className="hidden lg:sticky lg:top-20 lg:block">
+        <IntakePanel value={value} missing={progress?.missing} learned={learned} done={done} />
+      </aside>
     </section>
   )
 }

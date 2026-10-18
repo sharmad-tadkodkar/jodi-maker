@@ -77,12 +77,23 @@ Chip text always uses the `-700` shade on its `-100` tint. `sage-500`, `amber-50
 
 ## Spacing & layout
 
-- 4 px base (Tailwind's scale). Page gutter `px-4`; content column `max-w-2xl mx-auto`.
+- 4 px base (Tailwind's scale). Page gutter `px-4`, `lg:px-8`.
+- **Breakpoints:** below `md` (768 px) is mobile — bottom tab bar. From `md` the nav moves inline into the
+  header and the tab bar is hidden. From `lg` (1024 px) screens use multi-column layouts.
+- **Content width:** Home, Pipeline, Brief, Transcript and Chat use `max-w-6xl` (they have desktop layouts);
+  other screens keep the `max-w-2xl` reading column. Conversations (Transcript, Chat) cap the thread at
+  `760px` with a 280 px side panel from `lg`.
+- **Desktop patterns:** Pipeline is a 2-column card grid from `md`; Brief is a sticky 300–340 px left column
+  (profile, `ScoreRing`, fact chips, decision buttons) + content; Transcript shows round progress and Chat
+  shows intake progress in a sticky side panel. Sticky columns sit at `top-20` (header is 56 px).
 - Vertical rhythm: `space-y-6` between blocks on a screen, `space-y-8` on long pages, `space-y-3`–`4`
-  inside cards. Card padding `p-5` (`p-4` for dense list rows).
-- Sticky header at the top (`z-20`); on mobile a fixed bottom tab bar (`z-20`, ~64 px). Anything sticky at
-  the bottom of a page (decision bars, composers) sits at `bottom-16 sm:bottom-4` with `z-10` so it clears
-  the tab bar. Pages reserve space with `pb-28 sm:pb-12`.
+  inside cards. Card padding `p-5` (`p-4` for dense list rows and side panels).
+- Sticky header at the top (`z-20`, 56 px); on mobile a fixed bottom tab bar (`z-20`, ~56 px). Anything
+  sticky at the bottom of a page (decision bars, composers) sits at `bottom-16 md:bottom-4` with `z-10` so it
+  clears the tab bar; on Brief the bottom bar is `lg:hidden` because the buttons move into the left column.
+  `<main>` reserves space with `pb-28 md:pb-12`.
+- Grids of cards use `grid-cols-1` explicitly — an implicit track lets `truncate` text push cards wider
+  than the screen.
 - Tap targets ≥ 44 px (`min-h-11` on buttons).
 
 ## Shape & elevation
@@ -112,7 +123,9 @@ Chip text always uses the `-700` shade on its `-100` tint. `sage-500`, `amber-50
 | `SectionTitle` | children | Card / section heading. |
 | `Loading`, `ErrorState`, `Spinner`, `Typing` | | `ErrorState` shows calm copy only (see below). |
 
-Shared non-UI pieces: `LearningCard`, `ReasonSheet`, `FitRadar` (`components/`).
+Shared pieces in `components/`: `LearningCard`, `ReasonSheet`, `FitRadar` (radar; shortens "Communication"
+to "Comms" under 400 px so it isn't clipped), `PersonaMenu` (avatar pill + dropdown in the header),
+`HeroIllustration` (decorative landing art built from these components).
 
 ## Motion
 
