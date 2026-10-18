@@ -15,3 +15,6 @@ dist/
 .playwright-mcp/
 # Raw image sources (large); exported WebPs live in frontend/public/
 frontend/src/assets/raw/
+
+# Scroll film: source clips and the rendered film are large; frames in public/scroll/ are what ships
+frontend/scroll-src/*.mp4
