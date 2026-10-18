@@ -336,8 +336,8 @@ export default function Transcript() {
   }
 
   return (
-    <section className="lg:grid lg:grid-cols-[minmax(0,760px)_280px] lg:items-start lg:justify-center lg:gap-10">
-      <div className="mx-auto w-full max-w-[760px]">
+    <section className="lg:grid lg:grid-cols-[minmax(0,760px)_280px] lg:items-start lg:justify-center lg:gap-10 xl:grid-cols-[minmax(0,880px)_320px] xl:gap-12 2xl:grid-cols-[minmax(0,960px)_360px]">
+      <div className="mx-auto w-full max-w-[760px] xl:max-w-[880px] 2xl:max-w-[960px]">
         <PageHeader eyebrow="Matchmaker conversation" title="Before you meet, they talked">
           The two matchmakers interviewed each other on your behalf. Highlighted lines are what made it into your brief.
         </PageHeader>

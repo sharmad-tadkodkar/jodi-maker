@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { CONTAINER } from '../../lib/layout'
 import { CAPTIONS } from './captions'
 import { FilmFallback } from './HowItWorks'
 import { FrameLoader, loadManifest, POSTER, type Manifest } from './frames'
@@ -181,7 +182,7 @@ export default function ScrollFilm({ cta }: { cta: { to: string; label: string }
 
   if (fallback) {
     return (
-      <section aria-label="How Jodi works" className="mx-auto max-w-6xl px-4 lg:px-8">
+      <section aria-label="How Jodi works" className={CONTAINER}>
         <FilmFallback />
       </section>
     )
@@ -202,7 +203,7 @@ export default function ScrollFilm({ cta }: { cta: { to: string; label: string }
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-cream via-cream/80 to-transparent md:h-[42%]" />
 
         <div className="absolute inset-x-0 bottom-0 px-6 pb-28 md:px-12 md:pb-16 lg:px-20">
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto max-w-6xl">
             <div className="relative">
             {CAPTIONS.map((c, i) => (
               <div

@@ -80,9 +80,12 @@ Chip text always uses the `-700` shade on its `-100` tint. `sage-500`, `amber-50
 - 4 px base (Tailwind's scale). Page gutter `px-4`, `lg:px-8`.
 - **Breakpoints:** below `md` (768 px) is mobile — bottom tab bar. From `md` the nav moves inline into the
   header and the tab bar is hidden. From `lg` (1024 px) screens use multi-column layouts.
-- **Content width:** Home, Pipeline, Brief, Transcript and Chat use `max-w-6xl` (they have desktop layouts);
-  other screens keep the `max-w-2xl` reading column. Conversations (Transcript, Chat) cap the thread at
-  `760px` with a 280 px side panel from `lg`.
+- **Content width:** one container for every screen and the header — `CONTAINER` in `lib/layout.ts`
+  (`max-w-[1600px]`, `px-4 lg:px-8 2xl:px-12`); Home's film is full-bleed. Use the width with columns, not
+  stretched text: Pipeline 2 → 3 columns (`md` / `xl`); Brief sticky 300–380 px column + content; Me sticky
+  360–400 px column (profile, visibility key, weights, learning, wipe) + notes in `xl:columns-2`; Focus 420–480 px
+  week column + chat; Demo cards in a 2 → 3 grid; Transcript/Chat thread 760 → 960 px + 280 → 360 px panel.
+  Screens that are naturally narrow (Mutual, Start) get an illustration beside them from `lg` as filler.
 - **Desktop patterns:** Pipeline is a 2-column card grid from `md` (compact cards: avatar, name, facts,
   `ScoreRing`, top-2 strength chips, status; tap the summary to expand the six dimension bars; `briefed`
   cards sort first with a gold border, the first one labelled "Next up"; framer-motion `layout` animates

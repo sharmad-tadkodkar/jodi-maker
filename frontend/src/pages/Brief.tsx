@@ -229,7 +229,7 @@ function BriefContent({ brief }: { brief: BriefT }) {
         <Rise i={3}>
           <section>
             <SectionTitle>Questions only you can ask</SectionTitle>
-            <ol className="grid gap-3 sm:grid-cols-2">
+            <ol className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
               {brief.questions_only_you.map((q, i) => (
                 <QuestionNote key={q} q={q} n={i + 1} />
               ))}
@@ -407,7 +407,7 @@ export default function Brief() {
 
   // One decision state; it renders in the sticky left column from lg, and as a sticky bottom bar below lg.
   return (
-    <section className="lg:grid lg:grid-cols-[300px_minmax(0,1fr)] lg:items-start lg:gap-10 xl:grid-cols-[340px_minmax(0,1fr)]">
+    <section className="lg:grid lg:grid-cols-[300px_minmax(0,1fr)] lg:items-start lg:gap-10 xl:grid-cols-[340px_minmax(0,1fr)] 2xl:grid-cols-[380px_minmax(0,1fr)] 2xl:gap-14">
       <aside className="space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)] lg:overflow-y-auto lg:pb-2">
         <ProfileCard brief={brief} />
         <div className="hidden space-y-3 lg:block">

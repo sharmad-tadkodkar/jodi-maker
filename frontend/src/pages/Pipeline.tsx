@@ -232,7 +232,7 @@ export default function Pipeline() {
       {data && (
         <MotionConfig reducedMotion="user">
           <LayoutGroup>
-            <ul className="grid grid-cols-1 items-start gap-4 pt-2 md:grid-cols-2">
+            <ul className="grid grid-cols-1 items-start gap-4 pt-2 md:grid-cols-2 xl:grid-cols-3">
               {order(data.items).map((item, i) => (
                 <motion.li key={item.match_id} layout transition={{ type: 'spring', stiffness: 380, damping: 34 }}>
                   <MatchCard item={item} nextUp={i === 0 && item.status === 'briefed'} />

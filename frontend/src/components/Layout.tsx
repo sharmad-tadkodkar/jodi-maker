@@ -4,6 +4,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { isSignedIn } from '../api/client'
 import PersonaMenu from './PersonaMenu'
 import { Loading } from './ui'
+import { CONTAINER } from '../lib/layout'
 import { Icon } from './ui'
 
 const NAV: { to: string; label: string; icon: LucideIcon; end?: boolean }[] = [
@@ -13,9 +14,6 @@ const NAV: { to: string; label: string; icon: LucideIcon; end?: boolean }[] = [
   { to: '/brief', label: 'Brief', icon: FileText },
   { to: '/me', label: 'Me', icon: User },
 ]
-
-/** Screens laid out for wide viewports (multi-column at lg). Everything else keeps the reading column. */
-const WIDE = /^\/($|onboard|pipeline|brief)/
 
 /** Start every page at the top — otherwise e.g. "Jump to Day 7" on /demo lands mid-page on /focus,
  * with the "Time to decide" card scrolled out of view. */
@@ -29,12 +27,11 @@ function ScrollToTop() {
 
 export default function Layout() {
   const { pathname } = useLocation()
-  const wide = WIDE.test(pathname)
   return (
     <div className="min-h-dvh">
       <ScrollToTop />
       <header className="sticky top-0 z-20 border-b border-line bg-cream/90 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center gap-8 px-4 lg:px-8">
+        <div className={`${CONTAINER} flex h-14 items-center gap-8`}>
           <Link to="/" className="font-display text-2xl text-brand-600">
             Jodi
           </Link>
@@ -70,7 +67,7 @@ export default function Layout() {
 
       {/* pb clears the mobile tab bar; sticky bottom bars in pages use bottom-16 md:bottom-4 to match */}
       {/* Home manages its own widths (the scroll film is full-bleed); everything else gets the page container */}
-      <main className={pathname === '/' ? 'pt-6 pb-28 md:pb-12' : `mx-auto px-4 pt-6 pb-28 md:pb-12 lg:px-8 ${wide ? 'max-w-6xl' : 'max-w-2xl'}`}>
+      <main className={pathname === '/' ? 'pt-6 pb-28 md:pb-12' : `${CONTAINER} pt-6 pb-28 md:pb-12`}>
         <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>

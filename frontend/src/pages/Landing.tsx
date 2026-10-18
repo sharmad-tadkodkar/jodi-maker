@@ -5,6 +5,7 @@ import { ChevronDown, Clock, HeartHandshake, ShieldCheck, Sparkles, type LucideI
 import ScrollFilm from '../components/landing/ScrollFilm'
 import Reveal from '../components/Reveal'
 import { Card, Icon } from '../components/ui'
+import { CONTAINER } from '../lib/layout'
 import { useAsync } from '../lib/useAsync'
 
 const ILLUSTRATIONS = `${import.meta.env.BASE_URL}illustrations/`
@@ -58,7 +59,7 @@ export default function Landing() {
   const isMine = getMyPeople().some((p) => p.user_id === getUserId())
   return (
     <div className="pb-4">
-      <section className="relative mx-auto max-w-6xl px-4 lg:px-8">
+      <section className={`relative ${CONTAINER}`}>
         {/* Hero: text, then the father. Mobile/tablet stack; from lg two columns — the illustration is anchored
             right so its empty left margin is what gets cropped (its background is the card colour, so the edge
             is invisible). Art-directed: portrait crop under 768px, wide banner above. Eager — it's the LCP. */}
@@ -110,7 +111,7 @@ export default function Landing() {
         <ScrollFilm cta={{ to: next.to, label: next.label }} />
       </div>
 
-      <div className="mx-auto max-w-6xl space-y-12 px-4 pt-12 lg:space-y-16 lg:px-8 lg:pt-16">
+      <div className={`${CONTAINER} space-y-12 pt-12 lg:space-y-16 lg:pt-16`}>
         {!isMine && (
           <Reveal>
             <Card className="flex flex-col items-center gap-4 border-gold-500/40 text-center md:flex-row md:justify-between md:text-left lg:px-10">

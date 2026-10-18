@@ -274,8 +274,8 @@ export default function Onboard() {
   return (
     // The column is at least one screen tall, so the composer sits at the bottom (above the mobile tab bar)
     // even when the conversation is short; once it's long, the composer sticks there while you scroll.
-    <section className="lg:grid lg:grid-cols-[minmax(0,760px)_280px] lg:items-start lg:justify-center lg:gap-10">
-      <div className="mx-auto -mb-10 flex min-h-[calc(100dvh-153px)] w-full max-w-[760px] flex-col md:-mb-8 md:min-h-[calc(100dvh-97px)]">
+    <section className="lg:grid lg:grid-cols-[minmax(0,760px)_280px] lg:items-start lg:justify-center lg:gap-10 xl:grid-cols-[minmax(0,880px)_320px] xl:gap-12 2xl:grid-cols-[minmax(0,960px)_360px]">
+      <div className="mx-auto -mb-10 flex min-h-[calc(100dvh-153px)] w-full max-w-[760px] xl:max-w-[880px] 2xl:max-w-[960px] flex-col md:-mb-8 md:min-h-[calc(100dvh-97px)]">
         {/* Below lg the progress sits on top; from lg it's in the side panel */}
         <div className="sticky top-[57px] z-10 -mx-4 mb-4 border-b border-line bg-cream/95 px-4 pt-1 pb-3 backdrop-blur lg:hidden">
           <Progress value={value} filled={filled} fresh={fresh} />
