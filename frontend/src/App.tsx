@@ -1,17 +1,22 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import Layout from './components/Layout'
 import RequireUser from './components/RequireUser'
-import Brief from './pages/Brief'
-import Demo from './pages/Demo'
-import Focus from './pages/Focus'
+import { Loading } from './components/ui'
 import Landing from './pages/Landing'
-import Login from './pages/Login'
-import Me from './pages/Me'
-import Mutual from './pages/Mutual'
-import Onboard from './pages/Onboard'
-import Pipeline from './pages/Pipeline'
-import Start from './pages/Start'
-import Transcript from './pages/Transcript'
+
+// Home is eager (it's the front door and carries the scroll film); every other screen loads on demand so the
+// first download stays small. Layout wraps <Outlet /> in Suspense.
+const Brief = lazy(() => import('./pages/Brief'))
+const Demo = lazy(() => import('./pages/Demo'))
+const Focus = lazy(() => import('./pages/Focus'))
+const Login = lazy(() => import('./pages/Login'))
+const Me = lazy(() => import('./pages/Me'))
+const Mutual = lazy(() => import('./pages/Mutual'))
+const Onboard = lazy(() => import('./pages/Onboard'))
+const Pipeline = lazy(() => import('./pages/Pipeline'))
+const Start = lazy(() => import('./pages/Start'))
+const Transcript = lazy(() => import('./pages/Transcript'))
 
 /** Routes from spec §5. /demo is hidden (not in the nav); /brief shows the next brief in the queue.
  * /login stands alone (no header or tab bar); screens that need a persona sit behind RequireUser. */
@@ -41,7 +46,14 @@ export default function App() {
             <Route path="/focus/:matchId" element={<Focus />} />
           </Route>
         </Route>
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Login />
+            </Suspense>
+          }
+        />
       </Routes>
     </BrowserRouter>
   )

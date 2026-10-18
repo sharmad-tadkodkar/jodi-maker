@@ -81,6 +81,18 @@
   }
 }
 
+/* Lenis smooth scroll (from lenis/dist/lenis.css — not in the package's export map) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;

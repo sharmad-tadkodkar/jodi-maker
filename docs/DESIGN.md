@@ -224,6 +224,19 @@ illustrations are plain `<img>`s (see Imagery).
 - Absolutely positioned children (e.g. `sr-only` text) inside a scrolling row need a `relative` scroll
   container, or they escape its clipping and widen the page.
 
+## Landing scroll film
+
+- `components/landing/ScrollFilm.tsx`: 600vh section, sticky 100svh canvas; GSAP ScrollTrigger (scrub 0.5) maps
+  progress to frames from `public/scroll/{desktop|mobile}/` (mobile < 768px) per `manifest.json`; cover-fit,
+  DPR-scaled (max 2), drawn in rAF. Frames load 1 → every 8th → fill in; the nearest loaded frame is drawn.
+- Never blank: `poster.webp` is preloaded in index.html and is the sticky stage's CSS background.
+- Captions (Fraunces, clamp 28–52px, gold eyebrow) over a bottom ivory scrim; fade + 16px rise per chapter range;
+  dot rail right (desktop) / top (mobile); "Meet your matchmaker" CTA fades in from 93%.
+- Lenis smooth scroll only while the film is mounted and only on fine pointers; synced via `gsap.ticker`.
+- Falls back to `FilmFallback` (poster + the 7 captions in How-it-works cards) on reduced motion or if the
+  manifest / first frame fails. Cleanup via `gsap.context().revert()` on unmount.
+- Assets are rebuilt with `frontend/scroll-src/tools/build_film.py`; `/scroll/**` is served immutable.
+
 ## Motion
 
 - `animate-[fadeUp_.35s_ease-out]` for things that arrive (chat bubbles, learned notes, cards after an action).

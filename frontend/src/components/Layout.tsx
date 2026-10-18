@@ -1,8 +1,9 @@
 import { FileText, Home, MessageCircle, User, Users, type LucideIcon } from 'lucide-react'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { isSignedIn } from '../api/client'
 import PersonaMenu from './PersonaMenu'
+import { Loading } from './ui'
 import { Icon } from './ui'
 
 const NAV: { to: string; label: string; icon: LucideIcon; end?: boolean }[] = [
@@ -68,8 +69,11 @@ export default function Layout() {
       </header>
 
       {/* pb clears the mobile tab bar; sticky bottom bars in pages use bottom-16 md:bottom-4 to match */}
-      <main className={`mx-auto px-4 pt-6 pb-28 md:pb-12 lg:px-8 ${wide ? 'max-w-6xl' : 'max-w-2xl'}`}>
-        <Outlet />
+      {/* Home manages its own widths (the scroll film is full-bleed); everything else gets the page container */}
+      <main className={pathname === '/' ? 'pt-6 pb-28 md:pb-12' : `mx-auto px-4 pt-6 pb-28 md:pb-12 lg:px-8 ${wide ? 'max-w-6xl' : 'max-w-2xl'}`}>
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
       </main>
 
       {/* Mobile tab bar */}
