@@ -13,3 +13,5 @@ dist/
 .claude/settings.local.json
 # Playwright MCP screenshots / snapshots
 .playwright-mcp/
+# Raw image sources (large); exported WebPs live in frontend/public/
+frontend/src/assets/raw/

@@ -1,4 +1,5 @@
 import { MessageCircle, Sparkles } from 'lucide-react'
+import { MATCHMAKER_AVATAR, avatarFor } from '../lib/avatars'
 import { Avatar, Chip, Icon, ScoreRing } from './ui'
 
 /** Decorative hero art built from the design system: two matchmakers talk, a brief comes out.
@@ -12,13 +13,13 @@ export default function HeroIllustration() {
       {/* the matchmakers' conversation */}
       <div className="space-y-3 px-2 pt-2">
         <div className="flex items-end gap-2">
-          <Avatar name="Your matchmaker" size="sm" />
+          <Avatar name="Your matchmaker" src={MATCHMAKER_AVATAR.mine} size="sm" />
           <p className="max-w-[75%] rounded-2xl rounded-bl-sm bg-brand-600 px-3.5 py-2 text-xs leading-relaxed text-white shadow-card">
             She loves weekend hikes — so does he. How does she feel about living near family?
           </p>
         </div>
         <div className="flex flex-row-reverse items-end gap-2">
-          <Avatar name="Their matchmaker" size="sm" tone="teal" />
+          <Avatar name="Their matchmaker" src={MATCHMAKER_AVATAR.theirs} size="sm" tone="teal" />
           <p className="max-w-[75%] rounded-2xl rounded-br-sm border border-line bg-white px-3.5 py-2 text-xs leading-relaxed text-ink shadow-card">
             Open to it, with a plan for their own home after a year.
           </p>
@@ -28,7 +29,7 @@ export default function HeroIllustration() {
       {/* the brief that comes out of it */}
       <div className="relative mt-5 rounded-2xl border border-line bg-white p-4 shadow-lg">
         <div className="flex items-center gap-3">
-          <Avatar name="Meera" size="md" />
+          <Avatar name="Meera" src={avatarFor('meera')} size="md" />
           <div className="min-w-0 flex-1">
             <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-gold-700">Today's brief</p>
             <p className="font-display text-lg leading-tight text-ink">One person, with reasons</p>

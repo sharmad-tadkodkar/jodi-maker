@@ -2,6 +2,7 @@ import { Check, ChevronDown, UserPlus } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api, getMyPeople, getUserId, setUserId, type Persona } from '../api/client'
+import { avatarFor, useViewerGenders } from '../lib/avatars'
 import { Avatar, Icon } from './ui'
 
 // Persona IDs are stable (FRONTEND_GUIDE); used if /demo/personas is unreachable (e.g. local backend without GCP).
@@ -20,6 +21,8 @@ export default function PersonaMenu() {
   const root = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
   const current = getUserId()
+  const { me: myGender } = useViewerGenders()
+  const portrait = (id: string) => avatarFor(id, id === current ? myGender : undefined)
 
   useEffect(() => {
     api
@@ -62,7 +65,7 @@ export default function PersonaMenu() {
       onClick={() => choose(p.user_id)}
       className="flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left hover:bg-sand focus:bg-sand focus:outline-none"
     >
-      <Avatar name={p.name} size="sm" />
+      <Avatar name={p.name} src={portrait(p.user_id)} size="sm" />
       <span className="min-w-0 flex-1">
         <span className="block truncate text-sm font-medium text-ink">
           {p.name}
@@ -84,7 +87,7 @@ export default function PersonaMenu() {
         onClick={() => setOpen((o) => !o)}
         className="flex items-center gap-2 rounded-full border border-line bg-white py-1 pr-3 pl-1 text-sm text-ink shadow-card hover:bg-sand"
       >
-        <Avatar name={me.name} size="sm" />
+        <Avatar name={me.name} src={portrait(me.user_id)} size="sm" />
         <span className="max-w-32 truncate font-medium">{me.name.split(' ')[0]}</span>
         <Icon icon={ChevronDown} className={`text-muted transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>

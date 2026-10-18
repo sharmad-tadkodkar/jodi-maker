@@ -7,6 +7,7 @@ import ReasonSheet from '../components/ReasonSheet'
 import { Briefcase, Cake, MapPin } from 'lucide-react'
 import { Avatar, Button, Card, Chip, ErrorState, Icon, Loading, ScoreRing, SectionTitle, VerifiedBadge } from '../components/ui'
 import { DIMENSION_LABEL, firstName, pct } from '../lib/format'
+import { avatarFor, useViewerGenders } from '../lib/avatars'
 import { errorMessage, httpStatus, useAsync } from '../lib/useAsync'
 
 type Phase = 'reading' | 'passing' | 'learned' | 'waiting'
@@ -30,6 +31,7 @@ function Flags({ items, tone }: { items: BriefT['green_flags']; tone: 'green' | 
 
 /** Who they are + the score. Plain header on mobile; a card in the sticky left column from lg. */
 function ProfileCard({ brief }: { brief: BriefT }) {
+  const { candidates } = useViewerGenders()
   const c = brief.candidate
   const facts: [typeof Cake, string | number | null | undefined][] = [
     [Cake, c.age],
@@ -38,7 +40,7 @@ function ProfileCard({ brief }: { brief: BriefT }) {
   ]
   return (
     <header className="flex items-center gap-4 lg:flex-col lg:rounded-2xl lg:border lg:border-line lg:bg-white lg:p-6 lg:text-center lg:shadow-card">
-      <Avatar name={c.display_name} size="lg" className="lg:size-24 lg:text-4xl" />
+      <Avatar name={c.display_name} src={avatarFor(c.user_id, candidates)} size="lg" className="lg:size-24 lg:text-4xl" />
       <div className="min-w-0 flex-1 space-y-1.5 lg:flex-none">
         <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Today's brief</p>
         <div className="flex flex-wrap items-center gap-2 lg:justify-center">

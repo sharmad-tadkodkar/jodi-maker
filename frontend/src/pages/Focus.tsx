@@ -5,6 +5,7 @@ import LearningCard from '../components/LearningCard'
 import ReasonSheet from '../components/ReasonSheet'
 import { Avatar, Button, Card, ErrorState, Loading, SectionTitle, VerifiedBadge } from '../components/ui'
 import { firstName } from '../lib/format'
+import { avatarFor, useViewerGenders } from '../lib/avatars'
 import { errorMessage, httpStatus, useAsync } from '../lib/useAsync'
 
 const CHAT_POLL_MS = 2000
@@ -275,6 +276,7 @@ function Outcome({ result, them, onReset }: { result: FocusDecisionResponse; the
 export default function Focus() {
   const { matchId = '' } = useParams()
   const uid = getUserId()
+  const { candidates } = useViewerGenders()
   // 404 = no Jodi Week for this match (it only starts once both say Interested).
   const { data: focus, error, loading, reload } = useAsync(
     () => api.getFocus(matchId).catch((e) => (httpStatus(e) === 404 ? null : Promise.reject(e))),
@@ -326,7 +328,7 @@ export default function Focus() {
   return (
     <section className="space-y-6">
       <header className="flex items-center gap-4">
-        <Avatar name={p.display_name} size="lg" />
+        <Avatar name={p.display_name} src={avatarFor(p.user_id, candidates)} size="lg" />
         <div className="min-w-0 flex-1">
           <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Jodi Week</p>
           <div className="flex flex-wrap items-center gap-2">

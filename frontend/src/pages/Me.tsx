@@ -4,6 +4,7 @@ import { api, getUserId, type Aspect, type LearningEntry, type User } from '../a
 import AspectItem from '../components/AspectItem'
 import HardCriteriaForm from '../components/HardCriteriaForm'
 import { Avatar, Button, Card, ErrorState, Loading, PageHeader, SectionTitle } from '../components/ui'
+import { avatarFor } from '../lib/avatars'
 import { ASPECT_LABEL, DIMENSION_LABEL, DIMENSIONS, VISIBILITY } from '../lib/format'
 import { errorMessage, useAsync } from '../lib/useAsync'
 
@@ -117,7 +118,7 @@ export default function Me() {
       </PageHeader>
 
       <Card className="flex items-center gap-4">
-        <Avatar name={user.name} src={user.photo_url} size="lg" />
+        <Avatar name={user.name} src={avatarFor(user.id, user.gender, user.photo_url)} size="lg" />
         <div className="min-w-0 flex-1">
           <p className="font-display text-xl">{user.name}</p>
           <p className="truncate text-sm text-muted">{facts}</p>

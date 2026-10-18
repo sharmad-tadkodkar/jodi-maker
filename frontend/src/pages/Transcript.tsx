@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { api, getUserId, type InterviewResponse, type InterviewTurn } from '../api/client'
 import { Check, CircleDashed, Radio } from 'lucide-react'
 import { Avatar, Button, Card, ErrorState, Icon, Loading, PageHeader, Typing } from '../components/ui'
+import { MATCHMAKER_AVATAR } from '../lib/avatars'
 import { errorMessage } from '../lib/useAsync'
 
 const POLL_MS = 1500
@@ -39,7 +40,7 @@ function Bubble({ turn, mine }: { turn: InterviewTurn; mine: boolean }) {
   return (
     <div className={`flex items-end gap-2 ${mine ? 'flex-row-reverse' : ''} animate-[fadeUp_.35s_ease-out]`}>
       {/* DESIGN.md: brand = my matchmaker, teal = their matchmaker */}
-      <Avatar name={turn.speaker_name} size="sm" tone={mine ? 'brand' : 'teal'} />
+      <Avatar name={turn.speaker_name} src={MATCHMAKER_AVATAR[mine ? 'mine' : 'theirs']} size="sm" tone={mine ? 'brand' : 'teal'} />
       <div className={`max-w-[80%] space-y-1 ${mine ? 'items-end text-right' : ''} flex flex-col`}>
         <p className="px-1 text-[11px] text-muted">{turn.speaker_name}</p>
         <div

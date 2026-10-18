@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { api, getUserId } from '../api/client'
-import { Button, ErrorState, Loading } from '../components/ui'
+import { Avatar, Button, ErrorState, Loading } from '../components/ui'
+import { avatarFor } from '../lib/avatars'
 import { firstName } from '../lib/format'
 import { useAsync } from '../lib/useAsync'
 
@@ -24,17 +25,17 @@ export default function Mutual() {
 
   const partner = data.focus.partner
   const them = firstName(partner.display_name)
-  const myInitial = (data.me?.name ?? uid).charAt(0).toUpperCase()
 
   return (
     <section className="flex flex-col items-center pt-6 text-center">
       <div className="relative mb-8 flex items-center animate-[fadeUp_.6s_ease-out]" aria-hidden>
-        <div className="flex size-20 items-center justify-center rounded-full border-4 border-cream bg-brand-100 font-display text-3xl text-brand-700">
-          {myInitial}
-        </div>
-        <div className="-ml-5 flex size-20 items-center justify-center rounded-full border-4 border-cream bg-gold-100 font-display text-3xl text-gold-700">
-          {partner.display_name.charAt(0)}
-        </div>
+        <Avatar name={data.me?.name ?? uid} src={avatarFor(uid, data.me?.gender, data.me?.photo_url)} size="xl" className="border-4 border-cream" />
+        <Avatar
+          name={partner.display_name}
+          src={avatarFor(partner.user_id, data.me?.seeking_gender)}
+          size="xl"
+          className="-ml-5 border-4 border-cream"
+        />
         <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-2 py-1 text-xl shadow-md">💛</span>
       </div>
 

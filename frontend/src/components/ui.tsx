@@ -93,7 +93,7 @@ export function Avatar({
       )}
     >
       {showImage ? (
-        <img src={src} alt="" className="size-full object-cover" onError={() => setFailedSrc(src)} />
+        <img src={src} alt="" decoding="async" className="size-full object-cover" onError={() => setFailedSrc(src)} />
       ) : (
         name.charAt(0).toUpperCase()
       )}

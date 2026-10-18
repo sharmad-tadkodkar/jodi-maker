@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { api, getUserId, waitForJob, type Job, type PipelineItem } from '../api/client'
 import { Avatar, Button, Card, Chip, ErrorState, Loading, PageHeader, ScoreBar, Spinner, VerifiedBadge } from '../components/ui'
 import { DIMENSION_LABEL, DIMENSIONS, HAS_BRIEF, pct, STATUS } from '../lib/format'
+import { avatarFor, useViewerGenders } from '../lib/avatars'
 import { errorMessage, useAsync } from '../lib/useAsync'
 
 /** Shape of a finished scout job's `result` (FRONTEND_GUIDE "Long-running jobs"). Every field optional — parse defensively. */
@@ -61,6 +62,7 @@ function ScoutSummaryCard({ s, onClose }: { s: ScoutSummary; onClose: () => void
 }
 
 function MatchCard({ item }: { item: PipelineItem }) {
+  const { candidates } = useViewerGenders()
   const { candidate: c, scores, status } = item
   const s = STATUS[status]
   const facts = [c.age, c.city, c.profession].filter(Boolean).join(' · ')
@@ -74,7 +76,7 @@ function MatchCard({ item }: { item: PipelineItem }) {
   const body = (
     <Card className={`flex h-full flex-col ${to ? 'transition-shadow group-hover:shadow-md' : 'opacity-70'}`}>
       <div className="flex items-start gap-4">
-        <Avatar name={c.display_name} />
+        <Avatar name={c.display_name} src={avatarFor(c.user_id, candidates)} />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="font-display text-lg leading-tight">{c.display_name}</h3>
