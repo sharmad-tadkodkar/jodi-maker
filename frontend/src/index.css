@@ -51,6 +51,16 @@
   --color-teal-600: #2f726f;
   --color-teal-700: #245a58;
 
+  /* Dimension palette — categorical identity for the six fit dimensions (bars, strength dots). Validated with
+     the dataviz validator: worst adjacent CVD ΔE 17.0, normal-vision ΔE 20.2, >=3:1 on white. On the sand
+     bar track gold/green are 2.5–2.9:1, so bars always show their label and value. Fixed order, never cycled. */
+  --color-dim-values: #a8434f;
+  --color-dim-family: #c08a1f;
+  --color-dim-lifestyle: #2a7fb0;
+  --color-dim-career: #d0612f;
+  --color-dim-location: #8a4fb0;
+  --color-dim-communication: #3f9a55;
+
   --shadow-card: 0 1px 2px rgba(43, 36, 32, 0.04);
 }
 

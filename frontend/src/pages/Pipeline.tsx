@@ -1,8 +1,10 @@
+import { AnimatePresence, LayoutGroup, MotionConfig, motion } from 'framer-motion'
+import { BadgeCheck, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api, getUserId, waitForJob, type Job, type PipelineItem } from '../api/client'
-import { Avatar, Button, Card, Chip, ErrorState, Loading, PageHeader, ScoreBar, Spinner, VerifiedBadge } from '../components/ui'
-import { DIMENSION_LABEL, DIMENSIONS, HAS_BRIEF, pct, STATUS } from '../lib/format'
+import { Avatar, Button, Card, Chip, ErrorState, Icon, Loading, PageHeader, ScoreBar, ScoreRing, Spinner } from '../components/ui'
+import { DIMENSION_COLOR, DIMENSION_LABEL, DIMENSIONS, HAS_BRIEF, pct, STATUS, topDimensions } from '../lib/format'
 import { avatarFor, useViewerGenders } from '../lib/avatars'
 import { errorMessage, useAsync } from '../lib/useAsync'
 
@@ -61,56 +63,103 @@ function ScoutSummaryCard({ s, onClose }: { s: ScoutSummary; onClose: () => void
   )
 }
 
-function MatchCard({ item }: { item: PipelineItem }) {
+/** Compact card: who, fit ring, top-2 strengths, status. Tap the summary to reveal the six dimension bars;
+ * the action link (brief / matchmakers' conversation) is separate so expanding never navigates. */
+function MatchCard({ item, nextUp }: { item: PipelineItem; nextUp: boolean }) {
   const { candidates } = useViewerGenders()
+  const [open, setOpen] = useState(false)
   const { candidate: c, scores, status } = item
   const s = STATUS[status]
+  const briefed = status === 'briefed'
   const facts = [c.age, c.city, c.profession].filter(Boolean).join(' · ')
+  const strengths = topDimensions(scores, 2)
+  const barsId = `bars-${item.match_id}`
   // Brief ready → open it. Not yet interviewed → the matchmakers' conversation, which leads to the brief.
   const to = HAS_BRIEF.includes(status)
-    ? { href: `/brief/${item.match_id}`, label: 'Read brief →' }
+    ? { href: `/brief/${item.match_id}`, label: 'Read brief' }
     : status === 'queued' || status === 'screening'
-      ? { href: `/brief/${item.match_id}/transcript`, label: status === 'queued' ? 'Let the matchmakers talk →' : 'Listen in →' }
+      ? { href: `/brief/${item.match_id}/transcript`, label: status === 'queued' ? 'Let the matchmakers talk' : 'Listen in' }
       : null
 
-  const body = (
-    <Card className={`flex h-full flex-col ${to ? 'transition-shadow group-hover:shadow-md' : 'opacity-70'}`}>
-      <div className="flex items-start gap-4">
-        <Avatar name={c.display_name} src={avatarFor(c.user_id, candidates)} />
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-display text-lg leading-tight">{c.display_name}</h3>
-            {c.verified && <VerifiedBadge />}
-            {c.is_new && <Chip tone="gold">New</Chip>}
+  return (
+    <Card
+      className={`relative p-4 ${briefed ? 'border-gold-500 bg-gradient-to-b from-gold-100/50 to-white to-40% ring-4 ring-gold-100' : ''} ${to ? '' : 'opacity-70'}`}
+    >
+      {nextUp && (
+        <span className="absolute -top-2.5 left-4 rounded-full bg-gold-500 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white shadow-card">
+          Next up
+        </span>
+      )}
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={barsId}
+        onClick={() => setOpen((o) => !o)}
+        className="block w-full space-y-2.5 rounded-xl text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-500"
+      >
+        <div className="flex items-center gap-3">
+          <Avatar name={c.display_name} src={avatarFor(c.user_id, candidates)} />
+          <div className="min-w-0 flex-1 space-y-0.5">
+            <div className="flex items-center gap-1.5">
+              <h3 className="truncate font-display text-lg leading-tight">{c.display_name}</h3>
+              {c.verified && <Icon icon={BadgeCheck} size="xs" label="Verified" className="text-sage-600" />}
+              {c.is_new && <Chip tone="gold">New</Chip>}
+            </div>
+            <p className="truncate text-sm text-muted">{facts}</p>
           </div>
-          <p className="truncate text-sm text-muted">{facts}</p>
+          <div className="flex shrink-0 items-center gap-1">
+            <ScoreRing value={pct(scores.overall)} size={52} label="fit" />
+            <Icon icon={ChevronDown} size="sm" className={`text-muted transition-transform ${open ? 'rotate-180' : ''}`} />
+            <span className="sr-only">{open ? 'Hide' : 'Show'} the six fit scores</span>
+          </div>
         </div>
-        <div className="text-right">
-          <p className="font-display text-2xl leading-none text-brand-600">{pct(scores.overall)}%</p>
-          <p className="mt-1 text-[11px] text-muted">fit</p>
+        <div className="flex flex-wrap gap-1.5 sm:pl-[60px]">
+          <span className="sr-only">Strongest:</span>
+          {strengths.map((d) => (
+            <span key={d} className="inline-flex items-center gap-1.5 rounded-full bg-sand px-2 py-0.5 text-xs text-ink">
+              <span aria-hidden className={`size-2 rounded-full ${DIMENSION_COLOR[d]}`} />
+              {DIMENSION_LABEL[d]}
+              <span className="tabular-nums text-muted">{pct(scores[d])}</span>
+            </span>
+          ))}
         </div>
-      </div>
+      </button>
 
-      <div className="mt-4 space-y-1.5">
-        {DIMENSIONS.map((d) => (
-          <ScoreBar key={d} label={DIMENSION_LABEL[d]} value={pct(scores[d])} title={scores.reasons?.[d]} />
-        ))}
-      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id={barsId}
+            key="bars"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="overflow-hidden"
+          >
+            <div className="space-y-1.5 pt-4">
+              {DIMENSIONS.map((d) => (
+                <ScoreBar key={d} label={DIMENSION_LABEL[d]} value={pct(scores[d])} title={scores.reasons?.[d]} color={DIMENSION_COLOR[d]} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      <div className="mt-auto flex items-center justify-between pt-4">
+      <div className="mt-3 flex items-center justify-between gap-3 border-t border-line pt-3">
         <Chip tone={s.tone}>{s.label}</Chip>
-        {to && <span className="text-sm font-medium text-brand-600">{to.label}</span>}
+        {to && (
+          <Link to={to.href} aria-label={`${c.display_name}: ${to.label}`} className="text-sm font-medium text-brand-600 hover:underline">
+            {to.label} →
+          </Link>
+        )}
       </div>
     </Card>
   )
+}
 
-  return to ? (
-    <Link to={to.href} className="group block h-full" aria-label={`${c.display_name}: ${to.label.replace(' →', '')}`}>
-      {body}
-    </Link>
-  ) : (
-    body
-  )
+/** Brief-ready matches first (the next one gets "Next up"); everything else keeps the server's fit ranking. */
+function order(items: PipelineItem[]): PipelineItem[] {
+  return [...items.filter((i) => i.status === 'briefed'), ...items.filter((i) => i.status !== 'briefed')]
 }
 
 export default function Pipeline() {
@@ -181,13 +230,17 @@ export default function Pipeline() {
         <Card className="text-center text-sm text-muted">No one in your queue yet. Ask Jodi to find new matches — it takes about half a minute.</Card>
       )}
       {data && (
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {data.items.map((item) => (
-            <li key={item.match_id}>
-              <MatchCard item={item} />
-            </li>
-          ))}
-        </ul>
+        <MotionConfig reducedMotion="user">
+          <LayoutGroup>
+            <ul className="grid grid-cols-1 items-start gap-4 pt-2 md:grid-cols-2">
+              {order(data.items).map((item, i) => (
+                <motion.li key={item.match_id} layout transition={{ type: 'spring', stiffness: 380, damping: 34 }}>
+                  <MatchCard item={item} nextUp={i === 0 && item.status === 'briefed'} />
+                </motion.li>
+              ))}
+            </ul>
+          </LayoutGroup>
+        </MotionConfig>
       )}
     </section>
   )

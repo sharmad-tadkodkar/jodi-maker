@@ -83,7 +83,10 @@ Chip text always uses the `-700` shade on its `-100` tint. `sage-500`, `amber-50
 - **Content width:** Home, Pipeline, Brief, Transcript and Chat use `max-w-6xl` (they have desktop layouts);
   other screens keep the `max-w-2xl` reading column. Conversations (Transcript, Chat) cap the thread at
   `760px` with a 280 px side panel from `lg`.
-- **Desktop patterns:** Pipeline is a 2-column card grid from `md`; Brief is a sticky 300–340 px left column
+- **Desktop patterns:** Pipeline is a 2-column card grid from `md` (compact cards: avatar, name, facts,
+  `ScoreRing`, top-2 strength chips, status; tap the summary to expand the six dimension bars; `briefed`
+  cards sort first with a gold border, the first one labelled "Next up"; framer-motion `layout` animates
+  re-ordering and expansion, honouring reduced motion); Brief is a sticky 300–340 px left column
   (profile, `ScoreRing`, fact chips, decision buttons) + content; Transcript shows round progress and Chat
   shows intake progress in a sticky side panel. Sticky columns sit at `top-20` (header is 56 px).
 - Vertical rhythm: `space-y-6` between blocks on a screen, `space-y-8` on long pages, `space-y-3`–`4`
@@ -95,6 +98,27 @@ Chip text always uses the `-700` shade on its `-100` tint. `sage-500`, `amber-50
 - Grids of cards use `grid-cols-1` explicitly — an implicit track lets `truncate` text push cards wider
   than the screen.
 - Tap targets ≥ 44 px (`min-h-11` on buttons).
+
+## Dimension palette (data)
+
+The six fit dimensions are **categorical identity**, so they get their own fixed palette — never the semantic
+colours above, never re-ordered, never assigned by rank. Tokens `--color-dim-*` / classes via
+`DIMENSION_COLOR` in `lib/format.ts`.
+
+| Dimension | Token | Hex |
+|---|---|---|
+| Values | `dim-values` | `#a8434f` |
+| Family | `dim-family` | `#c08a1f` |
+| Lifestyle | `dim-lifestyle` | `#2a7fb0` |
+| Career | `dim-career` | `#d0612f` |
+| Location | `dim-location` | `#8a4fb0` |
+| Communication | `dim-communication` | `#3f9a55` |
+
+Validated with the dataviz validator (light, white surface): lightness band, chroma floor and ≥ 3:1 pass;
+worst adjacent CVD ΔE 17.0, normal-vision ΔE 20.2. On the sand bar track gold and green are 2.5–2.9:1, so
+**bars always carry their label and value** (that's the required relief). Labels and numbers stay in text
+colours; only the bar or dot carries the hue. Used by `ScoreBar` (`color` prop) and the strength dots on
+pipeline cards. (The Brief radar is a single series and stays maroon.)
 
 ## Imagery
 
@@ -150,6 +174,9 @@ illustrations are plain `<img>`s (see Imagery).
 
 - `animate-[fadeUp_.35s_ease-out]` for things that arrive (chat bubbles, learned notes, cards after an action).
 - Progress bars and rings animate width / dash offset over 700 ms. Nothing bounces except the typing dots.
+- Lists that re-order (Pipeline) use framer-motion `layout` (spring, ~0.3 s) inside
+  `<MotionConfig reducedMotion="user">`; expanding content animates height over ~220 ms. Use framer-motion
+  only where layout changes — CSS for everything else.
 
 ## Voice in the UI
 

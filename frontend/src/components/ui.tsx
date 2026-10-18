@@ -184,12 +184,13 @@ export function ScoreRing({
   )
 }
 
-export function ScoreBar({ label, value, title }: { label: string; value: number; title?: string }) {
+/** Labelled 0–100 bar. `color` is a bg class (e.g. DIMENSION_COLOR[d]); label and value stay in text colours. */
+export function ScoreBar({ label, value, title, color = 'bg-brand-500' }: { label: string; value: number; title?: string; color?: string }) {
   return (
     <div className="flex items-center gap-2 text-xs" title={title}>
       <span className="w-24 shrink-0 text-muted">{label}</span>
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-sand">
-        <div className="h-full rounded-full bg-brand-500" style={{ width: `${Math.min(100, Math.max(0, value))}%` }} />
+        <div className={cx('h-full rounded-full', color)} style={{ width: `${Math.min(100, Math.max(0, value))}%` }} />
       </div>
       <span className="w-7 text-right tabular-nums text-ink">{value}</span>
     </div>

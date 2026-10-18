@@ -27,6 +27,22 @@ export const DIMENSION_LABEL: Record<Dimension, string> = {
   communication: 'Communication',
 }
 
+/** Bar/dot colour per dimension (docs/DESIGN.md → Dimension palette). Colour follows the dimension, never its
+ * rank; labels and values stay in text colours. Static class names so Tailwind sees them. */
+export const DIMENSION_COLOR: Record<Dimension, string> = {
+  values: 'bg-dim-values',
+  family_fit: 'bg-dim-family',
+  lifestyle: 'bg-dim-lifestyle',
+  career: 'bg-dim-career',
+  location: 'bg-dim-location',
+  communication: 'bg-dim-communication',
+}
+
+/** The `n` highest-scoring dimensions, strongest first (ties keep DIMENSIONS order). */
+export function topDimensions(scores: Scores, n: number): Dimension[] {
+  return [...DIMENSIONS].sort((a, b) => pct(scores[b]) - pct(scores[a])).slice(0, n)
+}
+
 /** Scores are 0–100 in the contract; tolerate 0–1 in case a real phase returns fractions. */
 export function pct(v: number): number {
   return Math.round(v <= 1 ? v * 100 : v)
