@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { api, getMyPeople, getUserId } from '../api/client'
+import { api, getMyPeople, getUserId, isSignedIn } from '../api/client'
 import { Clock, HeartHandshake, ShieldCheck, Sparkles, type LucideIcon } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import { Card, Icon } from '../components/ui'
@@ -29,7 +29,9 @@ const SECONDARY = 'inline-flex min-h-12 whitespace-nowrap items-center justify-c
 /** Where the current user should go next, based on their status. */
 function useNextStep() {
   const uid = getUserId()
-  const { data: user } = useAsync(() => api.getUser(uid).catch(() => null), [uid])
+  const signedIn = isSignedIn()
+  const { data: user } = useAsync(() => (signedIn ? api.getUser(uid).catch(() => null) : Promise.resolve(null)), [uid, signedIn])
+  if (!signedIn) return { to: '/login', label: 'Meet your matchmaker', note: undefined }
   if (user?.status === 'in_focus' && user.active_match_id) {
     return { to: `/focus/${user.active_match_id}`, label: 'Continue your Jodi Week', note: "You're in a Jodi Week — your search is paused." }
   }

@@ -1,7 +1,7 @@
-import { Check, ChevronDown, UserPlus } from 'lucide-react'
+import { Check, ChevronDown, LogOut, UserPlus } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { api, getMyPeople, getUserId, setUserId, type Persona } from '../api/client'
+import { api, getMyPeople, getUserId, setUserId, signOut, type Persona } from '../api/client'
 import { avatarFor, useViewerGenders } from '../lib/avatars'
 import { Avatar, Icon } from './ui'
 
@@ -117,6 +117,21 @@ export default function PersonaMenu() {
               <Icon icon={UserPlus} />
             </span>
             Try it as yourself…
+          </button>
+          <div className="my-1 border-t border-line" />
+          <button
+            type="button"
+            role="menuitem"
+            onClick={() => {
+              signOut()
+              window.location.assign('/login') // full load, like a persona switch, so no screen keeps the old persona
+            }}
+            className="flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left text-sm font-medium text-muted hover:bg-sand hover:text-ink focus:bg-sand focus:text-ink focus:outline-none"
+          >
+            <span className="flex size-8 items-center justify-center">
+              <Icon icon={LogOut} />
+            </span>
+            Sign out
           </button>
         </div>
       )}

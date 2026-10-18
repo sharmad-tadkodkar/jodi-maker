@@ -141,7 +141,7 @@ pipeline cards. (The Brief radar is a single series and stays maroon.)
 - **Matchmakers:** `MATCHMAKER_AVATAR.mine` = maroon paisley (`agent-a`), `.theirs` = teal paisley
   (`agent-b`) — chosen by mine/theirs, not by the interview's `agent_a`/`agent_b` slot.
 - Illustrations are decorative: `alt=""`, never the only carrier of meaning. In use: `hero-father`
-  (`-mobile` under 768 px via `<picture>`) on Home, `step-1..5` in "How it works". Not yet used: `value-1..3`,
+  (`-mobile` under 768 px via `<picture>`) on Home, `hero-father-mobile` on Login (banner crop on mobile, left half from `lg`), `step-1..5` in "How it works". Not yet used: `value-1..3`,
   `scouting`, `empty-queue`, `mutual`, `focus-week`, `learning`, `og-image`.
 - **Loading:** every `<img>` is WebP with `width`/`height` (no layout shift) and `loading="lazy"` —
   except the Home hero, which is the LCP image: eager + `fetchpriority="high"`.
@@ -197,6 +197,19 @@ illustrations are plain `<img>`s (see Imagery).
 - **Rounds:** each round is a collapsible section (header button with `aria-expanded`, line and highlight
   counts); collapsed, it shows the round summary. A stepper at the top (Family → Getting to know → Closing:
   done ✓ / live / up next) jumps to and re-opens a round; the desktop side panel uses the same round states.
+
+## Login patterns
+
+- `/login` stands alone (no header, no tab bar). Mobile: wordmark row, a short illustration banner, headline, then the
+  card. From `lg`: two columns — the father fills the sticky left half (image pushed down so the headline sits on
+  its empty cream sky), the "Welcome to Jodi" card is centred on the right.
+- It's a front door, not auth: picking a persona stores `jodi.userId` exactly like the persona menu (requests keep
+  `X-User-Id`). `RequireUser` sends visitors with no stored id from persona screens to `/login?next=…`; `/`, `/start`
+  and `/demo` stay public. Signed out, the header shows "Sign in" instead of the persona pill, and the persona menu
+  ends with "Sign out".
+- Persona cards are real buttons on `bg-cream` inside the white card, with a visible `ring-brand-500` focus ring.
+  "Continue with Google" is a disabled dashed button with a "Coming soon" chip — no OAuth. A family card appears
+  only if `/demo/personas` returns a `parent`.
 
 ## Chat (intake) patterns
 

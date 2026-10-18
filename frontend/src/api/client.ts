@@ -53,6 +53,22 @@ export function setUserId(id: string) {
     /* private mode — persona just won't persist */
   }
 }
+/** True once someone has picked a persona (login screen, persona menu, /start or the demo panel). Requests
+ * still fall back to 'arjun' via getUserId — this only gates the screens. */
+export function isSignedIn(): boolean {
+  try {
+    return localStorage.getItem(USER_KEY) !== null
+  } catch {
+    return true // private mode: nothing can persist, so don't trap the visitor on /login
+  }
+}
+export function signOut() {
+  try {
+    localStorage.removeItem(USER_KEY)
+  } catch {
+    /* private mode — nothing stored */
+  }
+}
 
 // ---- People created in this browser via "Try it as yourself" ----
 // Kept locally so the persona switcher shows the heroes + *your* people, never other visitors' (e.g. other judges).

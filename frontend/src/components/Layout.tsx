@@ -1,6 +1,7 @@
 import { FileText, Home, MessageCircle, User, Users, type LucideIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { isSignedIn } from '../api/client'
 import PersonaMenu from './PersonaMenu'
 import { Icon } from './ui'
 
@@ -52,7 +53,16 @@ export default function Layout() {
             ))}
           </nav>
           <div className="ml-auto">
-            <PersonaMenu />
+            {isSignedIn() ? (
+              <PersonaMenu />
+            ) : (
+              <Link
+                to="/login"
+                className="inline-flex min-h-9 items-center rounded-full border border-line bg-white px-4 text-sm font-medium text-brand-600 shadow-card hover:bg-brand-50"
+              >
+                Sign in
+              </Link>
+            )}
           </div>
         </div>
       </header>
