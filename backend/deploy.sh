@@ -4,10 +4,13 @@ set -euo pipefail
 cd "$(dirname "$0")"
 PROJECT=ai-build-cup-2026
 REGION=asia-south1
+# Browsers allowed to call the API: local dev + the Firebase Hosting site.
+CORS="http://localhost:5173,http://localhost:5180,http://127.0.0.1:5180,https://$PROJECT.web.app,https://$PROJECT.firebaseapp.com"
 IMAGE="$REGION-docker.pkg.dev/$PROJECT/cloud-run-source-deploy/jodi-api:$(date +%Y%m%d-%H%M%S)"
 
 gcloud builds submit --project "$PROJECT" --region "$REGION" --tag "$IMAGE" -q .
 gcloud run deploy jodi-api --image "$IMAGE" --project "$PROJECT" --region "$REGION" \
   --service-account "jodi-api@$PROJECT.iam.gserviceaccount.com" \
   --allow-unauthenticated --min-instances 1 --max-instances 3 --no-cpu-throttling \
-  --cpu 1 --memory 1Gi --timeout 600 -q
+  --cpu 1 --memory 1Gi --timeout 600 \
+  --update-env-vars "^@^CORS_ORIGINS=$CORS" -q

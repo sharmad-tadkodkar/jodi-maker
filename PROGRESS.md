@@ -16,7 +16,7 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 | 5 Mutual consent + Focus Week + learning loop | –20:45 | 19:35–19:55 | ✅ |
 | 6 Demo panel endpoints + polish | –21:00 | 20:00–20:25 | ✅ |
 | Deploy window: scale seed to 60 | 21:00–23:00 | 20:30–21:00 | ✅ |
-| Deploy window: Firebase Hosting, end-to-end on prod | –23:00 | | ⏳ |
+| Deploy window: Firebase Hosting, end-to-end on prod | –23:00 | Sat 18 Oct | ✅ https://ai-build-cup-2026.web.app |
 | Sat: video, deck, submit (target ~4 PM, buffer to 6 PM) | | | ⏳ |
 
 ## Live
@@ -125,4 +125,4 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 - Vertex shared capacity can cause occasional slow steps; record the video in several takes.
 - Judges share the hero personas: if two people click through Arjun at once they'll see each other's state. The
   demo panel's soft reset (2 s) recovers; the video is unaffected. Judges can also onboard as a new user (private).
-- Firebase Hosting deploy needs the partner added to the GCP project (or the owner deploys).
+- Firebase Hosting is live; the partner can deploy too once added to the GCP project (otherwise the owner deploys).

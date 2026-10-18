@@ -1,6 +1,7 @@
 # Jodi — demo
 
 How to show Jodi in 3 minutes (video or live), and how a judge can try it themselves.
+**Live app: https://ai-build-cup-2026.web.app** (API: https://jodi-api-560807723160.asia-south1.run.app).
 Screens are the React frontend. **D** = the hidden director's panel at `/demo` (not in the nav).
 
 **Jodi Week**: once both people say yes, they get 7 days with each other only. Both searches pause, they chat with daily
@@ -26,10 +27,12 @@ menu at the top to **Arjun Mehta** and follow the script below.
 
 ## Setup (once per recording session, ~2 min)
 
+Record on the live app, or run the frontend locally against the live API:
+
 ```bash
 cd frontend
 echo "VITE_API_URL=https://jodi-api-560807723160.asia-south1.run.app" > .env.local
-npm run dev -- --port 5180                     # http://localhost:5180
+Y                    # http://localhost:5180
 ```
 
 1. **D** → **Full reset…** → *Yes, full reset* (~15 s): fresh world, heroes in their starting state, both "new joiner"
@@ -110,6 +113,12 @@ Gemini on Vertex AI: 3.5 Flash for chat, extraction, moderation, the Jodi Week p
 and the matchmaker agents; 3.1 Pro for briefs; text-multilingual-embedding-002. FastAPI on Cloud Run, Firestore, React.
 Safety: agents disclose they're AI; private notes never enter an agent's context; caste is never inferred; one-click
 "delete everything"; data minimisation in line with the DPDP Act.
+
+## Deploying
+
+- Backend: `./backend/deploy.sh` (Cloud Run; also sets the allowed browser origins).
+- Frontend: `cd frontend && npm run build && firebase deploy --only hosting` (Firebase Hosting; the API URL comes from
+  `frontend/.env.production`).
 
 ## Timings (live API)
 
