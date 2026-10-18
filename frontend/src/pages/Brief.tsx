@@ -106,7 +106,7 @@ function noBriefYet(e: unknown): null {
   throw e
 }
 
-/** Empty state: in a Focus Week (queue paused), a match not yet interviewed, or nothing new. */
+/** Empty state: in a Jodi Week (queue paused), a match not yet interviewed, or nothing new. */
 function NoBrief({ matchId }: { matchId?: string }) {
   const uid = getUserId()
   const { data: user } = useAsync(() => api.getUser(uid).catch(() => null), [uid])
@@ -114,10 +114,10 @@ function NoBrief({ matchId }: { matchId?: string }) {
   if (user?.status === 'in_focus' && user.active_match_id) {
     return (
       <Card className="space-y-3 text-center">
-        <p className="font-display text-xl">You're in a Focus Week</p>
+        <p className="font-display text-xl">You're in a Jodi Week</p>
         <p className="text-sm text-muted">New briefs are paused so you can give this one your full attention.</p>
         <Link to={`/focus/${user.active_match_id}`} className={link}>
-          Back to your Focus Week →
+          Back to your Jodi Week →
         </Link>
       </Card>
     )
@@ -209,7 +209,7 @@ export default function Brief() {
         </p>
         <p className="font-display text-2xl">Your interest is with Jodi</p>
         <p className="text-sm text-muted">
-          {name} will now get their own brief about you. If they're interested too, it becomes mutual and your Focus Week begins.
+          {name} will now get their own brief about you. If they're interested too, it becomes mutual and your Jodi Week begins.
           If not, you'll simply never hear about it.
         </p>
         <Link to="/pipeline" className="inline-block text-sm font-medium text-brand-600 hover:underline">

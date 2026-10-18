@@ -39,7 +39,7 @@ export const STATUS: Record<MatchStatus, { label: string; tone: 'brand' | 'gold'
   screening: { label: 'Matchmakers talking', tone: 'gold' },
   briefed: { label: 'Brief ready', tone: 'brand' },
   awaiting_them: { label: 'Waiting on them', tone: 'gold' },
-  focus_week: { label: 'Focus Week', tone: 'sage' },
+  focus_week: { label: 'Jodi Week', tone: 'sage' },
   locked: { label: 'Together', tone: 'sage' },
   closed: { label: 'Closed', tone: 'muted' },
 }

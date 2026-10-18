@@ -12,7 +12,7 @@ type LogEntry = { id: number; ok: boolean; text: ReactNode }
 const USER_STATUS: Record<string, string> = {
   onboarding: 'Onboarding',
   active: 'Searching',
-  in_focus: 'In Focus Week',
+  in_focus: 'In Jodi Week',
   locked: 'Moving forward',
   paused: 'Paused',
 }
@@ -89,7 +89,7 @@ export default function Demo() {
   const [confirm, setConfirm] = useState<'soft' | 'full'>()
 
   const items = data?.pipeline?.items ?? []
-  // Default target: the active Focus Week match, else the top of the pipeline.
+  // Default target: the active Jodi Week match, else the top of the pipeline.
   const target = matchId ?? data?.user?.active_match_id ?? items[0]?.match_id
   const targetItem = items.find((i) => i.match_id === target)
   const them = targetItem ? firstName(targetItem.candidate.display_name) : 'They'
@@ -153,6 +153,9 @@ export default function Demo() {
             </button>
           ))}
         </div>
+        <Link to="/start" className="mt-3 inline-block text-sm text-brand-600 underline">
+          + Try it as a new person (fresh intake chat)
+        </Link>
       </Card>
 
       <Card>
@@ -223,7 +226,7 @@ export default function Demo() {
         )}
       </Section>
 
-      <Section title="Focus Week" hint="Fast-forward the target match. “Time runs out” shows the week auto-closing.">
+      <Section title="Jodi Week" hint="Fast-forward the target match. “Time runs out” shows the week auto-closing.">
         {[
           { label: 'Jump to Day 4', day: () => Promise.resolve(4) },
           { label: 'Jump to Day 7', day: () => Promise.resolve(7) },
@@ -235,7 +238,7 @@ export default function Demo() {
             async () => {
               const s = await api.fastForward(target!, await day())
               navigate(`/focus/${target}`)
-              return s.status === 'closed' ? 'Time ran out — the Focus Week closed.' : `Now on Day ${s.day} of ${s.total_days}.`
+              return s.status === 'closed' ? 'Time ran out — the Jodi Week closed.' : `Now on Day ${s.day} of ${s.total_days}.`
             },
             'secondary',
             !target,

@@ -99,6 +99,14 @@ Updated at the end of every phase. Partner-facing API details live in [docs/FRON
 - Seed vectors cached in `seed/embeddings.json.gz` (keyed by model + text hash): resets make no embedding calls;
   seed writes committed in parallel. Test suite 3:48 → 1:55.
 
+### Judge path + naming ✅ (Sat 18 Oct)
+- **Try it as a new person** (Home, the header menu, and D): name + bride/groom → a fresh private person → a real intake chat.
+  People created this way are remembered per browser (`jodi.myPeople`); the header menu lists the heroes + only *your* people.
+- Scout matches only against the seeded world (`is_seed`). Visitors never appear in anyone else's search, so judges can't
+  disturb the hero story or each other.
+- "Focus Week" is now **Jodi Week** in everything users see. Code and API names (`focus`, `focus_week`, `/focus/...`) unchanged.
+- `docs/DEMO_FLOW.md` → `DEMO.md` (root): judge path first, then the 3-minute script; intake scene uses the new button.
+
 ## Key decisions
 
 | Decision | Why |

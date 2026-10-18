@@ -57,7 +57,7 @@ export default function Mutual() {
       </ol>
 
       <Button className="mt-8 w-full max-w-md" onClick={() => navigate(`/focus/${matchId}`)}>
-        Start Focus Week with {them}
+        Start your Jodi Week with {them}
       </Button>
     </section>
   )

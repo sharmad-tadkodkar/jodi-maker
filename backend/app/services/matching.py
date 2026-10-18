@@ -163,11 +163,12 @@ async def scout(user_id: str, progress: ProgressFn = lambda _: None) -> dict:
     existing = {mt["id"]: mt for mt in _matches_for(user_id)}
     closed_with = {u for mt in existing.values() if mt.get("status") == "closed" for u in mt["users"]}
 
-    progress(f"Checking {len(users) - 1} profiles against both sides' must-haves…")
+    # Only the seeded world is matchable. People who sign up to try Jodi (e.g. judges) are matched against it
+    # but never appear in anyone else's search — so they can't collide with the heroes' scripted demo or each other.
+    pool = [c for c in users.values() if c["id"] != user_id and c.get("is_seed")]
+    progress(f"Checking {len(pool)} profiles against both sides' must-haves…")
     passed, filtered = [], []
-    for cand in users.values():
-        if cand["id"] == user_id:
-            continue
+    for cand in pool:
         ok, why = hard_filter(me, cand)
         if ok and cand["id"] in closed_with:
             ok, why = False, "already closed"
@@ -223,7 +224,7 @@ async def scout(user_id: str, progress: ProgressFn = lambda _: None) -> dict:
 
     pipe = pipeline(user_id)
     return {
-        "profiles_checked": len(users) - 1,
+        "profiles_checked": len(pool),
         "passed_filter": len(passed),
         "filtered_out": len(filtered),
         "scored": sum(1 for _, o in results if o is not None),

@@ -29,7 +29,7 @@ function Weights({ weights }: { weights: User['preference_weights'] }) {
 
 function LearningHistory({ entries }: { entries: LearningEntry[] }) {
   if (entries.length === 0) {
-    return <p className="text-sm text-muted">Nothing yet. Each time you pass or decide after a Focus Week, I'll note what I learned here.</p>
+    return <p className="text-sm text-muted">Nothing yet. Each time you pass or decide after a Jodi Week, I'll note what I learned here.</p>
   }
   return (
     <ol className="space-y-3">

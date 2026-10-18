@@ -19,6 +19,12 @@ client, the compiler tells you when a page doesn't match the backend.
 
 ### Changelog
 
+- **Judge path + naming** — No API changes. Frontend changes (done for you, on `main` after merge):
+  new `/start` page (*Try it as a new person*) using `startAsNewPerson()` / `getMyPeople()` in `client.ts`;
+  the header menu now shows the heroes + people created in this browser (not every visitor); a CTA card on Home and a link on D.
+  User-facing copy says **Jodi Week** instead of Focus Week; keep calling the API `focus`. Backend: scout only matches
+  against seeded profiles, so new people never show up in the heroes' queues.
+
 - **Scale-up** — The world now has **60 profiles** (+ Arjun & Meera + 2 reserves). Nothing changes in the API.
   Pipelines are deeper (8 candidates each); Arjun and Meera are still each other's #1. Full reset ≈ 15–25 s.
 

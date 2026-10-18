@@ -169,7 +169,7 @@ function Decision({ focus, uid, onDecided }: { focus: FocusState; uid: string; o
         <ReasonSheet
           title={`What made you decide to stop with ${them}?`}
           hint={`${them} only learns that the week has ended — never your reason. It helps Jodi find someone better suited.`}
-          submitLabel="End Focus Week"
+          submitLabel="End Jodi Week"
           busy={busy}
           onCancel={() => setStopping(false)}
           onSubmit={(r) => decide('stop', r)}
@@ -228,7 +228,7 @@ function Moving({ them }: { them: string }) {
 function Ended({ them }: { them: string }) {
   return (
     <Card className="space-y-3 text-center">
-      <p className="font-display text-xl">This Focus Week has ended</p>
+      <p className="font-display text-xl">This Jodi Week has ended</p>
       <p className="text-sm text-muted">Your time with {them} is over — nobody is left waiting. Your matchmaker is ready with someone new.</p>
       <Link to="/brief" className="inline-block text-sm font-medium text-brand-600 hover:underline">
         See my next brief →
@@ -249,7 +249,7 @@ function Outcome({ result, them, onReset }: { result: FocusDecisionResponse; the
   if (result.outcome === 'closed') {
     return (
       <div className="space-y-4">
-        <p className="text-sm text-muted">Your Focus Week with {them} has ended. Thank you for giving it a real chance.</p>
+        <p className="text-sm text-muted">Your Jodi Week with {them} has ended. Thank you for giving it a real chance.</p>
         {result.learning && <LearningCard learning={result.learning} />}
         <Link to="/brief" className="block rounded-full bg-brand-600 py-3 text-center text-sm font-medium text-white hover:bg-brand-700">
           See my next brief
@@ -262,7 +262,7 @@ function Outcome({ result, them, onReset }: { result: FocusDecisionResponse; the
       <p className="font-display text-xl">{result.outcome === 'extended' ? 'One more week it is' : 'Your choice is saved'}</p>
       <p className="text-sm text-muted">
         {result.outcome === 'extended'
-          ? `You both wanted more time. Focus Week with ${them} now runs to Day 14.`
+          ? `You both wanted more time. Jodi Week with ${them} now runs to Day 14.`
           : `Jodi will let you know once ${them} has decided too.`}
       </p>
       <Button variant="ghost" onClick={onReset}>
@@ -275,7 +275,7 @@ function Outcome({ result, them, onReset }: { result: FocusDecisionResponse; the
 export default function Focus() {
   const { matchId = '' } = useParams()
   const uid = getUserId()
-  // 404 = no Focus Week for this match (it only starts once both say Interested).
+  // 404 = no Jodi Week for this match (it only starts once both say Interested).
   const { data: focus, error, loading, reload } = useAsync(
     () => api.getFocus(matchId).catch((e) => (httpStatus(e) === 404 ? null : Promise.reject(e))),
     [matchId],
@@ -303,13 +303,13 @@ export default function Focus() {
     }
   }
 
-  if (loading && !focus) return <Loading label="Opening your Focus Week…" />
+  if (loading && !focus) return <Loading label="Opening your Jodi Week…" />
   if (error) return <ErrorState error={error} onRetry={reload} />
   if (!focus) {
     return (
       <Card className="space-y-3 text-center">
-        <p className="font-display text-xl">No Focus Week here yet</p>
-        <p className="text-sm text-muted">A Focus Week starts once you both say Interested.</p>
+        <p className="font-display text-xl">No Jodi Week here yet</p>
+        <p className="text-sm text-muted">A Jodi Week starts once you both say Interested.</p>
         <Link to={`/brief/${matchId}`} className="inline-block text-sm font-medium text-brand-600 hover:underline">
           Back to the brief →
         </Link>
@@ -328,7 +328,7 @@ export default function Focus() {
       <header className="flex items-center gap-4">
         <Avatar name={p.display_name} size="lg" />
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Focus Week</p>
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-gold-700">Jodi Week</p>
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="font-display text-3xl leading-tight">{p.display_name}</h1>
             {p.verified && <VerifiedBadge />}

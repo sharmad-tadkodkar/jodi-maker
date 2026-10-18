@@ -8,6 +8,7 @@ import Me from './pages/Me'
 import Mutual from './pages/Mutual'
 import Onboard from './pages/Onboard'
 import Pipeline from './pages/Pipeline'
+import Start from './pages/Start'
 import Transcript from './pages/Transcript'
 
 /** Routes from spec §5. /demo is hidden (not in the nav); /brief shows the next brief in the queue. */
@@ -24,6 +25,7 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Landing />} />
+          <Route path="/start" element={<Start />} />
           <Route path="/onboard" element={<Onboard />} />
           <Route path="/me" element={<Me />} />
           <Route path="/pipeline" element={<Pipeline />} />

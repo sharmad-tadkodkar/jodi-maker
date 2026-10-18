@@ -54,6 +54,33 @@ export function setUserId(id: string) {
   }
 }
 
+// ---- People created in this browser via "Try it as yourself" ----
+// Kept locally so the persona switcher shows the heroes + *your* people, never other visitors' (e.g. other judges).
+const MINE_KEY = 'jodi.myPeople'
+export type MyPerson = { user_id: string; name: string }
+export function getMyPeople(): MyPerson[] {
+  try {
+    return JSON.parse(localStorage.getItem(MINE_KEY) ?? '[]') as MyPerson[]
+  } catch {
+    return []
+  }
+}
+function rememberPerson(p: MyPerson) {
+  try {
+    localStorage.setItem(MINE_KEY, JSON.stringify([...getMyPeople().filter((x) => x.user_id !== p.user_id), p]))
+  } catch {
+    /* private mode — the person just won't be listed after a reload */
+  }
+}
+
+/** Create a fresh person, remember them in this browser, and make them the current persona. */
+export async function startAsNewPerson(name: string, gender: Gender): Promise<User> {
+  const user = await api.createUser(name, gender)
+  rememberPerson({ user_id: user.id, name: user.name })
+  setUserId(user.id)
+  return user
+}
+
 async function req<T>(method: string, path: string, body?: unknown): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, {
     method,

@@ -15,7 +15,7 @@ type ScoutSummary = {
   queue_size?: number
   top?: string[]
   excluded_dealbreakers?: { name: string; reason: string }[]
-  paused?: boolean // in a Focus Week: scout is a no-op
+  paused?: boolean // in a Jodi Week: scout is a no-op
 }
 
 function ScoutSummaryCard({ s, onClose }: { s: ScoutSummary; onClose: () => void }) {
@@ -169,7 +169,7 @@ export default function Pipeline() {
 
       {data?.paused && (
         <Card className="mb-6 border-gold-500/40 bg-gold-100/50 text-sm">
-          Scouting is paused during your Focus Week. Give this one your full attention.
+          Scouting is paused during your Jodi Week. Give this one your full attention.
         </Card>
       )}
 
