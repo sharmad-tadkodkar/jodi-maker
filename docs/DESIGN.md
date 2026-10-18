@@ -182,6 +182,17 @@ illustrations are plain `<img>`s (see Imagery).
   claim `font-semibold`, evidence muted italic.
 - **Questions only you can ask:** gold note cards with a Copy button (clipboard API; calm fallback text if refused).
 
+## Transcript patterns
+
+- **Bubbles:** matchmaker avatar (paisley badge) + speaker name + an "AI matchmaker" tag on every turn. Mine:
+  `bg-brand-50` / `border-brand-100` with ink text (never solid maroon — long text must stay readable); theirs:
+  white with `border-line`. Moderator lines: centred muted italic.
+- **Key moments:** 3 px left border (`sage-600` green flag, `amber-600` worth exploring — both ≥ 3:1) plus a tag
+  "Key moment · Green flag / Worth exploring" inside the bubble, so the meaning never rests on colour.
+- **Rounds:** each round is a collapsible section (header button with `aria-expanded`, line and highlight
+  counts); collapsed, it shows the round summary. A stepper at the top (Family → Getting to know → Closing:
+  done ✓ / live / up next) jumps to and re-opens a round; the desktop side panel uses the same round states.
+
 ## Motion
 
 - `animate-[fadeUp_.35s_ease-out]` for things that arrive (chat bubbles, learned notes, cards after an action).
